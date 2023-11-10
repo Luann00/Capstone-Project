@@ -1,7 +1,8 @@
-package com.DatenBank.logic;
+package com.DatenBank.logic.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
+
+import com.DatenBank.logic.entity.Student;
 
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
