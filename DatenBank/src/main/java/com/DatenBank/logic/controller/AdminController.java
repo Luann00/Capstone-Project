@@ -15,46 +15,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.DatenBank.logic.entity.Verwalter;
-import com.DatenBank.logic.service.VerwalterService;
+import com.DatenBank.logic.entity.Admin;
+import com.DatenBank.logic.service.AdminService;
 
 
 
 @Controller // This means that this class is a Controller
 @CrossOrigin // This enables react application to make CRUD requests
-@RequestMapping("/verwalter")
-public class VerwalterController {
+@RequestMapping("/admin")
+public class AdminController {
 	
 	
-	private VerwalterService verwalterService;
+	private AdminService adminService;
 	
 	
 	
 	@Autowired
-	public VerwalterController(VerwalterService verwalterService) {
-		this.verwalterService = verwalterService;
+	public AdminController(AdminService adminService) {
+		this.adminService = adminService;
 	}
 	
 	@PostMapping
-    public ResponseEntity<Verwalter> addVerwalter(@RequestBody Verwalter verwalter) {
-        verwalterService.addVerwalter(verwalter);
-        return new ResponseEntity<>(verwalter, HttpStatus.CREATED);
+    public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
+        adminService.addAdmin(admin);
+        return new ResponseEntity<>(admin, HttpStatus.CREATED);
     }
 	
 	
 	@DeleteMapping("/{uniKim}")
-    public ResponseEntity<?> deleteVerwalter(@PathVariable int uniKim) {
-		verwalterService.deleteVerwalter(uniKim);
+    public ResponseEntity<?> deleteAdmin(@PathVariable int uniKim) {
+		adminService.deleteAdmin(uniKim);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 	
 	
 	@GetMapping
-	public ResponseEntity<List<Verwalter>> getAllVerwalter() {
-	    List<Verwalter> verwalter = new ArrayList<Verwalter>();
-	    verwalter = verwalterService.getAllVerwalter();
-	    return new ResponseEntity<>(verwalter, HttpStatus.OK);
+	public ResponseEntity<List<Admin>> getAllAdmin() {
+	    List<Admin> admin = new ArrayList<Admin>();
+	    admin = adminService.getAllAdmin();
+	    return new ResponseEntity<>(admin, HttpStatus.OK);
 	}
 	
 

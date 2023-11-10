@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Student {
 	
-public Student() {
+	public Student() {
 		
 	}
 	
