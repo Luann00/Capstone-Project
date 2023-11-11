@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Mindesthöhe auf volle Bildschirmhöhe setzen */
+}
+
+.table-wrapper {
+  width: 80%;
+  box-shadow: 0px 3px 10px;
+  overflow: auto;
+  border-radius: 10px;
+  white-space: nowrap;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table thead {
+  background-color: #CCC;
+  color: #222;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 0.8rem;
+  font-size: 16px;
+
+}
+
+.table tbody tr:hover {
+  background-color: #eee;
+}
+
+.actions svg {
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.deleteButton {
+  color: red;
+}
+
+.addButton {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.whitelist-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
+/* Stil für kleine Bildschirme hinzufügen */
+@media (max-width: 600px) {
+  .table {
+    width: 100%;
+  }
+}
+
+/* Add the following style to adjust the width of the Matrikelnummer input field */
+.table tbody tr input[type="text"] {
+  width: 250px; /* Adjust the width as needed */
+}
+
+.whitelist-title{
+  font-size: 30px;
+  margin-bottom: 50px;
+}

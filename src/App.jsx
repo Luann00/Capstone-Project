@@ -1,25 +1,21 @@
 
 import LoginForm from "./components/loginform";
-import WhitelistStudenten from "./components/whitelist_studenten";
-import WhitelistVerwalter from "./components/whitelist_verwalter";
+import { WhitelistStudent } from "./components/whitelistStudent";
+import { whitelist} from "./components/whitelist";
+import { AddingPageWhitelist } from "./components/addingPageWhitelist";
+import "./App.css";
 
 
 
 function App() {
   return (
-    // <div className="page">
-    //   <LoginForm />
-    // </div>
-
-    <><div>
-      <WhitelistStudenten />
+    /*
+    <div className="container">
+    */
+      <WhitelistStudent/>
+      /*
     </div>
-    <div>
-      <WhitelistVerwalter/>
-    </div>
-    </>
-
-   
+    */
   );
 }
 
