@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import "./whitelistStudent.css";
 
@@ -7,23 +7,101 @@ export const WhitelistStudent = () => {
   const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
   const [isEditing, setIsEditing] = useState(false);
 
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/whitelistStudent");
+        if (response.ok) {
+          const data = await response.json();
+          setTableData(data);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error while fetching data", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+
+  let postData;
+  useEffect(() => {
+    postData = async () => {
+      if (newRow.matrikelnummer && newRow.jahr) {
+        try {
+          const response = await fetch("http://localhost:8081/whitelistStudent", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              matrikelnummer: newRow.matrikelnummer,
+              jahr: newRow.jahr,
+            }),
+          });
+
+          if (response.ok) {
+            alert("Data added successfully!");
+          } else {
+            alert("Bitte geben Sie nur Zahlen ein!");
+          }
+        } catch (error) {
+          alert("Error while posting data", error);
+        }
+      }
+    };
+
+  }, [newRow]);
+
+
+
   const addRow = () => {
     if (newRow.matrikelnummer && newRow.jahr) {
       const newRowData = {
         id: tableData.length + 1,
         matrikelnummer: newRow.matrikelnummer,
         jahr: newRow.jahr,
+        
       };
+
 
       setTableData([newRowData, ...tableData]);
       setNewRow({ matrikelnummer: "", jahr: "" });
       setIsEditing(false);
+      postData();
+
     }
   };
 
-  const deleteRow = (id) => {
-    const updatedTableData = tableData.filter((row) => row.id !== id);
-    setTableData(updatedTableData);
+  const cancelInsertion = () => {
+    /*
+    setNewRow({ matrikelnummer: "", jahr: "" });
+    */
+    setIsEditing(false);
+  };
+
+  const deleteRow = async (id) => {
+
+    const deleteEndpoint = `http://localhost:8081/whitelistStudent/${id}`;
+
+    try {
+      const response = await fetch(deleteEndpoint, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        const updatedTableData = tableData.filter((row) => row.id !== id);
+        setTableData(updatedTableData);
+      } else {
+        alert("Error deleting data from the database");
+      }
+    } catch (error) {
+      alert("Error deleting data", error);
+    }
   };
 
   // Function to delete all rows
@@ -74,14 +152,35 @@ export const WhitelistStudent = () => {
                 )}
               </td>
               <td>
-                <span
-                  role="img"
-                  aria-label="Plus"
-                  style={{ cursor: "pointer" }}
-                  onClick={isEditing ? addRow : startEditing}
-                >
-                  {isEditing ? "➕" : "➕"}
-                </span>
+              {isEditing ? (
+  <>
+    <span
+      role="img"
+      aria-label="Cancel"
+      style={{ marginRight: '5px', color: 'red', cursor: 'pointer' }}
+      onClick={cancelInsertion}
+    >
+      &#10006;
+    </span>
+    <span
+      role="img"
+      aria-label="Confirm"
+      style={{ cursor: 'pointer' }}
+      onClick={addRow}
+    >
+      &#10004;
+    </span>
+  </>
+) : (
+  <span
+    role="img"
+    aria-label="Plus"
+    style={{ cursor: "pointer" }}
+    onClick={startEditing}
+  >
+    ➕
+  </span>
+)}
               </td>
               <td>
                 <BsFillTrashFill onClick={() => deleteAllRows()} />
