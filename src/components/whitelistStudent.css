@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  margin: 0px;
+  margin-bottom: 0px;
   padding: 0px;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -30,12 +30,12 @@
 }
 
 .table thead {
-  background-color: #CCC;
+  background-color: lightgreen;
   color: #222;
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: 1px solid black;
   text-align: left;
   padding: 0.8rem;
   font-size: 16px;
@@ -74,6 +74,8 @@ td, th {
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  margin-bottom: 20px;
+
 }
 
 .addButton:hover {
@@ -87,10 +89,11 @@ td, th {
   }
 }
 
-/* Add the following style to adjust the width of the Matrikelnummer input field */
+/*
 .table tbody tr input[type="text"] {
-  width: 250px; /* Adjust the width as needed */
+  width: 250px; 
 }
+*/
 
 .whitelist-title{
   font-size: 30px;
