@@ -3,13 +3,14 @@ import {
   useReactTable,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
 
 
 } from '@tanstack/react-table';
 import mData from '../Mock_data_whitelist.json';
 import './whitelist.css';
 
-const Whitelist = () => {
+const WhitelistStudenten = () => {
 
 
   const [data, setData] = useState(() => mData, []);
@@ -170,6 +171,7 @@ const Whitelist = () => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     enableRowSelection: true,
     meta: {
       editedRows,
@@ -277,10 +279,29 @@ const Whitelist = () => {
 
         </table>
 
+
+      </div>
+      <div className= "paging">
+        <button onClick={() => table.setPageIndex(0)}>First page</button>
+        <button
+          disabled={!table.getCanPreviousPage()}
+          onClick={() => table.previousPage()}
+        >
+          Previous page
+        </button>
+        <button
+          disabled={!table.getCanNextPage()}
+          onClick={() => table.nextPage()}
+        >
+          Next page
+        </button>
+        <button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>
+          Last page
+        </button>
       </div></>
 
 
   )
 }
 
-export default Whitelist
+export default WhitelistStudenten

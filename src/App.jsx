@@ -1,6 +1,8 @@
 
 import LoginForm from "./components/loginform";
-import Whitelist from "./components/whitelist";
+import WhitelistStudenten from "./components/whitelist_studenten";
+import WhitelistVerwalter from "./components/whitelist_verwalter";
+
 
 
 function App() {
@@ -9,9 +11,13 @@ function App() {
     //   <LoginForm />
     // </div>
 
-    <div>
-      <Whitelist />
+    <><div>
+      <WhitelistStudenten />
     </div>
+    <div>
+      <WhitelistVerwalter/>
+    </div>
+    </>
 
    
   );

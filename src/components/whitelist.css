@@ -10,6 +10,17 @@
   align-items: center;
   /* Vertical centering */
 }
+.paging{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .paging button{
+  color: #4bbd7f;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-color: #ccc;
+} */
 
 table {
   border-collapse: collapse;
@@ -136,6 +147,9 @@ table input[type="checkbox"] {
 
 table .remove-button {
   color: #e44747;
+}
+table tfoot{
+  position: sticky;
 }
 table .footer-buttons button {
   border: none;
