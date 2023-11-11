@@ -2,6 +2,8 @@ import React, { useState, useEffect  } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import "./whitelistStudent.css";
 
+//
+
 export const WhitelistStudent = () => {
   const [tableData, setTableData] = useState([]);
   const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
