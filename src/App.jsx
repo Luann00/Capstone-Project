@@ -1,4 +1,3 @@
-
 import LoginForm from "./components/loginform";
 import { WhitelistStudent } from "./components/whitelistStudent";
 import "./App.css";
