@@ -16,7 +16,7 @@
 .table-wrapper {
   width: 80%;
   box-shadow: 0px 3px 10px;
-  overflow: auto;
+  overflow: auto; /*runde ecken Tabelle */
   border-radius: 10px;
   white-space: nowrap;
   margin: auto;
@@ -86,6 +86,17 @@ td, th {
 @media (max-width: 600px) {
   .table {
     width: 100%;
+  }
+  .whitelist-container{
+    width: 100%;
+  }
+
+  .rowCellMatrikelnummer{
+    width:30%;
+  }
+
+  .rowCellJahr{
+    width:30%;
   }
 }
 

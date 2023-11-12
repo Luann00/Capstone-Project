@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.DatenBank.logic.entity.WhitelistStudent;
 import com.DatenBank.logic.repository.WhitelistStudentRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class WhitelistStudentService {
 	
@@ -31,4 +33,27 @@ public class WhitelistStudentService {
         return whitelistStudentRepository.findAll();
     }
 
-}
+    public WhitelistStudent updateEntity(int id, WhitelistStudent updatedEntity) {
+
+        WhitelistStudent whitelistEntry = whitelistStudentRepository.findById(id).orElse(null);
+
+        if (whitelistEntry != null) {
+            whitelistEntry.setMatrikelnummer(updatedEntity.getMatrikelnummer());
+            whitelistEntry.setJahr(updatedEntity.getJahr());
+
+            // Save the updated entity
+            return whitelistStudentRepository.save(whitelistEntry);
+        } else {
+            // Handle the case when the entity with the given ID is not found
+            throw new EntityNotFoundException("Entity with ID " + id + " not found");
+        }
+
+    }
+
+    public void deleteAllWhitelistStudent() {
+    	whitelistStudentRepository.deleteAll();
+    }
+
+    
+
+    }

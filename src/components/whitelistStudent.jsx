@@ -1,15 +1,15 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+/*
+import Button from 'react-bootstrap/Button';
+*/
+
 import "./whitelistStudent.css";
-
-
 
 export const WhitelistStudent = () => {
   const [tableData, setTableData] = useState([]);
   const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
   const [isEditing, setIsEditing] = useState(false);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,10 +25,9 @@ export const WhitelistStudent = () => {
         console.error("Error while fetching data", error);
       }
     };
-  
+
     fetchData();
   }, []);
-
 
   let postData;
   useEffect(() => {
@@ -56,39 +55,50 @@ export const WhitelistStudent = () => {
         }
       }
     };
-
   }, [newRow]);
 
-
-
   const addRow = () => {
+
+    let variable1 = newRow.matrikelnummer;
+    let variable2 = newRow.jahr;
+
+    if (isNumber(newRow.matrikelnummer) && isNumber(newRow.jahr)) {
+
+     
     if (newRow.matrikelnummer && newRow.jahr) {
       const newRowData = {
         id: tableData.length + 1,
         matrikelnummer: newRow.matrikelnummer,
         jahr: newRow.jahr,
-        
       };
-
 
       setTableData([newRowData, ...tableData]);
       setNewRow({ matrikelnummer: "", jahr: "" });
       setIsEditing(false);
       postData();
-
     }
+  } else {
+    newRow.matrikelnummer = "";
+    newRow.jahr = "";
+    alert("Nur ganze Zahlen du Kek");
+  }
+  
+  };
+
+  const isNumber = (value) => {
+    return /^\d+$/.test(value);
   };
 
   const cancelInsertion = () => {
-    /*
-    setNewRow({ matrikelnummer: "", jahr: "" });
-    */
     setIsEditing(false);
   };
 
-  const deleteRow = async (id) => {
+  const deleteRow = async (matrikelnummer) => {
 
-    const deleteEndpoint = `http://localhost:8081/whitelistStudent/${id}`;
+
+    if (window.confirm('Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?')) {
+      
+      const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
 
     try {
       const response = await fetch(deleteEndpoint, {
@@ -96,8 +106,29 @@ export const WhitelistStudent = () => {
       });
 
       if (response.ok) {
-        const updatedTableData = tableData.filter((row) => row.id !== id);
+        const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
         setTableData(updatedTableData);
+      } else {
+        alert("Error deleting data from the database");
+      }
+    } catch (error) {
+      alert("Error deleting data", error);
+    }
+
+
+    }
+  };
+
+  const deleteAllRowsDatabase = async () => {
+    const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;
+
+    try {
+      const response = await fetch(deleteEndpoint, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Alles gelöscht!");
       } else {
         alert("Error deleting data from the database");
       }
@@ -106,9 +137,14 @@ export const WhitelistStudent = () => {
     }
   };
 
-  // Function to delete all rows
   const deleteAllRows = () => {
-    setTableData([]);
+    
+    if (window.confirm('Sind Sie sich sicher dass Sie alle bestehenden Einträge löschen wollen?')) {
+      setTableData([]);
+      deleteAllRowsDatabase();
+    }
+    
+  
   };
 
   const startEditing = () => {
@@ -118,6 +154,7 @@ export const WhitelistStudent = () => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       addRow();
+      setIsEditing(false);
     }
   };
 
@@ -154,51 +191,53 @@ export const WhitelistStudent = () => {
                 )}
               </td>
               <td>
-              {isEditing ? (
-  <>
-    <span
-      role="img"
-      aria-label="Cancel"
-      style={{ marginRight: '5px', color: 'red', cursor: 'pointer' }}
-      onClick={cancelInsertion}
-    >
-      &#10006;
-    </span>
-    <span
-      role="img"
-      aria-label="Confirm"
-      style={{ cursor: 'pointer' }}
-      onClick={addRow}
-    >
-      &#10004;
-    </span>
-  </>
-) : (
-  <span
-    role="img"
-    aria-label="Plus"
-    style={{ cursor: "pointer" }}
-    onClick={startEditing}
-  >
-    ➕
-  </span>
-)}
+                {isEditing ? (
+                  <>
+                    <span
+                      role="img"
+                      aria-label="Cancel"
+                      style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }}
+                      onClick={cancelInsertion}
+                    >
+                      &#10006;
+                    </span>
+                    <span
+                      role="img"
+                      aria-label="Confirm"
+                      style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}
+                      onClick={addRow}
+                    >
+                      &#10004;
+                    </span>
+                  </>
+                ) : (
+                  <span
+                    role="img"
+                    aria-label="Plus"
+                    style={{ cursor: "pointer" }}
+                    onClick={startEditing}
+                  >
+                    ➕
+                  </span>
+                )}
               </td>
               <td>
-                <BsFillTrashFill onClick={() => deleteAllRows()} />
+                <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
               </td>
             </tr>
           </thead>
           <tbody>
             {tableData.map((row) => (
               <tr key={row.id}>
-                <td>{row.matrikelnummer}</td>
-                <td>{row.jahr}</td>
+                <td class="rowCellMatrikelnummer">{row.matrikelnummer}</td>
+                <td class="rowCellJahr">{row.jahr}</td>
                 <td>
-                  <BsFillPencilFill />
+                  <BsFillPencilFill style={{ cursor: "pointer" }} />
                 </td>
                 <td>
-                  <BsFillTrashFill onClick={() => deleteRow(row.id)} />
+                
+
+                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
                 </td>
               </tr>
             ))}
@@ -206,5 +245,7 @@ export const WhitelistStudent = () => {
         </table>
       </div>
     </div>
+
+   
   );
 };
