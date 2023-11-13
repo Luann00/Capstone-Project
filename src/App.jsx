@@ -2,6 +2,12 @@ import "./App.css";
 import {Navbar, Nav, Container} from 'react-bootstrap'
 import NavbarAdmin from "./components/NavbarAdmin";
 import { WhitelistStudent } from "./components/whitelistStudent";
+import Loginform from "./components/loginform";
+
+//test
+//test
+//test
+
 
 
 function App() {
@@ -9,7 +15,7 @@ function App() {
     <div className="App">
        <NavbarAdmin/>
        <br></br>
-       <WhitelistStudent/>
+       <Loginform/>
     </div>
   );
 }
