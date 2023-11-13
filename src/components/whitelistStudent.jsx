@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import {Navbar, Nav, Container} from 'react-bootstrap'
 /*
 import Button from 'react-bootstrap/Button';
 */
@@ -93,6 +94,7 @@ export const WhitelistStudent = () => {
     setIsEditing(false);
   };
 
+
   const deleteRow = async (matrikelnummer) => {
 
 
@@ -160,92 +162,92 @@ export const WhitelistStudent = () => {
 
   return (
     <div className="whitelist-container">
-      <div className="whitelist-title">Whitelist Studenten</div>
-      <div className="table-wrapper">
-        <table className="tabelle">
-          <thead>
-            <tr>
-              <th id="test">Matrikelnummer</th>
-              <th id="test">Jahr</th>
-              <th id="test" colSpan="3">Actions</th>
-            </tr>
-            <tr>
-              <td className="test">
-                {isEditing && (
-                  <input
-                    type="text"
-                    value={newRow.matrikelnummer}
-                    onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
-                    onKeyDown={handleKeyPress}
-                  />
-                )}
-              </td>
-              <td className="test">
-                {isEditing && (
-                  <input
-                    type="text"
-                    value={newRow.jahr}
-                    onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
-                    onKeyDown={handleKeyPress}
-                  />
-                )}
-              </td>
-              <td className="test">
-                {isEditing ? (
-                  <>
-                    <span
-                      role="img"
-                      aria-label="Cancel"
-                      style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }}
-                      onClick={cancelInsertion}
-                    >
-                      &#10006;
-                    </span>
-                    <span
-                      role="img"
-                      aria-label="Confirm"
-                      style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}
-                      onClick={addRow}
-                    >
-                      &#10004;
-                    </span>
-                  </>
-                ) : (
+    <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
+    <div className="tabelle-wrapper">
+      <table className="tabelle">
+        <thead>
+          <tr>
+            <th className="spalte">Matrikelnummer</th>
+            <th className="spalte">Jahr</th>
+            <th className="spalte"colSpan="3">Actions</th>
+          </tr>
+          <tr>
+            <td className="cells">
+              {isEditing && (
+                <input
+                  type="text"
+                  value={newRow.matrikelnummer}
+                  onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
+                  onKeyDown={handleKeyPress}
+                />
+              )}
+            </td>
+            <td className="cells">
+              {isEditing && (
+                <input
+                  type="text"
+                  value={newRow.jahr}
+                  onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
+                  onKeyDown={handleKeyPress}
+                />
+              )}
+            </td>
+            <td className="cells">
+              {isEditing ? (
+                <>
                   <span
                     role="img"
-                    aria-label="Plus"
-                    style={{ cursor: "pointer" }}
-                    onClick={startEditing}
+                    aria-label="Cancel"
+                    style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }}
+                    onClick={cancelInsertion}
                   >
-                    ➕
+                    &#10006;
                   </span>
-                )}
+                  <span
+                    role="img"
+                    aria-label="Confirm"
+                    style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}
+                    onClick={addRow}
+                  >
+                    &#10004;
+                  </span>
+                </>
+              ) : (
+                <span
+                  role="img"
+                  aria-label="Plus"
+                  style={{ cursor: "pointer" }}
+                  onClick={startEditing}
+                >
+                  ➕
+                </span>
+              )}
+            </td>
+            <td className="cells">
+              <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map((row) => (
+            <tr key={row.id}>
+              <td className="rowCellMatrikelnummer">{row.matrikelnummer}</td>
+              <td className="rowCellJahr">{row.jahr}</td>
+              <td className="cells">
+                <BsFillPencilFill style={{ cursor: "pointer" }} />
               </td>
-              <td>
-                <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
+              <td className="cells">
+              
+
+                <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
               </td>
             </tr>
-          </thead>
-          <tbody>
-            {tableData.map((row) => (
-              <tr key={row.id}>
-                <td class="rowCellMatrikelnummer">{row.matrikelnummer}</td>
-                <td class="rowCellJahr">{row.jahr}</td>
-                <td>
-                  <BsFillPencilFill style={{ cursor: "pointer" }} />
-                </td>
-                <td className="test">
-                
-
-                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
+  </div>
 
-   
+ 
   );
 };
