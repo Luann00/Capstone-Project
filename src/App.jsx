@@ -1,22 +1,21 @@
-import "./App.css";
-import {Navbar, Nav, Container} from 'react-bootstrap'
-import NavbarAdmin from "./components/NavbarAdmin";
-import { WhitelistStudent } from "./components/whitelistStudent";
-import Loginform from "./components/loginform";
 
-//test
-//test
-//test
+import LoginForm from "./components/loginform";
+// import WhitelistStudenten from "./components/whitelist_studenten";
+// import WhitelistVerwalter from "./components/whitelist_verwalter";
 
 
 
 function App() {
   return (
-    <div className="App">
-       <NavbarAdmin/>
-       <br></br>
-       <Loginform/>
-    </div>
+    
+
+    
+    <LoginForm />
+  
+    
+    
+
+   
   );
 }
 

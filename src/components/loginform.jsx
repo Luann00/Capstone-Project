@@ -13,6 +13,7 @@ const LoginForm = () => {
   };
 
   return (
+    <div className="page">
     <div className="cover">
       <h1 className="title">Anmeldung</h1>
       <input
@@ -33,6 +34,7 @@ const LoginForm = () => {
       <div className="login-btn" onClick={handleAnmelden}>
         Melde an
       </div>
+    </div>
     </div>
   );
 };
