@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./loginform.css";
-
+import logo from "../logo.png";
 const LoginForm = () => {
   const [benutzername, setBenutzername] = useState("");
   const [passwort, setPasswort] = useState("");
@@ -14,8 +14,13 @@ const LoginForm = () => {
 
   return (
     <div className="page">
+      <header className="App-header">
+        <img src={logo} alt="Your Logo" className="logo" />
+        
+      </header>
+
     <div className="cover">
-      <h1 className="title">Anmeldung</h1>
+      <h1 className="title">Willkommen</h1>
       <input
         type="text"
         placeholder="Benutzername"

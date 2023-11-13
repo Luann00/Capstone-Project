@@ -11,7 +11,7 @@
 
 /* --------------------------- MOBILE VERSION ------------------------------ */
 .page {
-    background-color: #81B622;
+    background-color:#3f3c50;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -20,9 +20,21 @@
     font-size: 0.5em;
 }
 
+.title{
+    font-weight:bolder;
+    font-size: 1.7em;
+}
+.logo {
+    position: absolute;
+    top: 5px; /* Adjust the top position */
+    left: 5px; /* Adjust the left position */
+    height: 100px;
+    width: auto;
+
+  }
 .cover {
     background-color: white;
-    width: 70%;
+    width: 75%;
     height: 50%;
     position: relative;
     border-radius: 1em;
@@ -36,6 +48,7 @@
 
 .pass-vergessen{
     font-size: 0.75em;
+    text-align: left;
 }
 
 
@@ -63,19 +76,22 @@ input {
     background-color: rgb(229, 226, 226);
     width: 80%;
     border-radius: 0.25em;
-    text-align: center;
+    text-align:left;
+    
     padding: 2em;
     font-size: 0.75em;
 }
 
 input:focus {
-    outline-color: rgb(32, 177, 255);
+    outline-color: #18d777;
 }
 
 .login-btn {
     width: 40%;
     height: 3em;
-    background-color: rgb(32, 177, 255);
+    font-weight: bold;
+    background-color: #18d777;
+    color: #262833;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,6 +105,7 @@ input:focus {
 .text {
     position: relative;
     bottom: 0.5%;
+    text-transform:lowercase;
 }
 
 .hide {
@@ -136,11 +153,11 @@ input:focus {
 /* -------------------- DESKTOP OPTIMIZATION -------------------- */
 @media only screen and (min-device-width: 64em) {
     .page {
-        font-size: 1.25em;
+        font-size: 1.1em;
     }
 
     .cover {
         width: 40%;
-        height: 75%;
+        height: 70%;
     }
 }
