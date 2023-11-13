@@ -162,15 +162,15 @@ export const WhitelistStudent = () => {
     <div className="whitelist-container">
       <div className="whitelist-title">Whitelist Studenten</div>
       <div className="table-wrapper">
-        <table className="table">
+        <table className="tabelle">
           <thead>
             <tr>
-              <th>Matrikelnummer</th>
-              <th className="expand">Jahr</th>
-              <th colSpan="3">Actions</th>
+              <th id="test">Matrikelnummer</th>
+              <th id="test">Jahr</th>
+              <th id="test" colSpan="3">Actions</th>
             </tr>
             <tr>
-              <td>
+              <td className="test">
                 {isEditing && (
                   <input
                     type="text"
@@ -180,7 +180,7 @@ export const WhitelistStudent = () => {
                   />
                 )}
               </td>
-              <td>
+              <td className="test">
                 {isEditing && (
                   <input
                     type="text"
@@ -190,7 +190,7 @@ export const WhitelistStudent = () => {
                   />
                 )}
               </td>
-              <td>
+              <td className="test">
                 {isEditing ? (
                   <>
                     <span
@@ -234,7 +234,7 @@ export const WhitelistStudent = () => {
                 <td>
                   <BsFillPencilFill style={{ cursor: "pointer" }} />
                 </td>
-                <td>
+                <td className="test">
                 
 
                   <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
