@@ -6,10 +6,15 @@ const LoginForm = () => {
   const [passwort, setPasswort] = useState("");
 
   const handleAnmelden = () => {
-    // Hier können Sie den eingegebenen Text verwenden, wie zum Beispiel:
-    alert("Benutzername:", benutzername);
-    alert("Passwort:", passwort);
-    // Oder Sie können den Text auf andere Weise anzeigen oder verarbeiten.
+    alert("Benutzername: " + benutzername);
+    alert("Passwort: " + passwort);
+  };
+  
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleAnmelden();
+    }
   };
 
   return (
@@ -20,11 +25,14 @@ const LoginForm = () => {
         type="text"
         placeholder="Benutzername"
         onChange={(e) => setBenutzername(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
       <input
         type="password"
         placeholder="Passwort"
         onChange={(e) => setPasswort(e.target.value)}
+        onKeyDown={handleKeyPress}
+
       />
       <div className="d-flex justify-content-between mb-4">
         <a className="pass-vergessen" href="!#">

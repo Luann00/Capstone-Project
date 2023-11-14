@@ -94,11 +94,11 @@
   }
 
   .rowCellMatrikelnummer{
-    width:30%;
+    width:100%;
   }
 
   .rowCellJahr{
-    width:30%;
+    width:100%;
   }
 }
 
