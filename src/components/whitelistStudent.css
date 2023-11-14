@@ -36,6 +36,17 @@
   color: #222;
 }
 
+.cellTextInput {
+  width: 100%;
+  padding: 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+}
+
+
+
+
 .cells, th, .rowCellMatrikelnummer, .rowCellJahr, .spalte {
   border: 1px solid black;
   text-align: left;
@@ -43,6 +54,8 @@
   font-size: 16px;
 
 }
+
+
 
 .table tbody tr:hover {
   background-color: #eee;
@@ -84,7 +97,8 @@
   background-color: #45a049;
 }
 
-/* Stil für kleine Bildschirme hinzufügen */
+
+/* Responsiveness for small Devices */
 @media (max-width: 600px) {
   .table {
     width: 100%;
@@ -94,20 +108,18 @@
   }
 
   .rowCellMatrikelnummer{
-    width:100%;
+    width:50%;
   }
 
   .rowCellJahr{
-    width:100%;
+    width:50%;
   }
 
-  .cellTextInput {
-    width: 150px; 
-    padding: 8px; 
-    font-size: 14px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px;
-  }
+ 
+  
+
+
+
 }
 .cellTextInput {
   width: 100%; 

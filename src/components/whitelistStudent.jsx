@@ -49,11 +49,7 @@ export const WhitelistStudent = () => {
             }),
           });
 
-          if(isModifying) {
-            alert("Erfolgreich bearbeitet!")
-          } else {
-            
-          }
+         
 
           if (response.ok) {
             if(!isModifying) {
@@ -86,6 +82,7 @@ export const WhitelistStudent = () => {
         setNewRow({ matrikelnummer: "", jahr: "" });
         setIsEditing(false);
         postData();
+        refreshPage();
 
       }
     } else {
@@ -100,8 +97,12 @@ export const WhitelistStudent = () => {
 
   const addModifiedRow = () => {
 
-    deleteRow(editingRow.matrikelnummer);
+    setIsModifying(false);
 
+
+    deleteRow(editingRow.matrikelnummer);
+    setEditingRow(null);
+    
 
     if (isNumber(newRow.matrikelnummer) && isNumber(newRow.jahr)) {
       if (newRow.matrikelnummer && newRow.jahr) {
@@ -112,14 +113,12 @@ export const WhitelistStudent = () => {
           jahr: newRow.jahr,
         };
 
-        setNewRow({ matrikelnummer: "", jahr: "" });
        
         setTableData([newRowData, ...tableData]);
         setNewRow({ matrikelnummer: "", jahr: "" });
         if(isModifying) {
           postData();
         }
-        setIsModifying(false);
 
       }
     } else {
@@ -139,6 +138,10 @@ export const WhitelistStudent = () => {
 
   const deleteRow = async (matrikelnummer) => {
 
+    if(isModifying) {
+      alert("Es ist kein Löschen möglich, wenn der Bearbeitungsmodus an ist!");
+      return;
+    }
 
     /*If we don't modify a row, this means that we actually want to delete a student. So make User
     aware of this
@@ -167,12 +170,8 @@ export const WhitelistStudent = () => {
       }
     } else {
     /*We enter this case when we are actually only modifying a row
-    */
-      let decision = window.confirm("Sind Sie sich sicher dass Sie diese Spalte bearbeiten möchten?")
+    Removed this because it may disturb the admin if this alert appears to often*/
 
-
-      //If User really wants to edit the row, delete the previous cell with the previous values first
-      if (decision) {
         const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
   
         try {
@@ -190,16 +189,16 @@ export const WhitelistStudent = () => {
         } catch (error) {
           alert("Error deleting data", error);
         }
-      } else {
-        //If user don't want to edit the row, cancel the modifying
-        setIsModifying(false);
-
-        return;
-      }
+      
+      
 
     }
     
   };
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const deleteAllRowsDatabase = async () => {
     const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;
@@ -234,6 +233,10 @@ export const WhitelistStudent = () => {
 
 
   const startEditing = () => {
+    if(isModifying) {
+      alert("Keine Erstellung möglich, wenn Bearbeitungsmodus an ist!");
+      return;
+    }
     setIsEditing(true);
   };
 
@@ -244,6 +247,8 @@ export const WhitelistStudent = () => {
 
   const cancelModifying = () => {
     setIsModifying(false);
+    setEditingRow(null);
+    setNewRow({ matrikelnummer: "", jahr: "" });
   };
   
   
@@ -261,6 +266,11 @@ export const WhitelistStudent = () => {
 
 
   const startRowEditing = (row) => {
+
+    if(isEditing) {
+      alert("Die Bearbeitung von bestehenden Zellen beim Einfügen von neuen Daten");
+      return;
+    }
     // This method is for editing an existing row without involving the addRow method
     setIsModifying(true);
     setEditingRow(row);
@@ -312,7 +322,8 @@ export const WhitelistStudent = () => {
                     value={newRow.matrikelnummer}
                     onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
                     onKeyDown={handleKeyPress}
-                  />
+                    className="cellTextInput"
+                    />
                 ) : null}
               </td>
               <td className="cells">
@@ -322,6 +333,8 @@ export const WhitelistStudent = () => {
                     value={newRow.jahr}
                     onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
                     onKeyDown={handleKeyPress}
+                    className="cellTextInput"
+
                   />
                 ) : null}
               </td>
@@ -370,6 +383,7 @@ export const WhitelistStudent = () => {
                       type="text"
                       value={newRow.matrikelnummer}
                       onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
+
                     />
                   ) : (
                     row.matrikelnummer
@@ -381,33 +395,41 @@ export const WhitelistStudent = () => {
                       type="text"
                       value={newRow.jahr}
                       onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
+
                     />
                   ) : (
                     row.jahr
                   )}
                 </td>
                 <td className="cells">
-                  {!isModifying ? (
-                    <BsFillPencilFill style={{ cursor: "pointer" }} onClick={() => startRowEditing(row)} />
-                  ) : <>
-                  <span
-                    role="img"
-                    aria-label="Cancel"
-                    style={{ cursor: "pointer", marginRight: "20px", fontSize: "20px" }}
-                    onClick={cancelModifying}
-                  >
-                    &#10006;
-                  </span>
-                  <span
-                    role="img"
-                    aria-label="Confirm"
-                    style={{ cursor: "pointer", marginLeft: "20px", fontSize: "20px" }}
-                    onClick={addModifiedRow}
-                  >
-                    &#10004;
-                  </span>
-                </>}
-                </td>
+  {!isModifying && !(editingRow && editingRow.matrikelnummer === row.matrikelnummer) ? (
+    <BsFillPencilFill style={{ cursor: "pointer" }} onClick={() => startRowEditing(row)} />
+  ) : (
+    <>
+      {editingRow && editingRow.matrikelnummer === row.matrikelnummer && (
+        <>
+          <span
+            role="img"
+            aria-label="Cancel"
+            style={{ cursor: "pointer", marginRight: "20px", fontSize: "20px" }}
+            onClick={cancelModifying}
+          >
+            &#10006;
+          </span>
+          <span
+            role="img"
+            aria-label="Confirm"
+            style={{ cursor: "pointer", marginLeft: "20px", fontSize: "20px" }}
+            onClick={addModifiedRow}
+          >
+            &#10004;
+          </span>
+        </>
+      )}
+    </>
+  )}
+</td>
+
                 <td className="cells">
                   <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
                 </td>
