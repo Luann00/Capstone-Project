@@ -97,6 +97,32 @@
   background-color: #45a049;
 }
 
+.cellTextInput {
+  width: 100%; 
+  padding: 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+}
+
+
+#cells1{
+  text-align:center;
+}
+
+.cells{
+  text-align:center;
+}
+
+.spalte{
+  text-align:center;
+}
+
+.cellTextInput{
+  text-align:center;
+}
+
+
 
 /* Responsiveness for small Devices */
 @media (max-width: 600px) {
@@ -114,10 +140,6 @@
   .rowCellJahr{
     width:50%;
   }
-
- 
-  
-
 
 
 }
