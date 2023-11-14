@@ -100,6 +100,21 @@
   .rowCellJahr{
     width:100%;
   }
+
+  .cellTextInput {
+    width: 150px; 
+    padding: 8px; 
+    font-size: 14px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+  }
+}
+.cellTextInput {
+  width: 100%; 
+  padding: 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
 }
 
 /*
@@ -111,4 +126,8 @@
 .whitelist-title{
   font-size: 30px;
   margin-bottom: 50px;
+}
+
+.suchleisteMatrikelnummer{
+  width:33%
 }

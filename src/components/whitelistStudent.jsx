@@ -3,15 +3,17 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Navbar, Nav, Container } from "react-bootstrap";
 
 import "./whitelistStudent.css";
+import "./AlertMessage.jsx";
+
+
 
 export const WhitelistStudent = () => {
   const [tableData, setTableData] = useState([]);
   const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
   const [isEditing, setIsEditing] = useState(false);
-
   const [editingRow, setEditingRow] = useState(-1);
-
   const [isModifying, setIsModifying] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -163,7 +165,6 @@ export const WhitelistStudent = () => {
   };
 
   const startRowEditing = (row) => {
-    // This method is for editing an existing row without involving the addRow method
     setIsModifying(true);
     setEditingRow(row);
     setNewRow({ matrikelnummer: row.matrikelnummer, jahr: row.jahr });
@@ -181,11 +182,27 @@ export const WhitelistStudent = () => {
     }
   };
 
+  //Filter Function
+  const filterTableData = () => {
+    return tableData.filter((row) =>
+      row.matrikelnummer.toString().includes(searchInput)
+    );
+  };
+
+
   return (
     <div className="whitelist-container">
       <div className="whitelist-title">
         <h1>Whitelist Studenten</h1>
       </div>
+       {/* Suchleiste */}
+       <input
+          type="text"
+          placeholder="Matrikelnummer..."
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          className="suchleisteMatrikelnummer"
+          />
       <div className="tabelle-wrapper">
         <table className="tabelle">
           <thead>
@@ -204,6 +221,8 @@ export const WhitelistStudent = () => {
                     value={newRow.matrikelnummer}
                     onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
                     onKeyDown={handleKeyPress}
+                    className="cellTextInput"
+
                   />
                 ) : null}
               </td>
@@ -214,6 +233,8 @@ export const WhitelistStudent = () => {
                     value={newRow.jahr}
                     onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
                     onKeyDown={handleKeyPress}
+                    className="cellTextInput"
+
                   />
                 ) : null}
               </td>
@@ -254,7 +275,7 @@ export const WhitelistStudent = () => {
             </tr>
           </thead>
           <tbody>
-            {tableData.map((row) => (
+            {filterTableData().map((row) => (
               <tr key={row.id}>
                 <td className="rowCellMatrikelnummer">
                   {isModifying && editingRow.matrikelnummer === row.matrikelnummer ? (
