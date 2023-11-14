@@ -49,8 +49,16 @@ export const WhitelistStudent = () => {
             }),
           });
 
+          if(isModifying) {
+            alert("Erfolgreich bearbeitet!")
+          } else {
+            
+          }
+
           if (response.ok) {
-            alert("Data added successfully!");
+            if(!isModifying) {
+              alert("Data added successfully!");
+            }
           } else {
             alert("Bitte geben Sie nur Zahlen ein!");
           }
@@ -62,8 +70,7 @@ export const WhitelistStudent = () => {
   }, [newRow]);
 
   const addRow = () => {
-    let variable1 = newRow.matrikelnummer;
-    let variable2 = newRow.jahr;
+    
 
     if (isNumber(newRow.matrikelnummer) && isNumber(newRow.jahr)) {
       if (newRow.matrikelnummer && newRow.jahr) {
@@ -73,10 +80,47 @@ export const WhitelistStudent = () => {
           jahr: newRow.jahr,
         };
 
+        
+
         setTableData([newRowData, ...tableData]);
         setNewRow({ matrikelnummer: "", jahr: "" });
         setIsEditing(false);
         postData();
+
+      }
+    } else {
+      newRow.matrikelnummer = "";
+      newRow.jahr = "";
+      alert("Nur ganze Zahlen du Kek");
+    }
+  };
+
+
+
+
+  const addModifiedRow = () => {
+
+    deleteRow(editingRow.matrikelnummer);
+
+
+    if (isNumber(newRow.matrikelnummer) && isNumber(newRow.jahr)) {
+      if (newRow.matrikelnummer && newRow.jahr) {
+        const newRowData = {
+
+          //id: tableData.length + 1,
+          matrikelnummer: newRow.matrikelnummer,
+          jahr: newRow.jahr,
+        };
+
+        setNewRow({ matrikelnummer: "", jahr: "" });
+       
+        setTableData([newRowData, ...tableData]);
+        setNewRow({ matrikelnummer: "", jahr: "" });
+        if(isModifying) {
+          postData();
+        }
+        setIsModifying(false);
+
       }
     } else {
       newRow.matrikelnummer = "";
@@ -94,24 +138,67 @@ export const WhitelistStudent = () => {
   };
 
   const deleteRow = async (matrikelnummer) => {
-    if (window.confirm("Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?")) {
-      const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
 
-      try {
-        const response = await fetch(deleteEndpoint, {
-          method: "DELETE",
-        });
 
-        if (response.ok) {
-          const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
-          setTableData(updatedTableData);
-        } else {
-          alert("Error deleting data from the database");
+    /*If we don't modify a row, this means that we actually want to delete a student. So make User
+    aware of this
+    */
+    if(!isModifying) {
+      if (window.confirm("Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?")) {
+        const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
+  
+        try {
+          const response = await fetch(deleteEndpoint, {
+            method: "DELETE",
+          });
+          
+  
+          if (response.ok) {
+            const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
+            setTableData(updatedTableData);
+          } else {
+            alert("Error deleting data from the database");
+          }
+        } catch (error) {
+          alert("Error deleting data", error);
         }
-      } catch (error) {
-        alert("Error deleting data", error);
+      } else {
+        setIsModifying(false);
       }
+    } else {
+    /*We enter this case when we are actually only modifying a row
+    */
+      let decision = window.confirm("Sind Sie sich sicher dass Sie diese Spalte bearbeiten möchten?")
+
+
+      //If User really wants to edit the row, delete the previous cell with the previous values first
+      if (decision) {
+        const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
+  
+        try {
+          const response = await fetch(deleteEndpoint, {
+            method: "DELETE",
+          });
+          
+  
+          if (response.ok) {
+            const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
+            setTableData(updatedTableData);
+          } else {
+            alert("Error deleting data from the database");
+          }
+        } catch (error) {
+          alert("Error deleting data", error);
+        }
+      } else {
+        //If user don't want to edit the row, cancel the modifying
+        setIsModifying(false);
+
+        return;
+      }
+
     }
+    
   };
 
   const deleteAllRowsDatabase = async () => {
@@ -145,6 +232,7 @@ export const WhitelistStudent = () => {
     setNewRow({ matrikelnummer: row.matrikelnummer, jahr: row.jahr });
   };
 
+
   const startEditing = () => {
     setIsEditing(true);
   };
@@ -153,6 +241,13 @@ export const WhitelistStudent = () => {
     setIsEditing(false);
     setNewRow({ matrikelnummer: "", jahr: "" });
   };
+
+  const cancelModifying = () => {
+    setIsModifying(false);
+  };
+  
+  
+
 
   const updateRow = () => {
     const updatedTableData = tableData.map((row) =>
@@ -164,11 +259,14 @@ export const WhitelistStudent = () => {
     setNewRow({ matrikelnummer: "", jahr: "" });
   };
 
+
   const startRowEditing = (row) => {
+    // This method is for editing an existing row without involving the addRow method
     setIsModifying(true);
     setEditingRow(row);
     setNewRow({ matrikelnummer: row.matrikelnummer, jahr: row.jahr });
   };
+
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -181,6 +279,7 @@ export const WhitelistStudent = () => {
       setIsEditing(false);
     }
   };
+
 
   //Filter Function
   const filterTableData = () => {
@@ -195,14 +294,6 @@ export const WhitelistStudent = () => {
       <div className="whitelist-title">
         <h1>Whitelist Studenten</h1>
       </div>
-       {/* Suchleiste */}
-       <input
-          type="text"
-          placeholder="Matrikelnummer..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          className="suchleisteMatrikelnummer"
-          />
       <div className="tabelle-wrapper">
         <table className="tabelle">
           <thead>
@@ -221,8 +312,6 @@ export const WhitelistStudent = () => {
                     value={newRow.matrikelnummer}
                     onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
                     onKeyDown={handleKeyPress}
-                    className="cellTextInput"
-
                   />
                 ) : null}
               </td>
@@ -233,8 +322,6 @@ export const WhitelistStudent = () => {
                     value={newRow.jahr}
                     onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
                     onKeyDown={handleKeyPress}
-                    className="cellTextInput"
-
                   />
                 ) : null}
               </td>
@@ -275,7 +362,7 @@ export const WhitelistStudent = () => {
             </tr>
           </thead>
           <tbody>
-            {filterTableData().map((row) => (
+            {tableData.map((row) => (
               <tr key={row.id}>
                 <td className="rowCellMatrikelnummer">
                   {isModifying && editingRow.matrikelnummer === row.matrikelnummer ? (
@@ -302,7 +389,24 @@ export const WhitelistStudent = () => {
                 <td className="cells">
                   {!isModifying ? (
                     <BsFillPencilFill style={{ cursor: "pointer" }} onClick={() => startRowEditing(row)} />
-                  ) : null}
+                  ) : <>
+                  <span
+                    role="img"
+                    aria-label="Cancel"
+                    style={{ cursor: "pointer", marginRight: "20px", fontSize: "20px" }}
+                    onClick={cancelModifying}
+                  >
+                    &#10006;
+                  </span>
+                  <span
+                    role="img"
+                    aria-label="Confirm"
+                    style={{ cursor: "pointer", marginLeft: "20px", fontSize: "20px" }}
+                    onClick={addModifiedRow}
+                  >
+                    &#10004;
+                  </span>
+                </>}
                 </td>
                 <td className="cells">
                   <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
