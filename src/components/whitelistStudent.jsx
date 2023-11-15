@@ -97,7 +97,7 @@ export const WhitelistStudent = () => {
 
   const deleteRow = async (matrikelnummer) => {
 
-
+    //test
     if (window.confirm('Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?')) {
       
       const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
