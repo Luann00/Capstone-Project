@@ -97,7 +97,7 @@ export const WhitelistStudent = () => {
 
   const deleteRow = async (matrikelnummer) => {
 
-
+    //test
     if (window.confirm('Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?')) {
       
       const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
@@ -179,6 +179,7 @@ export const WhitelistStudent = () => {
                   value={newRow.matrikelnummer}
                   onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
                   onKeyDown={handleKeyPress}
+                  className="cellTextInput"
                 />
               )}
             </td>
@@ -189,6 +190,8 @@ export const WhitelistStudent = () => {
                   value={newRow.jahr}
                   onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
                   onKeyDown={handleKeyPress}
+                  className="cellTextInput"
+
                 />
               )}
             </td>
@@ -233,14 +236,9 @@ export const WhitelistStudent = () => {
             <tr key={row.id}>
               <td className="rowCellMatrikelnummer">{row.matrikelnummer}</td>
               <td className="rowCellJahr">{row.jahr}</td>
-              <td className="cells">
-                <BsFillPencilFill style={{ cursor: "pointer" }} />
-              </td>
-              <td className="cells">
-              
-
-                <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
-              </td>
+              <td id="cells1" colSpan="2" style={{ border: "1px solid black" }}>
+  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
+</td>
             </tr>
           ))}
         </tbody>

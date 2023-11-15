@@ -36,6 +36,17 @@
   color: #222;
 }
 
+.cellTextInput {
+  width: 100%;
+  padding: 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+}
+
+
+
+
 .cells, th, .rowCellMatrikelnummer, .rowCellJahr, .spalte {
   border: 1px solid black;
   text-align: left;
@@ -43,6 +54,8 @@
   font-size: 16px;
 
 }
+
+
 
 .table tbody tr:hover {
   background-color: #eee;
@@ -84,7 +97,34 @@
   background-color: #45a049;
 }
 
-/* Stil für kleine Bildschirme hinzufügen */
+.cellTextInput {
+  width: 100%; 
+  padding: 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+}
+
+
+#cells1{
+  text-align:center;
+}
+
+.cells{
+  text-align:center;
+}
+
+.spalte{
+  text-align:center;
+}
+
+.cellTextInput{
+  text-align:center;
+}
+
+
+
+/* Responsiveness for small Devices */
 @media (max-width: 600px) {
   .table {
     width: 100%;
@@ -94,12 +134,21 @@
   }
 
   .rowCellMatrikelnummer{
-    width:30%;
+    width:50%;
   }
 
   .rowCellJahr{
-    width:30%;
+    width:50%;
   }
+
+
+}
+.cellTextInput {
+  width: 100%; 
+  padding: 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
 }
 
 /*
@@ -111,4 +160,8 @@
 .whitelist-title{
   font-size: 30px;
   margin-bottom: 50px;
+}
+
+.suchleisteMatrikelnummer{
+  width:33%
 }
