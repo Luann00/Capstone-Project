@@ -39,11 +39,11 @@ const LoginForm = () => {
         onKeyDown={handleKeyPress}
 
       />
-      <div className="d-flex justify-content-between mb-4">
+      
         <a className="pass-vergessen" href="!#">
           Passwort vergessen?
         </a>
-      </div>
+      
       <div className="login-btn" onClick={handleAnmelden}>
         Melde an
       </div>

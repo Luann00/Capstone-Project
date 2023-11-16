@@ -1,12 +1,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: "CustomFont";
-}
-
-@font-face {
-    font-family: "CustomFont";
-    src: url("../fonts/RolexLight.woff2");
+    
 }
 
 /* --------------------------- MOBILE VERSION ------------------------------ */
@@ -22,13 +17,14 @@
 
 .title{
     font-weight:bolder;
-    font-size: 1.7em;
+    font-size: 2em;
+    text-transform: uppercase;
 }
 .logo {
     position: absolute;
-    top: 5px; /* Adjust the top position */
-    left: 5px; /* Adjust the left position */
-    height: 100px;
+    top: 0px; /* Adjust the top position */
+    left: 0px; /* Adjust the left position */
+    height: 80px;
     width: auto;
 
   }
@@ -46,9 +42,12 @@
 }
 
 
+
+
 .pass-vergessen{
-    font-size: 0.75em;
-    text-align: left;
+    font-size: 1em;
+   
+    
 }
 
 
@@ -153,11 +152,11 @@ input:focus {
 /* -------------------- DESKTOP OPTIMIZATION -------------------- */
 @media only screen and (min-device-width: 64em) {
     .page {
-        font-size: 1.1em;
+        font-size: 1.25em;
     }
 
     .cover {
         width: 40%;
-        height: 70%;
+        height: 75%;
     }
 }
