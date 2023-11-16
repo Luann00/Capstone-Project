@@ -4,15 +4,15 @@ import logo from "../logo.png";
 
 import "./whitelistStudent.css";
 
-export const WhitelistStudent = () => {
+export const WhitelistVerwalter = () => {
   const [tableData, setTableData] = useState([]);
-  const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
+  const [newRow, setNewRow] = useState({ pkz: ""});
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8081/whitelistStudent");
+        const response = await fetch("http://localhost:8081/whitelistAdmin");
         if (response.ok) {
           const data = await response.json();
           setTableData(data);
@@ -30,16 +30,16 @@ export const WhitelistStudent = () => {
   let postData;
   useEffect(() => {
     postData = async () => {
-      if (newRow.matrikelnummer && newRow.jahr) {
+      if (newRow.pkz) {
         try {
-          const response = await fetch("http://localhost:8081/whitelistStudent", {
+          const response = await fetch("http://localhost:8081/whitelistAdmin", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              matrikelnummer: newRow.matrikelnummer,
-              jahr: newRow.jahr,
+              pkz: newRow.pkz,
+              
             }),
           });
 
@@ -57,27 +57,27 @@ export const WhitelistStudent = () => {
 
   const addRow = () => {
 
-    let variable1 = newRow.matrikelnummer;
-    let variable2 = newRow.jahr;
+    let variable1 = newRow.pkz;
+   
 
-    if (isNumber(newRow.matrikelnummer) && isNumber(newRow.jahr)) {
+    if (isNumber(newRow.pkz)) {
 
 
-      if (newRow.matrikelnummer && newRow.jahr) {
+      if (newRow.pkz) {
         const newRowData = {
           id: tableData.length + 1,
-          matrikelnummer: newRow.matrikelnummer,
-          jahr: newRow.jahr,
+          pkz: newRow.pkz,
+          
         };
 
         setTableData([newRowData, ...tableData]);
-        setNewRow({ matrikelnummer: "", jahr: "" });
+        setNewRow({ pkz: ""});
         setIsEditing(false);
         postData();
       }
     } else {
-      newRow.matrikelnummer = "";
-      newRow.jahr = "";
+      newRow.pkz = "";
+      
       alert("Nur ganze Zahlen du Kek");
     }
 
@@ -92,12 +92,12 @@ export const WhitelistStudent = () => {
   };
 
 
-  const deleteRow = async (matrikelnummer) => {
+  const deleteRow = async (pkz) => {
 
     //test
     if (window.confirm('Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?')) {
 
-      const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
+      const deleteEndpoint = `http://localhost:8081/whitelistAdmin/${pkz}`;
 
       try {
         const response = await fetch(deleteEndpoint, {
@@ -105,7 +105,7 @@ export const WhitelistStudent = () => {
         });
 
         if (response.ok) {
-          const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
+          const updatedTableData = tableData.filter((row) => row.pkz !== pkz);
           setTableData(updatedTableData);
         } else {
           alert("Error deleting data from the database");
@@ -119,7 +119,7 @@ export const WhitelistStudent = () => {
   };
 
   const deleteAllRowsDatabase = async () => {
-    const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;
+    const deleteEndpoint = `http://localhost:8081/whitelistAdmin/all`;
 
     try {
       const response = await fetch(deleteEndpoint, {
@@ -164,13 +164,12 @@ export const WhitelistStudent = () => {
         
       </header>
     <div className="whitelist-container">
-      <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
+      <div className="whitelist-title"><h1>Whitelist Verwalter</h1></div>
       <div className="tabelle-wrapper">
         <table className="tabelle">
           <thead>
             <tr>
-              <th className="spalte">Matrikelnummer</th>
-              <th className="spalte">Jahr</th>
+              <th className="spalte">Uni-KIM</th>
               <th className="spalte" colSpan="3">Actions</th>
             </tr>
           </thead>
@@ -180,25 +179,14 @@ export const WhitelistStudent = () => {
                 {isEditing && (
                   <input
                     type="text"
-                    value={newRow.matrikelnummer}
-                    onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
+                    value={newRow.pkz}
+                    onChange={(e) => setNewRow({ ...newRow, pkz: e.target.value })}
                     onKeyDown={handleKeyPress}
                     className="cellTextInput"
                   />
                 )}
               </td>
-              <td className="cells">
-                {isEditing && (
-                  <input
-                    type="text"
-                    value={newRow.jahr}
-                    onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
-                    onKeyDown={handleKeyPress}
-                    className="cellTextInput"
 
-                  />
-                )}
-              </td>
               <td className="cells">
                 {isEditing ? (
                   <>
@@ -237,10 +225,9 @@ export const WhitelistStudent = () => {
 
             {tableData.map((row) => (
               <tr key={row.id}>
-                <td className="rowCell1">{row.matrikelnummer}</td>
-                <td className="rowCell2">{row.jahr}</td>
+                <td className="rowCell1">{row.pkz}</td>
                 <td id="cells1" colSpan="2" >
-                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
+                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.pkz)} />
                 </td>
               </tr>
             ))}
