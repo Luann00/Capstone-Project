@@ -44,12 +44,12 @@ export const WhitelistVerwalter = () => {
           });
 
           if (response.ok) {
-            alert("Data added successfully!");
+            console.log("Data added successfully!");
           } else {
             alert("Bitte geben Sie nur Zahlen ein!");
           }
         } catch (error) {
-          alert("Error while posting data", error);
+          console.log("Error while posting data", error);
         }
       }
     };
@@ -79,6 +79,8 @@ export const WhitelistVerwalter = () => {
       newRow.pkz = "";
       
       alert("Es sind nur Integer Zahlen erlaubt!");
+      setIsEditing(false);
+
     }
 
   };
@@ -108,10 +110,10 @@ export const WhitelistVerwalter = () => {
           const updatedTableData = tableData.filter((row) => row.pkz !== pkz);
           setTableData(updatedTableData);
         } else {
-          alert("Error deleting data from the database");
+          console.log("Error deleting data from the database");
         }
       } catch (error) {
-        alert("Error deleting data", error);
+        console.log("Error deleting data", error);
       }
 
 
@@ -126,13 +128,11 @@ export const WhitelistVerwalter = () => {
         method: "DELETE",
       });
 
-      if (response.ok) {
-        alert("Alles gelöscht!");
-      } else {
-        alert("Error deleting data from the database");
+      if (!response.ok) {
+        console.log("Error deleting data from the database");
       }
     } catch (error) {
-      alert("Error deleting data", error);
+      console.log("Error deleting data", error);
     }
   };
 
