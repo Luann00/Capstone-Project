@@ -78,7 +78,7 @@ export const WhitelistVerwalter = () => {
     } else {
       newRow.pkz = "";
       
-      alert("Nur ganze Zahlen du Kek");
+      alert("Es sind nur Integer Zahlen erlaubt!");
     }
 
   };

@@ -79,7 +79,7 @@ export const WhitelistStudent = () => {
     } else {
       newRow.matrikelnummer = "";
       newRow.jahr = "";
-      alert("Nur ganze Zahlen du Kek");
+      alert("Es sind nur Integer Zahlen erlaubt!");
     }
 
   };

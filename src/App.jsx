@@ -10,12 +10,12 @@ function App() {
   return (
     
 
- <LoginForm/>
+ //<LoginForm/>
 
 
     
-    // <WhitelistStudent />
-  // <WhitelistVerwalter />  
+    //<WhitelistStudent />
+    <WhitelistVerwalter />  
 
   
     

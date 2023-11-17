@@ -17,9 +17,9 @@ function NavbarAdmin() {
 href="#home">Home</Nav.Link>
                 <Nav.Link className="nav-link" href="#features">Universitäten</Nav.Link>
                 <Nav.Link className="nav-link"
-                href="#pricing">Studenten</Nav.Link>
+                href="#pricing">StudentenWhitelist</Nav.Link>
                 <Nav.Link className="nav-link"
-                href="#pricing">Whitelist</Nav.Link>
+                href="#pricing">VerwalterWhitelist</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
