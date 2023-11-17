@@ -1,4 +1,4 @@
-
+import "./App.css";
 import LoginForm from "./components/loginform";
 import {WhitelistStudent} from "./components/whitelistStudent";
 import {WhitelistVerwalter} from "./components/whitelistVerwalter";
@@ -10,8 +10,8 @@ function App() {
     
 
     
-    <WhitelistStudent />
-  // <WhitelistVerwalter />  
+    // <WhitelistStudent />
+  <WhitelistVerwalter />  
   // <LoginForm/>
   
     

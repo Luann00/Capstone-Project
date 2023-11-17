@@ -1,20 +1,25 @@
 import React from "react";
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import "./NavbarAdmin.css";
+
 
 function NavbarAdmin() {
   return (
-    <div className="App">
+    <div className="Navbar">
       <>
-        <Navbar bg="primary" expand="lg" variant="dark">
+        <Navbar expand="lg" variant="dark">
           <Container>
             <Navbar.Brand href="#home"></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Universitäten</Nav.Link>
-                <Nav.Link href="#pricing">Studenten</Nav.Link>
-                <Nav.Link href="#pricing">Whitelist</Nav.Link>
+                <Nav.Link className="nav-link"
+href="#home">Home</Nav.Link>
+                <Nav.Link className="nav-link" href="#features">Universitäten</Nav.Link>
+                <Nav.Link className="nav-link"
+                href="#pricing">Studenten</Nav.Link>
+                <Nav.Link className="nav-link"
+                href="#pricing">Whitelist</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

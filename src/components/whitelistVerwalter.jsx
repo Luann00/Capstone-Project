@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import logo from "../logo.png";
+import NavbarAdmin from "./NavbarAdmin";
 import "./whitelistStudent.css";
 
 export const WhitelistVerwalter = () => {
@@ -94,7 +95,7 @@ export const WhitelistVerwalter = () => {
   const deleteRow = async (pkz) => {
 
     //test
-    if (window.confirm('Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?')) {
+    if (window.confirm('Sind Sie sich sicher dass Sie diesen Verwalter entfernen möchten?')) {
 
       const deleteEndpoint = `http://localhost:8081/whitelistAdmin/${pkz}`;
 
@@ -159,7 +160,9 @@ export const WhitelistVerwalter = () => {
   return (
     <div className="list-page">
       <header className="App-header">
+        <div className="Navbar"> <NavbarAdmin/> </div>
         <img src={logo} alt="Your Logo" className="logo" />
+
         
       </header>
     <div className="whitelist-container">

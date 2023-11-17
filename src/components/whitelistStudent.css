@@ -6,11 +6,9 @@
 
 }
 
-@font-face {
-  font-family: 'Montserrat';
-  src: url(https://fonts.googleapis.com/css?family=Montserrat);
+
   
-}
+
 
 
 /*
@@ -175,11 +173,16 @@
   margin-top: 50px;
   color: #fff;
   text-transform: uppercase;
-  font-weight: 700s;
+  font-weight: 800;
   font-family: Calibri,sans-serif;
   
 }
 
 .suchleisteMatrikelnummer{
   width:33%
+}
+.logo{
+  height: 60px;
+ 
+
 }
