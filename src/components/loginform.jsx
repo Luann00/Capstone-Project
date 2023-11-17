@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./loginform.css";
 import logo from "../logo.png";
+import Footer from "./footer";
 
 const LoginForm = () => {
   const [benutzername, setBenutzername] = useState("");
@@ -49,6 +50,11 @@ const LoginForm = () => {
         Melde an
       </div>
     </div>
+   
+   <footer>
+    <Footer/>
+    </footer> 
+    
     </div>
   );
 };

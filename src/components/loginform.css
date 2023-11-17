@@ -142,6 +142,23 @@ input:focus {
     background-repeat: no-repeat;
     
 }
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: right;
+    padding-right: 30px;
+  }
+  footer a{
+    color:#18d777;
+
+  }
+  footer a:hover{
+    color: aliceblue;
+  }
+  
 
 /* -------------------- TABLET OPTIMIZATION -------------------- */
 @media only screen and (min-device-width: 37em) {

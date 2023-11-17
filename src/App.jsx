@@ -5,14 +5,18 @@ import {WhitelistVerwalter} from "./components/whitelistVerwalter";
 
 
 
+
 function App() {
   return (
     
 
+ <LoginForm/>
+
+
     
     // <WhitelistStudent />
-  <WhitelistVerwalter />  
-  // <LoginForm/>
+  // <WhitelistVerwalter />  
+
   
     
     
