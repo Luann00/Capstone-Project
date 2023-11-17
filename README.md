@@ -8,3 +8,15 @@ Bei dieser Entwicklung wurde mit einer lokalen SQL Datenbank gearbeitet. Beim Kl
 **Dokumentation**
 <br>
 Im Wiki haben wir die verschiedensten Sachen dokumentiert und verweisen bei Fragen zuerst auf das Wiki. Im Wiki wurden Sachen dokumentiert wie Änderungen am Backlog(die sich in der Mitte des Sprints ergeben haben) oder aber auch allgemeine Probleme während der Sprints und der daraus resultierenden Folgen.
+
+
+<br>
+
+### Beteiligte Personen/Entwicklerteam
+* Luan Zekiri
+* Liska Derkum
+* Ha Hong Nguyen
+* Maria Carpet
+<br>
+<brS>
+
