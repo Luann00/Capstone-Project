@@ -79,13 +79,13 @@ export const WhitelistStudent = () => {
     } else {
       newRow.matrikelnummer = "";
       newRow.jahr = "";
-      alert("Es sind nur positive Integer Zahlen erlaubt!");
+      alert("Es sind nur Integer Zahlen größer als 0 erlaubt!");
     }
 
   };
 
   const isNumber = (value) => {
-    return /^\d+$/.test(value);
+    return (/^\d+$/.test(value)) && (value > 0);
   };
 
   const cancelInsertion = () => {
@@ -152,7 +152,6 @@ export const WhitelistStudent = () => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       addRow();
-      setIsEditing(false);
     }
   };
 
