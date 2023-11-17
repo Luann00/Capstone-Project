@@ -1,8 +1,31 @@
+stages:          
+  - deploy
+  - performance
+
+
+
+##Website deployen
+pages:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - main
+
+  
+
+##Browser performance Test
 include:
   template: Verify/Browser-Performance.gitlab-ci.yml
 
 browser_performance:
   variables:
-    URL: https://www.sitespeed.io/
-    SITESPEED_VERSION: 13.2.0
-    SITESPEED_OPTIONS: -n 5
+    URL:
+  artifacts:
+    paths:
+      - reports
