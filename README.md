@@ -1,5 +1,11 @@
 **Präferenzabfrage-Tool**
 <br>
+<br>
+<br>
+
+
+
+**Wichtiges beim Klonen**
 Bei dieser Entwicklung wurde mit einer lokalen SQL Datenbank gearbeitet. Beim Klonen muss dies unbedingt beachtet werden und eine eigene Datenbank erstellt werden, damit die Daten, die man z.B in den Whitelists erstellt, auch nach dem Schließen der App noch gespeichert werden. Anschließend muss man die jeweiligen URL-Stellen im Code durch die URL der eigenen Datenbank ersetzen.
 
 
