@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import logo from "../logo.png";
-
 import "./whitelistStudent.css";
 
 export const WhitelistVerwalter = () => {

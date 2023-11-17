@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import logo from "../logo.png";
-
 import "./whitelistStudent.css";
+import NavbarAdmin from "./NavbarAdmin";
+
 
 export const WhitelistStudent = () => {
   const [tableData, setTableData] = useState([]);
@@ -160,8 +161,10 @@ export const WhitelistStudent = () => {
   return (
     <div className="list-page">
       <header className="App-header">
+       
+        <NavbarAdmin/>
         <img src={logo} alt="Your Logo" className="logo" />
-        
+      
       </header>
     <div className="whitelist-container">
       <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
@@ -220,7 +223,7 @@ export const WhitelistStudent = () => {
                     </span>
                   </>
                 ) : (
-                  <span
+                  <span className="addButton"
                     role="img"
                     aria-label="Plus"
                     style={{ cursor: "pointer" }}

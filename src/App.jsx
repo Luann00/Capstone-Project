@@ -10,9 +10,9 @@ function App() {
     
 
     
-    // <WhitelistStudent />
+    <WhitelistStudent />
   // <WhitelistVerwalter />  
-  <LoginForm/>
+  // <LoginForm/>
   
     
     

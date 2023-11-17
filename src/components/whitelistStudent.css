@@ -54,39 +54,32 @@
   background-color: #4bbd7f;
   color: #fff;
   border: transparent;
-}
-
-.cellTextInput {
-  width: 100%;
-  padding: 8px; 
-  font-size: 14px; 
-  border: 1px solid #ccc; 
-  border-radius: 4px;
- 
+  height:3.5rem;
 }
 
 
-
-
-.cells, th, .rowCellMatrikelnummer, .rowCellJahr, .spalte {
+.cells,  .rowCellMatrikelnummer, .rowCellJahr, .spalte {
   border: 1px solid #ccc;
-  text-align: left;
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 16px;
+  height:3rem;
+
+}
+
+
+.tabelle tbody td {
+  background-color: #f6f6f6;
+  height:3rem;
+  border: 1px solid #ccc;
+  text-align: center;
   padding: 0.8rem;
   font-size: 16px;
 
 }
 
 
-.tabelle tbody tr:nth-of-type(even) {
-  background-color: #f6f6f6;
-}
-.tabelle tbody tr:nth-of-type(odd) {
-  background-color: #fff;
-}
-
-
-
-.table tbody tr:hover {
+.tabelle tbody td:hover {
   background-color: #eee;
 }
 
@@ -137,11 +130,12 @@
 
 #cells1{
   text-align:center;
-  border: 1px solid #ccc;
+ 
 }
 
 .cells{
   text-align:center;
+ 
 }
 
 .spalte{
