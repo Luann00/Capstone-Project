@@ -19,13 +19,3 @@ pages:
 
   
 
-##Browser performance Test
-include:
-  template: Verify/Browser-Performance.gitlab-ci.yml
-
-browser_performance:
-  variables:
-    URL:
-  artifacts:
-    paths:
-      - reports
