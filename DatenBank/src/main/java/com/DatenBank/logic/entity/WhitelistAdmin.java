@@ -14,25 +14,25 @@ public WhitelistAdmin() {
 
 	
 	
-	public WhitelistAdmin(int pkz) {
+	public WhitelistAdmin(String pkz) {
 		this.pkz = pkz;
 	}
 	
 
 
 	@Id
-	private int pkz; //Primary Key
+	private String pkz; //Primary Key
 
 
 
-	public int getPkz() {
+	public String getPkz() {
 		return pkz;
 	}
 
 
 
 
-	public void setPkz(int pkz) {
+	public void setPkz(String pkz) {
 		this.pkz = pkz;
 	}
 	

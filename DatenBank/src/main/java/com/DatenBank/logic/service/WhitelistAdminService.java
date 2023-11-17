@@ -24,12 +24,16 @@ public class WhitelistAdminService {
         return whitelistAdminRepository.save(whitelistAdmin);
     }
 
-    public void deleteWhitelistAdmin(int pkz) {
+    public void deleteWhitelistAdmin(String pkz) {
     	whitelistAdminRepository.deleteById(pkz);
     }
     
     public List<WhitelistAdmin> getAllWhitelistAdmin() {
         return whitelistAdminRepository.findAll();
+    }
+
+    public void deleteAllWhitelistAdmin() {
+    	whitelistAdminRepository.deleteAll();
     }
 
 }

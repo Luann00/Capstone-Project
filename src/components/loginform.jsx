@@ -42,9 +42,7 @@ const LoginForm = () => {
 
       />
       
-        <a className="pass-vergessen" href="!#">
-          Passwort vergessen?
-        </a>
+       
       
       <div className="login-btn" onClick={handleAnmelden}>
         Melde an

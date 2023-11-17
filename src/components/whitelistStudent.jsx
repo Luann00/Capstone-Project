@@ -45,12 +45,12 @@ export const WhitelistStudent = () => {
           });
 
           if (response.ok) {
-            alert("Data added successfully!");
+            console.log("Data added successfully!");
           } else {
-            alert("Bitte geben Sie nur Zahlen ein!");
+            console.log("Bitte geben Sie nur Zahlen ein!");
           }
         } catch (error) {
-          alert("Error while posting data", error);
+          console.log("Error while posting data", error);
         }
       }
     };
@@ -79,7 +79,7 @@ export const WhitelistStudent = () => {
     } else {
       newRow.matrikelnummer = "";
       newRow.jahr = "";
-      alert("Es sind nur Integer Zahlen erlaubt!");
+      alert("Es sind nur positive Integer Zahlen erlaubt!");
     }
 
   };
@@ -109,10 +109,10 @@ export const WhitelistStudent = () => {
           const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
           setTableData(updatedTableData);
         } else {
-          alert("Error deleting data from the database");
+          console.log("Error deleting data from the database");
         }
       } catch (error) {
-        alert("Error deleting data", error);
+        console.log("Error deleting data", error);
       }
 
 
@@ -127,13 +127,11 @@ export const WhitelistStudent = () => {
         method: "DELETE",
       });
 
-      if (response.ok) {
-        alert("Alles gelöscht!");
-      } else {
-        alert("Error deleting data from the database");
+      if (!response.ok) {
+        console.log("Error deleting data from the database");
       }
     } catch (error) {
-      alert("Error deleting data", error);
+      console.log("Error deleting data", error);
     }
   };
 

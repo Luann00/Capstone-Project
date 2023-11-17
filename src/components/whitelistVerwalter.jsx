@@ -46,7 +46,7 @@ export const WhitelistVerwalter = () => {
           if (response.ok) {
             console.log("Data added successfully!");
           } else {
-            alert("Bitte geben Sie nur Zahlen ein!");
+            console.log("Bitte geben Sie nur Zahlen ein!");
           }
         } catch (error) {
           console.log("Error while posting data", error);
@@ -58,10 +58,6 @@ export const WhitelistVerwalter = () => {
   const addRow = () => {
 
     let variable1 = newRow.pkz;
-   
-
-    if (isNumber(newRow.pkz)) {
-
 
       if (newRow.pkz) {
         const newRowData = {
@@ -75,13 +71,7 @@ export const WhitelistVerwalter = () => {
         setIsEditing(false);
         postData();
       }
-    } else {
-      newRow.pkz = "";
-      
-      alert("Es sind nur Integer Zahlen erlaubt!");
-      setIsEditing(false);
-
-    }
+    
 
   };
 
@@ -96,7 +86,6 @@ export const WhitelistVerwalter = () => {
 
   const deleteRow = async (pkz) => {
 
-    //test
     if (window.confirm('Sind Sie sich sicher dass Sie diesen Verwalter entfernen möchten?')) {
 
       const deleteEndpoint = `http://localhost:8081/whitelistAdmin/${pkz}`;
@@ -122,7 +111,6 @@ export const WhitelistVerwalter = () => {
 
   const deleteAllRowsDatabase = async () => {
     const deleteEndpoint = `http://localhost:8081/whitelistAdmin/all`;
-
     try {
       const response = await fetch(deleteEndpoint, {
         method: "DELETE",
@@ -137,10 +125,10 @@ export const WhitelistVerwalter = () => {
   };
 
   const deleteAllRows = () => {
-
     if (window.confirm('Sind Sie sich sicher dass Sie alle bestehenden Einträge löschen wollen?')) {
       setTableData([]);
       deleteAllRowsDatabase();
+
     }
 
 

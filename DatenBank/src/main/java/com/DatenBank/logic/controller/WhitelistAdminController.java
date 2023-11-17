@@ -41,8 +41,14 @@ private WhitelistAdminService whitelistAdminService;
 	
 	
 	@DeleteMapping("/{pkz}")
-    public ResponseEntity<?> deleteWhitelistAdmin(@PathVariable int pkz) {
+    public ResponseEntity<?> deleteWhitelistAdmin(@PathVariable String pkz) {
 		whitelistAdminService.deleteWhitelistAdmin(pkz);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+	@DeleteMapping("/all")
+	public ResponseEntity<?> deleteAllWhitelistAdmin() {
+		whitelistAdminService.deleteAllWhitelistAdmin();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -54,6 +60,7 @@ private WhitelistAdminService whitelistAdminService;
 	    admin = whitelistAdminService.getAllWhitelistAdmin();
 	    return new ResponseEntity<>(admin, HttpStatus.OK);
 	}
+
 
 
 }

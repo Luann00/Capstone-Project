@@ -14,8 +14,8 @@ function App() {
 
 
     
-    //<WhitelistStudent />
-    <WhitelistVerwalter />  
+      <WhitelistStudent />
+    //<WhitelistVerwalter />  
 
   
     
