@@ -23,7 +23,7 @@ import com.DatenBank.logic.service.StudentService;
 
 @Controller // This means that this class is a Controller
 @CrossOrigin
-@RequestMapping("/student") // This means URL's start with /demo (after Application path)
+@RequestMapping("/student")
 public class StudentController {
 	
 	
