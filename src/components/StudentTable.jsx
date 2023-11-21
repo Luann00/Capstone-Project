@@ -34,14 +34,27 @@ function Home() {
       { name: 'geschlecht', placeholder: 'Enter geschlecht' },
       { name: 'durchschnitt', placeholder: 'Enter durchschnitt' },
       { name: 'email', placeholder: 'Enter e-mail' },
-
-
-
-      // ... fügen Sie weitere Felder hinzu
     ];
 
+
+
+    
  
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false);
+      setSelectedStudent(null);
+      setNewStudent({
+        Matrikelnummer: "",
+        Vorname: "",
+        Nachname: "",
+        Durchschnitt: "",
+        Email: "",
+        Titel: "",
+        Geschlecht: "",
+      });
+    };
+    
+    
     const handleShow = () => setShow(true);
 
     const handleEdit = (student) => {
@@ -55,10 +68,8 @@ function Home() {
         Titel: student.titel,
         Geschlecht: student.geschlecht,
       });
-      isEditing(true);
       handleShow();
     };
-
   //Show data of database in the table
   useEffect(() => {
     const fetchStudents = async () => {
@@ -76,6 +87,13 @@ function Home() {
 
 
   const addStudent = async () => {
+
+    //If edit mode is activated only perform put/update request
+    if(selectedStudent) {
+
+    } else {
+
+    
     try {
       const response = await fetch("http://localhost:8081/student", {
         method: "POST",
@@ -93,9 +111,9 @@ function Home() {
         alert("Bitte geben Sie nur Zahlen ein!");
       }
     } catch (error) {
-      alert("Error while posting data", error);
+      alert("Error while posting data" + error);
     }
-  };
+  }};
 
 
   const deleteStudent = async (matrikelnummer) => {
@@ -125,9 +143,21 @@ function Home() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewStudent({ ...newStudent, [name]: value });
-  };
+  const { name, value } = e.target;
+  if (selectedStudent) {
+    // If editing, update the selected student
+    setSelectedStudent((prevStudent) => ({
+      ...prevStudent,
+      [name]: value,
+    }));
+  } else {
+    // If adding a new student, update the new student
+    setNewStudent((prevNewStudent) => ({
+      ...prevNewStudent,
+      [name]: value,
+    }));
+  }
+};
 
   
 
@@ -192,7 +222,7 @@ function Home() {
                     className="edit"
                     title="Edit"
                     data-toggle="tooltip"
-                    onClick={() => handleEdit(row.matrikelnummer)}
+                    onClick={() => handleEdit(row)}
                   >
                     <i className="material-icons">&#xE254;</i>
                   </a>
@@ -220,28 +250,33 @@ function Home() {
         show={show}
         onHide={handleClose}
         backdrop="static"
+        
         keyboard={false}
+        
       >
         <Modal.Header closeButton>
           <Modal.Title>Add Record</Modal.Title>
         </Modal.Header>
             <Modal.Body>
             <form>
-            {inputFields.map((field) => (
+              {inputFields.map((field) => (
                 <div className="form-group mt-3" key={field.name}>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder={field.placeholder}
-                    name={field.name}
-                    value={newStudent[field.name] || ''}
-                    onChange={handleChange}
-                  />
-                </div>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={field.placeholder}
+                  name={field.name}
+                  value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
+                  onChange={handleChange}
+                />
+              </div>
               ))}
                 
-                  <button type="submit" class="btn btn-success mt-4" onClick={addStudent}>Add Record</button>
-                </form>
+                <button type="submit" className="btn btn-success mt-4" onClick={addStudent}>
+                {selectedStudent ? "Save Changes" : "Add Record"}
+              </button>
+              
+            </form>
             </Modal.Body>
  
         <Modal.Footer>
