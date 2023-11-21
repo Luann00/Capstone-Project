@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -55,6 +56,23 @@ public class StudentController {
 	    students = studentService.getAllStudents();
 	    return new ResponseEntity<>(students, HttpStatus.OK);
 	}
+	
+	  @PutMapping("/{matrikelnummer}")
+	    public ResponseEntity<Student> updateStudent(
+	            @PathVariable int matrikelnummer,
+	            @RequestBody Student updatedStudent) {
+
+	        try {
+	            Student result = studentService.updateStudent(matrikelnummer, updatedStudent);
+	            return ResponseEntity.ok(result);
+	        } catch (ClassNotFoundException e) {
+	            // Handle not found exception
+	            return ResponseEntity.notFound().build();
+	        } catch (Exception e) {
+	            // Handle other exceptions
+	            return ResponseEntity.status(500).build();
+	        }
+	    }
 	
 	
 
