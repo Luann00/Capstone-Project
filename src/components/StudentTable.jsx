@@ -86,34 +86,65 @@ function Home() {
   }, []);
 
 
-  const addStudent = async () => {
+  const updateStudent = async () => {
 
-    //If edit mode is activated only perform put/update request
-    if(selectedStudent) {
-
-    } else {
-
-    
     try {
-      const response = await fetch("http://localhost:8081/student", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newStudent),
-      });
+
+      const response = await fetch(
+        `http://localhost:8081/student/${selectedStudent.matrikelnummer}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectedStudent),
+        }
+      );
+
 
       if (response.ok) {
-        const updatedStudents = [...students, newStudent];
+        const updatedStudents = students.map((student) =>
+          student.matrikelnummer === selectedStudent.matrikelnummer
+            ? selectedStudent
+            : student
+        );
         setStudents(updatedStudents);
         handleClose();
       } else {
-        alert("Bitte geben Sie nur Zahlen ein!");
       }
+
     } catch (error) {
-      alert("Error while posting data" + error);
     }
-  }};
+
+  };
+
+
+
+
+  const addStudent = async () => {
+    try {
+              const response = await fetch("http://localhost:8081/student", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newStudent),
+        });
+  
+        if (response.ok) {
+          // Update die Student list after sucessful adding
+          const updatedStudents = [...students, newStudent];
+          setStudents(updatedStudents);
+          handleClose();
+        } else {
+          alert("Bitte geben Sie nur Zahlen ein!");
+        }
+      
+    } catch (error) {
+      alert("Fehler beim Senden der Daten" + error);
+    }
+  };
+  
 
 
   const deleteStudent = async (matrikelnummer) => {
@@ -272,9 +303,15 @@ function Home() {
               </div>
               ))}
                 
-                <button type="submit" className="btn btn-success mt-4" onClick={addStudent}>
-                {selectedStudent ? "Save Changes" : "Add Record"}
-              </button>
+                {selectedStudent ? (
+                  <button type="submit" className="btn btn-success mt-4" onClick={updateStudent}>
+                    Save Changes
+                  </button>
+                  ) : (
+                    <button type="submit" className="btn btn-primary mt-4" onClick={addStudent}>
+                      Add Record
+                    </button>
+                  )}
               
             </form>
             </Modal.Body>
