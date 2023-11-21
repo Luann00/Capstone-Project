@@ -2,7 +2,7 @@ import "./App.css";
 import LoginForm from "./components/loginform";
 import {WhitelistStudent} from "./components/whitelistStudent";
 import {WhitelistVerwalter} from "./components/whitelistVerwalter";
-import Home from './components/Home';
+import StudentTable from './components/StudentTable';
 
 
 
@@ -15,7 +15,7 @@ function App() {
  //<LoginForm/>
 
 
- <Home/>
+ <StudentTable/>
 
       //<WhitelistStudent />
     //<WhitelistVerwalter />  
