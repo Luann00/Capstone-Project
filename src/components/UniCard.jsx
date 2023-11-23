@@ -35,6 +35,10 @@ const UniversityCard = ({ university, onCardUpdate }) => {
     }
     setSelectedPriority(priority);
   };
+  const dropPriority = async () => {
+    setSelectedPriority('');
+    await handlePrioritySelect(university.uniId, ''); // Reset the priority
+  };
 
   return (
     <Card key={university.uniId} style={{ width: '18rem' }}>
@@ -72,6 +76,10 @@ const UniversityCard = ({ university, onCardUpdate }) => {
               <Dropdown.Item onClick={() => handlePrioritySelect(university.uniId,'3rd Priority')}>
                 3rd Priority
               </Dropdown.Item>
+              <Dropdown.Item onClick={dropPriority}>
+                Drop Priority
+              </Dropdown.Item>
+
            
           </Dropdown.Menu>
         </Dropdown>
@@ -102,6 +110,9 @@ const UniCard = () => {
     // Clean up the interval to prevent memory leaks
     return () => clearInterval(interval);
   }, []);
+
+
+
 
   const handleCardUpdate = (uniId, updatedValue) => {
     // Update the main state with the updated value for the specific card
