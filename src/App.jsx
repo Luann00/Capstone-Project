@@ -21,7 +21,7 @@ function App() {
 //<StudentTable/>// 
 
 
-<UniCard/>
+ <UniCard/>  
 
       //<WhitelistStudent />
     //<WhitelistVerwalter />  
