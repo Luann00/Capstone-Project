@@ -5,6 +5,7 @@ import {WhitelistVerwalter} from "./components/whitelistVerwalter";
 import StudentTable from './components/StudentTable';
 import UniCard from './components/UniCard';
 import UniversityTable from './components/UniversityTable';
+import UniCardPage from "./features/UniCardPage";
 
 
 
@@ -19,9 +20,9 @@ function App() {
 
 //  <UniversityTable/>
 //<StudentTable/>// 
+<UniCardPage/>
 
-
- <UniCard/>  
+//  <UniCard/>  
 
       //<WhitelistStudent />
     //<WhitelistVerwalter />  
