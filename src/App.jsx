@@ -19,8 +19,8 @@ function App() {
 
 
 //  <UniversityTable/>
-//<StudentTable/>// 
-<UniCardPage/>
+<StudentTable/>// 
+//<UniCardPage/>
 
 //  <UniCard/>  
 
