@@ -27,13 +27,13 @@ function Home() {
 
     //The new values for a new student get saved here initially
     const inputFields = [
-      { name: 'matrikelnummer', placeholder: 'Enter Matrikelnummer' },
-      { name: 'vorname', placeholder: 'Enter Vorname' },
-      { name: 'nachname', placeholder: 'Enter Nachname' },
-      { name: 'titel', placeholder: 'Enter title' },
-      { name: 'geschlecht', placeholder: 'Enter geschlecht' },
-      { name: 'durchschnitt', placeholder: 'Enter durchschnitt' },
-      { name: 'email', placeholder: 'Enter e-mail' },
+      { name: 'matrikelnummer', type: 'number', min: '1',placeholder: 'Enter Matrikelnummer' },
+      { name: 'vorname', type: 'text', placeholder: 'Enter Vorname' },
+      { name: 'nachname', type: 'text', placeholder: 'Enter Nachname' },
+      { name: 'titel', type: 'text',placeholder: 'Enter title' },
+      { name: 'geschlecht', type: 'text',placeholder: 'Enter geschlecht' },
+      { name: 'durchschnitt', type: 'number', step:"0.1", min: '1', placeholder: 'Enter durchschnitt' },
+      { name: 'email', type: 'email',placeholder: 'Enter e-mail' },
     ];
 
 
@@ -52,6 +52,11 @@ function Home() {
         Titel: "",
         Geschlecht: "",
       });
+    };
+
+
+    const testi = () => {
+      alert("Moin!");
     };
     
     
@@ -122,8 +127,10 @@ function Home() {
 
 
   const addStudent = async () => {
+
+    
     try {
-              const response = await fetch("http://localhost:8081/student", {
+          const response = await fetch("http://localhost:8081/student", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -137,7 +144,7 @@ function Home() {
           setStudents(updatedStudents);
           handleClose();
         } else {
-          alert("Bitte geben Sie nur Zahlen ein!");
+          console.log("Anderweitiger Fehler..!");
         }
       
     } catch (error) {
@@ -289,26 +296,27 @@ function Home() {
           <Modal.Title>Add Record</Modal.Title>
         </Modal.Header>
             <Modal.Body>
-            <form>
+            <form onSubmit={selectedStudent ? updateStudent : addStudent}>
               {inputFields.map((field) => (
                 <div className="form-group mt-3" key={field.name}>
                 <input
-                  type="text"
+                  type={field.type}
                   className="form-control"
                   placeholder={field.placeholder}
                   name={field.name}
                   value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
                   onChange={handleChange}
+                  required
                 />
               </div>
               ))}
                 
                 {selectedStudent ? (
-                  <button type="submit" className="btn btn-success mt-4" onClick={updateStudent}>
+                  <button type="submit" className="btn btn-success mt-4">
                     Save Changes
                   </button>
                   ) : (
-                    <button type="submit" className="btn btn-primary mt-4" onClick={addStudent}>
+                    <button type="submit" className="btn btn-primary mt-4">
                       Add Record
                     </button>
                   )}
