@@ -175,8 +175,22 @@ function Home() {
       } catch (error) {
         alert("Error deleting data", error);
       }
+    }
+  };
 
+  const deleteAllRowsDatabase = async () => {
+    const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;
 
+    try {
+      const response = await fetch(deleteEndpoint, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        console.log("Error deleting data from the database");
+      }
+    } catch (error) {
+      console.log("Error deleting data", error);
     }
   };
 
@@ -219,6 +233,9 @@ function Home() {
               <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
               <Button variant="primary" onClick={handleShow}>
                 Add New Student
+              </Button>
+              <Button variant="danger" onClick={testi} style={{marginTop: "10px"}}>
+                Delete all Students
               </Button>
              </div>
            </div>  
