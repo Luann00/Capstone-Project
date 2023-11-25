@@ -9,31 +9,29 @@ function Home() {
  
     const [show, setShow] = useState(false);
     const [universities, setUniversities] = useState([]);
+    
 
     //For editing students
     const [selectedUniversity, setSelectedUniversity] = useState(null);
-    const [edit, isEditing] = useState(false);
 
 
     const [newUniversity, setNewUniversity] = useState({
-      UniID: "",
-      Name: "",
-      Country: "",
-      City: "",
-      Slots: "",
-      FirstPref: "",
-      
+      uniId: "",
+      name: "",
+      country: "",
+      city: "",
+      slots: "",
+      firstPref: "",
     });
 
     //The new values for a new student get saved here initially
     const inputFields = [
-      { name: 'uniId', placeholder: 'Enter UniID' },
-      { name: 'name', placeholder: 'Enter University Name' },
-    
-      { name: 'country', placeholder: 'Enter Country' },
-      { name: 'city', placeholder: 'Enter City' },
-      { name: 'slots', placeholder: 'Enter number of available slots' },
-     
+      { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID' },
+      { name: 'name', type: 'text', placeholder: 'Enter name' },
+      { name: 'country', type: 'text', placeholder: 'Enter Country' },
+      { name: 'city', type: 'text', placeholder: 'Enter City' },
+      { name: 'slots', type: 'number', min:'1', placeholder: 'Enter slots'},
+      { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
     ];
 
 
@@ -44,29 +42,28 @@ function Home() {
       setShow(false);
       setSelectedUniversity(null);
       setNewUniversity({
-        UniID: "",
-        Name: "",
-        Country: "",
-        City: "",
-        Slots: "",
-        
-        
+        uniId: "",
+        name: "",
+        country: "",
+        city: "",
+        slots: "",
+        firstPref: "",
       });
     };
+
     
     
     const handleShow = () => setShow(true);
 
-    const handleEdit = (University) => {
-      setSelectedUniversity(University);
+    const handleEdit = (university) => {
+      setSelectedUniversity(university);
       setNewUniversity({
-        UniID: University.uniId,
-        Name: University.name,
-        Country: University.country,
-        City: University.city,
-        Slots: University.slots,
-        FirstPref: University.firstPref,
-        
+        uniId: university.uniId,
+        name: university.name,
+        country: university.country,
+        city: university.city,
+        slots: university.slots,
+        firstPref: university.firstPref,
       });
       handleShow();
     };
@@ -88,6 +85,16 @@ function Home() {
 
   const updateUniversity = async () => {
 
+
+    //Update at first the local table for a smoother user experience
+    const updatedUniversities = universities.map((university) =>
+          university.uniId === selectedUniversity.uniId
+            ? selectedUniversity
+            : university
+        );
+        setUniversities(updatedUniversities);
+        handleClose();
+
     try {
 
       const response = await fetch(
@@ -102,15 +109,8 @@ function Home() {
       );
 
 
-      if (response.ok) {
-        const updatedUniversities = universities.map((University) =>
-          University.uniId === selectedUniversity.uniId
-            ? selectedUniversity
-            : University
-        );
-        setUniversities(updatedUniversities);
-        handleClose();
-      } else {
+      if (!response.ok) {
+        
       }
 
     } catch (error) {
@@ -122,8 +122,15 @@ function Home() {
 
 
   const addUniversity = async () => {
+
+
+    //Update at first the local table and then the database for a smoother experience
+    const updatedUniversities = [...universities, newUniversity];
+    setUniversities(updatedUniversities);
+    handleClose();
+    
     try {
-              const response = await fetch("http://localhost:8081/university", {
+          const response = await fetch("http://localhost:8081/university", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -131,14 +138,9 @@ function Home() {
           body: JSON.stringify(newUniversity),
         });
   
-        if (response.ok) {
-          // Update die Student list after sucessful adding
-          const updatedUniversities = [...universities, newUniversity];
-          setUniversities(updatedUniversities);
-          handleClose();
-        } else {
-          alert("Bitte geben Sie nur Zahlen ein!");
-        }
+        if (!response.ok) {
+          console.log("Anderweitiger Fehler..!");
+        } 
       
     } catch (error) {
       alert("Fehler beim Senden der Daten" + error);
@@ -149,7 +151,10 @@ function Home() {
 
   const deleteUniversity = async (uniId) => {
 
-    //test
+    //Delete student at first from the local table for a smoother user experience
+    const updatedTableData = universities.filter((row) => row.uniId !== uniId);
+    setUniversities(updatedTableData);
+
     if (window.confirm('Are you sure you want to delete this university?')) {
 
       const deleteEndpoint = `http://localhost:8081/university/${uniId}`;
@@ -159,17 +164,37 @@ function Home() {
           method: "DELETE",
         });
 
-        if (response.ok) {
-          const updatedTableData = universities.filter((row) => row.uniId !== uniId);
-          setUniversities(updatedTableData);
-        } else {
+        if (!response.ok) {
           alert("Error deleting data from the database");
         }
       } catch (error) {
         alert("Error deleting data", error);
       }
+    }
+  };
 
 
+  const deleteAllUniversities = () => {
+    if (window.confirm('Are you sure you want to remove all Universities?')) {
+      setUniversities([]);
+      deleteAllUniversityDatabase();
+    }
+
+  };
+
+  const deleteAllUniversityDatabase = async () => {
+    const deleteEndpoint = `http://localhost:8081/university/all`;
+
+    try {
+      const response = await fetch(deleteEndpoint, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        console.log("Error deleting data from the database");
+      }
+    } catch (error) {
+      console.log("Error deleting data", error);
     }
   };
 
@@ -183,8 +208,8 @@ function Home() {
     }));
   } else {
     // If adding a new student, update the new student
-    setNewUniversity((prevNewUniversity) => ({
-      ...prevNewUniversity,
+    setNewUniversity((prevUniversity) => ({
+      ...prevUniversity,
       [name]: value,
     }));
   }
@@ -208,10 +233,13 @@ function Home() {
                 </form>
               </div>    
               </div>  
-              <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{color:"green"}}><h2><b>University Details</b></h2></div>
+              <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{color:"green"}}><h2><b>Universities</b></h2></div>
               <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
               <Button variant="primary" onClick={handleShow}>
                 Add New University
+              </Button>
+              <Button variant="danger" onClick={deleteAllUniversities} style={{marginTop: "10px"}}>
+                Delete all Universities
               </Button>
              </div>
            </div>  
@@ -220,16 +248,13 @@ function Home() {
                  <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>UniID</th>
-                            <th>Name </th>
+                            <th>Uni-ID</th>
+                            <th>Name</th>
                             <th>Country</th>
-                            <th>City </th>
+                            <th>City</th>
                             <th>Slots </th>
-                            <th>First Preferences</th>
-                          
+                            <th>Number of First Preferences</th>
                             <th>Edit</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -241,10 +266,7 @@ function Home() {
                     <td>{row.country}</td>
                     <td>{row.city}</td>
                     <td>{row.slots}</td>
-                    <td>{row.firstPref}</td>
-                    
-                    
-
+                    <td>{row.firstPref}</td>                    
                     <td>                   
                     <a
                     href="#"
@@ -284,30 +306,34 @@ function Home() {
         
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Record</Modal.Title>
+          <Modal.Title>Add University</Modal.Title>
         </Modal.Header>
             <Modal.Body>
-            <form>
+            <form onSubmit={selectedUniversity ? updateUniversity : addUniversity}>
               {inputFields.map((field) => (
                 <div className="form-group mt-3" key={field.name}>
                 <input
-                  type="text"
+                  type={field.type}
+                  min={field.min}
+                  max={field.max}
+                  step={field.step}
                   className="form-control"
                   placeholder={field.placeholder}
                   name={field.name}
                   value={selectedUniversity ? selectedUniversity[field.name] : newUniversity[field.name]}
                   onChange={handleChange}
+                  required
                 />
               </div>
               ))}
                 
                 {selectedUniversity ? (
-                  <button type="submit" className="btn btn-success mt-4" onClick={updateUniversity}>
+                  <button type="submit" className="btn btn-success mt-4">
                     Save Changes
                   </button>
                   ) : (
-                    <button type="submit" className="btn btn-primary mt-4" onClick={addUniversity}>
-                      Add Record
+                    <button type="submit" className="btn btn-primary mt-4">
+                      Add University
                     </button>
                   )}
               
