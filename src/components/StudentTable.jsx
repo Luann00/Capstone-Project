@@ -301,6 +301,8 @@ function Home() {
                 <div className="form-group mt-3" key={field.name}>
                 <input
                   type={field.type}
+                  min={field.min}
+                  step={field.step}
                   className="form-control"
                   placeholder={field.placeholder}
                   name={field.name}
