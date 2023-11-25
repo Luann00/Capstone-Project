@@ -9,10 +9,10 @@ function Home() {
  
     const [show, setShow] = useState(false);
     const [students, setStudents] = useState([]);
+    
 
     //For editing students
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const [edit, isEditing] = useState(false);
 
 
     const [newStudent, setNewStudent] = useState({
@@ -27,12 +27,12 @@ function Home() {
 
     //The new values for a new student get saved here initially
     const inputFields = [
-      { name: 'matrikelnummer', type: 'number', min: '1',placeholder: 'Enter Matrikelnummer' },
+      { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer' },
       { name: 'vorname', type: 'text', placeholder: 'Enter Vorname' },
       { name: 'nachname', type: 'text', placeholder: 'Enter Nachname' },
       { name: 'titel', type: 'text',placeholder: 'Enter title' },
       { name: 'geschlecht', type: 'text',placeholder: 'Enter geschlecht' },
-      { name: 'durchschnitt', type: 'number', step:"0.1", min: '1', placeholder: 'Enter durchschnitt' },
+      { name: 'durchschnitt', type: 'number', step:"0.1", min: '1', max:'4', placeholder: 'Enter durchschnitt' },
       { name: 'email', type: 'email',placeholder: 'Enter e-mail' },
     ];
 
@@ -54,10 +54,6 @@ function Home() {
       });
     };
 
-
-    const testi = () => {
-      alert("Moin!");
-    };
     
     
     const handleShow = () => setShow(true);
@@ -93,6 +89,16 @@ function Home() {
 
   const updateStudent = async () => {
 
+
+    //Update at first the local table for a smoother user experience
+    const updatedStudents = students.map((student) =>
+          student.matrikelnummer === selectedStudent.matrikelnummer
+            ? selectedStudent
+            : student
+        );
+        setStudents(updatedStudents);
+        handleClose();
+
     try {
 
       const response = await fetch(
@@ -107,15 +113,8 @@ function Home() {
       );
 
 
-      if (response.ok) {
-        const updatedStudents = students.map((student) =>
-          student.matrikelnummer === selectedStudent.matrikelnummer
-            ? selectedStudent
-            : student
-        );
-        setStudents(updatedStudents);
-        handleClose();
-      } else {
+      if (!response.ok) {
+        
       }
 
     } catch (error) {
@@ -128,6 +127,11 @@ function Home() {
 
   const addStudent = async () => {
 
+
+    //Update at first the local table and then the database for a smoother experience
+    const updatedStudents = [...students, newStudent];
+    setStudents(updatedStudents);
+    handleClose();
     
     try {
           const response = await fetch("http://localhost:8081/student", {
@@ -138,14 +142,9 @@ function Home() {
           body: JSON.stringify(newStudent),
         });
   
-        if (response.ok) {
-          // Update die Student list after sucessful adding
-          const updatedStudents = [...students, newStudent];
-          setStudents(updatedStudents);
-          handleClose();
-        } else {
+        if (!response.ok) {
           console.log("Anderweitiger Fehler..!");
-        }
+        } 
       
     } catch (error) {
       alert("Fehler beim Senden der Daten" + error);
@@ -156,7 +155,10 @@ function Home() {
 
   const deleteStudent = async (matrikelnummer) => {
 
-    //test
+    //Delete student at first from the local table for a smoother user experience
+    const updatedTableData = students.filter((row) => row.matrikelnummer !== matrikelnummer);
+    setStudents(updatedTableData);
+
     if (window.confirm('Are you sure you want to delete this student?')) {
 
       const deleteEndpoint = `http://localhost:8081/student/${matrikelnummer}`;
@@ -166,10 +168,7 @@ function Home() {
           method: "DELETE",
         });
 
-        if (response.ok) {
-          const updatedTableData = students.filter((row) => row.matrikelnummer !== matrikelnummer);
-          setStudents(updatedTableData);
-        } else {
+        if (!response.ok) {
           alert("Error deleting data from the database");
         }
       } catch (error) {
@@ -178,8 +177,17 @@ function Home() {
     }
   };
 
-  const deleteAllRowsDatabase = async () => {
-    const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;
+
+  const deleteAllStudents = () => {
+    if (window.confirm('Are you sure you want to remove all Students?')) {
+      setStudents([]);
+      deleteAllStudentsDatabase();
+    }
+
+  };
+
+  const deleteAllStudentsDatabase = async () => {
+    const deleteEndpoint = `http://localhost:8081/student/all`;
 
     try {
       const response = await fetch(deleteEndpoint, {
@@ -234,7 +242,7 @@ function Home() {
               <Button variant="primary" onClick={handleShow}>
                 Add New Student
               </Button>
-              <Button variant="danger" onClick={testi} style={{marginTop: "10px"}}>
+              <Button variant="danger" onClick={deleteAllStudents} style={{marginTop: "10px"}}>
                 Delete all Students
               </Button>
              </div>
@@ -319,6 +327,7 @@ function Home() {
                 <input
                   type={field.type}
                   min={field.min}
+                  max={field.max}
                   step={field.step}
                   className="form-control"
                   placeholder={field.placeholder}
