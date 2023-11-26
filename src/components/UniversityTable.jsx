@@ -11,6 +11,8 @@ function Home() {
     const [universities, setUniversities] = useState([]);
     
 
+    const [sortOrder, setSortOrder] = useState("asc"); // "asc" or "desc"
+
     //For editing students
     const [selectedUniversity, setSelectedUniversity] = useState(null);
 
@@ -30,7 +32,7 @@ function Home() {
       { name: 'name', type: 'text', placeholder: 'Enter name' },
       { name: 'country', type: 'text', placeholder: 'Enter Country' },
       { name: 'city', type: 'text', placeholder: 'Enter City' },
-      { name: 'slots', type: 'number', min:'1', placeholder: 'Enter slots'},
+      { name: 'slots', type: 'number', min:'0', placeholder: 'Enter slots'},
       { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
     ];
 
@@ -174,6 +176,23 @@ function Home() {
   };
 
 
+  //For sort function
+  const handleSort = (column) => {
+    const newOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newOrder);
+  
+    const sortedUniversities = [...universities].sort((a, b) => {
+      if (newOrder === "asc") {
+        return a[column] - b[column];
+      } else {
+        return b[column] - a[column];
+      }
+    });
+  
+    setUniversities(sortedUniversities);
+  };
+
+
   const deleteAllUniversities = () => {
     if (window.confirm('Are you sure you want to remove all Universities?')) {
       setUniversities([]);
@@ -253,7 +272,13 @@ function Home() {
                             <th>Country</th>
                             <th>City</th>
                             <th>Slots </th>
-                            <th>Number of First Preferences</th>
+                            <th onClick={() => handleSort("firstPref")}>
+                              Number of First Preferences
+                              <a href="#" className="sort-icon" data-toggle="tooltip">
+                                {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
+                                {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                              </a>
+                            </th>
                             <th>Edit</th>
                         </tr>
                     </thead>
