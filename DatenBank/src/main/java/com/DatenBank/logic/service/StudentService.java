@@ -37,6 +37,11 @@ public class StudentService {
         return studentRepository.findAll();
     }
     
+    public void deleteAllStudents() {
+    	studentRepository.deleteAll();
+    }
+
+    
     public Student updateStudent(int matrikelnummer, Student updatedStudent) throws Exception {
         // Find the existing student in the database
         Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);

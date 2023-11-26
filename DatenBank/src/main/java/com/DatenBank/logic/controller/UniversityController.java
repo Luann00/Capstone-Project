@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.entity.University;
 import com.DatenBank.logic.service.UniversityService;
 
@@ -42,6 +44,29 @@ private UniversityService universityService;
 	@DeleteMapping("/{uniId}")
     public ResponseEntity<?> deleteUniversity(@PathVariable int uniId) {
 		universityService.deleteUniversity(uniId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+	
+	@PutMapping("/{uniId}")
+    public ResponseEntity<University> updateUniversity(
+            @PathVariable int uniId,
+            @RequestBody University updatedUniversity) {
+
+        try {
+            University result = universityService.updateUniversity(uniId, updatedUniversity);
+            return ResponseEntity.ok(result);
+        } catch (ClassNotFoundException e) {
+            // Handle not found exception
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // Handle other exceptions
+            return ResponseEntity.status(500).build();
+        }
+    }
+	
+	@DeleteMapping("/all")
+	public ResponseEntity<?> deleteAllUniversities() {
+		universityService.deleteAllUniversities();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

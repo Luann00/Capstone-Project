@@ -57,6 +57,12 @@ public class StudentController {
 	    return new ResponseEntity<>(students, HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/all")
+	public ResponseEntity<?> deleteAllStudents() {
+		studentService.deleteAllStudents();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+	
 	  @PutMapping("/{matrikelnummer}")
 	    public ResponseEntity<Student> updateStudent(
 	            @PathVariable int matrikelnummer,

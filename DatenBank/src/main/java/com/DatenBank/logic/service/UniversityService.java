@@ -1,10 +1,12 @@
 package com.DatenBank.logic.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.entity.University;
 import com.DatenBank.logic.repository.UniversityRepository;
 
@@ -30,6 +32,36 @@ public class UniversityService {
     public List<University> getAllUniversity() {
         return universityRepository.findAll();
     }
+    
+    public void deleteAllUniversities() {
+    	universityRepository.deleteAll();
+    }
+    
+    
+    public University updateUniversity(int uniId, University updatedUniversity) throws Exception {
+        // Find the existing student in the database
+        Optional<University> optionalUniversity = universityRepository.findById(uniId);
+
+        if (optionalUniversity.isPresent()) {
+            // If the student exists, update the fields
+            University existingUniversity = optionalUniversity.get();
+            existingUniversity.setUniId(updatedUniversity.getUniId());
+            existingUniversity.setName(updatedUniversity.getName());
+            existingUniversity.setCountry(updatedUniversity.getCountry());
+            existingUniversity.setCity(updatedUniversity.getCity());
+            existingUniversity.setSlots(updatedUniversity.getSlots());
+            existingUniversity.setFirstPref(updatedUniversity.getFirstPref());
+
+            // Save the updated university back to the database
+            return universityRepository.save(existingUniversity);
+        } else {
+            // If the university is not found throw an exception
+            throw new Exception("Student not found with matrikelnummer: " + uniId);
+        }
+
+    
+
+}
 
 
 }
