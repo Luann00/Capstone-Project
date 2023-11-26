@@ -1,14 +1,18 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import './NavBarStudent.css';
 
 function BasicExample() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <div className='nav'>
+      <>
+    <Navbar expand= "lg">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home"></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -23,11 +27,17 @@ function BasicExample() {
               <NavDropdown.Item href="#action/3.3"></NavDropdown.Item>
               
             </NavDropdown>
+        
           </Nav>
         </Navbar.Collapse>
+        <Button>Sign out
+        </Button>
       </Container>
     </Navbar>
+    </>
+    </div>
   );
+
 }
 
 export default BasicExample;

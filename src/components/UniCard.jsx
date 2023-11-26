@@ -3,17 +3,27 @@ import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 
 const UniversityCard = ({ university, onCardUpdate }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [updatedFirstPref, setUpdatedFirstPref] = useState(0);
+  const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref || 0);
+
 
   const handlePrioritySelect = async (uniId,priority) => {
-    if (priority === '1st Priority') {
+    let updatedValue;
+    
+    
+    
       try {
-        // Fetch the current university data
         const response = await fetch(`http://localhost:8081/university/${university.uniId}`);
         const universityData = await response.json();
-        const updatedValue = universityData.firstPref + 1;
+         updatedValue = universityData.firstPref;
 
-        // Update the database with the new firstPref value
+         if (priority === '1st Priority') {
+          updatedValue += 1;
+        } else if (priority === 'Drop Priority') {
+          updatedValue = updatedValue > 0 ? updatedValue - 1 : 0;
+        }
+      
+
+      
         await fetch(`http://localhost:8081/university/${university.uniId}`, {
           method: 'PUT',
           headers: {
@@ -23,16 +33,19 @@ const UniversityCard = ({ university, onCardUpdate }) => {
         });
 
         // Update the local state for this card
-        setUpdatedFirstPref({ ...updatedFirstPref, [uniId]: updatedValue });
+        setUpdatedFirstPref((prevUpdatedFirstPref) => ({
+          ...prevUpdatedFirstPref,
+          [uniId]: updatedValue,
+        }));
         
 
-        // Callback to update the main state in UniCard component
+
         onCardUpdate(university.uniId, updatedValue);
       } catch (error) {
         console.error('Error updating database:', error);
-        // Handle error scenarios
+       
       }
-    }
+   
     setSelectedPriority(priority);
   };
   const dropPriority = async () => {
@@ -45,7 +58,7 @@ const UniversityCard = ({ university, onCardUpdate }) => {
       <Card.Body>
         <Card.Title>{university.name}</Card.Title>
         <Card.Text>
-              {/* University description or other relevant information */}
+              
               Quick info about this University
             </Card.Text>
             <Card.Link href="#">View more</Card.Link>

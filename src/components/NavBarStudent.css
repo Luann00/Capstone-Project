@@ -1,0 +1,13 @@
+.nav{
+background-color: (rgb(69, 122, 147)) ; 
+
+
+}
+.navbar-dark .navbar-nav .nav-link {
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 20px;
+    color:#4bbd7f;
+    font-weight:500;
+   
+}
