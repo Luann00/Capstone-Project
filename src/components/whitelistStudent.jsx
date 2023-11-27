@@ -158,96 +158,96 @@ export const WhitelistStudent = () => {
   return (
     <div className="list-page">
       <header className="App-header">
-       
-        <div className="Navbar"><NavbarAdmin/></div>
-        <img src={logo} alt="Your Logo" className="logo" />
-      
-      </header>
-    <div className="whitelist-container">
-      <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
-      <div className="tabelle-wrapper">
-        <table className="tabelle">
-          <thead>
-            <tr>
-              <th className="spalte">Matrikelnummer</th>
-              <th className="spalte">Jahr</th>
-              <th className="spalte" colSpan="3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="cells">
-                {isEditing && (
-                  <input
-                    type="text"
-                    value={newRow.matrikelnummer}
-                    onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
-                    onKeyDown={handleKeyPress}
-                    className="cellTextInput"
-                  />
-                )}
-              </td>
-              <td className="cells">
-                {isEditing && (
-                  <input
-                    type="text"
-                    value={newRow.jahr}
-                    onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
-                    onKeyDown={handleKeyPress}
-                    className="cellTextInput"
 
-                  />
-                )}
-              </td>
-              <td className="cells">
-                {isEditing ? (
-                  <>
-                    <span className="deleteButton"
-                      role="img"
-                      aria-label="Cancel"
-                      style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }}
-                      onClick={cancelInsertion}
-                    >
-                      &#10006;
-                    </span>
+        <div className="Navbar"><NavbarAdmin /></div>
+        <img src={logo} alt="Your Logo" className="logo" />
+
+      </header>
+      <div className="whitelist-container">
+        <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
+        <div className="tabelle-wrapper">
+          <table className="tabelle">
+            <thead>
+              <tr>
+                <th className="spalte">Matrikelnummer</th>
+                <th className="spalte">Jahr</th>
+                <th className="spalte" colSpan="3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="cells">
+                  {isEditing && (
+                    <input
+                      type="text"
+                      value={newRow.matrikelnummer}
+                      onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
+                      onKeyDown={handleKeyPress}
+                      className="cellTextInput"
+                    />
+                  )}
+                </td>
+                <td className="cells">
+                  {isEditing && (
+                    <input
+                      type="text"
+                      value={newRow.jahr}
+                      onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
+                      onKeyDown={handleKeyPress}
+                      className="cellTextInput"
+
+                    />
+                  )}
+                </td>
+                <td className="cells">
+                  {isEditing ? (
+                    <>
+                      <span className="deleteButton"
+                        role="img"
+                        aria-label="Cancel"
+                        style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }}
+                        onClick={cancelInsertion}
+                      >
+                        &#10006;
+                      </span>
+                      <span className="addButton"
+                        role="img"
+                        aria-label="Confirm"
+                        style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}
+                        onClick={addRow}
+                      >
+                        &#10004;
+                      </span>
+                    </>
+                  ) : (
                     <span className="addButton"
                       role="img"
-                      aria-label="Confirm"
-                      style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}
-                      onClick={addRow}
+                      aria-label="Plus"
+                      style={{ cursor: "pointer" }}
+                      onClick={startEditing}
                     >
-                      &#10004;
+                      ➕
                     </span>
-                  </>
-                ) : (
-                  <span className="addButton"
-                    role="img"
-                    aria-label="Plus"
-                    style={{ cursor: "pointer" }}
-                    onClick={startEditing}
-                  >
-                    ➕
-                  </span>
-                )}
-              </td>
-              <td className="cells">
-                <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
-              </td>
-            </tr>
-
-            {tableData.map((row) => (
-              <tr key={row.id}>
-                <td className="rowCell1">{row.matrikelnummer}</td>
-                <td className="rowCell2">{row.jahr}</td>
-                <td id="cells1" colSpan="2" >
-                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
+                  )}
+                </td>
+                <td className="cells">
+                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+
+              {tableData.map((row) => (
+                <tr key={row.id}>
+                  <td className="rowCell1">{row.matrikelnummer}</td>
+                  <td className="rowCell2">{row.jahr}</td>
+                  <td id="cells1" colSpan="2" >
+                    <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div>
 
 

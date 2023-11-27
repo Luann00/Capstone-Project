@@ -1,22 +1,23 @@
-.Navbar{
-    background-color:(rgb(69, 122, 147));
- 
-    
+.Navbar {
+    background-color: (rgb(69, 122, 147));
+
+
 }
-.navbar-dark .navbar-nav .nav-link{
+
+.navbar-dark .navbar-nav .nav-link {
     justify-content: space-between;
     margin-top: 10px;
     margin-left: 20px;
-    color:#4bbd7f;
-    font-weight:500;
-   
+    color: #4bbd7f;
+    font-weight: 500;
+
 }
+
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #f0f0f0; 
-    text-decoration: none; 
-  }
-.baic-navbar-nav{
-    color:#4bbd7f;
+    color: #f0f0f0;
+    text-decoration: none;
 }
 
-
+.baic-navbar-nav {
+    color: #4bbd7f;
+}

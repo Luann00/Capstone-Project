@@ -11,7 +11,7 @@ const LoginForm = () => {
     alert("Benutzername: " + benutzername);
     alert("Passwort: " + passwort);
   };
-  
+
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -23,36 +23,36 @@ const LoginForm = () => {
     <div className="page">
       <header className="App-header">
         <img src={logo} alt="Your Logo" className="logo" />
-        
+
       </header>
 
-    <div className="cover">
-      <h1 className="title">Willkommen</h1>
-      <input
-        type="text"
-        placeholder="Benutzername"
-        onChange={(e) => setBenutzername(e.target.value)}
-        onKeyDown={handleKeyPress}
-      />
-      <input
-        type="password"
-        placeholder="Passwort"
-        onChange={(e) => setPasswort(e.target.value)}
-        onKeyDown={handleKeyPress}
+      <div className="cover">
+        <h1 className="title">Willkommen</h1>
+        <input
+          type="text"
+          placeholder="Benutzername"
+          onChange={(e) => setBenutzername(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <input
+          type="password"
+          placeholder="Passwort"
+          onChange={(e) => setPasswort(e.target.value)}
+          onKeyDown={handleKeyPress}
 
-      />
-      
-       
-      
-      <div className="login-btn" onClick={handleAnmelden}>
-        Melde an
+        />
+
+
+
+        <div className="login-btn" onClick={handleAnmelden}>
+          Melde an
+        </div>
       </div>
-    </div>
-   
-   <footer>
-    <Footer/>
-    </footer> 
-    
+
+      <footer>
+        <Footer />
+      </footer>
+
     </div>
   );
 };

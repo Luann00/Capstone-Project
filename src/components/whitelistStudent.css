@@ -2,12 +2,12 @@
   box-sizing: border-box;
   margin-bottom: 0px;
   padding: 0px;
-  font-family: 'Montserrat',sans-serif;
+  font-family: 'Montserrat', sans-serif;
 
 }
 
 
-  
+
 
 
 
@@ -20,7 +20,7 @@
   min-height: 100vh; /* Mindesthöhe auf volle Bildschirmhöhe setzen 
 }
 */
-.list-page{
+.list-page {
   top: 0;
   left: 0;
   min-height: 100vh;
@@ -29,51 +29,55 @@
   align-items: center;
   background-color: #3f3c50;
 
-} 
+}
 
-.whitelist-title{
+.whitelist-title {
   color: #fff;
 }
 
 
 .tabelle-wrapper {
   width: 80%;
-  box-shadow:0 0.188em 1.550em rgb(156, 156, 156);
-  overflow: auto; /*runde ecken Tabelle */
+  box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+  overflow: auto;
+  /*runde ecken Tabelle */
   border-radius: 10px;
   white-space: nowrap;
   margin: 50px;
   display: flex;
   flex-direction: column;
- 
+
 }
 
 .tabelle {
   border-collapse: collapse;
-  
+
 }
 
 .tabelle thead {
   background-color: #4bbd7f;
   color: #fff;
   border: transparent;
-  height:3.5rem;
+  height: 3.5rem;
 }
 
 
-.cells,  .rowCellMatrikelnummer, .rowCellJahr, .spalte {
+.cells,
+.rowCellMatrikelnummer,
+.rowCellJahr,
+.spalte {
   border: 1px solid #ccc;
   text-align: center;
   padding: 0.8rem;
   font-size: 16px;
-  height:3rem;
+  height: 3rem;
 
 }
 
 
 .tabelle tbody td {
   background-color: #f6f6f6;
-  height:3rem;
+  height: 3rem;
   border: 1px solid #ccc;
   text-align: center;
   padding: 0.8rem;
@@ -102,7 +106,7 @@
 .addButton {
   margin-top: 10px;
   padding: 10px;
-  color: #4caf50; 
+  color: #4caf50;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -122,27 +126,27 @@
 }
 
 .cellTextInput {
-  width: 100%; 
-  padding: 8px; 
-  font-size: 14px; 
-  border: 1px solid #ccc; 
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  text-align:center;
+  text-align: center;
 }
 
 
-#cells1{
-  text-align:center;
- 
+#cells1 {
+  text-align: center;
+
 }
 
-.cells{
-  text-align:center;
- 
+.cells {
+  text-align: center;
+
 }
 
-.spalte{
-  text-align:center;
+.spalte {
+  text-align: center;
 }
 
 
@@ -154,16 +158,17 @@
   .table {
     width: 100%;
   }
-  .whitelist-container{
+
+  .whitelist-container {
     width: 100%;
   }
 
-  .rowCell1{
-    width:50%;
+  .rowCell1 {
+    width: 50%;
   }
 
-  .rowCell2{
-    width:50%;
+  .rowCell2 {
+    width: 50%;
   }
 
 
@@ -172,21 +177,22 @@
 
 
 
-.whitelist-title{
+.whitelist-title {
   font-size: 30px;
   margin-bottom: 50px;
   margin-top: 50px;
   text-transform: uppercase;
   font-weight: 800;
-  font-family: Calibri,sans-serif;
-  
+  font-family: Calibri, sans-serif;
+
 }
 
-.suchleisteMatrikelnummer{
-  width:33%
+.suchleisteMatrikelnummer {
+  width: 33%
 }
-.logo{
+
+.logo {
   height: 60px;
- 
+
 
 }

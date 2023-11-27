@@ -14,12 +14,12 @@ function NavbarAdmin() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link className="nav-link"
-href="#home">Home</Nav.Link>
+                  href="#home">Home</Nav.Link>
                 <Nav.Link className="nav-link" href="#features">Universitäten</Nav.Link>
                 <Nav.Link className="nav-link"
-                href="#pricing">StudentenWhitelist</Nav.Link>
+                  href="#pricing">StudentenWhitelist</Nav.Link>
                 <Nav.Link className="nav-link"
-                href="#pricing">VerwalterWhitelist</Nav.Link>
+                  href="#pricing">VerwalterWhitelist</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

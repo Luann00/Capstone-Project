@@ -1,18 +1,19 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat',sans-serif;
-    
+    font-family: 'Montserrat', sans-serif;
+
 }
+
 @font-face {
     font-family: 'Montserrat';
     src: url(https://fonts.googleapis.com/css?family=Montserrat);
-    
-  }
+
+}
 
 /* --------------------------- MOBILE VERSION ------------------------------ */
 .page {
-    background-color:#3f3c50;
+    background-color: #3f3c50;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -21,19 +22,23 @@
     font-size: 0.5em;
 }
 
-.title{
-    font-weight:bolder;
+.title {
+    font-weight: bolder;
     font-size: 2em;
     text-transform: uppercase;
 }
+
 .logo {
     position: absolute;
-    top: 0px; /* Adjust the top position */
-    left: 0px; /* Adjust the left position */
+    top: 0px;
+    /* Adjust the top position */
+    left: 0px;
+    /* Adjust the left position */
     height: 80px;
     width: auto;
 
-  }
+}
+
 .cover {
     background-color: white;
     width: 75%;
@@ -50,10 +55,10 @@
 
 
 
-.pass-vergessen{
+.pass-vergessen {
     font-size: 1em;
-   
-    
+
+
 }
 
 
@@ -81,8 +86,8 @@ input {
     background-color: rgb(229, 226, 226);
     width: 80%;
     border-radius: 0.25em;
-    text-align:left;
-    
+    text-align: left;
+
     padding: 2em;
     font-size: 0.75em;
 }
@@ -105,12 +110,14 @@ input:focus {
     cursor: pointer;
 }
 
-.login-btn:hover { transform: scale(1.25);}
+.login-btn:hover {
+    transform: scale(1.25);
+}
 
 .text {
     position: relative;
     bottom: 0.5%;
-    text-transform:lowercase;
+    text-transform: lowercase;
 }
 
 .hide {
@@ -140,8 +147,9 @@ input:focus {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    
+
 }
+
 footer {
     position: fixed;
     left: 0;
@@ -150,15 +158,17 @@ footer {
     color: white;
     text-align: right;
     padding-right: 30px;
-  }
-  footer a{
-    color:#18d777;
+}
 
-  }
-  footer a:hover{
+footer a {
+    color: #18d777;
+
+}
+
+footer a:hover {
     color: aliceblue;
-  }
-  
+}
+
 
 /* -------------------- TABLET OPTIMIZATION -------------------- */
 @media only screen and (min-device-width: 37em) {
