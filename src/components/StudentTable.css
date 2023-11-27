@@ -4,3 +4,23 @@
   padding: 0px;
   font-family: 'Montserrat', sans-serif;
 }
+
+.form-inline {
+  position: relative;
+  display: inline-block;
+}
+
+.icon {
+  position: absolute;
+  right: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

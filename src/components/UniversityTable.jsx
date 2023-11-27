@@ -9,6 +9,12 @@ function Home() {
 
   const [show, setShow] = useState(false);
   const [universities, setUniversities] = useState([]);
+  const [originalUniversities, setoriginalUniversities] = useState([]);
+
+
+
+  const [search, setSearch] = useState("");
+
 
 
   const [sortOrder, setSortOrder] = useState("asc");
@@ -80,6 +86,7 @@ function Home() {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
         setUniversities(data);
+        setoriginalUniversities(data);
       } catch (error) {
         alert('Error fetching data:' + error);
       }
@@ -125,13 +132,24 @@ function Home() {
   };
 
 
+  const handleSearch = (event) => {
+    const searchValue = event.target.value;
+    setSearch(searchValue);
+
+    const updatedTableData = originalUniversities.filter((university) =>
+      university.uniId.toString().startsWith(searchValue)
+    );
+
+    // Update the displayed universities
+    setUniversities(updatedTableData);
+
+  };
+
+
+
 
 
   const addUniversity = async () => {
-    //Update at first the local table and then the database for a smoother experience
-    const updatedUniversities = [...universities, newUniversity];
-    setUniversities(updatedUniversities);
-    handleClose();
 
     try {
       const response = await fetch("http://localhost:8081/university", {
@@ -142,7 +160,11 @@ function Home() {
         body: JSON.stringify(newUniversity),
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        const updatedUniversities = [...universities, newUniversity];
+        setUniversities(updatedUniversities);
+        handleClose();
+      } else {
         console.log("Anderweitiger Fehler..!");
       }
 
@@ -155,10 +177,6 @@ function Home() {
 
   const deleteUniversity = async (uniId) => {
 
-    //Delete student at first from the local table for a smoother user experience
-    const updatedTableData = universities.filter((row) => row.uniId !== uniId);
-    setUniversities(updatedTableData);
-
     if (window.confirm('Are you sure you want to delete this university?')) {
 
       const deleteEndpoint = `http://localhost:8081/university/${uniId}`;
@@ -168,7 +186,10 @@ function Home() {
           method: "DELETE",
         });
 
-        if (!response.ok) {
+        if (response.ok) {
+          const updatedTableData = universities.filter((row) => row.uniId !== uniId);
+          setUniversities(updatedTableData);
+        } else {
           alert("Error deleting data from the database");
         }
       } catch (error) {
@@ -252,7 +273,6 @@ function Home() {
 
 
   return (
-
     <div class="container ">
       <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
         <div class="row ">
@@ -260,8 +280,12 @@ function Home() {
           <div class="col-sm-3 mt-5 mb-4 text-gred">
             <div className="search">
               <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search University" aria-label="Search" />
-
+                <span class="icon">🔍</span>
+                <input class="form-control mr-sm-2"
+                  type="number" min={1}
+                  placeholder="Search University"
+                  aria-label="Search"
+                  onChange={handleSearch} />
               </form>
             </div>
           </div>
