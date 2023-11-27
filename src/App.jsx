@@ -18,9 +18,9 @@ function App() {
  //<LoginForm/>
 
 
-/* <UniversityTable/> */
+<UniversityTable/>
 //<StudentTable/>// 
- <UniCardPage/> 
+ //<UniCardPage/> 
 
 //  <UniCard/>  
 

@@ -25,6 +25,20 @@ function Home() {
       Geschlecht: ""
     });
 
+
+
+    const numberOfPreferences = 0
+
+    //render the preferences column 
+    const renderPreferenceColumns = () => {
+      const preferenceColumns = [];
+      for (let i = 1; i <= numberOfPreferences; i++) {
+        preferenceColumns.push(<th key={`preference${i}`}>Präferenz {i}</th>);
+      }
+      return preferenceColumns;
+    };
+
+
     //The new values for a new student get saved here initially
     const inputFields = [
       { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer' },
@@ -253,6 +267,7 @@ function Home() {
                             <th>Geschlecht </th>
                             <th>Durchschnitt</th>
                             <th>E-Mail</th>
+                            {renderPreferenceColumns()}
                             <th>Zugeteilte Universität</th>
                             <th>Edit</th>
 

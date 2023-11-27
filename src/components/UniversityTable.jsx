@@ -11,7 +11,11 @@ function Home() {
     const [universities, setUniversities] = useState([]);
     
 
-    const [sortOrder, setSortOrder] = useState("asc"); // "asc" or "desc"
+    const [sortOrder, setSortOrder] = useState("asc"); 
+    const [uniIdSortOrder, setUniIdSortOrder] = useState("asc");
+    const [countrySortOrder, setCountrySortOrder] = useState("asc");
+
+
 
     //For editing students
     const [selectedUniversity, setSelectedUniversity] = useState(null);
@@ -124,8 +128,6 @@ function Home() {
 
 
   const addUniversity = async () => {
-
-
     //Update at first the local table and then the database for a smoother experience
     const updatedUniversities = [...universities, newUniversity];
     setUniversities(updatedUniversities);
@@ -176,21 +178,32 @@ function Home() {
   };
 
 
-  //For sort function
+  //Sort function
   const handleSort = (column) => {
-    const newOrder = sortOrder === "asc" ? "desc" : "asc";
-    setSortOrder(newOrder);
+    let sortOrderForColumn, sortFunction;
   
-    const sortedUniversities = [...universities].sort((a, b) => {
-      if (newOrder === "asc") {
-        return a[column] - b[column];
-      } else {
-        return b[column] - a[column];
-      }
-    });
+    if (column === "firstPref") {
+      sortOrderForColumn = sortOrder === "asc" ? "desc" : "asc";
+      setSortOrder(sortOrderForColumn);
+      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+    } else if (column === "uniId") {
+      sortOrderForColumn = uniIdSortOrder === "asc" ? "desc" : "asc";
+      setUniIdSortOrder(sortOrderForColumn);
+      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+    } else {
+      sortOrderForColumn = countrySortOrder === "asc" ? "desc" : "asc";
+      setCountrySortOrder(sortOrderForColumn);
+      sortFunction = (a, b) => {
+        const valueA = a[column].toLowerCase();
+        const valueB = b[column].toLowerCase();
+        return sortOrderForColumn === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+      };
+    }
   
+    const sortedUniversities = [...universities].sort(sortFunction);
     setUniversities(sortedUniversities);
   };
+  
 
 
   const deleteAllUniversities = () => {
@@ -267,10 +280,22 @@ function Home() {
                  <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>Uni-ID</th>
-                            <th>Name</th>
-                            <th>Country</th>
-                            <th>City</th>
+                          <th onClick={() => handleSort("uniId")}>
+                            Uni-ID
+                            <a href="#" className="sort-icon" data-toggle="tooltip">
+                                {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
+                                {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                              </a>
+                          </th>   
+                          <th>Name</th>
+                          <th onClick={() => handleSort("country")}>
+                            Country
+                            <a href="#" className="sort-icon" data-toggle="tooltip">
+                                {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
+                                {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                              </a>
+                          </th>                            
+                          <th>City</th>
                             <th>Slots </th>
                             <th onClick={() => handleSort("firstPref")}>
                               Number of First Preferences
@@ -285,14 +310,14 @@ function Home() {
                     <tbody>
                         
                     {universities.map((row) => (
-              <tr key={row.id}>
-                    <td>{row.uniId}</td>
-                    <td>{row.name}</td>
-                    <td>{row.country}</td>
-                    <td>{row.city}</td>
-                    <td>{row.slots}</td>
-                    <td>{row.firstPref}</td>                    
-                    <td>                   
+                    <tr key={row.id}>
+                      <td>{row.uniId}</td>
+                      <td>{row.name}</td>
+                      <td>{row.country}</td>
+                      <td>{row.city}</td>
+                      <td>{row.slots}</td>
+                      <td>{row.firstPref}</td>                    
+                      <td>                   
                     <a
                     href="#"
                     className="edit"
