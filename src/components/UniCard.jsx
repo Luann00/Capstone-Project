@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
+import './UniCard.css';
 
 const UniversityCard = ({ university, onCardUpdate }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref || 0);
+  const[selectedUniversity,setSelectedUniversity] = useState(null);
+
+  const [updatedFirstPref, setUpdatedFirstPref] = useState(0);
 
 
   const handlePrioritySelect = async (uniId,priority) => {
@@ -12,8 +15,15 @@ const UniversityCard = ({ university, onCardUpdate }) => {
     
     
       try {
-        const response = await fetch(`http://localhost:8081/university/${university.uniId}`);
+        const response = await fetch(`http://localhost:8081/university/${uniId}`,{
+          mode: 'no-cors'
+        });
+        if (!response.ok) {
+          throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
+        }
         const universityData = await response.json();
+
+        console.log(universityData.firstPref);
          updatedValue = universityData.firstPref;
 
          if (priority === '1st Priority') {
@@ -24,8 +34,10 @@ const UniversityCard = ({ university, onCardUpdate }) => {
       
 
       
-        await fetch(`http://localhost:8081/university/${university.uniId}`, {
+        await fetch(`http://localhost:8081/university/${uniId}`, {
+          mode:'no-cors',
           method: 'PUT',
+          
           headers: {
             'Content-Type': 'application/json',
           },
@@ -50,12 +62,15 @@ const UniversityCard = ({ university, onCardUpdate }) => {
   };
   const dropPriority = async () => {
     setSelectedPriority('');
-    await handlePrioritySelect(university.uniId, ''); // Reset the priority
+    if (selectedPriority === '1st Priority') {
+      await handlePrioritySelect(university.uniId, 'Drop Priority');
+    } 
+    
   };
 
   return (
-    <Card key={university.uniId} style={{ width: '18rem' }}>
-      <Card.Body>
+    <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
+      <Card.Body className='card.body'>
         <Card.Title>{university.name}</Card.Title>
         <Card.Text>
               

@@ -1,20 +1,25 @@
 import React from 'react'
 import UniCard from '../components/UniCard';
-import NavbarStudent from '../components/NavBarStudent';
+import NavBarStudent from '../components/NavBarStudent';
 import './UniCardPage.css';
 
 const UniCardPage = () => {
   return (
-   <> <div className='navbar'>
-    <NavbarStudent/>
-   </div>
-   
+   <div className='card-page'>
+ 
+ <div className='navbar'>  <NavBarStudent/>
+</div>
 
    
+
+   <div className='card-container'>
    <UniCard/>
-  
+   </div>
    
-   </>
+  
+   </div> 
+   
+
    
   )
 }

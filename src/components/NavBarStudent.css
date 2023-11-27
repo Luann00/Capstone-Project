@@ -1,13 +1,47 @@
-.nav{
-background-color: (rgb(69, 122, 147)) ; 
+
+.nav {
+    background-color: rgb(69, 122, 147);/* Background color for the navbar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding a shadow */
+    margin-bottom: 50px;
+    width: 100%;
+    display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  }
 
 
-}
-.navbar-dark .navbar-nav .nav-link {
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-left: 20px;
-    color:#4bbd7f;
-    font-weight:500;
-   
-}
+
+  
+  
+
+  .nav .signout {
+    
+    background-color: #77bb12;
+    border: none;
+    margin-right: 50px;
+
+  }
+  
+  /* Optional: Styling for links and dropdown */
+  .nav-link
+   {
+    font-weight: bold;
+    color: #fff;
+  }
+  .nav-link:hover{
+    color:#77bb12;
+  }
+  
+  /* Styling for the dropdown */
+  .dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+
+  
+  
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  

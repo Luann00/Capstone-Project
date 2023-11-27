@@ -1,0 +1,54 @@
+
+
+.universityCard {
+    width: 25rem;
+    margin: 10px; /* Adjust margin as needed */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  .universityCard .card-body {
+    padding: 1.25rem; /* Adjust padding as needed */
+  }
+  
+  .universityCard .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .universityCard .card-text {
+    color: #555;
+  }
+  
+  .universityCard .list-group-item {
+    background-color: #f9f9f9; /* Background color for list items */
+    border: none; /* Remove borders from list items */
+  }
+  
+  /* Styling for the dropdown */
+  .universityCard .dropdown {
+    display: inline-block;
+    margin: 0 10px; /* Adjust margin as needed */
+  }
+  
+  .universityCard .dropdown-toggle {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  .universityCard .dropdown-toggle:hover {
+    background-color: #0056b3;
+  }
+  .card-container {
+    display: grid;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); 
+    row-gap: 80px; 
+    column-gap: 140px;
+ 
+  }
+  

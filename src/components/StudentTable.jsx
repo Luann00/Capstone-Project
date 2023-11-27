@@ -102,14 +102,8 @@ function Home() {
     try {
 
       const response = await fetch(
-        `http://localhost:8081/student/${selectedStudent.matrikelnummer}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(selectedStudent),
-        }
+        `http://localhost:8081/student/${selectedStudent.matrikelnummer}`
+        
       );
 
 

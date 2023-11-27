@@ -1,16 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Button,Container,Navbar,Nav,NavDropdown } from 'react-bootstrap';
 import './NavBarStudent.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function BasicExample() {
+function NavBarStudent() {
   return (
     <div className='nav'>
-      <>
-    <Navbar expand= "lg">
+      <Navbar expand= "lg" className="navbar-wrapper">
       <Container>
         <Navbar.Brand href="#home"></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,14 +26,16 @@ function BasicExample() {
         
           </Nav>
         </Navbar.Collapse>
-        <Button>Sign out
-        </Button>
+
       </Container>
+      
     </Navbar>
-    </>
+    <Button className="signout">Sign out
+        </Button>
+        
     </div>
   );
 
 }
 
-export default BasicExample;
+export default NavBarStudent;
