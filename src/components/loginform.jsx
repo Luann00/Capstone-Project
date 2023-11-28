@@ -8,9 +8,10 @@ const LoginForm = () => {
   const [passwort, setPasswort] = useState("");
 
   const handleAnmelden = () => {
-    alert("Benutzername: " + benutzername);
-    alert("Passwort: " + passwort);
+    onLogin({ benutzername, passwort });
   };
+
+
 
 
   const handleKeyPress = (e) => {
