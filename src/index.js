@@ -1,19 +1,37 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UniversityTable from './components/UniversityTable';
+import StudentTable from './components/StudentTable';
+import NavbarAdmin from './components/NavbarAdmin';
+import LoginForm from "./components/loginform";
+import { WhitelistStudent } from "./components/whitelistStudent";
+import { WhitelistVerwalter } from "./components/whitelistVerwalter";
+import Home from "./components/Home";
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+
+ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Router>
+      <NavbarAdmin />
+      <Routes>
+        <Route exact path="/" element={<App />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/UniversityTable" element={<UniversityTable />} />
+        <Route path="/StudentTable" element={<StudentTable />} />
+        <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
+        <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
+
+
+      </Routes>
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

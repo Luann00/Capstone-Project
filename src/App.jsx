@@ -14,12 +14,8 @@ import UniCardPage from "./features/UniCardPage";
 function App() {
   return (
 
-
-    //<LoginForm/>
-
-
     //<UniversityTable />
-    <StudentTable/>// 
+    <LoginForm/>
     //<UniCardPage/> 
 
     //  <UniCard/>  
@@ -35,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
