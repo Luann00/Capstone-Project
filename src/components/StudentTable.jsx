@@ -9,10 +9,20 @@ function Home() {
 
   const [show, setShow] = useState(false);
   const [students, setStudents] = useState([]);
+  const [originalStudents, setOriginalStudents] = useState([]);
+
 
 
   //For editing students
   const [selectedStudent, setSelectedStudent] = useState(null);
+
+
+  const [search, setSearch] = useState("");
+
+
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [gradeSortOrder, setGradeSortOrder] = useState("asc");
+
 
 
   const [newStudent, setNewStudent] = useState({
@@ -27,7 +37,7 @@ function Home() {
 
 
 
-  const numberOfPreferences = 0
+  const numberOfPreferences = 3
 
   //render the preferences column 
   const renderPreferenceColumns = () => {
@@ -49,6 +59,20 @@ function Home() {
     { name: 'durchschnitt', type: 'number', step: "0.1", min: '1', max: '4', placeholder: 'Enter durchschnitt' },
     { name: 'email', type: 'email', placeholder: 'Enter e-mail' },
   ];
+
+
+  const handleSearch = (event) => {
+    const searchValue = event.target.value;
+    setSearch(searchValue);
+
+    const updatedTableData = originalStudents.filter((student) =>
+    student.matrikelnummer.toString().startsWith(searchValue)
+    );
+
+    // Update the displayed universities
+    setStudents(updatedTableData);
+
+  };
 
 
 
@@ -92,6 +116,7 @@ function Home() {
         const response = await fetch('http://localhost:8081/student');
         const data = await response.json();
         setStudents(data);
+        setOriginalStudents(data)
       } catch (error) {
         alert('Error fetching data:' + error);
       }
@@ -210,6 +235,26 @@ function Home() {
     }
   };
 
+
+  //Sort function
+  const handleSort = (column) => {
+    let sortOrderForColumn, sortFunction;
+
+    if (column === "Matrikelnummer") {
+      sortOrderForColumn = sortOrder === "asc" ? "desc" : "asc";
+      setSortOrder(sortOrderForColumn);
+      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+    } else if (column === "Durchschnitt") {
+      sortOrderForColumn = gradeSortOrder === "asc" ? "desc" : "asc";
+      setGradeSortOrder(sortOrderForColumn);
+      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+    } else {
+    }
+
+    const sortedStudents = [...students].sort(sortFunction);
+    setStudents(sortedStudents);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedStudent) {
@@ -239,13 +284,17 @@ function Home() {
 
           <div class="col-sm-3 mt-5 mb-4 text-gred">
             <div className="search">
-              <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Student" aria-label="Search" />
-
+            <form class="form-inline">
+                <span class="icon">🔍</span>
+                <input class="form-control mr-sm-2"
+                  type="number" min={1}
+                  placeholder="Search Student"
+                  aria-label="Search"
+                  onChange={handleSearch} />
               </form>
             </div>
           </div>
-          <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Student Details</b></h2></div>
+          <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Students</b></h2></div>
           <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
             <Button variant="primary" onClick={handleShow}>
               Add New Student
@@ -260,14 +309,19 @@ function Home() {
             <table class="table table-striped table-hover table-bordered">
               <thead>
                 <tr>
-                  <th>Matrikelnummer</th>
+                <th onClick={() => handleSort("Matrikelnummer")}>
+                    Matrikelnummer
+                    <a href="#" className="sort-icon" data-toggle="tooltip">
+                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
+                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                    </a>
+                  </th>
                   <th>Vorname </th>
                   <th>Nachname</th>
                   <th>Titel </th>
                   <th>Geschlecht </th>
                   <th>Durchschnitt</th>
                   <th>E-Mail</th>
-                  {renderPreferenceColumns()}
                   <th>Zugeteilte Universität</th>
                   <th>Edit</th>
 
@@ -343,6 +397,7 @@ function Home() {
                       name={field.name}
                       value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
                       onChange={handleChange}
+
                       required
                     />
                   </div>

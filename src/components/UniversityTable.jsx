@@ -38,7 +38,7 @@ function Home() {
 
   //The new values for a new student get saved here initially
   const inputFields = [
-    { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID' },
+    { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false },
     { name: 'name', type: 'text', placeholder: 'Enter name' },
     { name: 'country', type: 'text', placeholder: 'Enter Country' },
     { name: 'city', type: 'text', placeholder: 'Enter City' },
@@ -332,7 +332,7 @@ function Home() {
                 </tr>
               </thead>
               <tbody>
-
+                {/*Show university data in the table*/}
                 {universities.map((row) => (
                   <tr key={row.id}>
                     <td>{row.uniId}</td>
@@ -396,6 +396,7 @@ function Home() {
                       name={field.name}
                       value={selectedUniversity ? selectedUniversity[field.name] : newUniversity[field.name]}
                       onChange={handleChange}
+                      disabled={field.disabled}
                       required
                     />
                   </div>
