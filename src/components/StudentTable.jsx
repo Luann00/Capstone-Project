@@ -51,7 +51,7 @@ function Home() {
 
   //The new values for a new student get saved here initially
   const inputFields = [
-    { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer' },
+    { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedStudent ? true : false },
     { name: 'vorname', type: 'text', placeholder: 'Enter Vorname' },
     { name: 'nachname', type: 'text', placeholder: 'Enter Nachname' },
     { name: 'titel', type: 'text', placeholder: 'Enter title' },
@@ -66,7 +66,7 @@ function Home() {
     setSearch(searchValue);
 
     const updatedTableData = originalStudents.filter((student) =>
-    student.matrikelnummer.toString().startsWith(searchValue)
+      student.matrikelnummer.toString().startsWith(searchValue)
     );
 
     // Update the displayed universities
@@ -240,15 +240,14 @@ function Home() {
   const handleSort = (column) => {
     let sortOrderForColumn, sortFunction;
 
-    if (column === "Matrikelnummer") {
+    if (column === "matrikelnummer") {
       sortOrderForColumn = sortOrder === "asc" ? "desc" : "asc";
       setSortOrder(sortOrderForColumn);
       sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
-    } else if (column === "Durchschnitt") {
+    } else if (column === "durchschnitt") {
       sortOrderForColumn = gradeSortOrder === "asc" ? "desc" : "asc";
       setGradeSortOrder(sortOrderForColumn);
       sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
-    } else {
     }
 
     const sortedStudents = [...students].sort(sortFunction);
@@ -284,7 +283,7 @@ function Home() {
 
           <div class="col-sm-3 mt-5 mb-4 text-gred">
             <div className="search">
-            <form class="form-inline">
+              <form class="form-inline">
                 <span class="icon">🔍</span>
                 <input class="form-control mr-sm-2"
                   type="number" min={1}
@@ -309,7 +308,7 @@ function Home() {
             <table class="table table-striped table-hover table-bordered">
               <thead>
                 <tr>
-                <th onClick={() => handleSort("Matrikelnummer")}>
+                  <th onClick={() => handleSort("matrikelnummer")}>
                     Matrikelnummer
                     <a href="#" className="sort-icon" data-toggle="tooltip">
                       {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
@@ -320,7 +319,13 @@ function Home() {
                   <th>Nachname</th>
                   <th>Titel </th>
                   <th>Geschlecht </th>
-                  <th>Durchschnitt</th>
+                  <th onClick={() => handleSort("durchschnitt")}>
+                    Durchschnitt
+                    <a href="#" className="sort-icon" data-toggle="tooltip">
+                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
+                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                    </a>
+                  </th>                  
                   <th>E-Mail</th>
                   <th>Zugeteilte Universität</th>
                   <th>Edit</th>
@@ -397,6 +402,8 @@ function Home() {
                       name={field.name}
                       value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
                       onChange={handleChange}
+                      disabled={field.disabled}
+
 
                       required
                     />
