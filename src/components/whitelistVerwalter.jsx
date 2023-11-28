@@ -147,7 +147,6 @@ export const WhitelistVerwalter = () => {
   return (
     <div className="list-page">
       <header className="App-header">
-        <div className="Navbar"> <NavbarAdmin /> </div>
         <img src={logo} alt="Your Logo" className="logo" />
 
 
