@@ -18,17 +18,7 @@ import Home from "./components/Home";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <NavbarAdmin />
-      <Routes>
-        <Route exact path="/" element={<App />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/UniversityTable" element={<UniversityTable />} />
-        <Route path="/StudentTable" element={<StudentTable />} />
-        <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
-        <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
-
-
-      </Routes>
+      <App />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

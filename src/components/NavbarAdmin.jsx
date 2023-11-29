@@ -2,6 +2,8 @@ import React from "react";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import "./NavbarAdmin.css";
 import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -17,21 +19,11 @@ function NavbarAdmin() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <LinkContainer to="/Home">
-                  <Nav.Link>Home</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/StudentTable">
-                  <Nav.Link>Students</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/UniversityTable">
-                  <Nav.Link>Universities</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/WhitelistStudent">
-                  <Nav.Link>WhitelistStudent</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/WhitelistVerwalter">
-                  <Nav.Link>WhitelistVerwalter</Nav.Link>
-                </LinkContainer>
+              <Link to="/Home" className="nav-link">Home</Link>
+                <Link to="/StudentTable" className="nav-link">Students</Link>
+                <Link to="/UniversityTable" className="nav-link">Universities</Link>
+                <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>
+                <Link to="/WhitelistVerwalter" className="nav-link">WhitelistVerwalter</Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
