@@ -1,110 +1,96 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
+import { BsPinMapFill,BsFillPeopleFill } from "react-icons/bs";
+import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 
-const UniversityCard = ({ university, onCardUpdate }) => {
+const UniversityCard = ({ university }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [selectedUniversity, setSelectedUniversity] = useState(null);
-
   const [updatedFirstPref, setUpdatedFirstPref] = useState(0);
+ 
+  const handlePrioritySelect = async (priority) => {
+    if (priority === '1st Priority') {
+      setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
+      setSelectedPriority(priority);
+      await updateCurrentPrioCount(university.uniId);
+    } else if (priority === 'Drop Priority') {
+      if (updatedFirstPref === 0) {
+        setUpdatedFirstPref(0);
+        setSelectedPriority('');
+      } else {
+        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+        setSelectedPriority('');
+        await updateCurrentPrioCount(university.uniId);
+      }
+    } else {
+      setSelectedPriority(priority);
+    }
+  };
+      
 
-
-  const handlePrioritySelect = async (uniId, priority) => {
-    let updatedValue;
-
-
-
+  
+  const updateCurrentPrioCount= async(uniId) => {
     try {
-      const response = await fetch(`http://localhost:8081/university/${uniId}`, {
-        mode: 'no-cors'
-      });
-      if (!response.ok) {
-        throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
-      }
+      // Fetch the current university data
+      const updateEndpoint = `http://localhost:8081/university/${uniId}`;
+      const response = await fetch(updateEndpoint);
       const universityData = await response.json();
-
-      console.log(universityData.firstPref);
-      updatedValue = universityData.firstPref;
-
-      if (priority === '1st Priority') {
-        updatedValue += 1;
-      } else if (priority === 'Drop Priority') {
-        updatedValue = updatedValue > 0 ? updatedValue - 1 : 0;
-      }
-
-
-
-      await fetch(`http://localhost:8081/university/${uniId}`, {
-        mode: 'no-cors',
+      const updatedValue = universityData.firstPref;
+  
+      // Update the local state for this card
+      setUpdatedFirstPref(updatedValue);
+  
+      // Update the API with the new firstPref value
+      await fetch(updateEndpoint, {
         method: 'PUT',
-
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ firstPref: updatedValue }),
       });
-
-      // Update the local state for this card
-      setUpdatedFirstPref((prevUpdatedFirstPref) => ({
-        ...prevUpdatedFirstPref,
-        [uniId]: updatedValue,
-      }));
-
-
-
-      onCardUpdate(university.uniId, updatedValue);
     } catch (error) {
-      console.error('Error updating database:', error);
-
+      console.error('Error updating current priority count:', error);
+      // Handle error scenarios
     }
 
-    setSelectedPriority(priority);
-  };
-  const dropPriority = async () => {
-    setSelectedPriority('');
-    if (selectedPriority === '1st Priority') {
-      await handlePrioritySelect(university.uniId, 'Drop Priority');
-    }
 
-  };
+  }
+  
+  
 
   return (
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
-        <Card.Title>{university.name}</Card.Title>
+        <Card.Title> <a href="#">{university.name}</a></Card.Title>
         <Card.Text>
 
-          Quick info about this University
+          <span><BsPinMapFill /></span>
+          <span> {university.country},{university.city}</span>
         </Card.Text>
-        <Card.Link href="#">View more</Card.Link>
 
         <ListGroup variant="flush">
-          {/* List items */}
+          <ListGroup.Item> <span><MdChairAlt /></span> Places available: {university.slots}</ListGroup.Item>
           <ListGroup.Item>
-            Country: {university.country}
-          </ListGroup.Item>
-          <ListGroup.Item>City: {university.city}</ListGroup.Item>
-          <ListGroup.Item>Places available: {university.slots}</ListGroup.Item>
-          <ListGroup.Item>
+            <span><BsFillPeopleFill /></span>
             Current first priority: {updatedFirstPref}
           </ListGroup.Item>
         </ListGroup>
 
-        <Dropdown className="d-inline mx-2">
+        <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
             {selectedPriority || 'Add to your preferences'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => handlePrioritySelect(university.uniId, '1st Priority')}>
+            <Dropdown.Item onClick={() => handlePrioritySelect( '1st Priority')}>
               1st Priority
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handlePrioritySelect(university.uniId, '2nd Priority')}>
+            <Dropdown.Item onClick={() => handlePrioritySelect('2nd Priority')}>
               2nd Priority
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handlePrioritySelect(university.uniId, '3rd Priority')}>
+            <Dropdown.Item onClick={() => handlePrioritySelect( '3rd Priority')}>
               3rd Priority
             </Dropdown.Item>
-            <Dropdown.Item onClick={dropPriority}>
+            <Dropdown.Item onClick=  {() => handlePrioritySelect( 'Drop Priority')} >
               Drop Priority
             </Dropdown.Item>
 
@@ -132,7 +118,6 @@ const UniCard = () => {
 
     fetchUniversities();
 
-    // Poll for updates every 10 seconds (adjust the interval as needed)
     const interval = setInterval(fetchUniversities, 10000);
 
     // Clean up the interval to prevent memory leaks
@@ -140,21 +125,11 @@ const UniCard = () => {
   }, []);
 
 
-
-
-  const handleCardUpdate = (uniId, updatedValue) => {
-    // Update the main state with the updated value for the specific card
-    setUniversities((prevState) =>
-      prevState.map((university) =>
-        university.uniId === uniId ? { ...university, firstPref: updatedValue } : university
-      )
-    );
-  };
-
+ 
   return (
     <div className='card-container'>
       {universities.map((university) => (
-        <UniversityCard key={university.uniId} university={university} onCardUpdate={handleCardUpdate} />
+        <UniversityCard key={university.uniId} university={university}  />
       ))}
     </div>
   );
