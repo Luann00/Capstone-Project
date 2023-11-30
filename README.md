@@ -20,21 +20,6 @@ Ansonsten bekommt man bei der App Fetch Errors und man kann keine CRUD Operation
 Im Wiki haben wir die verschiedensten Sachen dokumentiert und verweisen bei Fragen zuerst auf das Wiki. Im Wiki wurden Sachen dokumentiert wie Änderungen am Backlog(die sich in der Mitte des Sprints ergeben haben) oder aber auch allgemeine Probleme während der Sprints und der daraus resultierenden Folgen.
 
 
-
-# Über uns Website #
-
-<!--Logo--->
-<div align="center">
-    <img class="logo" src="LogoAQNeu.png" alt="Logo">
-  </a>
-  <h3 align="center">TEAM AGILE QUADS</h3>
-</div>
-
-
-Dieses Projekt wurde im Rahmen des Vorkurses des Capstone Projekts an der Universität erstellt. Ziel des Projekts war es, eine einfache Team-Website zu erstellen, auf der sich die Teammitglieder vorstellen.
-Dieses Projekt diente als kleines "Warm-Up", bevor im November das offizielle Projekt mit dem Praxispartner starten wird.
-
-
 <br>
 <br>
 
