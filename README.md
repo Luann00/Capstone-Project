@@ -24,7 +24,7 @@ Im Wiki haben wir die verschiedensten Sachen dokumentiert und verweisen bei Frag
 <br>
 
 ### Benutzte Technologien
-[![My Skills](https://skillicons.dev/icons?i=html,css,js,react,java)](https://skillicons.dev)<br>
+[![My Skills](https://skillicons.dev/icons?i=html,css,js,react,java,spring)](https://skillicons.dev)<br>
 <br>
 Als CSS Framework haben wir uns für React-Bootstrap entschieden, da dieses Framework über eine sehr umfangreiche Dokumentation verfügt und so optimal für ansprechende Website Designs ist.
 
