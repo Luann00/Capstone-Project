@@ -16,9 +16,8 @@ import Home from "./components/Home";
 
 
 
-
 function App() {
-
+  
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -28,30 +27,32 @@ function App() {
   };
 
   return (
-    <div>
-      {isAdmin && <NavbarAdmin />} {/* Render NavbarAdmin only if isAdmin is true */}
-      <Routes>
-        {isLoggedIn ? (
-          isAdmin ? (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/Home" element={<Home />} />
-              <Route path="/UniversityTable" element={<UniversityTable />} />
-              <Route path="/StudentTable" element={<WhitelistVerwalter />} />
-              <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<UniCard />} />
-            </>
-          )
-        ) : (
-          <>
-            <Route path="/" element={<LoginForm />} />
-          </>
-        )}
-      </Routes>
-    </div>
+    // <UniversityTable/>
+    <UniCardPage/>
+    // <div>
+    //   {isAdmin && <NavbarAdmin />} {/* Render NavbarAdmin only if isAdmin is true */}
+    //   <Routes>
+    //     {isLoggedIn ? (
+    //       isAdmin ? (
+    //         <>
+    //           <Route path="/" element={<Home />} />
+    //           <Route path="/Home" element={<Home />} />
+    //           <Route path="/UniversityTable" element={<UniversityTable />} />
+    //           <Route path="/StudentTable" element={<WhitelistVerwalter />} />
+    //           <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
+    //         </>
+    //       ) : (
+    //         <>
+    //           <Route path="/" element={<UniCardPage />} />
+    //         </>
+    //       )
+    //     ) : (
+    //       <>
+    //         <Route path="/" element={<LoginForm />} />
+    //       </>
+    //     )}
+    //   </Routes>
+  //   </div>
   );
 }
 

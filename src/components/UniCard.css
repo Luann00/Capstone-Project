@@ -1,14 +1,16 @@
 .universityCard {
   width: 25rem;
   margin: 10px;
-  
+
   border: 1px solid #ccc;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- 
+
+
 }
+
 .universityCard:has(:hover, :focus) {
-  background-color: rgba(131, 175, 35,0.1);
+  background-color: rgba(131, 175, 35, 0.1);
 
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
@@ -16,17 +18,30 @@
 
 .universityCard .card-body {
   padding: 1.25rem;
- 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* This creates space between items */
+
+
 }
 
 .universityCard .card-title {
- 
+
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
-  
+
 }
-.universityCard .card-title a{
+
+.universityCard .card-title:hover {
+  transform: scale(1.05);
+  /* Enlarge the card title by 5% */
+  transition: transform 0.3s ease-in-out;
+  /* Add a smooth transition effect */
+}
+
+.universityCard .card-title a {
   text-decoration: none;
   color: rgba(69, 122, 147);
 }
@@ -38,21 +53,27 @@
 
 .universityCard .list-group-item {
   border: none;
-  
+
 }
-.universityCard .list-group{
+
+.universityCard .list-group {
   margin-bottom: 30px;
 }
-.universityCard .list-group :has(:hover,:focus){
-  background-color:rgba(131, 175, 35, 0.1) ;
+
+.universityCard .list-group :has(:hover, :focus) {
+  background-color: rgba(131, 175, 35, 0.1);
 }
 
 
 /* Styling for the dropdown */
 .universityCard .dropdown {
 
-  left: 100px;
+  align-self: flex-end;
+  /* Align the dropdown to the end of the flex container */
+  margin-top: auto;
+  /* Push the dropdown to the bottom */
   margin-right: 30px;
+  /* Add margin for spacing */
 
 }
 
@@ -63,8 +84,14 @@
 }
 
 .universityCard .dropdown-toggle:hover {
-  background-color:rgb(96, 129, 27);
+  background-color: rgb(96, 129, 27);
 }
+
+.universityCard .dropdown-menu {
+  position: relative;
+  z-index: 1000;
+}
+
 
 .card-container {
   display: grid;
