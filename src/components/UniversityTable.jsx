@@ -23,7 +23,7 @@ function Home() {
 
 
 
-  //For editing students
+  //For editing universities
   const [selectedUniversity, setSelectedUniversity] = useState(null);
 
 
@@ -36,7 +36,7 @@ function Home() {
     firstPref: "",
   });
 
-  //The new values for a new student get saved here initially
+  //The new values for a new university get saved here initially
   const inputFields = [
     { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false },
     { name: 'name', type: 'text', placeholder: 'Enter name' },
@@ -88,7 +88,7 @@ function Home() {
         setUniversities(data);
         setoriginalUniversities(data);
       } catch (error) {
-        alert('Error fetching data:' + error);
+        console.log('Error fetching data:' + error);
       }
     };
 
@@ -132,6 +132,7 @@ function Home() {
   };
 
 
+  //For the search function 
   const handleSearch = (event) => {
     const searchValue = event.target.value;
     setSearch(searchValue);
@@ -169,7 +170,7 @@ function Home() {
       }
 
     } catch (error) {
-      alert("Fehler beim Senden der Daten" + error);
+      console.log("Fehler beim Senden der Daten" + error);
     }
   };
 
@@ -190,10 +191,10 @@ function Home() {
           const updatedTableData = universities.filter((row) => row.uniId !== uniId);
           setUniversities(updatedTableData);
         } else {
-          alert("Error deleting data from the database");
+          console.log("Error deleting data from the database");
         }
       } catch (error) {
-        alert("Error deleting data", error);
+        console.log("Error deleting data", error);
       }
     }
   };

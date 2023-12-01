@@ -13,7 +13,8 @@
 .icon {
   position: absolute;
   right: 0;
-  font-size: 25px; /* Corrected property */
+  font-size: 25px;
+  /* Corrected property */
 }
 
 input::-webkit-outer-spin-button,

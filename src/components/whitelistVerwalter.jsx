@@ -152,7 +152,7 @@ export const WhitelistVerwalter = () => {
 
       </header>
       <div className="whitelist-container">
-        <div className="whitelist-title"><h1>Whitelist Verwalter</h1></div>
+        <div className="whitelist-title"><h1>Whitelist Admin</h1></div>
         <div className="tabelle-wrapper">
           <table className="tabelle">
             <thead>

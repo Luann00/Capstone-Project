@@ -118,7 +118,7 @@ function Home() {
         setStudents(data);
         setOriginalStudents(data)
       } catch (error) {
-        alert('Error fetching data:' + error);
+        console.log('Error fetching data:' + error);
       }
     };
 
@@ -160,7 +160,6 @@ function Home() {
 
   const addStudent = async () => {
 
-
     //Update at first the local table and then the database for a smoother experience
     const updatedStudents = [...students, newStudent];
     setStudents(updatedStudents);
@@ -180,7 +179,7 @@ function Home() {
       }
 
     } catch (error) {
-      alert("Fehler beim Senden der Daten" + error);
+      console.log("Fehler beim Senden der Daten" + error);
     }
   };
 
@@ -202,10 +201,10 @@ function Home() {
         });
 
         if (!response.ok) {
-          alert("Error deleting data from the database");
+          console.log("Error deleting data from the database");
         }
       } catch (error) {
-        alert("Error deleting data", error);
+        console.log("Error deleting data", error);
       }
     }
   };
@@ -325,7 +324,7 @@ function Home() {
                       {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
                       {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
                     </a>
-                  </th>                  
+                  </th>
                   <th>E-Mail</th>
                   <th>Zugeteilte Universität</th>
                   <th>Edit</th>
@@ -334,7 +333,7 @@ function Home() {
                 </tr>
               </thead>
               <tbody>
-
+                {/*Modal View when clicking on Add Button*/}
                 {students.map((row) => (
                   <tr key={row.id}>
                     <td>{row.matrikelnummer}</td>

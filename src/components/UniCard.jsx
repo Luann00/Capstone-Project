@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Dropdown, ListGroup,Carousel } from 'react-bootstrap';
+import { Card, Dropdown, ListGroup, Carousel } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
@@ -27,12 +27,12 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
   const handlePrioritySelect = async (priority) => {
-   
+
 
 
     if (priority === '1st Priority') {
 
-      
+
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         setFirstPrioritySelected(true);
@@ -108,31 +108,31 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   return (
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
-      <Carousel>
-      <Carousel.Item>
-    
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
+        <Carousel>
+          <Carousel.Item>
 
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
         <Card.Title> <a href="#">{university.name}</a></Card.Title>
         <Card.Text>
 
