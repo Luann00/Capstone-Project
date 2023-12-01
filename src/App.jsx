@@ -17,7 +17,7 @@ import Home from "./components/Home";
 function App() {
 
   const [isLoggedIn, setLoggedIn] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogin = (userType) => {
     setLoggedIn(true);
