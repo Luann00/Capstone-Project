@@ -16,7 +16,6 @@ Ansonsten bekommt man bei der App Fetch Errors und man kann keine CRUD Operation
 <br>
 
 <h2>Dokumentation</h2>
-<br>
 Im Wiki haben wir die verschiedensten Sachen(Meetings, Dailies, Probleme bei der Entwicklung ect.) dokumentiert und verweisen bei Fragen zuerst auf das Wiki. Im Wiki wurden Sachen dokumentiert wie Änderungen am Backlog(die sich in der Mitte des Sprints ergeben haben) oder aber auch allgemeine Probleme während der Sprints und der daraus resultierenden Folgen.
 
 
