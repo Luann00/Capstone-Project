@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Dropdown, ListGroup } from 'react-bootstrap';
+import { Card, Dropdown, ListGroup,Carousel } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 
+
 if (!Object.values) {
-  Object.values = function(obj) {
+  Object.values = function (obj) {
     if (obj !== Object(obj)) {
       throw new TypeError('Object.values called on a non-object');
     }
@@ -19,39 +20,84 @@ if (!Object.values) {
   };
 }
 
-const UniversityCard = ({ university }) => {
+const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [firstPrioritySelected, setFirstPrioritySelected] = useState(false);
 
 
   const handlePrioritySelect = async (priority) => {
+    const currentPriority = priorityState[university.uniId];
+
+
     if (priority === '1st Priority') {
+
+      if (!currentPriority) {
+        const isCurrentFirstPriority = Object.values(priorityState).includes(true);
+
+        if (isCurrentFirstPriority) {
+          const confirmDrop = window.confirm('Do you want to drop your current 1st Priority?');
+
+          if (confirmDrop) {
+            const currentFirstPriority = Object.keys(priorityState).find((key) => priorityState[key]);
+
+            setPriorityState((prevState) => ({
+              ...prevState,
+              [currentFirstPriority]: false,
+              [priority]: true,
+            }));
+
+            setSelectedPriority(priority);
+            await updateCurrentPrioCount(university.uniId);
+          }
+        } else {
+          setPriorityState((prevState) => ({
+            ...prevState,
+            [priority]: true,
+          }));
+
+          setSelectedPriority(priority);
+          await updateCurrentPrioCount(university.uniId);
+        }
+      }
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         setFirstPrioritySelected(true);
         setSelectedPriority(priority);
-        await updateCurrentPrioCount(university.uniId);
 
+        await updateCurrentPrioCount(university.uniId);
       } else {
+
         setSelectedPriority(priority);
+
       }
     } else if (priority === 'Drop Priority') {
       if (updatedFirstPref === 0) {
         setUpdatedFirstPref(0);
         setSelectedPriority('');
-
       } else {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         setSelectedPriority('');
         await updateCurrentPrioCount(university.uniId);
+
       }
       setFirstPrioritySelected(false);
-
     } else {
 
+      if (firstPrioritySelected) {
+        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+        setFirstPrioritySelected(false);
+      }
+
       setSelectedPriority(priority);
+      await updateCurrentPrioCount(university.uniId);
+      setSelectedPriority(priority);
+      await updateCurrentPrioCount(university.uniId);
+
     }
+
+
+
   };
 
 
@@ -89,6 +135,31 @@ const UniversityCard = ({ university }) => {
   return (
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
+      <Carousel>
+      <Carousel.Item>
+
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
         <Card.Title> <a href="#">{university.name}</a></Card.Title>
         <Card.Text>
 
@@ -162,10 +233,12 @@ const UniCard = () => {
   return (
     <div className='card-container'>
       {universities.map((university) => (
-        <UniversityCard 
-        key={university.uniId} 
-        university={university}
-         />
+        <UniversityCard
+          key={university.uniId}
+          university={university}
+          priorityState={priorityState}
+          setPriorityState={setPriorityState}
+        />
       ))}
     </div>
   );
