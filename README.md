@@ -28,18 +28,43 @@ Als CSS Framework haben wir uns für React-Bootstrap entschieden, da dieses Fram
 
 <br>
 <br>
+<!-- GETTING STARTED -->
+## Applikation starten
 
+In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokalen Rechner starten kann.
 
-<br>
+### Voraussetzungen
 
-### Beteiligte Personen/Entwicklerteam
-* Luan Zekiri
-* Liska Derkum
-* Ha Hong Nguyen
-* Maria Carpet
-<br>
-<brS>
+* npm
+  ```sh
+  npm install 
 
+* Eine eigene aufgesetzte (mySQL) Datenbank
+  
+
+### Installation
+
+1. Repo klonen
+   ```sh
+   git clone https://gitlab.com/ciis-capstone-project/winter-2023-2024/team-03 praeferenzabfrage-tool.git
+   ```
+2. In das Hauptverzeichnis ehen
+   ```sh
+   cd praeferenzabfrage-tool
+   ```
+   
+3. NPM Packages installieren
+   ```sh
+   npm install
+
+5. Datenbank starten
+   ```js
+   Im Package DatenBank -> src -> java -> und dann die Hauptklasse starten
+   ```
+4. Applikation starten
+   ```js
+   npm start
+   ```
 
 
 <br>
