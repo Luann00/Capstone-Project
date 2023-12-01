@@ -27,39 +27,12 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
   const handlePrioritySelect = async (priority) => {
-    const currentPriority = priorityState[university.uniId];
+   
 
 
     if (priority === '1st Priority') {
 
-      if (!currentPriority) {
-        const isCurrentFirstPriority = Object.values(priorityState).includes(true);
-
-        if (isCurrentFirstPriority) {
-          const confirmDrop = window.confirm('Do you want to drop your current 1st Priority?');
-
-          if (confirmDrop) {
-            const currentFirstPriority = Object.keys(priorityState).find((key) => priorityState[key]);
-
-            setPriorityState((prevState) => ({
-              ...prevState,
-              [currentFirstPriority]: false,
-              [priority]: true,
-            }));
-
-            setSelectedPriority(priority);
-            await updateCurrentPrioCount(university.uniId);
-          }
-        } else {
-          setPriorityState((prevState) => ({
-            ...prevState,
-            [priority]: true,
-          }));
-
-          setSelectedPriority(priority);
-          await updateCurrentPrioCount(university.uniId);
-        }
-      }
+      
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         setFirstPrioritySelected(true);
@@ -137,7 +110,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       <Card.Body className='card.body'>
       <Carousel>
       <Carousel.Item>
-
+    
         <Carousel.Caption>
           <h3>First slide label</h3>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
