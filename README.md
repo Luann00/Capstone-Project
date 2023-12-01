@@ -40,8 +40,10 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
   npm install 
 
 * Eine eigene aufgesetzte (mySQL) Datenbank. Folgende Werte in der Application.Properties Datei sollten durch die eigenen Datenbank Werte geändert werden:
-spring.datasource.username=
-spring.datasource.password=
+  ```sh
+   spring.datasource.username=
+   spring.datasource.password= 
+
 
   
 
