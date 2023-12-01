@@ -29,7 +29,7 @@ Als CSS Framework haben wir uns für React-Bootstrap entschieden, da dieses Fram
 <br>
 <br>
 <!-- GETTING STARTED -->
-## Applikation starten
+<h1>Applikation aufsetzen</h1>
 
 In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokalen Rechner starten kann.
 
