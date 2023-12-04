@@ -12,12 +12,11 @@ import com.DatenBank.logic.repository.UniversityRepository;
 
 @Service
 public class UniversityService {
-	
-	@Autowired
-	private UniversityRepository universityRepository;
-	
-	
-	public UniversityService(UniversityRepository universityRepository) {
+
+    @Autowired
+    private UniversityRepository universityRepository;
+
+    public UniversityService(UniversityRepository universityRepository) {
         this.universityRepository = universityRepository;
     }
 
@@ -26,18 +25,17 @@ public class UniversityService {
     }
 
     public void deleteUniversity(int uniId) {
-    	universityRepository.deleteById(uniId);
+        universityRepository.deleteById(uniId);
     }
-    
+
     public List<University> getAllUniversity() {
         return universityRepository.findAll();
     }
-    
+
     public void deleteAllUniversities() {
-    	universityRepository.deleteAll();
+        universityRepository.deleteAll();
     }
-    
-    
+
     public University updateUniversity(int uniId, University updatedUniversity) throws Exception {
         // Find the existing student in the database
         Optional<University> optionalUniversity = universityRepository.findById(uniId);
@@ -51,6 +49,7 @@ public class UniversityService {
             existingUniversity.setCity(updatedUniversity.getCity());
             existingUniversity.setSlots(updatedUniversity.getSlots());
             existingUniversity.setFirstPref(updatedUniversity.getFirstPref());
+            existingUniversity.setTotalPref(updatedUniversity.getTotalPref());
 
             // Save the updated university back to the database
             return universityRepository.save(existingUniversity);
@@ -59,9 +58,6 @@ public class UniversityService {
             throw new Exception("Student not found with matrikelnummer: " + uniId);
         }
 
-    
-
-}
-
+    }
 
 }

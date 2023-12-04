@@ -32,7 +32,10 @@ function Home() {
     Durchschnitt: "",
     Email: "",
     Titel: "",
-    Geschlecht: ""
+    Geschlecht: "",
+    FirstPref: "",
+    SecondPref: "",
+    ThirdPref: ""
   });
 
 
@@ -58,6 +61,9 @@ function Home() {
     { name: 'geschlecht', type: 'text', placeholder: 'Enter geschlecht' },
     { name: 'durchschnitt', type: 'number', step: "0.1", min: '1', max: '4', placeholder: 'Enter durchschnitt' },
     { name: 'email', type: 'email', placeholder: 'Enter e-mail' },
+    { name: 'firstPref', type: 'number', placeholder: 'Enter first preference' },
+    { name: 'secondPref', type: 'number', placeholder: 'Enter second preference' },
+    { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference' },
   ];
 
 
@@ -89,6 +95,9 @@ function Home() {
       Email: "",
       Titel: "",
       Geschlecht: "",
+      FirstPref: "",
+      SecondPref: "",
+      ThirdPref: "",
     });
   };
 
@@ -102,10 +111,14 @@ function Home() {
       Matrikelnummer: student.matrikelnummer,
       Vorname: student.vorname,
       Nachname: student.nachname,
-      Durchschnitt: student.durchschnitt,
-      Email: student.email,
       Titel: student.titel,
       Geschlecht: student.geschlecht,
+      Durchschnitt: student.durchschnitt,
+      Email: student.email,
+      FirstPref: student.firstPref,
+      SecondPref: student.secondPref,
+      ThirdPref: student.thirdPref,
+
     });
     handleShow();
   };
@@ -332,6 +345,9 @@ function Home() {
                     </a>
                   </th>
                   <th>E-Mail</th>
+                  <th>FirstPref</th>
+                  <th>SecondPref</th>
+                  <th>ThirdPref</th>
                   <th>Zugeteilte Universität</th>
                   <th>Edit</th>
 
@@ -349,6 +365,9 @@ function Home() {
                     <td>{row.geschlecht}</td>
                     <td>{row.durchschnitt}</td>
                     <td>{row.email}</td>
+                    <td>{row.firstPref}</td>
+                    <td>{row.secondPref}</td>
+                    <td>{row.thirdPref}</td>
                     <td>{row.zugeteilteUniversität}</td>
 
 

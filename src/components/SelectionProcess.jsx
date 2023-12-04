@@ -70,6 +70,14 @@ function SelectionProcess() {
         });
     };
 
+    // Function to check if the current time is within the interval
+    const processIsActive = (startDate, endDate) => {
+        const currentDate = new Date();
+        const startDateTime = new Date(startDate);
+        const endDateTime = new Date(endDate);
+        return currentDate >= startDateTime && currentDate <= endDateTime;
+    };
+
 
 
     const handleShow = () => setShow(true);
@@ -147,17 +155,17 @@ function SelectionProcess() {
     //Probably don't need search by now
 
     const handleSearch = (event) => {
-        
-      const searchValue = event.target.value;
-      setSearch(searchValue);
-  
-      const updatedTableData = originalProcesses.filter((process) =>
-      process.year.toString().startsWith(searchValue)
-      );
-  
-      // Update the displayed universities
-      setProcesses(updatedTableData);
-      
+
+        const searchValue = event.target.value;
+        setSearch(searchValue);
+
+        const updatedTableData = originalProcesses.filter((process) =>
+            process.year.toString().startsWith(searchValue)
+        );
+
+        // Update the displayed universities
+        setProcesses(updatedTableData);
+
 
     };
 
@@ -309,7 +317,7 @@ function SelectionProcess() {
                             </form>
                         </div>
                     </div>
-                    <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Start Processes</b></h2></div>
+                    <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage Processes</b></h2></div>
                     <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
                         <Button variant="primary" onClick={handleShow}>
                             Add New Process
@@ -323,7 +331,7 @@ function SelectionProcess() {
                     <div class="table-responsive " >
                         <table class="table table-striped table-hover table-bordered" >
                             <thead>
-                                <tr>
+                                <tr style={{ fontFamily: 'Arial', fontSize: '14px', fontWeight: 'bold', color: 'blue' }}>
                                     <th>Start date</th>
                                     <th>End date</th>
                                     <th>Year</th>
@@ -332,6 +340,7 @@ function SelectionProcess() {
                                     <th>No. of Universities</th>
                                     <th>Deadline Extension</th>
                                     <th>Days Deletion</th>
+                                    <th>Status</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -347,6 +356,7 @@ function SelectionProcess() {
                                         <td>{row.numberOfUniversities}</td>
                                         <td>{row.deadlineExtensionMinutes}</td>
                                         <td>{row.daysUntilStudentDataDeletion}</td>
+                                        <td>{processIsActive(row.startDate, row.endDate) ? 'Active' : 'Inactive'}  &#128994;</td>
                                         <td>
                                             <a
                                                 href="#"

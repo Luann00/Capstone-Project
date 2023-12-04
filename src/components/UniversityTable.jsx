@@ -34,6 +34,8 @@ function Home() {
     city: "",
     slots: "",
     firstPref: "",
+    totalPref: ""
+
   });
 
   //The new values for a new university get saved here initially
@@ -44,6 +46,7 @@ function Home() {
     { name: 'city', type: 'text', placeholder: 'Enter City' },
     { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots' },
     { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
+    { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences' },
   ];
 
 
@@ -60,6 +63,8 @@ function Home() {
       city: "",
       slots: "",
       firstPref: "",
+      totalPref: "",
+
     });
   };
 
@@ -76,6 +81,8 @@ function Home() {
       city: university.city,
       slots: university.slots,
       firstPref: university.firstPref,
+      totalPref: university.totalPref,
+
     });
     handleShow();
   };
@@ -304,7 +311,7 @@ function Home() {
           <div class="table-responsive " >
             <table class="table table-striped table-hover table-bordered">
               <thead>
-                <tr>
+                <tr style={{ fontFamily: 'Arial', fontSize: '14px', fontWeight: 'bold', color: 'blue' }}>
                   <th onClick={() => handleSort("uniId")}>
                     Uni-ID
                     <a href="#" className="sort-icon" data-toggle="tooltip">
@@ -323,7 +330,14 @@ function Home() {
                   <th>City</th>
                   <th>Slots </th>
                   <th onClick={() => handleSort("firstPref")}>
-                    Number of First Preferences
+                    No. of First Preferences
+                    <a href="#" className="sort-icon" data-toggle="tooltip">
+                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
+                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                    </a>
+                  </th>
+                  <th onClick={() => handleSort("firstPref")}>
+                    No. of total Preferences
                     <a href="#" className="sort-icon" data-toggle="tooltip">
                       {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
                       {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
@@ -342,6 +356,8 @@ function Home() {
                     <td>{row.city}</td>
                     <td>{row.slots}</td>
                     <td>{row.firstPref}</td>
+                    <td>{row.totalPref}</td>
+
                     <td>
                       <a
                         href="#"
