@@ -6,6 +6,7 @@ import { WhitelistVerwalter } from "./components/whitelistVerwalter";
 import StudentTable from './components/StudentTable';
 import UniCard from './components/UniCard';
 import UniversityTable from './components/UniversityTable';
+import SelectionProcess from './components/SelectionProcess';
 import UniCardPage from "./features/UniCardPage";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarAdmin from './components/NavbarAdmin';
@@ -37,6 +38,8 @@ function App() {
               <Route path="/StudentTable" element={<StudentTable />} />
               <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
               <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
+              <Route path="/SelectionProcess" element={<SelectionProcess />} />
+
 
             </>
           ) : (
