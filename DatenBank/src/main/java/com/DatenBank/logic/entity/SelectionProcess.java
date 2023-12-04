@@ -10,8 +10,8 @@ public class SelectionProcess  {
 		
 	}
 	
-	public SelectionProcess(int year, int numberOfStudents, int numberOfPreferences, int numberOfDeadlineExtension,
-			int numberOfUniversities, int deadlineExtensionMinutes, int daysUntilStudentDataDeletion, String startDate, String endDate ) {
+	public SelectionProcess(String startDate, String endDate,int year, int numberOfStudents, int numberOfPreferences, int numberOfDeadlineExtension,
+			int numberOfUniversities, int deadlineExtensionMinutes, int daysUntilStudentDataDeletion ) {
 		
 		
 		super();
