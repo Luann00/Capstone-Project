@@ -152,7 +152,7 @@ function SelectionProcess() {
     */
 
 
-    //Probably don't need search by now
+    //Probably don't need search function by now
 
     const handleSearch = (event) => {
 
@@ -163,7 +163,7 @@ function SelectionProcess() {
             process.year.toString().startsWith(searchValue)
         );
 
-        // Update the displayed universities
+        // Update the displayed processes
         setProcesses(updatedTableData);
 
 
@@ -214,10 +214,10 @@ function SelectionProcess() {
                     const updatedTableData = processes.filter((row) => row.year !== year);
                     setProcesses(updatedTableData);
                 } else {
-                    console.log("Error deleting data from the database");
+                    alert("Error deleting data from the database");
                 }
             } catch (error) {
-                console.log("Error deleting data", error);
+                alert("Error deleting data", error);
             }
         }
     };
@@ -272,10 +272,10 @@ function SelectionProcess() {
             });
 
             if (!response.ok) {
-                console.log("Error deleting data from the database");
+                alert("Error deleting data from the database");
             }
         } catch (error) {
-            console.log("Error deleting data", error);
+            alert("Error deleting data", error);
         }
     };
 

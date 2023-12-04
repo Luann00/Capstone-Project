@@ -15,6 +15,8 @@ public class SelectionProcess  {
 		
 		
 		super();
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.year = year;
 		this.numberOfStudents = numberOfStudents;
 		this.numberOfPreferences = numberOfPreferences;
@@ -22,8 +24,7 @@ public class SelectionProcess  {
 		this.numberOfUniversities = numberOfUniversities;
 		this.deadlineExtensionMinutes = deadlineExtensionMinutes;
 		this.daysUntilStudentDataDeletion = daysUntilStudentDataDeletion;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		
 	}
 	
 	@Id
