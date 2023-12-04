@@ -28,8 +28,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   const handlePrioritySelect = async (priority) => {
 
-
-
     if (priority === '1st Priority') {
 
 
