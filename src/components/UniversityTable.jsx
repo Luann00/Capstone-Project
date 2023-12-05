@@ -99,11 +99,6 @@ function Home() {
       }
     };
 
-    const interval = setInterval(fetchUniversities, 10000);
-
-    // Clean up the interval to prevent memory leaks
-    return () => clearInterval(interval);
-
     fetchUniversities();
   }, []);
 
