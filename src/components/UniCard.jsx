@@ -74,15 +74,14 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
   const updateCurrentPrioCount = async (uniId) => {
-
     try {
       // Fetch the current university data
       const response = await fetch(`http://localhost:8081/university/${uniId}`);
       const universityData = await response.json();
-
-
-      setUpdatedFirstPref(universityData.firstPref);
-
+  
+      // Aktualisiere die Anzahl der First Preferences
+      universityData.firstPref = universityData.firstPref + 1; // oder die gewünschte Logik
+  
       // Update the API with the modified data
       const putResponse = await fetch(`http://localhost:8081/university/${uniId}`, {
         method: 'PUT',
@@ -91,15 +90,15 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         },
         body: JSON.stringify(universityData),
       });
-
+  
       if (!putResponse.ok) {
-        // Handle unsuccessful API update
+        alert("Test: " + putResponse);
       }
     } catch (error) {
-      // Handle fetch or other errors
+      alert("Catch Fall: " + error);
     }
-
-  }
+  };
+  
 
 
 
@@ -175,9 +174,9 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 const UniCard = () => {
   const [universities, setUniversities] = useState([]);
   const [priorityState, setPriorityState] = useState({
-    '1st Priority': false,
-    '2nd Priority': false,
-    '3rd Priority': false,
+    '1st Priority': "",
+    '2nd Priority': "",
+    '3rd Priority': "",
   });
 
   useEffect(() => {

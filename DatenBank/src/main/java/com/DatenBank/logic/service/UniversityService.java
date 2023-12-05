@@ -60,4 +60,10 @@ public class UniversityService {
 
     }
 
+
+    public University getUniversityById(int uniId) {
+        Optional<University> optionalUniversity = universityRepository.findById(uniId);
+        return optionalUniversity.orElse(null);
+    }
+
 }
