@@ -39,6 +39,8 @@ function App() {
               <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
               <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
               <Route path="/SelectionProcess" element={<SelectionProcess />} />
+              <Route path="/UniCardPage" element={<UniCardPage />} />
+
 
 
             </>
