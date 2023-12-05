@@ -27,61 +27,42 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
   const handlePrioritySelect = async (priority) => {
-
     if (priority === '1st Priority') {
-
-
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         setFirstPrioritySelected(true);
         setSelectedPriority(priority);
-
-        await updateCurrentPrioCount(university.uniId);
+        await updateCurrentPrioCount(university.uniId, true); // Increment by 1, because 1st Prio should be updated
       } else {
-
         setSelectedPriority(priority);
-
       }
     } else if (priority === 'Drop Priority') {
-      if (updatedFirstPref === 0) {
-        setUpdatedFirstPref(0);
-        setSelectedPriority('');
-      } else {
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
-        setSelectedPriority('');
-        await updateCurrentPrioCount(university.uniId);
-
-      }
-      setFirstPrioritySelected(false);
-    } else {
-
-      if (firstPrioritySelected) {
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+      if (firstPrioritySelected && updatedFirstPref > 0) {
+        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1); // Decrement by 1 because prio was removed
+        await updateCurrentPrioCount(university.uniId, false);
         setFirstPrioritySelected(false);
       }
-
-      setSelectedPriority(priority);
-      await updateCurrentPrioCount(university.uniId);
-      setSelectedPriority(priority);
-      await updateCurrentPrioCount(university.uniId);
-
+      setSelectedPriority('');
+    } else {
+        setSelectedPriority(priority);
+      
     }
-
-
-
   };
 
 
 
-  const updateCurrentPrioCount = async (uniId) => {
+  const updateCurrentPrioCount = async (uniId, increment) => {
     try {
       // Fetch the current university data
       const response = await fetch(`http://localhost:8081/university/${uniId}`);
       const universityData = await response.json();
-  
-      // Aktualisiere die Anzahl der First Preferences
-      universityData.firstPref = universityData.firstPref + 1; // oder die gewünschte Logik
-  
+
+      // Update the firstPref count based on the provided increment value
+      universityData.firstPref = increment
+        ? universityData.firstPref + 1
+        : universityData.firstPref - 1; // or use any other logic you need
+
+
       // Update the API with the modified data
       const putResponse = await fetch(`http://localhost:8081/university/${uniId}`, {
         method: 'PUT',
@@ -90,15 +71,15 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         },
         body: JSON.stringify(universityData),
       });
-  
+
       if (!putResponse.ok) {
         alert("Test: " + putResponse);
       }
     } catch (error) {
-      alert("Catch Fall: " + error);
+      alert("Catch: " + error);
     }
   };
-  
+
 
 
 
