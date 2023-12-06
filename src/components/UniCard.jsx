@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Dropdown, ListGroup, Carousel } from 'react-bootstrap';
+import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
@@ -24,34 +24,74 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [firstPrioritySelected, setFirstPrioritySelected] = useState(false);
+  const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
 
 
   const handlePrioritySelect = async (priority) => {
     if (priority === '1st Priority') {
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
-        setFirstPrioritySelected(true);
+
         setSelectedPriority(priority);
-        await updateCurrentPrioCount(university.uniId, true); // Increment by 1, because 1st Prio should be updated
-      } else {
+        await updateCurrentFirstPrioCount(university.uniId, true); 
+
+        if (updatedTotalPref === 0) {
+          setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1); // Increment totalPref by 1 
+          await updateCurrentTotalPrioCount(university.uniId, true);
+          setFirstPrioritySelected(true);
+
+        }
+      } else{
         setSelectedPriority(priority);
+
       }
-    } else if (priority === 'Drop Priority') {
-      if (firstPrioritySelected && updatedFirstPref > 0) {
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1); // Decrement by 1 because prio was removed
-        await updateCurrentPrioCount(university.uniId, false);
-        setFirstPrioritySelected(false);
-      }
-      setSelectedPriority('');
-    } else {
-        setSelectedPriority(priority);
       
+        
     }
+    else {
+      if (firstPrioritySelected) {
+        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+        await updateCurrentTotalPrioCount(university.uniId, false);
+        setFirstPrioritySelected(false);
+
+      }
+      if (updatedTotalPref === 0) {
+        setSelectedPriority(priority);
+        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1); // Increment totalPref by 1 only once
+        await updateCurrentTotalPrioCount(university.uniId, true);
+      }
+      setSelectedPriority(priority);
+      
+
+    }
+    
   };
 
 
+  const handleDropPriority = async() => {
+    if(firstPrioritySelected&&updatedFirstPref>0){
+      setUpdatedFirstPref((prevUpdatedFirstPref)=> prevUpdatedFirstPref-1);
+      setFirstPrioritySelected(false);
+      await updateCurrentFirstPrioCount(university.uniId, false);
+    }
+    if(updatedTotalPref>0){
+      setUpdatedTotalPref((prevUpdatedTotalPref)=> prevUpdatedTotalPref-1);
+    await updateCurrentTotalPrioCount(university.uniId,false);
 
-  const updateCurrentPrioCount = async (uniId, increment) => {
+    }
+    
+    setSelectedPriority('');
+    }
+
+  
+
+
+
+
+
+
+
+  const updateCurrentFirstPrioCount = async (uniId, increment) => {
     try {
       // Fetch the current university data
       const response = await fetch(`http://localhost:8081/university/${uniId}`);
@@ -60,8 +100,39 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       // Update the firstPref count based on the provided increment value
       universityData.firstPref = increment
         ? universityData.firstPref + 1
-        : universityData.firstPref - 1; // or use any other logic you need
+        : universityData.firstPref - 1;
 
+
+      // Update the API with the modified data
+      const putResponse = await fetch(`http://localhost:8081/university/${uniId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(universityData),
+      });
+
+      if (!putResponse.ok) {
+        alert("Test: " + putResponse);
+      }
+    } catch (error) {
+      alert("Catch: " + error);
+    }
+  };
+
+
+
+  const updateCurrentTotalPrioCount = async (uniId, increment) => {
+    try {
+      // Fetch the current university data
+      const response = await fetch(`http://localhost:8081/university/${uniId}`);
+      const universityData = await response.json();
+
+      // Update the firstPref count based on the provided increment value
+
+      universityData.totalPref = increment
+        ? universityData.totalPref + 1
+        : universityData.totalPref - 1; // or use any other logic you need
 
       // Update the API with the modified data
       const putResponse = await fetch(`http://localhost:8081/university/${uniId}`, {
@@ -86,31 +157,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   return (
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
-        <Carousel>
-          <Carousel.Item>
 
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
         <Card.Title> <a href="#">{university.name}</a></Card.Title>
         <Card.Text>
 
@@ -122,7 +169,11 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
           <ListGroup.Item> <span><MdChairAlt /></span> Places available: {university.slots}</ListGroup.Item>
           <ListGroup.Item>
             <span><BsFillPeopleFill /></span>
-            Current first priority: {updatedFirstPref}
+            Chosen as first priority by: {updatedFirstPref}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <span><BsFillPeopleFill /></span>
+            Chosen as priority by : {updatedTotalPref}
           </ListGroup.Item>
         </ListGroup>
 
@@ -140,7 +191,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
             <Dropdown.Item onClick={() => handlePrioritySelect('3rd Priority')}>
               3rd Priority
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handlePrioritySelect('Drop Priority')} >
+            <Dropdown.Item onClick={() => handleDropPriority()} >
               Drop Priority
             </Dropdown.Item>
 

@@ -10,7 +10,7 @@ public class University {
 
 	}
 
-	public University(int uniId, String name, String country, String city, int slots, int firstPref) {
+	public University(int uniId, String name, String country, String city, int slots, int firstPref,int totalPref) {
 		super();
 		this.uniId = uniId;
 		this.name = name;
@@ -18,6 +18,7 @@ public class University {
 		this.city = city;
 		this.slots = slots;
 		this.firstPref = firstPref;
+		this.totalPref= totalPref;
 	}
 
 	@Id
