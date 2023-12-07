@@ -5,30 +5,35 @@ import jakarta.persistence.Id;
 
 @Entity
 public class University {
-
 	public University() {
 
 	}
 
-	public University(int uniId, String name, String country, String city, int slots, int firstPref) {
+
+	public University(int uniId, String name,String abbName, String country, String city, float minGPA, int slots, int firstPref,int totalPref) {
 		super();
 		this.uniId = uniId;
 		this.name = name;
+		this.abbName = abbName;
 		this.country = country;
 		this.city = city;
+		this.minGPA = minGPA;
 		this.slots = slots;
 		this.firstPref = firstPref;
+		this.totalPref= totalPref;
 	}
 
 	@Id
 	private int uniId;
-
 	private String name;
+	private String abbName;
 	private String country;
 	private String city;
+	private float minGPA;
 	private int slots;
 	private int firstPref;
 	private int totalPref;
+
 
 	public int getTotalPref() {
 		return totalPref;
@@ -53,6 +58,14 @@ public class University {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getAbbName() {
+		return abbName;
+	}
+
+	public void setAbbName(String abbName) {
+		this.abbName = abbName;
+	}
+
 
 	public String getCountry() {
 		return country;
@@ -67,7 +80,16 @@ public class University {
 	}
 
 	public void setCity(String city) {
+		
 		this.city = city;
+	}
+
+	public float getMinGPA() {
+		return minGPA;
+	}
+
+	public void setMinGPA(float minGPA) {
+		this.minGPA = minGPA;
 	}
 
 	public int getSlots() {
@@ -86,4 +108,5 @@ public class University {
 		this.firstPref = firstPref;
 	}
 
+	
 }

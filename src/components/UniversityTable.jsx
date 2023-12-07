@@ -30,8 +30,10 @@ function Home() {
   const [newUniversity, setNewUniversity] = useState({
     uniId: "",
     name: "",
+    abbName:"",
     country: "",
     city: "",
+    minGPA:"",
     slots: "",
     firstPref: "",
     totalPref: ""
@@ -42,8 +44,10 @@ function Home() {
   const inputFields = [
     { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false },
     { name: 'name', type: 'text', placeholder: 'Enter name' },
+    { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name' },
     { name: 'country', type: 'text', placeholder: 'Enter Country' },
     { name: 'city', type: 'text', placeholder: 'Enter City' },
+    { name: 'minGPA', type: 'number',step:'any', placeholder: 'Enter minimum required GPA' },
     { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots' },
     { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
     { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences' },
@@ -59,8 +63,10 @@ function Home() {
     setNewUniversity({
       uniId: "",
       name: "",
+      abbName: "",
       country: "",
       city: "",
+      minGPA:"",
       slots: "",
       firstPref: "",
       totalPref: "",
@@ -77,8 +83,10 @@ function Home() {
     setNewUniversity({
       uniId: university.uniId,
       name: university.name,
+      abbName: university.abbName,
       country: university.country,
       city: university.city,
+      minGPA: university.minGPA,
       slots: university.slots,
       firstPref: university.firstPref,
       totalPref: university.totalPref,
@@ -320,6 +328,7 @@ function Home() {
                     </a>
                   </th>
                   <th>Name</th>
+                  <th>Abbreviated Name</th>
                   <th onClick={() => handleSort("country")}>
                     Country
                     <a href="#" className="sort-icon" data-toggle="tooltip">
@@ -328,6 +337,7 @@ function Home() {
                     </a>
                   </th>
                   <th>City</th>
+                  <th>Minimum GPA</th>
                   <th>Slots </th>
                   <th onClick={() => handleSort("firstPref")}>
                     No. of First Preferences
@@ -352,8 +362,10 @@ function Home() {
                   <tr key={row.id}>
                     <td>{row.uniId}</td>
                     <td>{row.name}</td>
+                    <td>{row.abbName}</td>
                     <td>{row.country}</td>
                     <td>{row.city}</td>
+                    <td>{row.minGPA}</td>
                     <td>{row.slots}</td>
                     <td>{row.firstPref}</td>
                     <td>{row.totalPref}</td>
