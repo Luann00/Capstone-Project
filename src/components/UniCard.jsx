@@ -5,25 +5,12 @@ import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 
 
-if (!Object.values) {
-  Object.values = function (obj) {
-    if (obj !== Object(obj)) {
-      throw new TypeError('Object.values called on a non-object');
-    }
-    let values = [];
-    for (let key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        values.push(obj[key]);
-      }
-    }
-    return values;
-  };
-}
 
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [firstPrioritySelected, setFirstPrioritySelected] = useState(false);
+  const [otherPrioritySelected,setOtherPrioritySelected]= useState(false);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
 
 
@@ -31,27 +18,29 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     if (priority === '1st Priority') {
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
-
         setSelectedPriority(priority);
         await updateCurrentFirstPrioCount(university.uniId, true); 
 
         if (updatedTotalPref === 0) {
           setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1); // Increment totalPref by 1 
           await updateCurrentTotalPrioCount(university.uniId, true);
-          setFirstPrioritySelected(true);
+          
 
         }
+        setFirstPrioritySelected(true);
       } else{
         setSelectedPriority(priority);
 
       }
+      setOtherPrioritySelected(false);
       
         
     }
     else {
+      setOtherPrioritySelected(true);
       if (firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
-        await updateCurrentTotalPrioCount(university.uniId, false);
+        await updateCurrentFirstPrioCount(university.uniId, false);
         setFirstPrioritySelected(false);
 
       }
@@ -65,22 +54,26 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
     }
     
+    
   };
 
 
   const handleDropPriority = async() => {
     if(firstPrioritySelected&&updatedFirstPref>0){
       setUpdatedFirstPref((prevUpdatedFirstPref)=> prevUpdatedFirstPref-1);
-      setFirstPrioritySelected(false);
+      
       await updateCurrentFirstPrioCount(university.uniId, false);
+      setFirstPrioritySelected(false);
     }
-    if(updatedTotalPref>0){
+    if(otherPrioritySelected&&updatedTotalPref>0){
       setUpdatedTotalPref((prevUpdatedTotalPref)=> prevUpdatedTotalPref-1);
     await updateCurrentTotalPrioCount(university.uniId,false);
 
     }
     
     setSelectedPriority('');
+    
+
     }
 
   
@@ -167,6 +160,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <ListGroup variant="flush">
           <ListGroup.Item> <span><MdChairAlt /></span> Places available: {university.slots}</ListGroup.Item>
+          <ListGroup.Item> Minimum GPA (as of last year) : {university.minGPA}</ListGroup.Item>
           <ListGroup.Item>
             <span><BsFillPeopleFill /></span>
             Chosen as first priority by: {updatedFirstPref}

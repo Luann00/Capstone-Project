@@ -45,8 +45,11 @@ public class UniversityService {
             University existingUniversity = optionalUniversity.get();
             existingUniversity.setUniId(updatedUniversity.getUniId());
             existingUniversity.setName(updatedUniversity.getName());
+            existingUniversity.setAbbName(updatedUniversity.getAbbName());
             existingUniversity.setCountry(updatedUniversity.getCountry());
             existingUniversity.setCity(updatedUniversity.getCity());
+            existingUniversity.setMinGPA(updatedUniversity.getMinGPA());
+
             existingUniversity.setSlots(updatedUniversity.getSlots());
             existingUniversity.setFirstPref(updatedUniversity.getFirstPref());
             existingUniversity.setTotalPref(updatedUniversity.getTotalPref());
@@ -59,7 +62,6 @@ public class UniversityService {
         }
 
     }
-
 
     public University getUniversityById(int uniId) {
         Optional<University> optionalUniversity = universityRepository.findById(uniId);
