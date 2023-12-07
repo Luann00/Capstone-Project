@@ -80,4 +80,16 @@ private UniversityService universityService;
 	}
 
 
+    //retrieve only one university
+    @GetMapping("/{uniId}")
+public ResponseEntity<University> getUniversityById(@PathVariable int uniId) {
+    University university = universityService.getUniversityById(uniId);
+    if (university != null) {
+        return new ResponseEntity<>(university, HttpStatus.OK);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
+
 }

@@ -5,15 +5,24 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Student {
-	
-	public Student() {
-		
-	}
-	
 
-	
-	
-	public Student(int matrikelnummer,String vorName,String nachName,double durchschnitt, String email,int zugeteilteUniversitaet, String titel, String geschlecht) {
+	public Student() {
+
+	}
+
+	public Student(int matrikelnummer,
+			String vorName,
+			String nachName,
+			double durchschnitt,
+			String email,
+			int zugeteilteUniversitaet,
+			String titel,
+			String geschlecht,
+			int firstPref,
+			int secondPref,
+			int thirdPref) {
+
+		
 		this.matrikelnummer = matrikelnummer;
 		this.vorname = vorName;
 		this.nachname = nachName;
@@ -22,86 +31,103 @@ public class Student {
 		this.zugeteilteUniversitaet = zugeteilteUniversitaet;
 		this.titel = titel;
 		this.geschlecht = geschlecht;
+		this.firstPref = firstPref;
+		this.secondPref = secondPref;
+		this.thirdPref = thirdPref;
 
-		
 	}
-	
+
 	public String getTitel() {
 		return titel;
 	}
-
-
-
 
 	public void setTitel(String titel) {
 		this.titel = titel;
 	}
 
-
-
-
 	public String getGeschlecht() {
 		return geschlecht;
 	}
-
-
-
 
 	public void setGeschlecht(String geschlecht) {
 		this.geschlecht = geschlecht;
 	}
 
-
-
-
 	public int getZugeteilteUniversitaet() {
 		return zugeteilteUniversitaet;
 	}
-
-
-
 
 	public void setZugeteilteUniversitaet(int zugeteilteUniversitaet) {
 		this.zugeteilteUniversitaet = zugeteilteUniversitaet;
 	}
 
 	@Id
-	private int matrikelnummer; //Primary Key
-	
-	
+	private int matrikelnummer; // Primary Key
+
 	public int getMatrikelnummer() {
 		return matrikelnummer;
 	}
+
 	public void setMatrikelnummer(int matrikelnummer) {
 		this.matrikelnummer = matrikelnummer;
 	}
+
 	public String getVorname() {
 		return vorname;
 	}
+
 	public void setVorname(String vorname) {
 		this.vorname = vorname;
 	}
+
 	public String getNachname() {
 		return nachname;
 	}
+
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
-	
+
 	public double getDurchschnitt() {
 		return durchschnitt;
 	}
+
 	public void setDurchschnitt(double durchschnitt) {
 		this.durchschnitt = durchschnitt;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
+	public int getFirstPref() {
+		return firstPref;
+	}
+
+	public void setFirstPref(int firstPref) {
+		this.firstPref = firstPref;
+	}
+
+	public int getSecondPref() {
+		return secondPref;
+	}
+
+	public void setSecondPref(int secondPref) {
+		this.secondPref = secondPref;
+	}
+
+	public int getThirdPref() {
+		return thirdPref;
+	}
+
+	public void setThirdPref(int thirdPref) {
+		this.thirdPref = thirdPref;
+	}
+
 	private String vorname;
 	private String nachname;
 	private String titel;
@@ -109,7 +135,8 @@ public class Student {
 	private double durchschnitt;
 	private String email;
 	private int zugeteilteUniversitaet;
-
+	private int firstPref;
+	private int secondPref;
+	private int thirdPref;
 
 }
-

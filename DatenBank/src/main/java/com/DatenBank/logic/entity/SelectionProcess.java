@@ -10,11 +10,13 @@ public class SelectionProcess  {
 		
 	}
 	
-	public SelectionProcess(int year, int numberOfStudents, int numberOfPreferences, int numberOfDeadlineExtension,
-			int numberOfUniversities, int deadlineExtensionMinutes, int daysUntilStudentDataDeletion) {
+	public SelectionProcess(String startDate, String endDate,int year, int numberOfStudents, int numberOfPreferences, int numberOfDeadlineExtension,
+			int numberOfUniversities, int deadlineExtensionMinutes, int daysUntilStudentDataDeletion ) {
 		
 		
 		super();
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.year = year;
 		this.numberOfStudents = numberOfStudents;
 		this.numberOfPreferences = numberOfPreferences;
@@ -22,6 +24,7 @@ public class SelectionProcess  {
 		this.numberOfUniversities = numberOfUniversities;
 		this.deadlineExtensionMinutes = deadlineExtensionMinutes;
 		this.daysUntilStudentDataDeletion = daysUntilStudentDataDeletion;
+		
 	}
 	
 	@Id
@@ -34,6 +37,8 @@ public class SelectionProcess  {
 	private int numberOfUniversities;
 	private int deadlineExtensionMinutes; //Anzahl Minuten der Verlängerung der Deadline
 	private int daysUntilStudentDataDeletion; //Anzahl an Tagen, bis Studentendaten gelöscht werden
+	private String startDate;  // Add start date variable
+    private String endDate;    // Add end date variable
 	
 	//private int Anzahl Auswahlverfahren pro Jahr
 
@@ -93,6 +98,22 @@ public class SelectionProcess  {
 	public void setDaysUntilStudentDataDeletion(int daysUntilStudentDataDeletion) {
 		this.daysUntilStudentDataDeletion = daysUntilStudentDataDeletion;
 	}
+
+	public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
 	
 

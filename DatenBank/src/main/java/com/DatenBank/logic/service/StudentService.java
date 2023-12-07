@@ -3,25 +3,19 @@ package com.DatenBank.logic.service;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.repository.StudentRepository;
 
-
-
-
 @Service
 public class StudentService {
-	
-	@Autowired
-	private StudentRepository studentRepository;
-	
-	
-	public StudentService(StudentRepository studentRepository) {
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
@@ -32,16 +26,15 @@ public class StudentService {
     public void deleteStudent(int matrikelnummer) {
         studentRepository.deleteById(matrikelnummer);
     }
-    
+
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
-    
+
     public void deleteAllStudents() {
-    	studentRepository.deleteAll();
+        studentRepository.deleteAll();
     }
 
-    
     public Student updateStudent(int matrikelnummer, Student updatedStudent) throws Exception {
         // Find the existing student in the database
         Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);
@@ -56,17 +49,17 @@ public class StudentService {
             existingStudent.setDurchschnitt(updatedStudent.getDurchschnitt());
             existingStudent.setEmail(updatedStudent.getEmail());
             existingStudent.setZugeteilteUniversitaet(updatedStudent.getZugeteilteUniversitaet());
+            existingStudent.setFirstPref(updatedStudent.getFirstPref());
+            existingStudent.setSecondPref(updatedStudent.getSecondPref());
+            existingStudent.setThirdPref(updatedStudent.getThirdPref());
 
             // Save the updated student back to the database
             return studentRepository.save(existingStudent);
         } else {
-            // If the student is not found, you may choose to throw an exception or handle it as needed
+            // If the student is not found, you may choose to throw an exception or handle
+            // it as needed
             throw new Exception("Student not found with matrikelnummer: " + matrikelnummer);
         }
 
-    
-
+    }
 }
-}
-
-
