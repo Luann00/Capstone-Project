@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
+import { CiPen } from "react-icons/ci";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 
@@ -151,7 +152,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
 
-        <Card.Title> <a href="#">{university.name}</a></Card.Title>
+        <Card.Title> <a href="#">{university.name} ({university.abbName})</a></Card.Title>
         <Card.Text>
 
           <span><BsPinMapFill /></span>
@@ -160,7 +161,11 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <ListGroup variant="flush">
           <ListGroup.Item> <span><MdChairAlt /></span> Places available: {university.slots}</ListGroup.Item>
-          <ListGroup.Item> Minimum GPA (as of last year) : {university.minGPA}</ListGroup.Item>
+
+
+          <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year) : {university.minGPA}</ListGroup.Item>
+
+
           <ListGroup.Item>
             <span><BsFillPeopleFill /></span>
             Chosen as first priority by: {updatedFirstPref}

@@ -5,6 +5,9 @@ import jakarta.persistence.Id;
 
 @Entity
 public class University {
+	public University() {
+
+	}
 
 
 	public University(int uniId, String name,String abbName, String country, String city, float minGPA, int slots, int firstPref,int totalPref) {
@@ -22,7 +25,6 @@ public class University {
 
 	@Id
 	private int uniId;
-
 	private String name;
 	private String abbName;
 	private String country;
@@ -31,6 +33,7 @@ public class University {
 	private int slots;
 	private int firstPref;
 	private int totalPref;
+
 
 	public int getTotalPref() {
 		return totalPref;
