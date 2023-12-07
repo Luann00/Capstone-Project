@@ -7,10 +7,37 @@ const LoginForm = () => {
   const [benutzername, setBenutzername] = useState("");
   const [passwort, setPasswort] = useState("");
 
-  const handleAnmelden = () => {
+  const backendUrl = 'http://localhost:8080';
+  const authenticationEndpoint = '/';
 
 
+  const handleAnmelden = async () => {
+    try {
+      const response = await fetch(`${backendUrl}${authenticationEndpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          benutzername,
+          passwort,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Handle successful authentication
+        alert('Erfolgreich authentifiziert', data);
+      } else {
+        // Handle authentication failure
+        alert('Authentifizierung fehlgeschlagen');
+      }
+    } catch (error) {
+      // Handle error
+      alert('ERROR GEHT NICHT', error);
+    }
   };
+
 
 
 

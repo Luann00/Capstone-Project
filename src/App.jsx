@@ -12,13 +12,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarAdmin from './components/NavbarAdmin';
 import NavBarStudent from './components/NavBarStudent';
 import Home from "./components/Home";
+import { BsTruckFlatbed } from "react-icons/bs";
 
 
 
 function App() {
 
   const [isLoggedIn, setLoggedIn] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(BsTruckFlatbed);
 
   const handleLogin = (userType) => {
     setLoggedIn(true);
