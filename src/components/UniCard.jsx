@@ -9,9 +9,8 @@ import './UniCard.css';
 
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
+  const [previousPriority, setPreviousPriority]= useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
-  const [firstPrioritySelected, setFirstPrioritySelected] = useState(false);
-  const [otherPrioritySelected, setOtherPrioritySelected] = useState(false);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
 
@@ -20,61 +19,61 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   const handlePrioritySelect = async (priority) => {
     if (priority === '1st Priority') {
-      if (!firstPrioritySelected) {
+      if (previousPriority !== '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
-        setSelectedPriority(priority);
         await updateCurrentFirstPrioCount(university.uniId, true);
-
-        if (updatedTotalPref === 0) {
-          setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1); // Increment totalPref by 1 
-          await updateCurrentTotalPrioCount(university.uniId, true);
-
-
-        }
-        setFirstPrioritySelected(true);
-      } else {
-        setSelectedPriority(priority);
-
       }
-      setOtherPrioritySelected(false);
-
-
-    }
-    else {
-      setOtherPrioritySelected(true);
-      if (firstPrioritySelected) {
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
-        await updateCurrentFirstPrioCount(university.uniId, false);
-        setFirstPrioritySelected(false);
-
-      }
-      if (updatedTotalPref === 0) {
-        setSelectedPriority(priority);
-        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1); // Increment totalPref by 1 only once
+  
+      if (previousPriority === '') {
+        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-      setSelectedPriority(priority);
-
-
+  
+      setPreviousPriority('1st Priority');
+    } else if (priority === '2nd Priority') {
+      if (previousPriority === '1st Priority') {
+        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+        await updateCurrentFirstPrioCount(university.uniId, false);
+      }
+  
+      if (previousPriority === '') {
+        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
+        await updateCurrentTotalPrioCount(university.uniId, true);
+      }
+  
+      setPreviousPriority('2nd Priority');
+    } else {
+      if (previousPriority === '1st Priority') {
+        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+        await updateCurrentFirstPrioCount(university.uniId, false);
+      }
+  
+      if (previousPriority === '') {
+        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
+        await updateCurrentTotalPrioCount(university.uniId, true);
+      }
+  
+      setPreviousPriority('3rd Priority');
     }
-
-
+  
+    setSelectedPriority(priority);
   };
+  
 
 
   const handleDropPriority = async () => {
-    if (firstPrioritySelected && updatedFirstPref > 0) {
+    if (previousPriority==='1st Priority' && updatedFirstPref > 0) {
       setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
 
       await updateCurrentFirstPrioCount(university.uniId, false);
-      setFirstPrioritySelected(false);
+      
     }
-    if (otherPrioritySelected && updatedTotalPref > 0) {
+    if (previousPriority!=='' && updatedTotalPref > 0) {
       setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref - 1);
       await updateCurrentTotalPrioCount(university.uniId, false);
 
     }
-
+    setPreviousPriority('');
     setSelectedPriority('');
 
 
