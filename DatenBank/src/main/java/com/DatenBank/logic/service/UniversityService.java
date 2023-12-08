@@ -49,8 +49,6 @@ public class UniversityService {
             existingUniversity.setCountry(updatedUniversity.getCountry());
             existingUniversity.setCity(updatedUniversity.getCity());
             existingUniversity.setMinGPA(updatedUniversity.getMinGPA());
-            existingUniversity.setShowGPA(updatedUniversity.isShowGPA());
-
             existingUniversity.setSlots(updatedUniversity.getSlots());
             existingUniversity.setFirstPref(updatedUniversity.getFirstPref());
             existingUniversity.setTotalPref(updatedUniversity.getTotalPref());

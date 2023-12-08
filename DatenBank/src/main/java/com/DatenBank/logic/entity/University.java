@@ -35,7 +35,7 @@ public class University {
 	private int firstPref;
 	private int totalPref;
 
-	private boolean showGPA;
+	private boolean showGPA =true;
 
 	
 
