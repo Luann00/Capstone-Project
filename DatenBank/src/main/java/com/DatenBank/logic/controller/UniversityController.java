@@ -48,24 +48,14 @@ private UniversityService universityService;
     }
 	
 	
-	@PutMapping("/updateShowGPA/{uniId}")
-    public ResponseEntity<University> updateShowGPA(@PathVariable int uniId, @RequestBody boolean showGPA) {
-
-        
+    @PutMapping("/updateShowGPA")
+    public ResponseEntity<Void> updateShowGPA(@RequestBody boolean showGPA) {
         try {
-            University currentUniversity = universityService.getUniversityById(uniId);
-
-            if (currentUniversity != null) {
-                currentUniversity.setShowGPA(showGPA);
-                universityService.updateUniversity(uniId, currentUniversity);
-                return ResponseEntity.ok(currentUniversity);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+            universityService.updateAllShowGPA(showGPA);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(500).build(); // Handle other exceptions
+            return ResponseEntity.status(500).build();
         }
-
     }
 	
 	@PutMapping("/{uniId}")

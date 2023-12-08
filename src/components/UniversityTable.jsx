@@ -57,9 +57,8 @@ function Home() {
 
   const handleShowMinGPAColumn = async () => {
     setShowMinGPAColumn(!showMinGPAColumn);
-      // Hier füge den PUT-Request hinzu, um den showMinGPAColumn-Wert in der Datenbank zu aktualisieren
       try {
-        const response = await fetch('http://localhost:8081/updateShowMinGPA', {
+        const response = await fetch('http://localhost:8081/updateShowGPA', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -70,10 +69,10 @@ function Home() {
         });
   
         if (!response.ok) {
-          console.error('Fehler beim Aktualisieren der Datenbank');
+          alert('Fehler beim Aktualisieren der Datenbank');
         }
       } catch (error) {
-        console.error('Fehler beim Senden der PUT-Anfrage', error);
+        alert('Fehler beim Senden der PUT-Anfrage' + error);
       }
     
   };

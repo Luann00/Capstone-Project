@@ -64,6 +64,16 @@ public class UniversityService {
 
     }
 
+
+    public void updateAllShowGPA(boolean showGPA) {
+        List<University> universities = universityRepository.findAll();
+    
+        for (University university : universities) {
+            university.setShowGPA(showGPA);
+            universityRepository.save(university);
+        }
+    }
+
     public University getUniversityById(int uniId) {
         Optional<University> optionalUniversity = universityRepository.findById(uniId);
         return optionalUniversity.orElse(null);

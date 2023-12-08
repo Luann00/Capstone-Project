@@ -21,7 +21,7 @@ public class University {
 		this.slots = slots;
 		this.firstPref = firstPref;
 		this.totalPref= totalPref;
-		this.showGPA = showGPA;
+		this.showGPA = true;
 	}
 
 	@Id
