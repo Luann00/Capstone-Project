@@ -10,6 +10,7 @@ function Home() {
   const [show, setShow] = useState(false);
   const [universities, setUniversities] = useState([]);
   const [originalUniversities, setoriginalUniversities] = useState([]);
+  const [showMinGPAColumn, setShowMinGPAColumn] = useState(true);
 
 
 
@@ -52,6 +53,30 @@ function Home() {
     { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
     { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences' },
   ];
+
+
+  const handleShowMinGPAColumn = async () => {
+    setShowMinGPAColumn(!showMinGPAColumn);
+      // Hier füge den PUT-Request hinzu, um den showMinGPAColumn-Wert in der Datenbank zu aktualisieren
+      try {
+        const response = await fetch('http://localhost:8081/updateShowMinGPA', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            showMinGPA: !showMinGPAColumn, // Umkehren des aktuellen Werts
+          }),
+        });
+  
+        if (!response.ok) {
+          console.error('Fehler beim Aktualisieren der Datenbank');
+        }
+      } catch (error) {
+        console.error('Fehler beim Senden der PUT-Anfrage', error);
+      }
+    
+  };
 
 
 
@@ -267,6 +292,10 @@ function Home() {
     }
   };
 
+  const handleChangeShowMin = (e) => {
+    const {showGPA} = e.target;
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedUniversity) {
@@ -337,7 +366,15 @@ function Home() {
                     </a>
                   </th>
                   <th>City</th>
-                  <th>Minimum GPA</th>
+                  <th><label>
+  <input
+    type="checkbox"
+    checked={showMinGPAColumn}
+    onChange={() => handleShowMinGPAColumn(!showMinGPAColumn)}
+  />
+</label>
+                    Minimum GPA</th>
+                  
                   <th>Slots </th>
                   <th onClick={() => handleSort("firstPref")}>
                     No. of First Preferences
