@@ -37,12 +37,16 @@ public class University {
 
 	private boolean showGPA;
 
-	public void setShowGPA(boolean showGPA) {
-		this.showGPA = showGPA;
+	
+
+
+	public boolean isShowGPA() {
+		return showGPA;
 	}
 
-	public boolean getShowGPA() {
-		return showGPA;
+
+	public void setShowGPA(boolean showGPA) {
+		this.showGPA = showGPA;
 	}
 
 
