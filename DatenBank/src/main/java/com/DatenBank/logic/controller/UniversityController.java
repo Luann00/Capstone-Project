@@ -47,6 +47,17 @@ private UniversityService universityService;
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
+	
+    @PutMapping("/updateShowGPA")
+    public ResponseEntity<Void> updateShowGPA(@RequestBody boolean showGPA) {
+        try {
+            universityService.updateAllShowGPA(showGPA);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+	
 	@PutMapping("/{uniId}")
     public ResponseEntity<University> updateUniversity(
             @PathVariable int uniId,

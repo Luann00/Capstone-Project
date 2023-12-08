@@ -11,8 +11,11 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [firstPrioritySelected, setFirstPrioritySelected] = useState(false);
-  const [otherPrioritySelected,setOtherPrioritySelected]= useState(false);
+  const [otherPrioritySelected, setOtherPrioritySelected] = useState(false);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
+  const [showMinGPA, setShowMinGPA] = useState(true);
+
+
 
 
   const handlePrioritySelect = async (priority) => {
@@ -20,22 +23,22 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       if (!firstPrioritySelected) {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         setSelectedPriority(priority);
-        await updateCurrentFirstPrioCount(university.uniId, true); 
+        await updateCurrentFirstPrioCount(university.uniId, true);
 
         if (updatedTotalPref === 0) {
           setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1); // Increment totalPref by 1 
           await updateCurrentTotalPrioCount(university.uniId, true);
-          
+
 
         }
         setFirstPrioritySelected(true);
-      } else{
+      } else {
         setSelectedPriority(priority);
 
       }
       setOtherPrioritySelected(false);
-      
-        
+
+
     }
     else {
       setOtherPrioritySelected(true);
@@ -51,33 +54,33 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
       setSelectedPriority(priority);
-      
+
 
     }
-    
-    
+
+
   };
 
 
-  const handleDropPriority = async() => {
-    if(firstPrioritySelected&&updatedFirstPref>0){
-      setUpdatedFirstPref((prevUpdatedFirstPref)=> prevUpdatedFirstPref-1);
-      
+  const handleDropPriority = async () => {
+    if (firstPrioritySelected && updatedFirstPref > 0) {
+      setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+
       await updateCurrentFirstPrioCount(university.uniId, false);
       setFirstPrioritySelected(false);
     }
-    if(otherPrioritySelected&&updatedTotalPref>0){
-      setUpdatedTotalPref((prevUpdatedTotalPref)=> prevUpdatedTotalPref-1);
-    await updateCurrentTotalPrioCount(university.uniId,false);
+    if (otherPrioritySelected && updatedTotalPref > 0) {
+      setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref - 1);
+      await updateCurrentTotalPrioCount(university.uniId, false);
 
     }
-    
+
     setSelectedPriority('');
-    
 
-    }
 
-  
+  }
+
+
 
 
 
@@ -163,8 +166,9 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
           <ListGroup.Item> <span><MdChairAlt /></span> Places available: {university.slots}</ListGroup.Item>
 
 
-          <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year) : {university.minGPA}</ListGroup.Item>
-
+          {university.showGPA ? (
+          <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
+        ) : null}
 
           <ListGroup.Item>
             <span><BsFillPeopleFill /></span>
@@ -209,6 +213,8 @@ const UniCard = () => {
     '2nd Priority': "",
     '3rd Priority': "",
   });
+  const [showMinGPA, setShowMinGPA] = useState(true);
+
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -216,6 +222,10 @@ const UniCard = () => {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
         setUniversities(data);
+        const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
+        
+
+        setShowMinGPA(initialShowMinGPAColumn);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

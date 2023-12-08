@@ -10,7 +10,7 @@ public class University {
 	}
 
 
-	public University(int uniId, String name,String abbName, String country, String city, float minGPA, int slots, int firstPref,int totalPref) {
+	public University(int uniId, String name,String abbName, String country, String city, float minGPA, int slots, int firstPref,int totalPref, boolean showGPA) {
 		super();
 		this.uniId = uniId;
 		this.name = name;
@@ -21,6 +21,7 @@ public class University {
 		this.slots = slots;
 		this.firstPref = firstPref;
 		this.totalPref= totalPref;
+		this.showGPA = true;
 	}
 
 	@Id
@@ -33,6 +34,20 @@ public class University {
 	private int slots;
 	private int firstPref;
 	private int totalPref;
+
+	private boolean showGPA =true;
+
+	
+
+
+	public boolean isShowGPA() {
+		return showGPA;
+	}
+
+
+	public void setShowGPA(boolean showGPA) {
+		this.showGPA = showGPA;
+	}
 
 
 	public int getTotalPref() {

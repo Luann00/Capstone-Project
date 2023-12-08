@@ -10,6 +10,7 @@ function Home() {
   const [show, setShow] = useState(false);
   const [universities, setUniversities] = useState([]);
   const [originalUniversities, setoriginalUniversities] = useState([]);
+  const [showMinGPAColumn, setShowMinGPAColumn] = useState(true);
 
 
 
@@ -30,10 +31,10 @@ function Home() {
   const [newUniversity, setNewUniversity] = useState({
     uniId: "",
     name: "",
-    abbName:"",
+    abbName: "",
     country: "",
     city: "",
-    minGPA:"",
+    minGPA: "",
     slots: "",
     firstPref: "",
     totalPref: ""
@@ -47,11 +48,33 @@ function Home() {
     { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name' },
     { name: 'country', type: 'text', placeholder: 'Enter Country' },
     { name: 'city', type: 'text', placeholder: 'Enter City' },
-    { name: 'minGPA', type: 'number',step:'any', placeholder: 'Enter minimum required GPA' },
+    { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA' },
     { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots' },
     { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
     { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences' },
   ];
+
+
+  const handleShowMinGPAColumn = async () => {
+    setShowMinGPAColumn(!showMinGPAColumn);
+    try {
+      const response = await fetch('http://localhost:8081/university/updateShowGPA', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(!showMinGPAColumn),
+      });
+
+
+      if (!response.ok) {
+        alert('Fehler beim Aktualisieren der Datenbank');
+      }
+    } catch (error) {
+      alert('Fehler beim Senden der PUT-Anfrage' + error);
+    }
+
+  };
 
 
 
@@ -66,7 +89,7 @@ function Home() {
       abbName: "",
       country: "",
       city: "",
-      minGPA:"",
+      minGPA: "",
       slots: "",
       firstPref: "",
       totalPref: "",
@@ -102,6 +125,12 @@ function Home() {
         const data = await response.json();
         setUniversities(data);
         setoriginalUniversities(data);
+
+        const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
+
+        setShowMinGPAColumn(initialShowMinGPAColumn);
+
+
       } catch (error) {
         console.log('Error fetching data:' + error);
       }
@@ -267,6 +296,10 @@ function Home() {
     }
   };
 
+  const handleChangeShowMin = (e) => {
+    const { showGPA } = e.target;
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedUniversity) {
@@ -337,7 +370,15 @@ function Home() {
                     </a>
                   </th>
                   <th>City</th>
-                  <th>Minimum GPA</th>
+                  <th><label>
+                    <input
+                      type="checkbox"
+                      checked={showMinGPAColumn}
+                      onChange={() => handleShowMinGPAColumn(!showMinGPAColumn)}
+                    />
+                  </label>
+                    Minimum GPA</th>
+
                   <th>Slots </th>
                   <th onClick={() => handleSort("firstPref")}>
                     No. of First Preferences

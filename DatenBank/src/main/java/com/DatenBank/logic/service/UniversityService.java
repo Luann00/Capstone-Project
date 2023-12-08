@@ -49,7 +49,6 @@ public class UniversityService {
             existingUniversity.setCountry(updatedUniversity.getCountry());
             existingUniversity.setCity(updatedUniversity.getCity());
             existingUniversity.setMinGPA(updatedUniversity.getMinGPA());
-
             existingUniversity.setSlots(updatedUniversity.getSlots());
             existingUniversity.setFirstPref(updatedUniversity.getFirstPref());
             existingUniversity.setTotalPref(updatedUniversity.getTotalPref());
@@ -61,6 +60,16 @@ public class UniversityService {
             throw new Exception("Student not found with matrikelnummer: " + uniId);
         }
 
+    }
+
+
+    public void updateAllShowGPA(boolean showGPA) {
+        List<University> universities = universityRepository.findAll();
+    
+        for (University university : universities) {
+            university.setShowGPA(showGPA);
+            universityRepository.save(university);
+        }
     }
 
     public University getUniversityById(int uniId) {
