@@ -14,8 +14,18 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
 
+useEffect(() => {
+  const storeState = window.localStorage.getItem('stored Priority');
+  setSelectedPriority(JSON.parse(storeState));
+}, [])
 
 
+
+
+useEffect(()=>{
+console.log('Priority',selectedPriority);
+window.localStorage.setItem('stored Priority',JSON.stringify(selectedPriority));
+},[selectedPriority]);
 
   const handlePrioritySelect = async (priority) => {
     if (priority === '1st Priority') {
