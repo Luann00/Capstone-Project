@@ -9,7 +9,7 @@ import './UniCard.css';
 
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [previousPriority, setPreviousPriority]= useState('');
+  const [previousPriority, setPreviousPriority] = useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
@@ -23,52 +23,52 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         await updateCurrentFirstPrioCount(university.uniId, true);
       }
-  
+
       if (previousPriority === '') {
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-  
+
       setPreviousPriority('1st Priority');
     } else if (priority === '2nd Priority') {
       if (previousPriority === '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         await updateCurrentFirstPrioCount(university.uniId, false);
       }
-  
+
       if (previousPriority === '') {
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-  
+
       setPreviousPriority('2nd Priority');
     } else {
       if (previousPriority === '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         await updateCurrentFirstPrioCount(university.uniId, false);
       }
-  
+
       if (previousPriority === '') {
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-  
+
       setPreviousPriority('3rd Priority');
     }
-  
+
     setSelectedPriority(priority);
   };
-  
+
 
 
   const handleDropPriority = async () => {
-    if (previousPriority==='1st Priority' && updatedFirstPref > 0) {
+    if (previousPriority === '1st Priority' && updatedFirstPref > 0) {
       setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
 
       await updateCurrentFirstPrioCount(university.uniId, false);
-      
+
     }
-    if (previousPriority!=='' && updatedTotalPref > 0) {
+    if (previousPriority !== '' && updatedTotalPref > 0) {
       setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref - 1);
       await updateCurrentTotalPrioCount(university.uniId, false);
 
@@ -166,8 +166,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
           {university.showGPA ? (
-          <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
-        ) : null}
+            <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
+          ) : null}
 
           <ListGroup.Item>
             <span><BsFillPeopleFill /></span>
@@ -213,6 +213,15 @@ const UniCard = () => {
     '3rd Priority': "",
   });
   const [showMinGPA, setShowMinGPA] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // Neuer Zustand für die Suche
+  
+
+
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
 
 
   useEffect(() => {
@@ -222,7 +231,7 @@ const UniCard = () => {
         const data = await response.json();
         setUniversities(data);
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
-        
+
 
         setShowMinGPA(initialShowMinGPAColumn);
       } catch (error) {
@@ -242,14 +251,32 @@ const UniCard = () => {
 
   return (
     <div className='card-container'>
-      {universities.map((university) => (
-        <UniversityCard
-          key={university.uniId}
-          university={university}
-          priorityState={priorityState}
-          setPriorityState={setPriorityState}
-        />
-      ))}
+      <div className="search">
+        <form className="form-inline">
+          <span className="icon">🔍</span>
+          <input
+            className="form-control mr-sm-2"
+            type="text"
+            placeholder="Search by names..."
+            aria-label="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
+      </div>
+      {/* Filtern Sie die Universitäten basierend auf dem Suchbegriff */}
+      {universities
+        .filter((university) =>
+          university.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .map((university) => (
+          <UniversityCard
+            key={university.uniId}
+            university={university}
+            priorityState={priorityState}
+            setPriorityState={setPriorityState}
+          />
+        ))}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Modal, Input } from 'react-bootstrap';
 import UniCard from '../components/UniCard';
 import NavBarStudent from '../components/NavBarStudent';
 import './UniCardPage.css';
@@ -8,6 +9,7 @@ const UniCardPage = () => {
   let condition = false; // Hier deine eigene Bedingung
 
   const [processes, setProcesses] = useState([]);
+  const [search, setSearch] = useState("");
 
   
 
@@ -77,6 +79,7 @@ if (processIsActive()) {
         <div className='empty-page'>
           <h1>Es ist kein Auswahlverfahren offen!</h1>
         </div>
+        
       )}
     </div>
   );
