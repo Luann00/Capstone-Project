@@ -213,16 +213,33 @@ const UniCard = () => {
     '3rd Priority': "",
   });
   const [showMinGPA, setShowMinGPA] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // Neuer Zustand für die Suche
-  
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [originalUniversities, setOriginalUniversities] = useState([]);
 
+  useEffect(() => {
+    setOriginalUniversities(universities);
+  }, [universities]);
 
+  const handleFilterByRegion = (region) => {
+    setSelectedRegion(region);
+
+    const updatedTableData = originalUniversities.filter((university) =>
+      university.country.toLowerCase().includes(region.toLowerCase()) ||
+      university.city.toLowerCase().includes(region.toLowerCase())
+    );
+
+    setUniversities(updatedTableData);
+  };
+
+  const getUniqueRegions = () => {
+    const regions = Array.from(new Set(universities.flatMap((university) => [university.country])));
+    return regions.filter(Boolean);
+  };
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
-
-
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -231,7 +248,6 @@ const UniCard = () => {
         const data = await response.json();
         setUniversities(data);
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
-
 
         setShowMinGPA(initialShowMinGPAColumn);
       } catch (error) {
@@ -243,14 +259,25 @@ const UniCard = () => {
 
     const interval = setInterval(fetchUniversities, 10000);
 
-    // Clean up the interval to prevent memory leaks
     return () => clearInterval(interval);
   }, []);
 
-
-
   return (
     <div className='card-container'>
+      <div className="filter-dropdown">
+        <Dropdown>
+          <Dropdown.Toggle id="dropdown-region">
+            {selectedRegion ? `Filtering by: ${selectedRegion}` : 'Filter by region'}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {getUniqueRegions().map((region) => (
+              <Dropdown.Item key={region} onClick={() => handleFilterByRegion(region)}>
+                {region}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
       <div className="search">
         <form className="form-inline">
           <span className="icon">🔍</span>
@@ -260,13 +287,16 @@ const UniCard = () => {
             placeholder="Search by names..."
             aria-label="Search"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearch}
           />
         </form>
       </div>
-      {/* Filtern Sie die Universitäten basierend auf dem Suchbegriff */}
       {universities
         .filter((university) =>
+          (selectedRegion ?
+            university.country.toLowerCase().includes(selectedRegion.toLowerCase()) ||
+            university.city.toLowerCase().includes(selectedRegion.toLowerCase()) :
+            true) &&
           university.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
         .map((university) => (
