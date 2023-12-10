@@ -9,7 +9,7 @@ import './UniCard.css';
 
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [previousPriority, setPreviousPriority]= useState('');
+  const [previousPriority, setPreviousPriority] = useState('');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
@@ -33,52 +33,52 @@ window.localStorage.setItem('stored Priority',JSON.stringify(selectedPriority));
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         await updateCurrentFirstPrioCount(university.uniId, true);
       }
-  
+
       if (previousPriority === '') {
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-  
+
       setPreviousPriority('1st Priority');
     } else if (priority === '2nd Priority') {
       if (previousPriority === '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         await updateCurrentFirstPrioCount(university.uniId, false);
       }
-  
+
       if (previousPriority === '') {
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-  
+
       setPreviousPriority('2nd Priority');
     } else {
       if (previousPriority === '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         await updateCurrentFirstPrioCount(university.uniId, false);
       }
-  
+
       if (previousPriority === '') {
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
-  
+
       setPreviousPriority('3rd Priority');
     }
-  
+
     setSelectedPriority(priority);
   };
-  
+
 
 
   const handleDropPriority = async () => {
-    if (previousPriority==='1st Priority' && updatedFirstPref > 0) {
+    if (previousPriority === '1st Priority' && updatedFirstPref > 0) {
       setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
 
       await updateCurrentFirstPrioCount(university.uniId, false);
-      
+
     }
-    if (previousPriority!=='' && updatedTotalPref > 0) {
+    if (previousPriority !== '' && updatedTotalPref > 0) {
       setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref - 1);
       await updateCurrentTotalPrioCount(university.uniId, false);
 
@@ -176,8 +176,8 @@ window.localStorage.setItem('stored Priority',JSON.stringify(selectedPriority));
 
 
           {university.showGPA ? (
-          <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
-        ) : null}
+            <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
+          ) : null}
 
           <ListGroup.Item>
             <span><BsFillPeopleFill /></span>
@@ -223,7 +223,33 @@ const UniCard = () => {
     '3rd Priority': "",
   });
   const [showMinGPA, setShowMinGPA] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [originalUniversities, setOriginalUniversities] = useState([]);
 
+  useEffect(() => {
+    setOriginalUniversities(universities);
+  }, [universities]);
+
+  const handleFilterByRegion = (region) => {
+    setSelectedRegion(region);
+
+    const updatedTableData = originalUniversities.filter((university) =>
+      university.country.toLowerCase().includes(region.toLowerCase()) ||
+      university.city.toLowerCase().includes(region.toLowerCase())
+    );
+
+    setUniversities(updatedTableData);
+  };
+
+  const getUniqueRegions = () => {
+    const regions = Array.from(new Set(universities.flatMap((university) => [university.country])));
+    return regions.filter(Boolean);
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -232,7 +258,6 @@ const UniCard = () => {
         const data = await response.json();
         setUniversities(data);
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
-        
 
         setShowMinGPA(initialShowMinGPAColumn);
       } catch (error) {
@@ -244,22 +269,54 @@ const UniCard = () => {
 
     const interval = setInterval(fetchUniversities, 10000);
 
-    // Clean up the interval to prevent memory leaks
     return () => clearInterval(interval);
   }, []);
 
-
-
   return (
     <div className='card-container'>
-      {universities.map((university) => (
-        <UniversityCard
-          key={university.uniId}
-          university={university}
-          priorityState={priorityState}
-          setPriorityState={setPriorityState}
-        />
-      ))}
+      <div className="filter-dropdown">
+        <Dropdown>
+          <Dropdown.Toggle id="dropdown-region">
+            {selectedRegion ? `Filtering by: ${selectedRegion}` : 'Filter by region'}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {getUniqueRegions().map((region) => (
+              <Dropdown.Item key={region} onClick={() => handleFilterByRegion(region)}>
+                {region}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+      <div className="search">
+        <form className="form-inline">
+          <span className="icon">🔍</span>
+          <input
+            className="form-control mr-sm-2"
+            type="text"
+            placeholder="Search by names..."
+            aria-label="Search"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </form>
+      </div>
+      {universities
+        .filter((university) =>
+          (selectedRegion ?
+            university.country.toLowerCase().includes(selectedRegion.toLowerCase()) ||
+            university.city.toLowerCase().includes(selectedRegion.toLowerCase()) :
+            true) &&
+          university.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .map((university) => (
+          <UniversityCard
+            key={university.uniId}
+            university={university}
+            priorityState={priorityState}
+            setPriorityState={setPriorityState}
+          />
+        ))}
     </div>
   );
 };
