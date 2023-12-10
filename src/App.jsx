@@ -23,7 +23,7 @@ function App() {
   // )
 
   const [isLoggedIn, setLoggedIn] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(BsTruckFlatbed);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogin = (userType) => {
     setLoggedIn(true);
