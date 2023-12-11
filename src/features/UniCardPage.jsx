@@ -15,7 +15,8 @@ const UniCardPage = () => {
 
     if (activeProcess) {
       const endDateTime = new Date(activeProcess.endDate);
-      endDateTime.setHours(0, 0, 0, 0); // Set the time to 00:00:00.000
+      endDateTime.setHours(23, 59, 59, 999);
+
       // Set the time zone to Europe/Berlin
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
@@ -59,6 +60,12 @@ const UniCardPage = () => {
       const startDateTime = new Date(process.startDate);
       const endDateTime = new Date(process.endDate);
 
+      // Set time to the beginning of the day for startDateTime
+      startDateTime.setHours(0, 0, 0, 0);
+
+      // Set time to 11:59:59.999 for endDateTime
+      endDateTime.setHours(23, 59, 59, 999);
+
       if (currentDate >= startDateTime && currentDate <= endDateTime) {
         isActive = true;
       }
@@ -73,6 +80,12 @@ const UniCardPage = () => {
     for (const process of data) {
       const startDateTime = new Date(process.startDate);
       const endDateTime = new Date(process.endDate);
+
+      // Set time to the beginning of the day for startDateTime
+      startDateTime.setHours(0, 0, 0, 0);
+
+      // Set time to 11:59:59.999 for endDateTime
+      endDateTime.setHours(23, 59, 59, 999);
 
       if (currentDate >= startDateTime && currentDate <= endDateTime) {
         return process;
