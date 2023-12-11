@@ -70,11 +70,18 @@ function SelectionProcess() {
         });
     };
 
-    // Function to check if the current time is within the interval
+    // Function to check if the current time is within the interval of a specific process
     const processIsActive = (startDate, endDate) => {
         const currentDate = new Date();
         const startDateTime = new Date(startDate);
         const endDateTime = new Date(endDate);
+
+        //Set the day to the beginning of the day
+        startDateTime.setHours(0, 0, 0, 0);
+        endDateTime.setHours(23, 59, 59, 999);
+
+
+
         return currentDate >= startDateTime && currentDate <= endDateTime;
     };
 
@@ -368,7 +375,7 @@ function SelectionProcess() {
                                                 <i className="material-icons">&#xE254;</i>
                                             </a>*/}
                                         <td>
-                                            
+
                                             <a
                                                 href="#"
                                                 className="delete"
