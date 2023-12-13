@@ -26,6 +26,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   const [studentPriorities, setStudentPriorities] = useState([]);
 
+  /* for later, when student priorities get fetched
   useEffect(() => {
     const fetchStudentPriorities = async () => {
       try {
@@ -61,6 +62,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     fetchStudentPriorities();
   }, [7379949]);
 
+  */
+
 
   const isPrioritySelected = (priority) => {
     return university.uniId === studentPriorities[`${priority}Pref`];
@@ -92,9 +95,12 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   const handlePrioritySelect = async (priority) => {
     //If no priority was selected, then return method
+
+    /* for later
     if (!selected) {
       return
     }
+    */
     if (priority === '1st Priority') {
       //if current priority is not one, then set it to one and increment firstPrefs of unicard by 1
       if (currentPriority !== '1st Priority') {
@@ -259,7 +265,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
-            {!selected
+            {/*  {!selected
               ? (firstPriority === university.uniId
                 ? '1st Priority'
                 : secondPriority === university.uniId
@@ -267,7 +273,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
                   : thirdPriority === university.uniId
                     ? '3rd Priority'
                     : 'Choose Preference')
-              : "Choose Preference"}
+              : "Choose Preference"} */}
+            {selectedPriority || 'Add to your preferences'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handlePrioritySelect('1st Priority')}>
