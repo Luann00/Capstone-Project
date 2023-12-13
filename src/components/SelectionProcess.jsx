@@ -29,9 +29,9 @@ function SelectionProcess() {
 
 
     const [newProcess, setNewProcess] = useState({
+        year: "",
         startDate: "",
         endDate: "",
-        year: "",
         numberOfStudents: "",
         numberOfPreferences: "",
         numberOfUniversities: "",
@@ -39,11 +39,11 @@ function SelectionProcess() {
         daysUntilStudentDataDeletion: ""
     });
 
-    //The new values for a new university get saved here initially
+    //The new values for a new university get savet here initially
     const inputFields = [
+        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', disabled: true },
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process' },
-        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process' },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Enter number of students' },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Enter number of preferences' },
         { name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Enter number of universities' },
@@ -59,9 +59,9 @@ function SelectionProcess() {
         setShow(false);
         setSelectedProcess(null);
         setNewProcess({
+            year: "",
             startDate: "",
             endDate: "",
-            year: "",
             numberOfStudents: "",
             numberOfPreferences: "",
             numberOfUniversities: "",
@@ -90,18 +90,20 @@ function SelectionProcess() {
     const handleShow = () => setShow(true);
 
     const handleEdit = (process) => {
-        /*
-      setSelectedUniversity(process);
-      setNewUniversity({
-        uniId: university.uniId,
-        name: university.name,
-        country: university.country,
-        city: university.city,
-        slots: university.slots,
-        firstPref: university.firstPref,
-      });
-      handleShow();
-      */
+
+        setSelectedProcess(process);
+        setNewProcess({
+            year: process.year,
+            startDate: process.startDate,
+            endDate: process.endDate,
+            numberOfStudents: process.numberOfStudents,
+            numberOfPreferences: process.numberOfPreferences,
+            numberOfUniversities: process.numberOfUniversities,
+            deadlineExtensionMinutes: process.deadlineExtensionMinutes,
+            daysUntilStudentDataDeletion: process.daysUntilStudentDataDeletion
+        });
+        handleShow();
+
     };
 
 
@@ -123,40 +125,40 @@ function SelectionProcess() {
     }, []);
 
 
-    /* Don't need update?
-    const updateUniversity = async () => {
-      //Update at first the local table for a smoother user experience
-      const updatedUniversities = universities.map((university) =>
-        university.uniId === selectedUniversity.uniId
-          ? selectedUniversity
-          : university
-      );
-      setUniversities(updatedUniversities);
-      handleClose();
-  
-      try {
-  
-        const response = await fetch(
-          `http://localhost:8081/university/${selectedUniversity.uniId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(selectedUniversity),
-          }
+    const updateProcesses = async () => {
+        //Update at first the local table for a smoother user experience
+        const updatedProcess = processes.map((process) =>
+            process.year === process.year
+                ? selectedProcess
+                : process
         );
-  
-  
-        if (!response.ok) {
-  
+        setProcesses(updatedProcess);
+        handleClose();
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:8081/university/${selectedProcess.year}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(selectedProcess),
+                }
+            );
+
+
+            if (!response.ok) {
+                alert("Problem: " + response)
+            }
+
+        } catch (error) {
+
         }
-  
-      } catch (error) {
-      }
-  
+
     };
-    */
+
 
 
     //Probably don't need search function by now
@@ -339,9 +341,9 @@ function SelectionProcess() {
                         <table class="table table-striped table-hover table-bordered" >
                             <thead>
                                 <tr style={{ fontFamily: 'Arial', fontSize: '14px', fontWeight: 'bold', color: 'blue' }}>
+                                    <th>Year</th>
                                     <th>Start date</th>
                                     <th>End date</th>
-                                    <th>Year</th>
                                     <th>No. of Students</th>
                                     <th>No. of Preferences</th>
                                     <th>No. of Universities</th>
@@ -355,9 +357,9 @@ function SelectionProcess() {
                                 {/*Show data in the table*/}
                                 {processes.map((row) => (
                                     <tr key={row.id}>
+                                        <td>{row.year}</td>
                                         <td>{row.startDate}</td>
                                         <td>{row.endDate}</td>
-                                        <td>{row.year}</td>
                                         <td>{row.numberOfStudents}</td>
                                         <td>{row.numberOfPreferences}</td>
                                         <td>{row.numberOfUniversities}</td>
@@ -365,7 +367,8 @@ function SelectionProcess() {
                                         <td>{row.daysUntilStudentDataDeletion}</td>
                                         <td>{processIsActive(row.startDate, row.endDate) ? 'Active' : 'Inactive'}  &#128994;</td>
 
-                                        {/*<a
+                                        <td>
+                                            <a
                                                 href="#"
                                                 className="edit"
                                                 title="Edit"
@@ -373,9 +376,7 @@ function SelectionProcess() {
                                                 onClick={() => handleEdit(row)}
                                             >
                                                 <i className="material-icons">&#xE254;</i>
-                                            </a>*/}
-                                        <td>
-
+                                            </a>
                                             <a
                                                 href="#"
                                                 className="delete"
@@ -408,7 +409,7 @@ function SelectionProcess() {
                             <Modal.Title>Add Process</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <form onSubmit={addProcess}>
+                            <form onSubmit={selectedProcess ? updateProcesses : addProcess}>
                                 {inputFields.map((field) => (
                                     <div className="form-group mt-3" key={field.name}>
                                         <input

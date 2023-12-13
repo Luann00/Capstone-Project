@@ -1,7 +1,10 @@
 package com.DatenBank.logic.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.DatenBank.logic.entity.Student;
+import com.DatenBank.logic.repository.StudentRepository;
 import com.DatenBank.logic.service.StudentService;
 
 
@@ -30,6 +34,10 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	 @Autowired
+	    private StudentRepository studentRepository;
+
 	
 	public StudentController(StudentService studentService) {
         this.studentService = studentService;
@@ -77,6 +85,23 @@ public class StudentController {
 	        } catch (Exception e) {
 	            // Handle other exceptions
 	            return ResponseEntity.status(500).build();
+	        }
+	    }
+	  
+	  
+	  @GetMapping("/{matrikelnummer}/priorities")
+	    public ResponseEntity<Map<String, Integer>> getStudentPriorities(@PathVariable int matrikelnummer) {
+	        Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);
+
+	        if (optionalStudent.isPresent()) {
+	            Student student = optionalStudent.get();
+	            Map<String, Integer> priorities = new HashMap<>();
+	            priorities.put("firstPref", student.getFirstPref());
+	            priorities.put("secondPref", student.getSecondPref());
+	            priorities.put("thirdPref", student.getThirdPref());
+	            return ResponseEntity.ok(priorities);
+	        } else {
+	            return ResponseEntity.notFound().build();
 	        }
 	    }
 	

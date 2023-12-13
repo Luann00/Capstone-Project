@@ -15,23 +15,94 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
 
-  const uniLocalStorageKey = `storePriority_${university.uniId}`;
+  const [selected, setSelected] = useState(false);
 
-  useEffect(() => {
-    const storeState = window.localStorage.getItem(uniLocalStorageKey);
-    const parsedStoreState = JSON.parse(storeState) || {};
-    setSelectedPriority(parsedStoreState.selectedPriority || '');
-    setCurrentPriority(parsedStoreState.currentPriority || '');
-  }, [uniLocalStorageKey]);
 
+  const [firstPriority, setFirstPriority] = useState('');
+  const [secondPriority, setSecondPriority] = useState('');
+  const [thirdPriority, setThirdPriority] = useState('');
+
+
+
+  const [studentPriorities, setStudentPriorities] = useState([]);
+
+  /* for later, when student priorities get fetched
   useEffect(() => {
-    console.log('Selected Priority', selectedPriority);
-    console.log('Current Priority', currentPriority);
-    window.localStorage.setItem(uniLocalStorageKey, JSON.stringify({ selectedPriority, currentPriority }));
-  }, [selectedPriority, currentPriority, uniLocalStorageKey]);
+    const fetchStudentPriorities = async () => {
+      try {
+        const response = await fetch(`http://localhost:8081/student/7379949/priorities`);
+        const data = await response.json();
+        // Wandele das Objekt in ein Array um
+        // Überprüfe, ob Prioritäten für die aktuelle Universität vorhanden sind
+        const universityPriorities = data;
+
+        if (universityPriorities) {
+          setFirstPriority(universityPriorities.firstPref);
+          setSecondPriority(universityPriorities.secondPref);
+          setThirdPriority(universityPriorities.thirdPref);
+
+
+          // Setze die Dropdown-Auswahl basierend auf den Prioritäten
+          if (universityPriorities.firstPref) {
+            handlePrioritySelect('1st Priority');
+          } else if (universityPriorities.secondPref) {
+            handlePrioritySelect('2nd Priority');
+          } else if (universityPriorities.thirdPref) {
+            handlePrioritySelect('3rd Priority');
+          }
+        }
+
+
+
+      } catch (error) {
+        alert('Error fetching student priorities:' + error);
+      }
+    };
+
+    fetchStudentPriorities();
+  }, [7379949]);
+
+  */
+
+
+  const isPrioritySelected = (priority) => {
+    return university.uniId === studentPriorities[`${priority}Pref`];
+  };
+
+
+
+  /*
+  useEffect(() => {
+    // Überprüfen, ob eine Priorität für die aktuelle Universität vorhanden ist
+    const studentPriority = studentPriorities.find(prio => prio.uniId === university.uniId);
+
+
+    if (studentPriority != null) {
+      // Priorität vorhanden, Dropdown-Auswahl basierend auf der Priorität setzen
+      if (studentPriority.firstPref) {
+        setSelectedPriority('1st Priority');
+        setCurrentPriority('1st Priority');
+      } else if (studentPriority.secondPref) {
+        setSelectedPriority('2nd Priority');
+        setCurrentPriority('2nd Priority');
+      } else if (studentPriority.thirdPref) {
+        setSelectedPriority('3rd Priority');
+        setCurrentPriority('3rd Priority');
+      }
+    }
+  }, [university.uniId, studentPriorities]);
+  */
 
   const handlePrioritySelect = async (priority) => {
+    //If no priority was selected, then return method
+
+    /* for later
+    if (!selected) {
+      return
+    }
+    */
     if (priority === '1st Priority') {
+      //if current priority is not one, then set it to one and increment firstPrefs of unicard by 1
       if (currentPriority !== '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         await updateCurrentFirstPrioCount(university.uniId, true);
@@ -39,13 +110,14 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       }
 
       if (currentPriority === '') {
+        //if there wasnt a priority selected, increment totalPref variable by 1
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
 
       setCurrentPriority('1st Priority');
-      window.localStorage.setItem(uniLocalStorageKey, JSON.stringify({ selectedPriority, currentPriority }));
     } else if (priority === '2nd Priority') {
+      //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
       if (currentPriority === '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         await updateCurrentFirstPrioCount(university.uniId, false);
@@ -57,24 +129,23 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       }
 
       setCurrentPriority('2nd Priority');
-      window.localStorage.setItem(uniLocalStorageKey, JSON.stringify({ selectedPriority, currentPriority }));
     } else {
       if (currentPriority === '1st Priority') {
+        //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
         await updateCurrentFirstPrioCount(university.uniId, false);
       }
 
       if (currentPriority === '') {
+        //if there wasnt a priority selected, increment totalPref variable by 1
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
 
       setCurrentPriority('3rd Priority');
-      window.localStorage.setItem(uniLocalStorageKey, JSON.stringify({ selectedPriority, currentPriority }));
     }
 
     setSelectedPriority(priority);
-    window.localStorage.setItem(uniLocalStorageKey, JSON.stringify({ selectedPriority, currentPriority }));
 
   };
 
@@ -94,16 +165,9 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     }
     setCurrentPriority('');
     setSelectedPriority('');
-    window.localStorage.setItem(uniLocalStorageKey, JSON.stringify({ selectedPriority, currentPriority }));
 
 
   }
-
-
-
-
-
-
 
 
 
@@ -201,6 +265,15 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
+            {/*  {!selected
+              ? (firstPriority === university.uniId
+                ? '1st Priority'
+                : secondPriority === university.uniId
+                  ? '2nd Priority'
+                  : thirdPriority === university.uniId
+                    ? '3rd Priority'
+                    : 'Choose Preference')
+              : "Choose Preference"} */}
             {selectedPriority || 'Add to your preferences'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
@@ -216,8 +289,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
             <Dropdown.Item onClick={() => handleDropPriority()} >
               Drop Priority
             </Dropdown.Item>
-
-
           </Dropdown.Menu>
         </Dropdown>
       </Card.Body>
@@ -241,6 +312,8 @@ const UniCard = () => {
     setOriginalUniversities(universities);
   }, [universities]);
 
+
+  //For filter function by region for the student
   const handleFilterByRegion = (region) => {
     setSelectedRegion(region);
 
@@ -252,6 +325,7 @@ const UniCard = () => {
     setUniversities(updatedTableData);
   };
 
+  //Showing the regions of the universities
   const getUniqueRegions = () => {
     const regions = Array.from(new Set(universities.flatMap((university) => [university.country])));
     return regions.filter(Boolean);
@@ -260,6 +334,8 @@ const UniCard = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
+
+
 
   useEffect(() => {
     const fetchUniversities = async () => {
