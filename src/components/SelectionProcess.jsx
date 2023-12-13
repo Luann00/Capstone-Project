@@ -41,7 +41,7 @@ function SelectionProcess() {
 
     //The new values for a new university get saved here initially
     const inputFields = [
-        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', disabled: false },
+        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', disabled: true },
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process' },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Enter number of students' },
@@ -150,7 +150,7 @@ function SelectionProcess() {
 
 
             if (!response.ok) {
-                console.log("Problem: " + response)
+                alert("Problem: " + response)
             }
 
         } catch (error) {
