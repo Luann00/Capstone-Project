@@ -45,12 +45,12 @@ public class SelectionProcessController {
 	}
 
 	@PutMapping("/{year}")
-	public ResponseEntity<Student> updateStudent(
+	public ResponseEntity<SelectionProcess> updateProcess(
 			@PathVariable int year,
 			@RequestBody SelectionProcess updatedProcess) {
 
 		try {
-			Student result = selectionProcessService.updateProcess(year, updatedProcess);
+			SelectionProcess result = selectionProcessService.updateProcess(year, updatedProcess);
 			return ResponseEntity.ok(result);
 		} catch (ClassNotFoundException e) {
 			// Handle not found exception
