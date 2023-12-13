@@ -39,7 +39,7 @@ function SelectionProcess() {
         daysUntilStudentDataDeletion: ""
     });
 
-    //The new values for a new university get saved here initially
+    //The new values for a new university get savet here initially
     const inputFields = [
         { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', disabled: true },
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
