@@ -97,9 +97,7 @@ const UniCardPage = () => {
 
   return (
     <div className='card-page'>
-      <div className='navbar'>
-        <NavBarStudent />
-      </div>
+     
 
       {condition ? (
         <div className='title'>

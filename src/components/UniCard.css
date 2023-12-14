@@ -1,17 +1,13 @@
 .universityCard {
   width: 25rem;
   margin: 10px;
-
   border: 1px solid #ccc;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-
 }
 
 .universityCard:has(:hover, :focus) {
   background-color: rgba(131, 175, 35, 0.1);
-
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
@@ -21,17 +17,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* This creates space between items */
-
-
 }
 
 .universityCard .card-title {
-
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
-
 }
 
 .universityCard .card-title:hover {
@@ -90,6 +81,13 @@
 .universityCard .dropdown-menu {
   position: relative;
   z-index: 1000;
+  width: 100%;
+  /* Make the dropdown menu full-width */
+}
+
+.universityCard .dropdown-toggle {
+  width: 100%;
+  /* Make the toggle button full-width */
 }
 
 
@@ -102,4 +100,15 @@
   row-gap: 80px;
   column-gap: 140px;
 
+}
+
+@media (max-width: 768px) {
+  .universityCard .dropdown {
+    align-self: stretch;
+    /* Make the dropdown full-width */
+    margin-top: 10px;
+    /* Add some space at the top */
+    margin-right: 0;
+    /* Remove right margin */
+  }
 }

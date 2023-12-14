@@ -1,8 +1,7 @@
+/*
 .nav {
   background-color: rgb(69, 122, 147);
-  /* Background color for the navbar */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Adding a shadow */
   margin-bottom: 50px;
   width: 100%;
 
@@ -27,7 +26,6 @@
   background-color: rgb(118, 171, 2);
 }
 
-/* Optional: Styling for links and dropdown */
 .nav-link {
   font-weight: bold;
   color: #fff;
@@ -37,11 +35,12 @@
   color: #77bb12;
 }
 
-/* Styling for the dropdown */
 .dropdown-menu {
   background-color: #fff;
   border: 1px solid #ccc;
 }
+*/
+
 
 
 

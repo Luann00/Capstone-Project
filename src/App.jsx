@@ -12,16 +12,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarAdmin from './components/NavbarAdmin';
 import NavBarStudent from './components/NavBarStudent';
 import Home from "./components/Home";
+import HomeStudent from "./components/HomeStudent";
 import { BsTruckFlatbed } from "react-icons/bs";
 
-
-
 function App() {
-
-  // return(
-  //   <UniCardPage/>
-  // )
-
   const [isLoggedIn, setLoggedIn] = useState(true);
   const [isAdmin, setIsAdmin] = useState(true);
 
@@ -32,34 +26,36 @@ function App() {
 
   return (
     <div>
-      {isAdmin && <NavbarAdmin />} {/* Render NavbarAdmin only if isAdmin is true */}
-      <Routes>
-        {isLoggedIn ? (
-          isAdmin ? (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/Home" element={<Home />} />
-              <Route path="/UniversityTable" element={<UniversityTable />} />
-              <Route path="/StudentTable" element={<StudentTable />} />
-              <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
-              <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
-              <Route path="/SelectionProcess" element={<SelectionProcess />} />
-              <Route path="/UniCardPage" element={<UniCardPage />} />
+      {isLoggedIn && (
+        <>
+          {isAdmin ? <NavbarAdmin /> : <NavBarStudent />}
+          <Routes>
+            {isAdmin ? (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/Home" element={<Home />} />
+                <Route path="/UniversityTable" element={<UniversityTable />} />
+                <Route path="/StudentTable" element={<StudentTable />} />
+                <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
+                <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
+                <Route path="/SelectionProcess" element={<SelectionProcess />} />
+                <Route path="/UniCardPage" element={<UniCardPage />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<HomeStudent />} />
+                <Route path="/UniCardPage" element={<UniCardPage />} />
+              </>
+            )}
+          </Routes>
+        </>
+      )}
 
-
-
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<UniCardPage/>} />
-            </>
-          )
-        ) : (
-          <>
-            <Route path="/" element={<LoginForm />} />
-          </>
-        )}
-      </Routes>
+      {!isLoggedIn && (
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+        </Routes>
+      )}
     </div>
   );
 }

@@ -274,7 +274,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
                     ? '3rd Priority'
                     : 'Choose Preference')
               : "Choose Preference"} */}
-            {selectedPriority || 'Add to your preferences'}
+            {selectedPriority || 'Add to Preferences'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handlePrioritySelect('1st Priority')}>

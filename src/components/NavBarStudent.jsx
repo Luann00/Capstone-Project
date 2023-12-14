@@ -1,41 +1,35 @@
-import React from 'react';
-import { Button, Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import './NavBarStudent.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import "./NavbarAdmin.css";
+import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom';
 
-function NavBarStudent() {
+
+
+
+function NavbarAdmin() {
   return (
-    <div className='nav'>
-      <Navbar expand="lg" className="navbar-wrapper">
-        <Container>
-          <Navbar.Brand href="#home"></Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Priorities</Nav.Link>
-              <Nav.Link href="#link">Newsletter</Nav.Link>
-              <NavDropdown title="Languages" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">English</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Deutsch
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3"></NavDropdown.Item>
-
-              </NavDropdown>
-
-            </Nav>
-          </Navbar.Collapse>
-
-        </Container>
-
-      </Navbar>
-      <Button className="signout">Sign out
-      </Button>
-
+    <div className="Navbar">
+      <>
+        <Navbar bg="dark" variant="dark" expand="lg">
+          <Container>
+            <LinkContainer to="/Home">
+              <Navbar.Brand>Navbar</Navbar.Brand>
+            </LinkContainer>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+              <Link to="/" className="nav-link">Home</Link>
+                <Link to="/Home" className="nav-link">Home</Link>
+                <Link to="/UniCardPage" className="nav-link">UniCardPage</Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </>
     </div>
   );
-
 }
 
-export default NavBarStudent;
+export default NavbarAdmin;
+

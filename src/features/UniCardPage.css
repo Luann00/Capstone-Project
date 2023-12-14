@@ -1,10 +1,9 @@
+/* Common styles for all screen sizes */
 .card-page {
   top: 0;
   left: 0;
   min-height: 120vh;
   width: 100%;
-
-
 }
 
 .navbar {
@@ -17,8 +16,7 @@
 .title {
   text-align: center;
   color: rgba(69, 122, 147);
-  margin-bottom: 50px;
-
+  margin-bottom: 20px;
 }
 
 .title h1 {
@@ -30,5 +28,40 @@
   text-transform: none;
   font-style: normal;
   font-size: large;
+}
 
+/* Media query for screens with a maximum width of 768px (typical tablet size) */
+@media (max-width: 768px) {
+  .title h1 {
+    font-size: 24px; /* Adjust the font size for tablets */
+  }
+
+  .title span {
+    font-size: 14px; /* Adjust the font size for tablets */
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+/* Media query for screens with a maximum width of 576px (typical mobile size) */
+@media (max-width: 576px) {
+  .title h1 {
+    font-size: 20px; /* Adjust the font size for mobile devices */
+  }
+
+  .title span {
+    font-size: 12px; /* Adjust the font size for mobile devices */
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
 }
