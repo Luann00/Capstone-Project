@@ -370,7 +370,7 @@ function SelectionProcess() {
                                         <td>{processIsActive(row.startDate, row.endDate) ? 'Active' : 'Inactive'}  &#128994;</td>
 
                                         <td>
-                                            <a
+                                            {/* <a
                                                 href="#"
                                                 className="edit"
                                                 title="Edit"
@@ -378,7 +378,9 @@ function SelectionProcess() {
                                                 onClick={() => handleEdit(row)}
                                             >
                                                 <i className="material-icons">&#xE254;</i>
-                                            </a>
+                                            </a>*/}
+
+
                                             <a
                                                 href="#"
                                                 className="delete"
