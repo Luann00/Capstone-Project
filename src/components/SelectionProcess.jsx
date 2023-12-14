@@ -41,11 +41,11 @@ function SelectionProcess() {
 
     //The new values for a new university get savet here initially
     const inputFields = [
-        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', disabled: true },
+        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process' },
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
-        { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process' },
+        { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Enter number of students' },
-        { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Enter number of preferences' },
+        { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
         { name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Enter number of universities' },
         { name: 'deadlineExtensionMinutes', type: 'number', min: '60', placeholder: 'Enter the extension of the deadline when preferences changes in the last 15 minutes' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
@@ -305,6 +305,8 @@ function SelectionProcess() {
         }
     };
 
+    //Test
+
 
 
 
@@ -368,7 +370,7 @@ function SelectionProcess() {
                                         <td>{processIsActive(row.startDate, row.endDate) ? 'Active' : 'Inactive'}  &#128994;</td>
 
                                         <td>
-                                            <a
+                                            {/* <a
                                                 href="#"
                                                 className="edit"
                                                 title="Edit"
@@ -376,7 +378,9 @@ function SelectionProcess() {
                                                 onClick={() => handleEdit(row)}
                                             >
                                                 <i className="material-icons">&#xE254;</i>
-                                            </a>
+                                            </a>*/}
+
+
                                             <a
                                                 href="#"
                                                 className="delete"
