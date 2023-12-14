@@ -37,8 +37,7 @@
 
 .tabelle-wrapper {
   width: 80%;
-  box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
-  overflow: auto;
+  box-shadow: 0 0.188em 1.550em rgb(180, 156, 156);
   /*runde ecken Tabelle */
   border-radius: 10px;
   white-space: nowrap;
@@ -50,6 +49,7 @@
 
 .tabelle {
   border-collapse: collapse;
+  width: 100%; /* Die Tabelle nimmt die volle Breite des Containers ein */
 
 }
 
@@ -117,6 +117,10 @@
   align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 80%; /* Ändere die Breite nach Bedarf */
+  margin: auto; 
+  
+  
 
 }
 
@@ -192,6 +196,4 @@
 
 .logo {
   height: 60px;
-
-
 }
