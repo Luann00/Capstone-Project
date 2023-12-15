@@ -33,7 +33,7 @@ function SelectionProcess() {
         endDate: "",
         year: "",
         numberOfStudents: "",
-        numberOfPreferences: "",
+        numberOfPreferences: 3,
         numberOfUniversities: "",
         deadlineExtensionMinutes: "",
         daysUntilStudentDataDeletion: ""
@@ -43,7 +43,7 @@ function SelectionProcess() {
     const inputFields = [
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
-        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', min:newProcess.startDate },
+        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', min: newProcess.startDate },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Enter number of students' },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
         { name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Enter number of universities' },
@@ -63,7 +63,7 @@ function SelectionProcess() {
             endDate: "",
             year: "",
             numberOfStudents: "",
-            numberOfPreferences: "",
+            numberOfPreferences: 3,
             numberOfUniversities: "",
             deadlineExtensionMinutes: "",
             daysUntilStudentDataDeletion: ""
@@ -97,7 +97,7 @@ function SelectionProcess() {
             endDate: process.endDate,
             year: process.year,
             numberOfStudents: process.numberOfStudents,
-            numberOfPreferences: process.numberOfPreferences,
+            numberOfPreferences: 3,
             numberOfUniversities: process.numberOfUniversities,
             deadlineExtensionMinutes: process.deadlineExtensionMinutes,
             daysUntilStudentDataDeletion: process.daysUntilStudentDataDeletion
@@ -114,9 +114,9 @@ function SelectionProcess() {
             try {
                 const response = await fetch('http://localhost:8081/selectionProcess');
                 const data = await response.json();
-            // Kehre die Reihenfolge der Daten um
-            setProcesses(data.reverse());
-            setOriginalProcesses(data);
+                // Kehre die Reihenfolge der Daten um
+                setProcesses(data.reverse());
+                setOriginalProcesses(data);
             } catch (error) {
                 console.log('Error fetching data:' + error);
             }
@@ -231,39 +231,6 @@ function SelectionProcess() {
             }
         }
     };
-
-
-    //Don't need sort function!
-
-    const handleSort = (column) => {
-        /*
-        let sortOrderForColumn, sortFunction;
-    
-        if (column === "firstPref") {
-          sortOrderForColumn = sortOrder === "asc" ? "desc" : "asc";
-          setSortOrder(sortOrderForColumn);
-          sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
-        } else if (column === "uniId") {
-          sortOrderForColumn = uniIdSortOrder === "asc" ? "desc" : "asc";
-          setUniIdSortOrder(sortOrderForColumn);
-          sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
-        } else {
-          sortOrderForColumn = countrySortOrder === "asc" ? "desc" : "asc";
-          setCountrySortOrder(sortOrderForColumn);
-          sortFunction = (a, b) => {
-            const valueA = a[column].toLowerCase();
-            const valueB = b[column].toLowerCase();
-            return sortOrderForColumn === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
-          };
-        }
-    
-        const sortedUniversities = [...universities].sort(sortFunction);
-        setUniversities(sortedUniversities);
-        */
-    };
-
-
-
 
     const deleteAllProcesses = () => {
         if (window.confirm('Are you sure you want to remove all Processes?')) {
