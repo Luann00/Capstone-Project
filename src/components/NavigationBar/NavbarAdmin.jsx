@@ -25,10 +25,6 @@ function NavbarAdmin() {
                 <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>
                 <Link to="/WhitelistVerwalter" className="nav-link">WhitelistVerwalter</Link>
                 <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
-                
-                <Link to="/UniCardPage" className="nav-link">UniCardPage</Link>
-                
-
               </Nav>
             </Navbar.Collapse>
           </Container>
