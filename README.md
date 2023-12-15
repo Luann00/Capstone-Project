@@ -3,6 +3,7 @@
 <br>
 <br>
 
+ <p>Das Auslandssemester-Präferenztool ist eine interaktive Plattform, die es Studierenden ermöglicht, ihre bevorzugten Partneruniversitäten für das MESS-Bachelor-Auslandssemester auszuwählen. Das Tool optimiert die Zuteilung der Studierenden auf die verfügbaren Plätze an den Partneruniversitäten unter Berücksichtigung ihrer individuellen Präferenzen. Gleichzeitig gewährleistet es Transparenz im Auswahlprozess und ermöglicht es den Admins, Auswahlverfahren zu gestalten und diese zu bearbeiten.</p>
 
 
 <h2>Wichtiges beim Klonen</h2>
