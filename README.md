@@ -3,7 +3,7 @@
 <br>
 <br>
 
- <p>Das Auslandssemester-Präferenztool ist eine interaktive Plattform, die es Studierenden ermöglicht, ihre bevorzugten Partneruniversitäten für das MESS-Bachelor-Auslandssemester auszuwählen. Das Tool optimiert die Zuteilung der Studierenden auf die verfügbaren Plätze an den Partneruniversitäten unter Berücksichtigung ihrer individuellen Präferenzen. Gleichzeitig gewährleistet es Transparenz im Auswahlprozess und ermöglicht es den Admins, Auswahlverfahren zu gestalten und diese zu bearbeiten.</p>
+ <h4>Das Auslandssemester-Präferenztool ist eine interaktive Plattform, die es Studierenden ermöglicht, ihre bevorzugten Partneruniversitäten für das MESS-Bachelor-Auslandssemester auszuwählen. Das Tool optimiert die Zuteilung der Studierenden auf die verfügbaren Plätze an den Partneruniversitäten unter Berücksichtigung ihrer individuellen Präferenzen. Gleichzeitig gewährleistet es Transparenz im Auswahlprozess und ermöglicht es den Admins, Auswahlverfahren zu gestalten und diese zu bearbeiten.</h4>
 
 
 <h2>Wichtiges beim Klonen</h2>
@@ -13,15 +13,11 @@ Außerdem muss die Datenbank(welche man in dem Ordner "DatenBank" im Spring Boot
 Ansonsten bekommt man bei der App Fetch Errors und man kann keine CRUD Operationen(Erstellen, Hinzufügen, Löschen und Bearbeiten) ausführen.
 
 <h2>Wichtiges bezüglich der Seiten</h2>
-Da wir immer noch keinen Zugriff auf den LDAP-Server des RRZK haben(das RRZK hat dies, so ist der Stand heute am letzten Tag von Sprint 2, das Problem leider immer noch nicht gelöst), können wir noch keine Login Funktion implementieren. Beim ersten Starten der Applikation sieht man als Erstes die Login Page, die jedoch noch keine Funktionalitäten bestizt(aufgrund des fehlenden LDAP-Zugangs). Um dennoch auf die verschiedenen Seiten gehen zu können(z.B die Tabellen der Admins oder die erste Ansicht der Studierende), so kann man im Source Code in der App.jsx machen, in dem man die States "isLoggedIn" und "isAdmin" entsprechend verändert:
+Da wir immer noch keine LDAP-Authentifizierung implementiert haben, können wir noch keine Login Funktion implementieren. Beim ersten Starten der Applikation sieht man als Erstes die Login Page, die jedoch noch keine Funktionalitäten bestizt. Um dennoch auf die verschiedenen Seiten gehen zu können(z.B die Tabellen der Admins oder die erste Ansicht der Studierende), so kann man im Source Code in der App.jsx machen, in dem man die States "isLoggedIn" und "isAdmin" entsprechend verändert:
 Ist nur "isLoggedIn" auf true gesetzt, so sieht man die Studentensicht, wo der Student die Cards wählen kann. Hier existieren noch keine Funktionen, diese werden erst in den nächsten Sprints implementiert. Ist sowohl "isLoggedIn" als auch "isAdmin" true, so kommt man auf die Admin Sicht. Hier funktioniert auch die Navbar und man kann durch die verschiedenen Seiten gehen. Ist beides False, so kommt man auf die Log-In Page(die noch keine Funktionalität hat).
 
 
 <br>
-
-<h2>Dokumentation</h2>
-Im Wiki haben wir die verschiedensten Sachen(Meetings, Dailies, Probleme bei der Entwicklung ect.) dokumentiert. Im Wiki wurden Sachen dokumentiert wie Änderungen am Backlog(die sich in der Mitte des Sprints ergeben haben) oder aber auch allgemeine Probleme während der Sprints und der daraus resultierenden Folgen.
-
 
 <br>
 <br>
