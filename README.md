@@ -8,7 +8,6 @@
 <div align="center">
     <img class="logo" src="./public/WiSo-Logo.png" alt="Logo">
   </a>
-  <h3 align="center">Vorgelegt von Team 3</h3>
 </div>
 
  <h4>Das Auslandssemester-Präferenztool ist eine interaktive Plattform, die es Studierenden ermöglicht, ihre bevorzugten Partneruniversitäten für das MESS-Bachelor-Auslandssemester auszuwählen. Das Tool optimiert die Zuteilung der Studierenden auf die verfügbaren Plätze an den Partneruniversitäten unter Berücksichtigung ihrer individuellen Präferenzen. Gleichzeitig gewährleistet es Transparenz im Auswahlprozess und ermöglicht es den Admins, Auswahlverfahren zu gestalten und diese zu bearbeiten.</h4>
