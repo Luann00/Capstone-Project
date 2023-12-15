@@ -3,15 +3,26 @@ import "./loginform.css";
 import logo from "../../logo.png";
 import Footer from "../../components/Footer/footer";
 
+
+
+
 const LoginForm = () => {
   const [benutzername, setBenutzername] = useState("");
   const [passwort, setPasswort] = useState("");
 
+  /*URL des LDAP Servers
   const backendUrl = 'http://localhost:8080';
   const authenticationEndpoint = '/';
 
+  */
+
+  /* Diese Methode hier ist das Gerüst für die LDAP-Authentifizierung. Wenn die Authentifizierung per LDAP
+geklappt hätte, hätten wir einfach die unten stehenden Credentials ersetzen müssen durch die des LDAP-Servers und
+wären fertig gewesen. */
+
 
   const handleAnmelden = async () => {
+    /*
     try {
       const response = await fetch(`${backendUrl}${authenticationEndpoint}`, {
         method: 'POST',
@@ -26,17 +37,19 @@ const LoginForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Handle successful authentication
-        alert('Erfolgreich authentifiziert', data);
+        console.log('Erfolgreich authentifiziert', data);
       } else {
-        // Handle authentication failure
-        alert('Authentifizierung fehlgeschlagen');
+        console.log('Authentifizierung fehlgeschlagen');
       }
     } catch (error) {
-      // Handle error
       alert('ERROR GEHT NICHT', error);
     }
+    */
   };
+  
+  
+
+  
 
 
 

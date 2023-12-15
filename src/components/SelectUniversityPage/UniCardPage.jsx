@@ -42,7 +42,7 @@ const UniCardPage = () => {
         setProcesses(data);
         updateProcessData(data);
       } catch (error) {
-        alert('Error fetching data:' + error);
+        console.log('Error fetching data:' + error);
       }
     };
 

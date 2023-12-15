@@ -1,3 +1,8 @@
+/*Diese Klasse war ursprünglich für das Dummy Login gedacht. Diese Aufgabe musste jedoch abgebrochen werden,
+als klar wurde, dass noch keine LDAP-Authentifizierung stattgefunden hat von 2 Mitgliedern
+*/
+
+
 import React, { createContext, useState, useContext, useEffect,useMemo } from 'react';
 import axios from 'axios';
 
