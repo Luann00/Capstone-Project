@@ -346,11 +346,11 @@ function SelectionProcess() {
                                     <th>Year</th>
                                     <th>Start date</th>
                                     <th>End date</th>
-                                    <th>No. of Students</th>
-                                    <th>No. of Preferences</th>
-                                    <th>No. of Universities</th>
-                                    <th>Deadline Extension</th>
-                                    <th>Days Deletion</th>
+                                    <th>No. of students</th>
+                                    <th>No. of preferences</th>
+                                    <th>No. of universities</th>
+                                    <th>Deadline extension</th>
+                                    <th>Days until deletion</th>
                                     <th>Status</th>
                                     <th>Edit</th>
                                 </tr>
@@ -367,8 +367,7 @@ function SelectionProcess() {
                                         <td>{row.numberOfUniversities}</td>
                                         <td>{row.deadlineExtensionMinutes}</td>
                                         <td>{row.daysUntilStudentDataDeletion}</td>
-                                        <td>{processIsActive(row.startDate, row.endDate) ? 'Active' : 'Inactive'}  &#128994;</td>
-
+                                        <td>{processIsActive(row.startDate, row.endDate) ? 'Active 🟢' : 'Inactive🔴'} </td>
                                         <td>
                                             {/* <a
                                                 href="#"

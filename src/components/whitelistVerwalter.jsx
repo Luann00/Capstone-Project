@@ -89,7 +89,7 @@ export const WhitelistVerwalter = () => {
 
   const deleteRow = async (pkz) => {
 
-    if (window.confirm('Sind Sie sich sicher dass Sie diesen Verwalter entfernen möchten?')) {
+    if (window.confirm('Are you sure you want to delete this admin from the list?')) {
 
       const deleteEndpoint = `http://localhost:8081/whitelistAdmin/${pkz}`;
 
@@ -128,7 +128,7 @@ export const WhitelistVerwalter = () => {
   };
 
   const deleteAllRows = () => {
-    if (window.confirm('Sind Sie sich sicher dass Sie alle bestehenden Einträge löschen wollen?')) {
+    if (window.confirm('Are you sure you want to remove every admin from this list?')) {
       setTableData([]);
       deleteAllRowsDatabase();
 
@@ -151,81 +151,65 @@ export const WhitelistVerwalter = () => {
     <div className="list-page">
       <header className="App-header">
         <img src={logo} alt="Your Logo" className="logo" />
-
-
       </header>
       <div className="whitelist-container">
         <div className="whitelist-title"><h1>Whitelist Admin</h1></div>
-        <table className="tabelle">
-          <thead>
-            <tr>
-              <th className="spalte">Uni-KIM</th>
-              <th className="spalte" colSpan="3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="cells">
-                {isEditing && (
-                  <input
-                    type="number"
-                    value={newRow.pkz}
-                    onChange={(e) => setNewRow({ ...newRow, pkz: e.target.value })}
-                    onKeyDown={handleKeyPress}
-                    className="cellTextInput"
-                    min={1}
-                  />
-                )}
-              </td>
-
-              <td className="cells">
-                {isEditing ? (
-                  <>
-                    <span className="deleteButton"
-                      role="img"
-                      aria-label="Cancel"
-                      style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }}
-                      onClick={cancelInsertion}
-                    >
-                      &#10006;
+        <form onSubmit={addRow}>
+          <table className="tabelle">
+            <thead>
+              <tr>
+                <th className="spalte">Uni-KIM</th>
+                <th className="spalte" colSpan="3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="cells">
+                  {isEditing && (
+                    <input
+                      type="number"
+                      value={newRow.pkz}
+                      onChange={(e) => setNewRow({ ...newRow, pkz: e.target.value })}
+                      className="cellTextInput"
+                      min={1}
+                      required={isEditing}
+                    />
+                  )}
+                </td>
+                
+                <td className="cells">
+                  {isEditing ? (
+                    <>
+                      <span className="deleteButton" role="img" aria-label="Cancel" style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }} onClick={cancelInsertion}>
+                        &#10006;
+                      </span>
+                      <button type="submit" className="addButton" role="img" aria-label="Confirm" style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}>
+                        &#10004;
+                      </button>
+                    </>
+                  ) : (
+                    <span className="addButton" role="img" aria-label="Plus" style={{ cursor: "pointer" }} onClick={startEditing}>
+                      ➕
                     </span>
-                    <span className="addButton"
-                      role="img"
-                      aria-label="Confirm"
-                      style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}
-                      onClick={addRow}
-                    >
-                      &#10004;
-                    </span>
-                  </>
-                ) : (
-                  <span
-                    role="img"
-                    aria-label="Plus"
-                    style={{ cursor: "pointer" }}
-                    onClick={startEditing}
-                  >
-                    ➕
-                  </span>
-                )}
-              </td>
-              <td className="cells">
-                <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
-              </td>
-            </tr>
-
-            {tableData.map((row) => (
-              <tr key={row.id}>
-                <td className="rowCell1">{row.pkz}</td>
-                <td id="cells1" colSpan="2" >
-                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.pkz)} />
+                  )}
+                </td>
+                <td className="cells">
+                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+
+              {tableData.map((row) => (
+                <tr key={row.id}>
+                  <td className="rowCell1">{row.pkz}</td>
+                  <td id="cells1" colSpan="2" >
+                    <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.pkz)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
-
   );
 };
