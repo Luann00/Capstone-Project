@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
-import UniCard from '../components/UniCard';
-import NavBarStudent from '../components/NavBarStudent';
+import UniCard from "../../components/UniCard/UniCard";
+import NavBarStudent from '../NavigationBar/NavBarStudent';
 import './UniCardPage.css';
 
 const UniCardPage = () => {
