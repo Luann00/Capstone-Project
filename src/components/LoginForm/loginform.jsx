@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./loginform.css";
-import logo from "../logo.png";
-import Footer from "./footer";
+import logo from "../../logo.png";
+import Footer from "../../components/Footer/footer";
 
 const LoginForm = () => {
   const [benutzername, setBenutzername] = useState("");

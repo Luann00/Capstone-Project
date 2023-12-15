@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
 
 
-import "./StudentTable.css";
+import "../../components/StudentDataTable/StudentTable.css";
 
 function Home() {
 

@@ -1,18 +1,18 @@
 import "./App.css";
-import LoginForm from "./components/loginform";
+import LoginForm from "./components/LoginForm/loginform";
 import React, { useState } from 'react';
-import { WhitelistStudent } from "./components/whitelistStudent";
-import { WhitelistVerwalter } from "./components/whitelistVerwalter";
-import StudentTable from './components/StudentTable';
-import UniCard from './components/UniCard';
-import UniversityTable from './components/UniversityTable';
-import SelectionProcess from './components/SelectionProcess';
-import UniCardPage from "./features/UniCardPage";
+import { WhitelistStudent } from "./components/WhiteLists/whitelistStudent";
+import { WhitelistVerwalter } from "./components/WhiteLists/whitelistVerwalter";
+import StudentTable from './components/StudentDataTable/StudentTable';
+import UniCard from './components/UniCard/UniCard';
+import UniversityTable from './components/UniversityDataTable/UniversityTable';
+import SelectionProcess from './components/ProcessTable/SelectionProcess';
+import UniCardPage from "./components/SelectUniversityPage/UniCardPage";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavbarAdmin from './components/NavbarAdmin';
-import NavBarStudent from './components/NavBarStudent';
-import Home from "./components/Home";
-import HomeStudent from "./components/HomeStudent";
+import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
+import NavBarStudent from './components/NavigationBar/NavBarStudent';
+import HomePageAdmin from "./components/HomePage/HomePageAdmin";
+import HomePageStudent from "./components/HomePage/HomePageStudent";
 import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
@@ -32,8 +32,8 @@ function App() {
           <Routes>
             {isAdmin ? (
               <>
-                <Route path="/" element={<Home />} />
-                <Route path="/Home" element={<Home />} />
+                <Route path="/" element={<HomePageAdmin />} />
+                <Route path="/HomePageAdmin" element={<HomePageAdmin />} />
                 <Route path="/UniversityTable" element={<UniversityTable />} />
                 <Route path="/StudentTable" element={<StudentTable />} />
                 <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
@@ -43,7 +43,7 @@ function App() {
               </>
             ) : (
               <>
-                <Route path="/" element={<HomeStudent />} />
+                <Route path="/" element={<HomePageStudent />} />
                 <Route path="/UniCardPage" element={<UniCardPage />} />
               </>
             )}

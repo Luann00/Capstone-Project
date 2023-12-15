@@ -19,7 +19,7 @@ function NavbarAdmin() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Link to="/Home" className="nav-link">Home</Link>
+                <Link to="/HomePageAdmin" className="nav-link">Home</Link>
                 <Link to="/StudentTable" className="nav-link">Students</Link>
                 <Link to="/UniversityTable" className="nav-link">Universities</Link>
                 <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>

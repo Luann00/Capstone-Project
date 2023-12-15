@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
-import logo from "../logo.png";
+import logo from "../../logo.png";
 import "./whitelistStudent.css";
-import NavbarAdmin from "./NavbarAdmin";
+import NavbarAdmin from "../NavigationBar/NavbarAdmin";
 
 
 export const WhitelistStudent = () => {
