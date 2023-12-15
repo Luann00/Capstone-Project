@@ -68,16 +68,16 @@ wären fertig gewesen. */
       </header>
 
       <div className="cover">
-        <h1 className="title">Willkommen</h1>
+        <h1 className="title">Welcome</h1>
         <input
           type="text"
-          placeholder="Benutzername"
+          placeholder="Username"
           onChange={(e) => setBenutzername(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <input
           type="password"
-          placeholder="Passwort"
+          placeholder="Password"
           onChange={(e) => setPasswort(e.target.value)}
           onKeyDown={handleKeyPress}
 
@@ -86,7 +86,7 @@ wären fertig gewesen. */
 
 
         <div className="login-btn" onClick={handleAnmelden}>
-          Melde an
+          Log in
         </div>
       </div>
 
