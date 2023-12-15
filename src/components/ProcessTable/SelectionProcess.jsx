@@ -291,7 +291,7 @@ function SelectionProcess() {
                                 <span class="icon">🔍</span>
                                 <input class="form-control mr-sm-2"
                                     type="number" min={1}
-                                    placeholder="Search Process"
+                                    placeholder="Search Process by year"
                                     aria-label="Search"
                                     onChange={handleSearch} />
                             </form>
@@ -318,7 +318,7 @@ function SelectionProcess() {
                                     <th>No. of students</th>
                                     <th>No. of preferences</th>
                                     <th>No. of universities</th>
-                                    <th>Deadline extension</th>
+                                    <th>Deadline extension in minutes</th>
                                     <th>Days until deletion</th>
                                     <th>Status</th>
                                     <th>Edit</th>

@@ -16,8 +16,8 @@ import HomePageStudent from "./components/HomePage/HomePageStudent";
 import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const handleLogin = (userType) => {
     setLoggedIn(true);
