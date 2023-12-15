@@ -89,7 +89,7 @@ export const WhitelistVerwalter = () => {
 
   const deleteRow = async (pkz) => {
 
-    if (window.confirm('Sind Sie sich sicher dass Sie diesen Verwalter entfernen möchten?')) {
+    if (window.confirm('Are you sure you want to delete this admin from the list?')) {
 
       const deleteEndpoint = `http://localhost:8081/whitelistAdmin/${pkz}`;
 
@@ -128,7 +128,7 @@ export const WhitelistVerwalter = () => {
   };
 
   const deleteAllRows = () => {
-    if (window.confirm('Sind Sie sich sicher dass Sie alle bestehenden Einträge löschen wollen?')) {
+    if (window.confirm('Are you sure you want to remove every admin from this list?')) {
       setTableData([]);
       deleteAllRowsDatabase();
 

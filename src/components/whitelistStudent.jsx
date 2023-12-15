@@ -93,7 +93,7 @@ export const WhitelistStudent = () => {
   const deleteRow = async (matrikelnummer) => {
 
     //test
-    if (window.confirm('Sind Sie sich sicher dass Sie diesen Studenten entfernen möchten?')) {
+    if (window.confirm('Are you sure you want to delete this student from this list?')) {
 
       const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
 
@@ -134,7 +134,7 @@ export const WhitelistStudent = () => {
 
   const deleteAllRows = () => {
 
-    if (window.confirm('Sind Sie sich sicher dass Sie alle bestehenden Einträge löschen wollen?')) {
+    if (window.confirm('Are you sure you want to delete all students from this list?')) {
       setTableData([]);
       deleteAllRowsDatabase();
     }
