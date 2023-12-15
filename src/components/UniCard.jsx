@@ -71,7 +71,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
 
-  /*
+  /* LOGIK FÜR DIE IMPLEMENTIERUNG DER PRÄFERENZ
   useEffect(() => {
     // Überprüfen, ob eine Priorität für die aktuelle Universität vorhanden ist
     const studentPriority = studentPriorities.find(prio => prio.uniId === university.uniId);
@@ -94,9 +94,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   */
 
   const handlePrioritySelect = async (priority) => {
-    //If no priority was selected, then return method
 
-    /* for later
+    /* Logik für Prioritäten eines Studenten individuell laden. Kann leider noch nicht implementiert werden
     if (!selected) {
       return
     }
@@ -265,7 +264,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
-            {/*  {!selected
+            {/* Logik für Prioritäten wählen/umsortieren. Kann leider noch nicht implementiert werden
+             {!selected
               ? (firstPriority === university.uniId
                 ? '1st Priority'
                 : secondPriority === university.uniId

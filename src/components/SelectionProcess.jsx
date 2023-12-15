@@ -29,9 +29,9 @@ function SelectionProcess() {
 
 
     const [newProcess, setNewProcess] = useState({
-        year: "",
         startDate: "",
         endDate: "",
+        year: "",
         numberOfStudents: "",
         numberOfPreferences: "",
         numberOfUniversities: "",
@@ -41,9 +41,9 @@ function SelectionProcess() {
 
     //The new values for a new university get savet here initially
     const inputFields = [
-        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process' },
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
+        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', min:newProcess.startDate },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Enter number of students' },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
         { name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Enter number of universities' },
@@ -59,9 +59,9 @@ function SelectionProcess() {
         setShow(false);
         setSelectedProcess(null);
         setNewProcess({
-            year: "",
             startDate: "",
             endDate: "",
+            year: "",
             numberOfStudents: "",
             numberOfPreferences: "",
             numberOfUniversities: "",
@@ -93,9 +93,9 @@ function SelectionProcess() {
 
         setSelectedProcess(process);
         setNewProcess({
-            year: process.year,
             startDate: process.startDate,
             endDate: process.endDate,
+            year: process.year,
             numberOfStudents: process.numberOfStudents,
             numberOfPreferences: process.numberOfPreferences,
             numberOfUniversities: process.numberOfUniversities,
@@ -114,8 +114,9 @@ function SelectionProcess() {
             try {
                 const response = await fetch('http://localhost:8081/selectionProcess');
                 const data = await response.json();
-                setProcesses(data);
-                setOriginalProcesses(data);
+            // Kehre die Reihenfolge der Daten um
+            setProcesses(data.reverse());
+            setOriginalProcesses(data);
             } catch (error) {
                 console.log('Error fetching data:' + error);
             }
