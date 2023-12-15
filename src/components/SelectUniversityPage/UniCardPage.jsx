@@ -107,7 +107,7 @@ const UniCardPage = () => {
         </div>
       ) : (
         <div className='empty-page'>
-          <h1>Es ist kein Auswahlverfahren offen!</h1>
+          <h1>There is no selection process open!</h1>
         </div>
       )}
 

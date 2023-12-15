@@ -1,3 +1,13 @@
+
+/*
+Diese Klasse ist noch nicht einsatzbereit. Diese Klasse ist für die Prioritäten 
+des Studenten. Da die LDAP-Authentifizierung von den anderen Mitgliedern nicht implementiert wurde,
+kann man diese Klasse auch nicht nutzen. Wir sind nicht ganz fertig geworden, weil
+wir diese Aufgabe vernachlässigen mussten und die Aufgabe LDAP-Authentifizierung übernehmen mussten.
+
+*/
+
+
 import { createContext, useContext, useState } from "react";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
