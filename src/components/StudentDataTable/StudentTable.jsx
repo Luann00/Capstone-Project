@@ -326,18 +326,18 @@ function Home() {
               <thead>
                 <tr>
                   <th onClick={() => handleSort("matrikelnummer")}>
-                    Matrikelnummer
+                    Student ID
                     <a href="#" className="sort-icon" data-toggle="tooltip">
                       {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
                       {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
                     </a>
                   </th>
-                  <th>Vorname </th>
-                  <th>Nachname</th>
-                  <th>Titel </th>
-                  <th>Geschlecht </th>
+                  <th>Name </th>
+                  <th>Surname</th>
+                  <th>Title </th>
+                  <th>Gender </th>
                   <th onClick={() => handleSort("durchschnitt")}>
-                    Durchschnitt
+                    GPA
                     <a href="#" className="sort-icon" data-toggle="tooltip">
                       {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
                       {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
@@ -347,7 +347,7 @@ function Home() {
                   <th>FirstPref</th>
                   <th>SecondPref</th>
                   <th>ThirdPref</th>
-                  <th>Zugeteilte Universität</th>
+                  <th>Assigned University</th>
                   <th>Edit</th>
 
 

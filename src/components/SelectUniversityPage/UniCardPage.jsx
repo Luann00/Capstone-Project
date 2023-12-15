@@ -97,8 +97,6 @@ const UniCardPage = () => {
 
   return (
     <div className='card-page'>
-     
-
       {condition ? (
         <div className='title'>
           Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}

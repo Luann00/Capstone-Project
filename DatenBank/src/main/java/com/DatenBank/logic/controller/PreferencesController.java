@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.DatenBank.logic.entity.Preferences;
 import com.DatenBank.logic.service.PreferencesService;
 
-@Controller // This means that this class is a Controller
+@Controller
 @CrossOrigin
-@RequestMapping("/preferences") // This means URL's start with /demo (after Application path)
+@RequestMapping("/preferences")
 public class PreferencesController {
 	
 private PreferencesService preferencesService;

@@ -151,11 +151,11 @@ function SelectionProcess() {
 
 
             if (!response.ok) {
-                alert("Problem: " + response)
+                console.log("Error updating process. Response status:", response.status);
+                console.log("Response body:", await response.text());
             }
-
         } catch (error) {
-
+            console.error("Error updating process:", error);
         }
 
     };
@@ -199,11 +199,12 @@ function SelectionProcess() {
                 setProcesses(updatedProcesses);
                 handleClose();
             } else {
-                console.log("Anderweitiger Fehler..!");
+                console.log("Error adding process. Response status:", response.status);
+                console.log("Response body:", await response.text());
             }
 
         } catch (error) {
-            console.log("Fehler beim Senden der Daten" + error);
+            console.error("Error adding process:", error);
         }
     };
 
