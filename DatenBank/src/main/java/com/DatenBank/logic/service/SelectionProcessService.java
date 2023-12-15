@@ -12,13 +12,11 @@ import com.DatenBank.logic.repository.SelectionProcessRepository;
 
 @Service
 public class SelectionProcessService {
-	
-	
-	@Autowired
-	private SelectionProcessRepository selectionProcessRepository;
-	
-	
-	public SelectionProcessService(SelectionProcessRepository selectionProcessRepository) {
+
+    @Autowired
+    private SelectionProcessRepository selectionProcessRepository;
+
+    public SelectionProcessService(SelectionProcessRepository selectionProcessRepository) {
         this.selectionProcessRepository = selectionProcessRepository;
     }
 
@@ -27,14 +25,19 @@ public class SelectionProcessService {
     }
 
     public void deleteSelectionProcess(int year) {
-    	selectionProcessRepository.deleteById(year);
+        selectionProcessRepository.deleteById(year);
     }
-    
+
     public List<SelectionProcess> getAllSelectionProcess() {
         return selectionProcessRepository.findAll();
     }
-    
-    
+
+    public void deleteAllProcesses() {
+        selectionProcessRepository.deleteAll();
+    }
+
+
+    //Comes later, dont need this function yet
     public SelectionProcess updateProcess(int year, SelectionProcess updatedProcess) throws Exception {
         // Find the existing student in the database
         Optional<SelectionProcess> optionalProcess = selectionProcessRepository.findById(year);
@@ -51,25 +54,13 @@ public class SelectionProcessService {
             existingProcess.setDeadlineExtensionMinutes(updatedProcess.getDeadlineExtensionMinutes());
             existingProcess.setDaysUntilStudentDataDeletion(updatedProcess.getDaysUntilStudentDataDeletion());
 
-
-            
-
-
-
-
-
-
             // Save the updated student back to the database
             return selectionProcessRepository.save(existingProcess);
         } else {
-            // If the student is not found, you may choose to throw an exception or handle
-            // it as needed
+            
             throw new Exception("Student not found with matrikelnummer: " + year);
         }
 
     }
-
-
-    
 
 }

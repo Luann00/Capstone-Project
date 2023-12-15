@@ -68,4 +68,11 @@ public class SelectionProcessController {
 		return new ResponseEntity<>(selectionProcess, HttpStatus.OK);
 	}
 
+
+	@DeleteMapping("/all")
+	public ResponseEntity<?> deleteAllProcesses() {
+		selectionProcessService.deleteAllProcesses();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
