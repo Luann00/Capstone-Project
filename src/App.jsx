@@ -66,7 +66,7 @@ export default App;
 
 
 
-//Hier haben Ha und ich versucht ein dummy login zu implementieren. Wir sind jedoch nicht so weit gekommen, da wir
+//Hier haben Ha und ich versucht ein dummy login mithilfe von routern zu implementieren. Wir sind jedoch nicht so weit gekommen, da wir
 //die anderen Aufgaben von Liska und Ha übernehmen mussten(LDAP-Authentifizierung) und dieses die höchste Priorität
 //hatte.
 
