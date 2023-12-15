@@ -176,7 +176,6 @@ export const WhitelistStudent = () => {
                       type="number"
                       value={newRow.matrikelnummer}
                       onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
-                      onKeyDown={handleKeyPress}
                       className="cellTextInput"
                       min={1}
                       required={isEditing}
@@ -191,7 +190,6 @@ export const WhitelistStudent = () => {
                       min={1}
                       value={newRow.jahr}
                       onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
-                      onKeyDown={handleKeyPress}
                       className="cellTextInput"
                       required={isEditing}
                     />
