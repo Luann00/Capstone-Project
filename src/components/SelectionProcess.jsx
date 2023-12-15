@@ -368,7 +368,6 @@ function SelectionProcess() {
                                         <td>{row.deadlineExtensionMinutes}</td>
                                         <td>{row.daysUntilStudentDataDeletion}</td>
                                         <td>{processIsActive(row.startDate, row.endDate) ? 'Active' : 'Inactive'}  &#128994;</td>
-
                                         <td>
                                             {/* <a
                                                 href="#"
