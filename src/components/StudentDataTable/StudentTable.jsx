@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
+import CSVExportButton from '../CSVExportButton';  // Adjust the path based on your actual project structure
+
 
 
 import "./StudentTable.css";
@@ -318,6 +320,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllStudents} style={{ marginTop: "10px" }}>
               Delete all Students
             </Button>
+            <CSVExportButton data={students} filename="students.csv" />
           </div>
         </div>
         <div class="row">
