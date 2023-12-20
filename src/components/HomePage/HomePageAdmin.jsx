@@ -38,9 +38,6 @@ const HomePageAdmin = () => {
                         return { studentID: student.matrikelnummer, preferences: prefs };
                     })
                 );
-
-
-
                 const preferencesMap = preferences.reduce((acc, { studentID, preferences }) => {
                     return Object.assign(acc, { [studentID]: preferences });
                     // Alternatively, you can use the spread operator:
@@ -71,13 +68,14 @@ const HomePageAdmin = () => {
 
 
             // Determine the preference order for the current university
-            const preferenceOrder = ['thirdPref', 'secondPref', 'firstPref'].findIndex(
+            const preferenceOrder = ['thirdPref', 'secondPref', 'firstPref'].find(
                 pref => preferences[pref] === uniID
             );
 
 
+            console.log(preferenceOrder)
             // If no match is found, display "No Preference"
-            if (!preferenceOrder) {
+            if (preferenceOrder === -1) {
                 return <td key={studentIndex}></td>;
             }
 
