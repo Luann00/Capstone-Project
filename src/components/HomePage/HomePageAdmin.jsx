@@ -72,8 +72,6 @@ const HomePageAdmin = () => {
                 pref => preferences[pref] === uniID
             );
 
-
-            console.log(preferenceOrder)
             // If no match is found, display "No Preference"
             if (preferenceOrder === -1) {
                 return <td key={studentIndex}></td>;
@@ -84,6 +82,17 @@ const HomePageAdmin = () => {
     };
 
 
+    const createStudentColumns = () => {
+        return
+        <tr>
+            {studentMatrikelnumbers.map((studentName, index) => (
+                <td key={index}>{studentName}</td>
+            ))}
+        </tr>
+    }
+
+
+
     return (
         <div>
             <h1>This is the main page for the admin!</h1>
@@ -91,24 +100,49 @@ const HomePageAdmin = () => {
                 <thead>
                     <tr>
                         <th>Uni Name</th>
-                        <th>Slots</th>
-                        <th>FirstPrio</th>
-                        {studentMatrikelnumbers.map((studentName, index) => (
-                            <th key={index}>{studentName}</th>
+                        {universities.map((university) => (
+                            <td key={university.id}>
+                                <td>{university.name}</td>
+                            </td>
                         ))}
                     </tr>
-                </thead>
-                <tbody>
-                    {universities.map((university) => (
-                        <tr key={university.id}>
-                            <td>{university.name}</td>
-                            <td>{university.slots}</td>
-                            <td>{university.firstPref}</td>
-                            {fillTableCells(university.uniId)}
+                    <tr>
+                        <th>Slots</th>
+                        {universities.map((university) => (
+                            <td key={university.id}>
+                                <td>{university.slots}</td>
+                            </td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <th>FirstPrio</th>
+                        {universities.map((university) => (
+                            <td key={university.id}>
+                                <td>{university.firstPref}</td>
+                            </td>
+                        ))}
+                    </tr>
 
-                        </tr>
-                    ))}
-                </tbody>
+                    <th>
+                        {studentMatrikelnumbers.map((studentName, index) => (
+                            <tr
+                                key={index}>Student ID {studentName}</tr>
+                        ))}
+                    </th>
+
+
+
+                </thead>
+                {/* <tbody>
+  {universities.map((university) => (
+    <tr key={university.id}>
+      <td>{university.name}</td>
+      <td>{university.slots}</td>
+      <td>{university.firstPref}</td>
+      {fillTableCells(university.uniId)}
+    </tr>
+  ))}
+</tbody> */}
             </table>
         </div>
     );
