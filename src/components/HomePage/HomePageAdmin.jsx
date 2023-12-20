@@ -39,13 +39,16 @@ const HomePageAdmin = () => {
                     })
                 );
 
-                
-                const preferencesMap = preferences.reduce((acc, { studentId, preferences }) => {
-                    return Object.assign(acc, { [studentId]: preferences });
+
+
+                const preferencesMap = preferences.reduce((acc, { studentID, preferences }) => {
+                    return Object.assign(acc, { [studentID]: preferences });
                     // Alternatively, you can use the spread operator:
                     // return { ...acc, [studentId]: preferences };
                 }, {});
-                
+
+                setStudentPreferences(preferencesMap); // Set the state with the preferences map
+
 
             } catch (error) {
                 console.log('Error fetching student preferences:', error);
@@ -63,22 +66,22 @@ const HomePageAdmin = () => {
     const studentMatrikelnumbers = students.map((student) => student.matrikelnummer);
 
     const fillTableCells = (uniID) => {
-        return students.map((student, index) => {
-            const preferences = studentPreferences[student.id] || [];
-            let matchingPrefOrder = '';
+        return students.map((student, studentIndex) => {
+            const preferences = studentPreferences[student.matrikelnummer] || {};
 
-            // Iterate through each preference for the current student
-            for (let i = 0; i < preferences.length; i++) {
-                const currentPref = preferences[i];
 
-                // Check if the current preference matches the uniID
-                if (currentPref.universityId === uniID) {
-                    matchingPrefOrder = currentPref.preferenceOrder;
-                    break; // Exit the loop if a match is found
-                }
+            // Determine the preference order for the current university
+            const preferenceOrder = ['thirdPref', 'secondPref', 'firstPref'].findIndex(
+                pref => preferences[pref] === uniID
+            );
+
+
+            // If no match is found, display "No Preference"
+            if (!preferenceOrder) {
+                return <td key={studentIndex}></td>;
             }
 
-            return <td key={index}>{matchingPrefOrder}</td>;
+            return <td key={studentIndex}>{preferenceOrder}</td>;
         });
     };
 
@@ -95,7 +98,6 @@ const HomePageAdmin = () => {
                         {studentMatrikelnumbers.map((studentName, index) => (
                             <th key={index}>{studentName}</th>
                         ))}
-                        {/* Add more headers as needed */}
                     </tr>
                 </thead>
                 <tbody>
@@ -104,7 +106,7 @@ const HomePageAdmin = () => {
                             <td>{university.name}</td>
                             <td>{university.slots}</td>
                             <td>{university.firstPref}</td>
-                            {fillTableCells(university.id)}
+                            {fillTableCells(university.uniId)}
 
                         </tr>
                     ))}
