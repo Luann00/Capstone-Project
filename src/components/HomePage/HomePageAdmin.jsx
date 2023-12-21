@@ -87,11 +87,11 @@ const HomePageAdmin = () => {
 
         // If no setted preference is found, show nothing
         if (preferenceOrder === -1) {
-            return <td key={studentID}></td>;
+            return <td ></td>;
         }
 
 
-        return <td key={studentID}>{pref}</td>;
+        return <td >{pref}</td>;
 
     };
 
@@ -105,25 +105,25 @@ const HomePageAdmin = () => {
                     <tr>
                         <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
                         {universities.map((university) => (
-                            <td key={university.id}>{university.slots}</td>
+                            <td>{university.slots}</td>
                         ))}
                     </tr>
                     <tr>
                         <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
                         {universities.map((university) => (
-                            <td key={university.id}>{university.firstPref}</td>
+                            <td >{university.firstPref}</td>
                         ))}
                     </tr>
                     <tr>
                         <th style={{ backgroundColor: 'LightGreen' }}>Uni Name</th>
                         {universities.map((university) => (
-                            <td style={{ backgroundColor: '#F4A08E' }} key={university.id}>{university.name}</td>
+                            <td style={{ backgroundColor: '#F4A08E' }} >{university.name}</td>
                         ))}
                     </tr>
                 </thead>
                 <tbody>
                     {studentMatrikelnumbers.map((studentName, index) => (
-                        <tr key={index}>
+                        <tr >
                             <th colSpan={1}>Student ID {studentName}</th>
                             {universities.map((university) => (
                                 fillTableCells(university.uniId, studentName)
