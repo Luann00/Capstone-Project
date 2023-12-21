@@ -62,23 +62,35 @@ const HomePageAdmin = () => {
     const studentNames = students.map((student) => `${student.vorname} ${student.nachname}`);
     const studentMatrikelnumbers = students.map((student) => student.matrikelnummer);
 
-    const fillTableCells = (uniID) => {
-        return students.map((student, studentIndex) => {
-            const preferences = studentPreferences[student.matrikelnummer] || {};
+    const fillTableCells = (uniID, studentID) => {
+
+        const preferences = studentPreferences[studentID] || {};
+
+        const preferenceOrder = ['thirdPref', 'secondPref', 'firstPref'].find(
+            pref => preferences[pref] === uniID
+        );
 
 
-            // Determine the preference order for the current university
-            const preferenceOrder = ['thirdPref', 'secondPref', 'firstPref'].find(
-                pref => preferences[pref] === uniID
-            );
+        let pref = 0;
+        if (preferenceOrder === 'thirdPref') {
+            pref = 3;
+        } else if (preferenceOrder === 'secondPref') {
+            pref = 2;
+        } else if(preferenceOrder === 'firstPref'){
+            pref = 1;
+        } else {
+            pref = '';
+        }
+    
 
-            // If no match is found, display "No Preference"
-            if (preferenceOrder === -1) {
-                return <td key={studentIndex}></td>;
-            }
+        // If no setted preference is found, show nothing
+        if (preferenceOrder === -1) {
+            return <td key={studentID}></td>;
+        }
 
-            return <td key={studentIndex}>{preferenceOrder}</td>;
-        });
+
+        return <td key={studentID}>{pref}</td>;
+
     };
 
 
@@ -89,21 +101,21 @@ const HomePageAdmin = () => {
             <table className="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Uni Name</th>
-                        {universities.map((university) => (
-                            <td key={university.id}>{university.name}</td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th>Slots</th>
+                    <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
                         {universities.map((university) => (
                             <td key={university.id}>{university.slots}</td>
                         ))}
                     </tr>
                     <tr>
-                        <th>FirstPrio</th>
+                    <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
                         {universities.map((university) => (
                             <td key={university.id}>{university.firstPref}</td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <th style={{ backgroundColor: 'LightGreen' }}>Uni Name</th>
+                        {universities.map((university) => (
+                            <td style={{ backgroundColor: '#F4A08E' }} key={university.id}>{university.name}</td>
                         ))}
                     </tr>
                 </thead>
@@ -111,7 +123,9 @@ const HomePageAdmin = () => {
                     {studentMatrikelnumbers.map((studentName, index) => (
                         <tr key={index}>
                             <th colSpan={1}>Student ID {studentName}</th>
-                            {/* Here I can define the columns to the right of the rows */}
+                            {universities.map((university) => (
+                                fillTableCells(university.uniId, studentName)
+                            ))}
                         </tr>
                     ))}
                 </tbody>
