@@ -82,16 +82,6 @@ const HomePageAdmin = () => {
     };
 
 
-    const createStudentColumns = () => {
-        return
-        <tr>
-            {studentMatrikelnumbers.map((studentName, index) => (
-                <td key={index}>{studentName}</td>
-            ))}
-        </tr>
-    }
-
-
 
     return (
         <div>
@@ -101,51 +91,34 @@ const HomePageAdmin = () => {
                     <tr>
                         <th>Uni Name</th>
                         {universities.map((university) => (
-                            <td key={university.id}>
-                                <td>{university.name}</td>
-                            </td>
+                            <td key={university.id}>{university.name}</td>
                         ))}
                     </tr>
                     <tr>
                         <th>Slots</th>
                         {universities.map((university) => (
-                            <td key={university.id}>
-                                <td>{university.slots}</td>
-                            </td>
+                            <td key={university.id}>{university.slots}</td>
                         ))}
                     </tr>
                     <tr>
                         <th>FirstPrio</th>
                         {universities.map((university) => (
-                            <td key={university.id}>
-                                <td>{university.firstPref}</td>
-                            </td>
+                            <td key={university.id}>{university.firstPref}</td>
                         ))}
                     </tr>
-
-                    <th>
-                        {studentMatrikelnumbers.map((studentName, index) => (
-                            <tr
-                                key={index}>Student ID {studentName}</tr>
-                        ))}
-                    </th>
-
-
-
                 </thead>
-                {/* <tbody>
-  {universities.map((university) => (
-    <tr key={university.id}>
-      <td>{university.name}</td>
-      <td>{university.slots}</td>
-      <td>{university.firstPref}</td>
-      {fillTableCells(university.uniId)}
-    </tr>
-  ))}
-</tbody> */}
+                <tbody>
+                    {studentMatrikelnumbers.map((studentName, index) => (
+                        <tr key={index}>
+                            <th colSpan={1}>Student ID {studentName}</th>
+                            {/* Here I can define the columns to the right of the rows */}
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     );
+
 };
 
 export default HomePageAdmin;
