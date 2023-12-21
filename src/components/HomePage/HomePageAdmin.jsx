@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-//Definiere in dieser Klasse die Endtabelle für den Admin mit allen wichtigen Informationen
 const HomePageAdmin = () => {
     const [universities, setUniversities] = useState([]);
     const [students, setStudents] = useState([]);
@@ -9,6 +8,8 @@ const HomePageAdmin = () => {
 
 
     useEffect(() => {
+
+        //fetch all universities and store them in universities usestate
         const fetchUniversities = async () => {
             try {
                 const response = await fetch('http://localhost:8081/university');
@@ -19,6 +20,7 @@ const HomePageAdmin = () => {
             }
         };
 
+        //fetch all students and store them in students usestate
         const fetchStudents = async () => {
             try {
                 const response = await fetch('http://localhost:8081/student');
@@ -29,6 +31,7 @@ const HomePageAdmin = () => {
             }
         };
 
+        //fetch student preferences and store them in an object
         const fetchStudentPreferences = async () => {
             try {
                 const preferences = await Promise.all(
@@ -40,11 +43,10 @@ const HomePageAdmin = () => {
                 );
                 const preferencesMap = preferences.reduce((acc, { studentID, preferences }) => {
                     return Object.assign(acc, { [studentID]: preferences });
-                    // Alternatively, you can use the spread operator:
-                    // return { ...acc, [studentId]: preferences };
+
                 }, {});
 
-                setStudentPreferences(preferencesMap); // Set the state with the preferences map
+                setStudentPreferences(preferencesMap);
 
 
             } catch (error) {
@@ -76,12 +78,12 @@ const HomePageAdmin = () => {
             pref = 3;
         } else if (preferenceOrder === 'secondPref') {
             pref = 2;
-        } else if(preferenceOrder === 'firstPref'){
+        } else if (preferenceOrder === 'firstPref') {
             pref = 1;
         } else {
             pref = '';
         }
-    
+
 
         // If no setted preference is found, show nothing
         if (preferenceOrder === -1) {
@@ -101,13 +103,13 @@ const HomePageAdmin = () => {
             <table className="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                    <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
+                        <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
                         {universities.map((university) => (
                             <td key={university.id}>{university.slots}</td>
                         ))}
                     </tr>
                     <tr>
-                    <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
+                        <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
                         {universities.map((university) => (
                             <td key={university.id}>{university.firstPref}</td>
                         ))}
