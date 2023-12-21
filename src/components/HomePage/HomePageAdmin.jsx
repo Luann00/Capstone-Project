@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import "./HomePageAdmin.css"
+
 const HomePageAdmin = () => {
     const [universities, setUniversities] = useState([]);
     const [students, setStudents] = useState([]);
@@ -72,7 +74,7 @@ const HomePageAdmin = () => {
             pref => preferences[pref] === uniID
         );
 
-
+        //convert string to integer in order to show it in endTable
         let pref = 0;
         if (preferenceOrder === 'thirdPref') {
             pref = 3;
@@ -83,55 +85,48 @@ const HomePageAdmin = () => {
         } else {
             pref = '';
         }
-
-
         // If no setted preference is found, show nothing
         if (preferenceOrder === -1) {
             return <td ></td>;
         }
-
-
         return <td >{pref}</td>;
-
     };
-
-
-
     return (
         <div>
-            <h1>This is the main page for the admin!</h1>
-            <table className="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
-                        {universities.map((university) => (
-                            <td>{university.slots}</td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
-                        {universities.map((university) => (
-                            <td >{university.firstPref}</td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th style={{ backgroundColor: 'LightGreen' }}>Uni Name</th>
-                        {universities.map((university) => (
-                            <td style={{ backgroundColor: '#F4A08E' }} >{university.name}</td>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {studentMatrikelnumbers.map((studentName, index) => (
-                        <tr >
-                            <th colSpan={1}>Student ID {studentName}</th>
+            <div className="table-container">
+            <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
                             {universities.map((university) => (
-                                fillTableCells(university.uniId, studentName)
+                                <td>{university.slots}</td>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                        <tr>
+                            <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
+                            {universities.map((university) => (
+                                <td >{university.firstPref}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <th style={{ backgroundColor: 'LightGreen' }}>Uni Name</th>
+                            {universities.map((university) => (
+                                <td style={{ backgroundColor: '#F4A08E' }} >{university.name}</td>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {studentMatrikelnumbers.map((studentName, index) => (
+                            <tr >
+                                <th colSpan={1}>Student ID {studentName}</th>
+                                {universities.map((university) => (
+                                    fillTableCells(university.uniId, studentName)
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 

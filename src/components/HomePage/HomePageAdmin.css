@@ -1,4 +1,25 @@
-.table table-bordered{
-    width:70%;
+.table-container {
+    max-width: 80%;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    border-width: thick;
 }
 
+
+@media (max-width: 480px) {
+    .table-container {
+        max-width: 100%;
+        padding:20px;
+    }
+
+    .table {
+        width: 100%;
+        padding:20px;
+
+    }
+
+    
+
+}
