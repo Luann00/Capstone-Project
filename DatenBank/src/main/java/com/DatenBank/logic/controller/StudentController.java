@@ -80,10 +80,8 @@ public class StudentController {
 	            Student result = studentService.updateStudent(matrikelnummer, updatedStudent);
 	            return ResponseEntity.ok(result);
 	        } catch (ClassNotFoundException e) {
-	            // Handle not found exception
 	            return ResponseEntity.notFound().build();
 	        } catch (Exception e) {
-	            // Handle other exceptions
 	            return ResponseEntity.status(500).build();
 	        }
 	    }

@@ -2,7 +2,7 @@ import "./App.css";
 import LoginForm from "./components/LoginForm/loginform";
 import React, { useState } from 'react';
 import { WhitelistStudent } from "./components/WhiteLists/whitelistStudent";
-import { WhitelistVerwalter } from "./components/WhiteLists/whitelistVerwalter";
+import { WhitelistAdmin } from "./components/WhiteLists/whitelistVerwalter";
 import StudentTable from './components/StudentDataTable/StudentTable';
 import UniCard from './components/UniCard/UniCard';
 import UniversityTable from './components/UniversityDataTable/UniversityTable';
@@ -37,7 +37,7 @@ function App() {
                 <Route path="/UniversityTable" element={<UniversityTable />} />
                 <Route path="/StudentTable" element={<StudentTable />} />
                 <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
-                <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
+                <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
                 <Route path="/UniCardPage" element={<UniCardPage />} />
               </>

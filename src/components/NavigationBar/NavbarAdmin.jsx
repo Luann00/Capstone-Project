@@ -23,7 +23,7 @@ function NavbarAdmin() {
                 <Link to="/StudentTable" className="nav-link">Students</Link>
                 <Link to="/UniversityTable" className="nav-link">Universities</Link>
                 <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>
-                <Link to="/WhitelistVerwalter" className="nav-link">WhitelistVerwalter</Link>
+                <Link to="/WhitelistAdmin" className="nav-link">WhitelistAdmin</Link>
                 <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
               </Nav>
             </Navbar.Collapse>

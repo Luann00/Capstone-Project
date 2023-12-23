@@ -7,6 +7,17 @@
 }
 
 
+.titleAndButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
 
 
 
