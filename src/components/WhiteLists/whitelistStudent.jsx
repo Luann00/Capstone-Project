@@ -59,8 +59,6 @@ export const WhitelistStudent = () => {
     }
   };
 
-
-
   const updateStudent = async () => {
 
     //Update at first the local table for a smoother user experience
@@ -84,12 +82,8 @@ export const WhitelistStudent = () => {
         }
 
       );
-
-
       if (!response.ok) {
-
       }
-
     } catch (error) {
     }
 
@@ -141,6 +135,7 @@ export const WhitelistStudent = () => {
       console.log("Fehler beim Senden der Daten" + error);
     }
   };
+
 
   let postData;
   useEffect(() => {
@@ -274,15 +269,33 @@ export const WhitelistStudent = () => {
 
   };
 
-  const startEditing = () => {
-    setIsEditing(true);
-  };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      addRow();
-    }
+  const handleEdit = (whitelistStudent) => {
+    setSelectedStudent(whitelistStudent);
+    setNewStudent({
+      matrikelnummer: whitelistStudent.matrikelnummer,
+      jahr: whitelistStudent.name,
+    });
+    handleShow();
   };
+  //Show data of database in the table
+  useEffect(() => {
+    const fetchWhitelistStudents = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/whitelistStudent');
+        const data = await response.json();
+        setStudents(data);
+
+      } catch (error) {
+        console.log('Error fetching data:' + error);
+      }
+    };
+
+    fetchWhitelistStudents();
+  }, []);
+
+  
+
 
   return (
     <div className="list-page">
@@ -317,9 +330,26 @@ export const WhitelistStudent = () => {
                   <td className="rowCell1">{row.matrikelnummer}</td>
                   <td className="rowCell2">{row.jahr}</td>
                   <td>
-                    <Button variant="danger" onClick={() => deleteStudent(row.matrikelnummer)}>
-                      Delete student
-                    </Button></td>
+                  <a
+                        href="#"
+                        className="edit"
+                        title="Edit"
+                        data-toggle="tooltip"
+                        onClick={() => handleEdit(row)}
+                      >
+                        <i className="material-icons">&#xE254;</i>
+                      </a>
+                      <a
+                        href="#"
+                        className="delete"
+                        title="Delete"
+                        data-toggle="tooltip"
+                        style={{ color: "red" }}
+                        onClick={() => deleteStudent(row.matrikelnummer)}
+                      >
+                        <i className="material-icons">&#xE872;</i>
+                      </a>
+                      </td>
                 </tr>
               ))}
             </tbody>
