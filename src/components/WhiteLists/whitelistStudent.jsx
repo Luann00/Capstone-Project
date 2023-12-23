@@ -38,7 +38,7 @@ export const WhitelistStudent = () => {
 
   const inputFields = [
     { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedStudent ? true : false },
-    { name: 'jahr', type: 'text', placeholder: 'Enter year', min:'0' },
+    { name: 'jahr', type: 'text', placeholder: 'Enter year', min: '0' },
 
   ];
 
@@ -183,10 +183,7 @@ export const WhitelistStudent = () => {
       postData();
     }
 
-
   };
-
-
 
   const cancelInsertion = () => {
     setIsEditing(false);
@@ -202,7 +199,6 @@ export const WhitelistStudent = () => {
         const response = await fetch(deleteEndpoint, {
           method: "DELETE",
         });
-
         if (response.ok) {
           const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
           setTableData(updatedTableData);
@@ -212,19 +208,15 @@ export const WhitelistStudent = () => {
       } catch (error) {
         console.log("Error deleting data", error);
       }
-
-
     }
   };
 
   const deleteAllRowsDatabase = async () => {
     const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;
-
     try {
       const response = await fetch(deleteEndpoint, {
         method: "DELETE",
       });
-
       if (!response.ok) {
         console.log("Error deleting data from the database");
       }
@@ -244,7 +236,6 @@ export const WhitelistStudent = () => {
         const response = await fetch(deleteEndpoint, {
           method: "DELETE",
         });
-
         if (response.ok) {
           const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
           setTableData(updatedTableData);
@@ -254,19 +245,14 @@ export const WhitelistStudent = () => {
       } catch (error) {
         console.log("Error deleting data", error);
       }
-
-
     }
   };
 
   const deleteAllRows = () => {
-
     if (window.confirm('Are you sure you want to delete all students from this list?')) {
       setTableData([]);
       deleteAllRowsDatabase();
     }
-
-
   };
 
 
@@ -278,6 +264,7 @@ export const WhitelistStudent = () => {
     });
     handleShow();
   };
+
   //Show data of database in the table
   useEffect(() => {
     const fetchWhitelistStudents = async () => {
@@ -290,12 +277,8 @@ export const WhitelistStudent = () => {
         console.log('Error fetching data:' + error);
       }
     };
-
     fetchWhitelistStudents();
   }, []);
-
-  
-
 
   return (
     <div className="list-page">
@@ -330,26 +313,26 @@ export const WhitelistStudent = () => {
                   <td className="rowCell1">{row.matrikelnummer}</td>
                   <td className="rowCell2">{row.jahr}</td>
                   <td>
-                  <a
-                        href="#"
-                        className="edit"
-                        title="Edit"
-                        data-toggle="tooltip"
-                        onClick={() => handleEdit(row)}
-                      >
-                        <i className="material-icons">&#xE254;</i>
-                      </a>
-                      <a
-                        href="#"
-                        className="delete"
-                        title="Delete"
-                        data-toggle="tooltip"
-                        style={{ color: "red" }}
-                        onClick={() => deleteStudent(row.matrikelnummer)}
-                      >
-                        <i className="material-icons">&#xE872;</i>
-                      </a>
-                      </td>
+                    <a
+                      href="#"
+                      className="edit"
+                      title="Edit"
+                      data-toggle="tooltip"
+                      onClick={() => handleEdit(row)}
+                    >
+                      <i className="material-icons">&#xE254;</i>
+                    </a>
+                    <a
+                      href="#"
+                      className="delete"
+                      title="Delete"
+                      data-toggle="tooltip"
+                      style={{ color: "red" }}
+                      onClick={() => deleteStudent(row.matrikelnummer)}
+                    >
+                      <i className="material-icons">&#xE872;</i>
+                    </a>
+                  </td>
                 </tr>
               ))}
             </tbody>

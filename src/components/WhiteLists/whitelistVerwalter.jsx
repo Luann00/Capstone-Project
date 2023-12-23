@@ -32,7 +32,7 @@ export const WhitelistAdmin = () => {
 
 
   const inputFields = [
-    { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter PKZ'},
+    { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter PKZ' },
 
   ];
 
@@ -54,32 +54,49 @@ export const WhitelistAdmin = () => {
   };
 
   const updateAdmin = async () => {
-    //Update at first the local table for a smoother user experience
-    const updatedAdmin = updatedAdmin.map((admin) =>
-      admin.pkz === selectedAdmin.pkz
-        ? selectedAdmin
-        : admin
-    );
-    setAdmins(updatedAdmin);
-    handleClose();
-
     try {
-      const response = await fetch(
-        `http://localhost:8081/whitelistAdmin/update/${selectedAdmin.pkz}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(selectedAdmin),
+      // Step 1: Delete the current admin entry if it exists
+      if (newAdmin) {
+        const deleteResponse = await fetch(
+          `http://localhost:8081/whitelistAdmin/${newAdmin.pkz}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!deleteResponse.ok) {
+          console.error("Failed to delete current admin entry from the backend");
+          return;
         }
-
-      );
-      if (!response.ok) {
       }
-    } catch (error) {
-    }
 
+      // Step 2: Add a new admin entry with the updated pkz
+      const addResponse = await fetch("http://localhost:8081/whitelistAdmin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pkz: selectedAdmin.pkz, 
+        }),
+      });
+
+      if (!addResponse.ok) {
+        console.error("Failed to add new admin entry with updated pkz");
+        return;
+      }
+
+      // Update the local state
+      const updatedAdmins = admins.map((admin) =>
+        admin.pkz === (newAdmin.pkz ? newAdmin.pkz : null) ? newAdmin : admin
+      );
+      setAdmins(updatedAdmins);
+
+      // Close the modal
+      handleClose();
+    } catch (error) {
+      console.error("Error adding/updating admin", error);
+    }
   };
 
 
@@ -99,6 +116,12 @@ export const WhitelistAdmin = () => {
       }
     };
     fetchData();
+
+    /*
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+    */
 
   }, []);
 
@@ -361,9 +384,6 @@ export const WhitelistAdmin = () => {
           </Modal>
         </div>
       </div>
-
     </div>
-
-
   );
 };
