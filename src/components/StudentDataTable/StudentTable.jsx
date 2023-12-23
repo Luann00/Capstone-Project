@@ -317,7 +317,7 @@ function Home() {
             <Button variant="primary" onClick={handleShow}>
               Add New Student
             </Button>
-            <Button variant="danger" onClick={deleteAllStudents} style={{ marginTop: "10px" }}>
+            <Button variant="danger" onClick={deleteAllStudents} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Students
             </Button>
             <CSVExportButton data={students} filename="students.csv" />

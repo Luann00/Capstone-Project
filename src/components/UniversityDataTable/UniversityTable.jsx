@@ -129,7 +129,6 @@ function Home() {
         setoriginalUniversities(data);
 
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
-
         setShowMinGPAColumn(initialShowMinGPAColumn);
 
 
@@ -345,10 +344,10 @@ function Home() {
             <Button variant="primary" onClick={handleShow}>
               Add New University
             </Button>
-            <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px" }}>
+            <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px"}}>
               Delete all Universities
             </Button>
-            <CSVExportButton data={universities} filename="universities.csv" />
+            <CSVExportButton data={universities} filename="universities.csv"/>
           </div>
         </div>
         <div class="row">
