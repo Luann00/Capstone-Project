@@ -165,7 +165,6 @@ export const WhitelistStudent = () => {
               <tr>
                 <th className="spalte">Matrikelnummer</th>
                 <th className="spalte">Jahr</th>
-                <th className="spalte" colSpan="3">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -195,36 +194,37 @@ export const WhitelistStudent = () => {
                     />
                   )}
                 </td>
-                <td className="cells">
-                  {isEditing ? (
-                    <>
-                      <span className="deleteButton" role="img" aria-label="Cancel" style={{ cursor: "pointer", marginRight: "20px", fontSize: "25px" }} onClick={cancelInsertion}>
-                        &#10006;
-                      </span>
-                      <button type="submit" className="addButton" role="img" aria-label="Confirm" style={{ cursor: "pointer", marginLeft: "20px", fontSize: "25px" }}>
-                        &#10004;
-                      </button>
-                    </>
-                  ) : (
-                    <span className="addButton" role="img" aria-label="Plus" style={{ cursor: "pointer" }} onClick={startEditing}>
+                
+
+
+                  {/*
+ <span className="addButton" role="img" aria-label="Plus" style={{ cursor: "pointer" }} onClick={startEditing}>
                       ➕
                     </span>
-                  )}
-                </td>
+                  */}
+                   
+                  
+                {/*
+               
                 <td className="cells">
                   <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
                 </td>
+                  */}
               </tr>
 
               {tableData.map((row) => (
                 <tr key={row.id}>
                   <td className="rowCell1">{row.matrikelnummer}</td>
                   <td className="rowCell2">{row.jahr}</td>
+                  </tr>
+              ))}
+                  {/*
                   <td id="cells1" colSpan="2" >
                     <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
                   </td>
-                </tr>
-              ))}
+              */}
+
+                
             </tbody>
           </table>
         </form>
