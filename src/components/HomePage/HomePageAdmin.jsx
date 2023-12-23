@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import CSVExportButton from '../CSVExportButton';
+
 
 import "./HomePageAdmin.css"
 
@@ -94,8 +96,11 @@ const HomePageAdmin = () => {
     return (
         <div>
             <div className="table-container">
-                <h2>Current selection process</h2>
-            <table className="table table-bordered table-striped table-hover table-bordered">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
+                    <CSVExportButton data={universities} filename="endTable.csv" />
+                </div>
+                <table className="table table-bordered table-striped table-hover table-bordered">
                     <thead>
                         <tr>
                             <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
