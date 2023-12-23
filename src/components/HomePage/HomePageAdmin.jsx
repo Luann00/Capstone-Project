@@ -96,8 +96,8 @@ const HomePageAdmin = () => {
     return (
         <div>
             <div className="table-container">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
+                <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
+                <div className="headerAndButton">
                     <CSVExportButton data={universities} filename="endTable.csv" />
                 </div>
                 <table className="table table-bordered table-striped table-hover table-bordered">
