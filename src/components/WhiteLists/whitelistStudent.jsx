@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { Button, Modal, Input } from 'react-bootstrap';
 import logo from "../../logo.png";
 import "./whitelistStudent.css";
 import NavbarAdmin from "../NavigationBar/NavbarAdmin";
+import CSVExportButton from '../CSVExportButton';
+
 
 
 export const WhitelistStudent = () => {
   const [tableData, setTableData] = useState([]);
   const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
   const [isEditing, setIsEditing] = useState(false);
+  const [show, setShow] = useState(false);
+  const [students, setStudents] = useState([]);
+
+
+  const handleShow = () => setShow(true);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -158,73 +167,39 @@ export const WhitelistStudent = () => {
         <img src={logo} alt="Your Logo" className="logo" />
       </header>
       <div className="whitelist-container">
-        <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
+        <div className="titleAndButtons">
+          <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
+        </div>
         <form onSubmit={addRow}>
+          <div className="button-container">
+            <Button variant="primary" onClick={handleShow}>
+              Add New Student
+            </Button>
+            <Button variant="danger" onClick={deleteAllRows}>
+              Delete all Students
+            </Button>
+            <CSVExportButton data={students} filename="students.csv" />
+          </div>
           <table className="tabelle">
             <thead>
               <tr>
                 <th className="spalte">Matrikelnummer</th>
                 <th className="spalte">Jahr</th>
+                <th className="spalte">Edit</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="cells">
-                  {isEditing && (
-                    <input
-                      type="number"
-                      value={newRow.matrikelnummer}
-                      onChange={(e) => setNewRow({ ...newRow, matrikelnummer: e.target.value })}
-                      className="cellTextInput"
-                      min={1}
-                      required={isEditing}
-                    />
-                  )}
-                </td>
-                <td className="cells">
-                  {isEditing && (
-
-                    <input
-                      type="number"
-                      min={1}
-                      value={newRow.jahr}
-                      onChange={(e) => setNewRow({ ...newRow, jahr: e.target.value })}
-                      className="cellTextInput"
-                      required={isEditing}
-                    />
-                  )}
-                </td>
-                
-
-
-                  {/*
- <span className="addButton" role="img" aria-label="Plus" style={{ cursor: "pointer" }} onClick={startEditing}>
-                      ➕
-                    </span>
-                  */}
-                   
-                  
-                {/*
-               
-                <td className="cells">
-                  <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteAllRows()} />
-                </td>
-                  */}
-              </tr>
-
               {tableData.map((row) => (
                 <tr key={row.id}>
                   <td className="rowCell1">{row.matrikelnummer}</td>
                   <td className="rowCell2">{row.jahr}</td>
-                  </tr>
+                  <td>
+                    <Button variant="danger" onClick={deleteRow}>
+                      Delete student
+                    </Button></td>
+                </tr>
               ))}
-                  {/*
-                  <td id="cells1" colSpan="2" >
-                    <BsFillTrashFill style={{ cursor: "pointer" }} onClick={() => deleteRow(row.matrikelnummer)} />
-                  </td>
-              */}
 
-                
             </tbody>
           </table>
         </form>
