@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
-import CSVExportButton from '../CSVExportButton'; 
+import CSVExportButton from '../CSVExportButton';
 
 
 
@@ -352,8 +352,6 @@ function Home() {
                   <th>ThirdPref</th>
                   <th>Assigned University</th>
                   <th>Edit</th>
-
-
                 </tr>
               </thead>
               <tbody>
@@ -371,8 +369,6 @@ function Home() {
                     <td>{row.secondPref}</td>
                     <td>{row.thirdPref}</td>
                     <td>{row.zugeteilteUniversität}</td>
-
-
                     <td>
                       <a
                         href="#"
