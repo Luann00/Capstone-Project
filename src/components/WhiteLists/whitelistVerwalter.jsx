@@ -263,7 +263,7 @@ export const WhitelistAdmin = () => {
               Add New Admin
             </Button>
             <Button variant="danger" onClick={deleteAllRows}>
-              Delete all Admin
+              Delete all Admins
             </Button>
             <CSVExportButton data={admins} filename="whitelistAdmins.csv" />
           </div>
