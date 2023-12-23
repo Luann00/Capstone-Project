@@ -281,15 +281,14 @@ function SelectionProcess() {
 
 
     return (
-        <div class="container ">
+        <div className="container ">
             <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
-                <div class="row ">
-
-                    <div class="col-sm-3 mt-5 mb-4 text-gred">
+                <div className="row ">
+                    <div className="col-sm-3 mt-5 mb-4 text-gred">
                         <div className="search">
-                            <form class="form-inline">
-                                <span class="icon">🔍</span>
-                                <input class="form-control mr-sm-2"
+                            <form className="form-inline">
+                                <span className="icon">🔍</span>
+                                <input className="form-control mr-sm-2"
                                     type="number" min={1}
                                     placeholder="Search Process by year"
                                     aria-label="Search"
@@ -297,8 +296,8 @@ function SelectionProcess() {
                             </form>
                         </div>
                     </div>
-                    <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage Processes</b></h2></div>
-                    <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
+                    <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage Processes</b></h2></div>
+                    <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
                         <Button variant="primary" onClick={handleShow}>
                             Add New Process
                         </Button>
@@ -307,9 +306,9 @@ function SelectionProcess() {
                         </Button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive " >
-                        <table class="table table-striped table-hover table-bordered" >
+                <div className="row">
+                    <div className="table-responsive " >
+                        <table className="table table-striped table-hover table-bordered" >
                             <thead>
                                 <tr style={{ fontFamily: 'Arial', fontSize: '14px', fontWeight: 'bold', color: 'blue' }}>
                                     <th>Year</th>
