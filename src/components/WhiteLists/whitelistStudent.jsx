@@ -38,7 +38,7 @@ export const WhitelistStudent = () => {
 
   const inputFields = [
     { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedStudent ? true : false },
-    { name: 'jahr', type: 'text', placeholder: 'Enter year' },
+    { name: 'jahr', type: 'text', placeholder: 'Enter year', min:'0' },
 
   ];
 
@@ -72,7 +72,7 @@ export const WhitelistStudent = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8081/whitelistStudent/${selectedStudent.matrikelnummer}`,
+        `http://localhost:8081/whitelistStudent/update/${selectedStudent.matrikelnummer}`,
         {
           method: "PUT",
           headers: {
