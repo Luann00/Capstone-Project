@@ -10,15 +10,16 @@ public class WhitelistAdmin {
 
 	}
 
-	public WhitelistAdmin(String pkz, int year) {
+	public WhitelistAdmin(int pkz, int year) {
 		this.pkz = pkz;
 		this.year = year;
 	}
 
 	@Id
-	private String pkz; // Primary Key
+	private int pkz; // Primary Key
 
 	private int year;
+	
 
 	public int getYear() {
 		return year;
@@ -28,11 +29,11 @@ public class WhitelistAdmin {
 		this.year = year;
 	}
 
-	public String getPkz() {
+	public int getPkz() {
 		return pkz;
 	}
 
-	public void setPkz(String pkz) {
+	public void setPkz(int pkz) {
 		this.pkz = pkz;
 	}
 
