@@ -27,6 +27,8 @@ public class WhitelistAdminService {
     public void deleteWhitelistAdmin(String pkz) {
     	whitelistAdminRepository.deleteById(pkz);
     }
+
+    
     
     public List<WhitelistAdmin> getAllWhitelistAdmin() {
         return whitelistAdminRepository.findAll();

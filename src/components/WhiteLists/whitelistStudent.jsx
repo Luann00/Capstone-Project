@@ -11,7 +11,6 @@ import CSVExportButton from '../CSVExportButton';
 export const WhitelistStudent = () => {
   const [tableData, setTableData] = useState([]);
   const [newRow, setNewRow] = useState({ matrikelnummer: "", jahr: "" });
-  const [isEditing, setIsEditing] = useState(false);
   const [show, setShow] = useState(false);
   const [students, setStudents] = useState([]);
 
@@ -167,9 +166,6 @@ export const WhitelistStudent = () => {
 
   const addRow = () => {
 
-    let variable1 = newRow.matrikelnummer;
-    let variable2 = newRow.jahr;
-
     if (newRow.matrikelnummer && newRow.jahr) {
       const newRowData = {
         id: tableData.length + 1,
@@ -179,37 +175,12 @@ export const WhitelistStudent = () => {
 
       setTableData([newRowData, ...tableData]);
       setNewRow({ matrikelnummer: "", jahr: "" });
-      setIsEditing(false);
       postData();
     }
 
   };
 
-  const cancelInsertion = () => {
-    setIsEditing(false);
-  };
 
-
-  const deleteRow = async (matrikelnummer) => {
-    if (window.confirm('Are you sure you want to delete this student from this list?')) {
-
-      const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
-
-      try {
-        const response = await fetch(deleteEndpoint, {
-          method: "DELETE",
-        });
-        if (response.ok) {
-          const updatedTableData = tableData.filter((row) => row.matrikelnummer !== matrikelnummer);
-          setTableData(updatedTableData);
-        } else {
-          console.log("Error deleting data from the database");
-        }
-      } catch (error) {
-        console.log("Error deleting data", error);
-      }
-    }
-  };
 
   const deleteAllRowsDatabase = async () => {
     const deleteEndpoint = `http://localhost:8081/whitelistStudent/all`;

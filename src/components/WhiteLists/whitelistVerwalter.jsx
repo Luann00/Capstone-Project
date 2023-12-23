@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Button, Modal, Input } from 'react-bootstrap';
 import logo from "../../logo.png";
 import "./whitelistStudent.css";
+import NavbarAdmin from "../NavigationBar/NavbarAdmin";
 import CSVExportButton from '../CSVExportButton';
 
 
 
 export const WhitelistAdmin = () => {
   const [tableData, setTableData] = useState([]);
-  const [newRow, setNewRow] = useState({ pkz: "" });
+  const [newRow, setNewRow] = useState({ pkz: "", year: "" });
   const [show, setShow] = useState(false);
   const [admins, setAdmins] = useState([]);
 
@@ -19,33 +21,36 @@ export const WhitelistAdmin = () => {
 
 
   const [newAdmin, setNewAdmin] = useState({
-    pkz: "",
+    Pkz: "",
+    Year: "",
   });
 
   const handleClose = () => {
     setShow(false);
     setSelectedAdmin(null);
     setNewAdmin({
-      pkz: "",
+      Pkz: "",
+      Year: "",
     });
   };
 
 
   const inputFields = [
-    { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter PKZ' },
+    { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedAdmin ? true : false},
+    { name: 'year', type: 'text', placeholder: 'Enter year', min: '0' },
 
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedAdmin) {
-      // If editing, update the selected student
+      // If editing, update the selected admin
       setSelectedAdmin((prevAdmin) => ({
         ...prevAdmin,
         [name]: value,
       }));
     } else {
-      // If adding a new student, update the new student
+      // If adding a new admin, update the new admin
       setNewAdmin((prevNewAdmin) => ({
         ...prevNewAdmin,
         [name]: value,
@@ -54,49 +59,33 @@ export const WhitelistAdmin = () => {
   };
 
   const updateAdmin = async () => {
+
+    //Update at first the local table for a smoother user experience
+    const updatedAdmin = admins.map((admin) =>
+      admin.pkz === selectedAdmin.pkz
+        ? selectedAdmin
+        : admin
+    );
+    setAdmins(updatedAdmin);
+    handleClose();
+
     try {
-      // Step 1: Delete the current admin entry if it exists
-      if (newAdmin) {
-        const deleteResponse = await fetch(
-          `http://localhost:8081/whitelistAdmin/${newAdmin.pkz}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (!deleteResponse.ok) {
-          console.error("Failed to delete current admin entry from the backend");
-          return;
+      const response = await fetch(
+        `http://localhost:8081/whitelistAdmin/update/${selectedAdmin.pkz}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectedAdmin),
         }
-      }
 
-      // Step 2: Add a new admin entry with the updated pkz
-      const addResponse = await fetch("http://localhost:8081/whitelistAdmin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          pkz: selectedAdmin.pkz, 
-        }),
-      });
-
-      if (!addResponse.ok) {
-        console.error("Failed to add new admin entry with updated pkz");
-        return;
-      }
-
-      // Update the local state
-      const updatedAdmins = admins.map((admin) =>
-        admin.pkz === (newAdmin.pkz ? newAdmin.pkz : null) ? newAdmin : admin
       );
-      setAdmins(updatedAdmins);
-
-      // Close the modal
-      handleClose();
+      if (!response.ok) {
+      }
     } catch (error) {
-      console.error("Error adding/updating admin", error);
     }
+
   };
 
 
@@ -116,20 +105,13 @@ export const WhitelistAdmin = () => {
       }
     };
     fetchData();
-
-    /*
-    const interval = setInterval(fetchData, 1000);
-
-    return () => clearInterval(interval);
-    */
-
   }, []);
 
 
   const addAdmin = async () => {
     //Update at first the local table and then the database for a smoother experience
-    const updatedAdmin = [...admins, newAdmin];
-    setAdmins(updatedAdmin);
+    const updatedAdmins = [...admins, newAdmin];
+    setAdmins(updatedAdmins);
     handleClose();
 
     try {
@@ -154,7 +136,7 @@ export const WhitelistAdmin = () => {
   let postData;
   useEffect(() => {
     postData = async () => {
-      if (newRow.pkz) {
+      if (newRow.pkz && newRow.year) {
         try {
           const response = await fetch("http://localhost:8081/whitelistAdmin", {
             method: "POST",
@@ -162,7 +144,8 @@ export const WhitelistAdmin = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              pkz: newRow.pkz,
+              matrikelnummer: newRow.pkz,
+              year: newRow.year,
             }),
           });
 
@@ -180,19 +163,20 @@ export const WhitelistAdmin = () => {
 
   const addRow = () => {
 
-    let variable1 = newRow.pkz;
-
-    if (newRow.pkz) {
+    if (newRow.pkz && newRow.year) {
       const newRowData = {
         id: tableData.length + 1,
-        pkz: newRow.pkz,
+        pkz: newRow.matrikelnummer,
+        year: newRow.year,
       };
 
       setTableData([newRowData, ...tableData]);
-      setNewRow({ pkz: "" });
+      setNewRow({ pkz: "", year: "" });
       postData();
     }
+
   };
+
 
 
   const deleteAllRowsDatabase = async () => {
@@ -201,7 +185,6 @@ export const WhitelistAdmin = () => {
       const response = await fetch(deleteEndpoint, {
         method: "DELETE",
       });
-
       if (!response.ok) {
         console.log("Error deleting data from the database");
       }
@@ -213,7 +196,7 @@ export const WhitelistAdmin = () => {
 
   const deleteAdmin = async (pkz) => {
 
-    if (window.confirm('Are you sure you want to delete this student from this list?')) {
+    if (window.confirm('Are you sure you want to delete this admin from this list?')) {
 
       const deleteEndpoint = `http://localhost:8081/whitelistAdmin/${pkz}`;
 
@@ -221,7 +204,6 @@ export const WhitelistAdmin = () => {
         const response = await fetch(deleteEndpoint, {
           method: "DELETE",
         });
-
         if (response.ok) {
           const updatedTableData = tableData.filter((row) => row.pkz !== pkz);
           setTableData(updatedTableData);
@@ -231,19 +213,14 @@ export const WhitelistAdmin = () => {
       } catch (error) {
         console.log("Error deleting data", error);
       }
-
-
     }
   };
 
   const deleteAllRows = () => {
-
     if (window.confirm('Are you sure you want to delete all admins from this list?')) {
       setTableData([]);
       deleteAllRowsDatabase();
     }
-
-
   };
 
 
@@ -251,9 +228,11 @@ export const WhitelistAdmin = () => {
     setSelectedAdmin(whitelistAdmin);
     setNewAdmin({
       pkz: whitelistAdmin.pkz,
+      year: whitelistAdmin.year,
     });
     handleShow();
   };
+
   //Show data of database in the table
   useEffect(() => {
     const fetchWhitelistAdmins = async () => {
@@ -266,12 +245,8 @@ export const WhitelistAdmin = () => {
         console.log('Error fetching data:' + error);
       }
     };
-
     fetchWhitelistAdmins();
   }, []);
-
-
-
 
   return (
     <div className="list-page">
@@ -280,7 +255,7 @@ export const WhitelistAdmin = () => {
       </header>
       <div className="whitelist-container">
         <div className="titleAndButtons">
-          <div className="whitelist-title"><h1>Whitelist Admins</h1></div>
+          <div className="whitelist-title"><h1>Whitelist Admin</h1></div>
         </div>
         <form onSubmit={addRow}>
           <div className="button-container">
@@ -288,14 +263,15 @@ export const WhitelistAdmin = () => {
               Add New Admin
             </Button>
             <Button variant="danger" onClick={deleteAllRows}>
-              Delete all Admins
+              Delete all Admin
             </Button>
-            <CSVExportButton data={admins} filename="whitelistAdmin.csv" />
+            <CSVExportButton data={admins} filename="whitelistAdmins.csv" />
           </div>
           <table className="tabelle">
             <thead>
               <tr>
-                <th className="spalte">Uni-Kim</th>
+                <th className="spalte">PKZ</th>
+                <th className="spalte">Year</th>
                 <th className="spalte">Edit</th>
               </tr>
             </thead>
@@ -303,6 +279,7 @@ export const WhitelistAdmin = () => {
               {tableData.map((row) => (
                 <tr key={row.id}>
                   <td className="rowCell1">{row.pkz}</td>
+                  <td className="rowCell2">{row.year}</td>
                   <td>
                     <a
                       href="#"
@@ -384,6 +361,9 @@ export const WhitelistAdmin = () => {
           </Modal>
         </div>
       </div>
+
     </div>
+
+
   );
 };
