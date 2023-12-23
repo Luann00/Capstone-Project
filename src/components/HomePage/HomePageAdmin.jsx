@@ -94,7 +94,8 @@ const HomePageAdmin = () => {
     return (
         <div>
             <div className="table-container">
-            <table className="table table-bordered">
+                <h2>Current selection process</h2>
+            <table className="table table-bordered table-striped table-hover table-bordered">
                     <thead>
                         <tr>
                             <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
