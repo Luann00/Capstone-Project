@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import "./loginform.css";
 import logo from "../../logo.png";
 import Footer from "../../components/Footer/footer";
@@ -9,6 +9,42 @@ import Footer from "../../components/Footer/footer";
 const LoginForm = () => {
   const [benutzername, setBenutzername] = useState("");
   const [passwort, setPasswort] = useState("");
+
+  const [students, setStudents] = useState([]);
+  const [admins, setAdmins] = useState([]);
+
+
+
+  useEffect(() => {
+    // Fetch students' data once when the component mounts
+    const fetchStudents = async () => {
+      try {
+        const studentResponse = await fetch('http://localhost:8081/student');
+        setStudents(studentResponse.data);
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
+
+    // Fetch admins' data once when the component mounts
+    const fetchAdmins = async () => {
+      try {
+        const adminResponse = await fetch('http://localhost:8081/admin');
+        setAdmins(adminResponse.data);
+      } catch (error) {
+        console.error('Error fetching admins:', error);
+      }
+    };
+
+    fetchStudents();
+    fetchAdmins();
+  }, []); // Empty dependency array ensures these effects run only once on mount
+
+
+  console.log(students)
+  console.log(admins)
+
+
 
   /*URL des LDAP Servers
   const backendUrl = 'http://localhost:8080';
@@ -22,38 +58,10 @@ wären fertig gewesen. */
 
 
   const handleAnmelden = async () => {
-    /*
-    try {
-      const response = await fetch(`${backendUrl}${authenticationEndpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          benutzername,
-          passwort,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Erfolgreich authentifiziert', data);
-      } else {
-        console.log('Authentifizierung fehlgeschlagen');
-      }
-    } catch (error) {
-      alert('ERROR GEHT NICHT', error);
-    }
-    */
+   
   };
   
   
-
-  
-
-
-
-
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleAnmelden();
