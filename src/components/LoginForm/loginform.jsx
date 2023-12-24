@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import "./loginform.css";
 import logo from "../../logo.png";
+import axios from 'axios';
+
 import Footer from "../../components/Footer/footer";
 
 
 
 
 const LoginForm = () => {
-  const [benutzername, setBenutzername] = useState("");
-  const [passwort, setPasswort] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isStudent, setIsStudent] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [error, setError] = useState("");
 
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
-
-
 
   useEffect(() => {
     // Fetch students' data once when the component mounts
     const fetchStudents = async () => {
       try {
-        const studentResponse = await fetch('http://localhost:8081/student');
-        setStudents(studentResponse.data);
+        const studentsResponse = await axios.get('http://localhost:8081/student');
+        setStudents(studentsResponse.data);
       } catch (error) {
         console.error('Error fetching students:', error);
       }
@@ -29,8 +33,8 @@ const LoginForm = () => {
     // Fetch admins' data once when the component mounts
     const fetchAdmins = async () => {
       try {
-        const adminResponse = await fetch('http://localhost:8081/admin');
-        setAdmins(adminResponse.data);
+        const adminsResponse = await axios.get('http://localhost:8081/admin');
+        setAdmins(adminsResponse.data);
       } catch (error) {
         console.error('Error fetching admins:', error);
       }
@@ -38,30 +42,68 @@ const LoginForm = () => {
 
     fetchStudents();
     fetchAdmins();
-  }, []); // Empty dependency array ensures these effects run only once on mount
+  }, []);
 
+  const handleAnmelden = () => {
+    try {
+      let foundStudent = null;
+      let foundAdmin = null;
 
-  console.log(students)
-  console.log(admins)
+      // Find the student with the provided matrikelnummer
+      students.forEach(student => {
+        if (foundStudent) return;
+        if (student.matrikelnummer.toString() === userName.toString()) {
+          foundStudent = student;
+        }
+      });
 
+      // Find the admin with the provided uniKim
+      admins.forEach(admin => {
+        if (foundAdmin) return;
+        if (admin.uniKim.toString() === userName.toString()) {
+          foundAdmin = admin;
+        }
+      });
 
+      if (foundStudent) {
+        // Check if the provided password matches the fetched student's password
+        if ("password" === password) {
+          setCurrentUser({ benutzername: foundStudent.matrikelnummer });
+          setIsStudent(true);
+          onLogin('student');
+          setIsAdmin(false);
+          setError('');
+          localStorage.setItem('userType', 'student');
+          return;
+        } else {
+          console.log("incorrect password for student!");
+        }
+        return;
+      }
 
-  /*URL des LDAP Servers
-  const backendUrl = 'http://localhost:8080';
-  const authenticationEndpoint = '/';
+      if (foundAdmin) {
+        // Check if the provided password matches the fetched admin's password
+        if (foundAdmin.password === password) {
+          setCurrentUser({ benutzername: foundAdmin.benutzername });
+          localStorage.setItem('userType', 'admin');
+          console.log("currentuser: " + currentUser);
+          onLogin('admin');
+          setIsStudent(false);
+          setIsAdmin(true);
+          setError('');
+          return;
+        } else {
+          console.log("incorrect password for admin!");
+        }
+        return;
+      }
 
-  */
-
-  /* Diese Methode hier ist das Gerüst für die LDAP-Authentifizierung. Wenn die Authentifizierung per LDAP
-geklappt hätte, hätten wir einfach die unten stehenden Credentials ersetzen müssen durch die des LDAP-Servers und
-wären fertig gewesen. */
-
-
-  const handleAnmelden = async () => {
-   
+      setError('User not found');
+    } catch (error) {
+      setError('Error logging in');
+    }
   };
-  
-  
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleAnmelden();
@@ -74,19 +116,18 @@ wären fertig gewesen. */
         <img src={logo} alt="Your Logo" className="logo" />
 
       </header>
-
       <div className="cover">
         <h1 className="title">Welcome</h1>
         <input
           type="text"
           placeholder="Username"
-          onChange={(e) => setBenutzername(e.target.value)}
+          onChange={(e) => setUserName(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <input
           type="password"
           placeholder="Password"
-          onChange={(e) => setPasswort(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleKeyPress}
 
         />
