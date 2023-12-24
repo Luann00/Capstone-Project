@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+
+
+
+
+
+
 
 const HomeStudent = () => {
+    const [name, setname] = useState(false);
+
+
+    useEffect(() => {
+        const storedUserName = localStorage.getItem('name');
+        if (storedUserName) {
+          setname(storedUserName)
+        }
+      }, []);
+
+   
+
     return (
         <div>
-            <h1>This is the main page for the student!</h1>
+            <h1>Hello, {name} !</h1>
         </div>
     )
 }

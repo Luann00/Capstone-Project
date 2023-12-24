@@ -1,10 +1,9 @@
 import "./App.css";
 import LoginForm from "./components/LoginForm/loginform";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WhitelistStudent } from "./components/WhiteLists/whitelistStudent";
 import { WhitelistAdmin } from "./components/WhiteLists/whitelistVerwalter";
 import StudentTable from './components/StudentDataTable/StudentTable';
-import UniCard from './components/UniCard/UniCard';
 import UniversityTable from './components/UniversityDataTable/UniversityTable';
 import SelectionProcess from './components/ProcessTable/SelectionProcess';
 import UniCardPage from "./components/SelectUniversityPage/UniCardPage";
@@ -13,22 +12,44 @@ import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
 import HomePageAdmin from "./components/HomePage/HomePageAdmin";
 import HomePageStudent from "./components/HomePage/HomePageStudent";
-import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const handleLogin = (userType) => {
-    setLoggedIn(true);
-    setIsAdmin(userType === 'admin');
+
+  useEffect(() => {
+    const storedUserType = localStorage.getItem('userType');
+    console.log(storedUserType);
+    if (storedUserType) {
+      setIsAdmin(storedUserType === 'admin');
+      setIsStudent(storedUserType === 'student');
+    }
+
+   
+    // No need to clear localStorage here
+
+
+  }, []);
+
+
+  const handleLogout = () => {
+    // Zurücksetzen der Zustände und Löschen der Einträge im localStorage
+    setIsAdmin(false);
+    setIsStudent(false);
+    localStorage.removeItem('userType');
+    localStorage.removeItem('name'); // Falls du auch den Benutzernamen gespeichert hast
+
+    window.location.href = '/';
   };
+
+
 
   return (
     <div>
-      {isLoggedIn && (
+      {isStudent && (
         <>
-          {isAdmin ? <NavbarAdmin /> : <NavBarStudent />}
+          {isAdmin ? <NavbarAdmin onLogout={handleLogout} /> : <NavBarStudent onLogout={handleLogout} />}
           <Routes>
             {isAdmin ? (
               <>
@@ -51,7 +72,7 @@ function App() {
         </>
       )}
 
-      {!isLoggedIn && (
+      {!isStudent && (
         <Routes>
           <Route path="/" element={<LoginForm />} />
         </Routes>

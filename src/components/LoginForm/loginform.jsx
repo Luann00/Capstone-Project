@@ -45,6 +45,10 @@ const LoginForm = () => {
   }, []);
 
   const handleAnmelden = () => {
+
+    if(localStorage.getItem('name')) {
+      console.log("vorheriger name: " + localStorage.getItem('name'));
+    }
     try {
       let foundStudent = null;
       let foundAdmin = null;
@@ -68,12 +72,15 @@ const LoginForm = () => {
       if (foundStudent) {
         // Check if the provided password matches the fetched student's password
         if ("password" === password) {
-          setCurrentUser({ benutzername: foundStudent.matrikelnummer });
+          setCurrentUser({ benutzername: foundStudent.benutzername });
           setIsStudent(true);
-          onLogin('student');
           setIsAdmin(false);
           setError('');
           localStorage.setItem('userType', 'student');
+          localStorage.setItem('name', foundStudent.matrikelnummer);
+
+          console.log("name: " + localStorage.getItem('name'));
+
           return;
         } else {
           console.log("incorrect password for student!");
@@ -86,8 +93,8 @@ const LoginForm = () => {
         if (foundAdmin.password === password) {
           setCurrentUser({ benutzername: foundAdmin.benutzername });
           localStorage.setItem('userType', 'admin');
-          console.log("currentuser: " + currentUser);
-          onLogin('admin');
+          localStorage.setItem('name', foundAdmin.uniKim);
+          console.log("name: " + localStorage.getItem('name'));
           setIsStudent(false);
           setIsAdmin(true);
           setError('');
@@ -99,6 +106,7 @@ const LoginForm = () => {
       }
 
       setError('User not found');
+      console.log("user not found")
     } catch (error) {
       setError('Error logging in');
     }
