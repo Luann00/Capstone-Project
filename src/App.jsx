@@ -16,6 +16,8 @@ import HomePageStudent from "./components/HomePage/HomePageStudent";
 function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
 
   useEffect(() => {
@@ -25,8 +27,7 @@ function App() {
       setIsAdmin(storedUserType === 'admin');
       setIsStudent(storedUserType === 'student');
     }
-
-   
+    
     // No need to clear localStorage here
 
 
@@ -34,24 +35,37 @@ function App() {
 
 
 
+  const handleLogin = (userType) => {
+    setIsAdmin(userType === 'admin');
+    setIsStudent(userType === 'student');
+
+    if(setIsAdmin ||setIsStudent) {
+      setIsLoggedIn(true)
+    }
+  };
+
 
   const handleLogout = () => {
     // Zurücksetzen der Zustände und Löschen der Einträge im localStorage
-    setIsAdmin(false);
-    setIsStudent(false);
+    window.location.href = '/';
     localStorage.removeItem('userType');
     localStorage.removeItem('name'); // Falls du auch den Benutzernamen gespeichert hast
+    setIsAdmin(false);
+    setIsStudent(false);
+    
 
-    window.location.href = '/';
   };
-
 
 
   return (
     <div>
-      {isStudent && (
+      {isLoggedIn ? (
         <>
-          {isAdmin ? <NavbarAdmin onLogout={handleLogout} /> : <NavBarStudent onLogout={handleLogout} />}
+          {isAdmin ? (
+            <NavbarAdmin onLogout={handleLogout} />
+          ) : (
+            <NavBarStudent onLogout={handleLogout} />
+          )}
           <Routes>
             {isAdmin ? (
               <>
@@ -72,11 +86,9 @@ function App() {
             )}
           </Routes>
         </>
-      )}
-
-      {!isStudent && (
+      ) : (
         <Routes>
-          <Route path="/" element={<LoginForm />} />
+          <Route path="/" element={<LoginForm onLogin={handleLogin} />} />
         </Routes>
       )}
     </div>
@@ -84,61 +96,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-//Hier haben Ha und ich versucht ein dummy login mithilfe von routern zu implementieren. Wir sind jedoch nicht so weit gekommen, da wir
-//die anderen Aufgaben von Liska und Ha übernehmen mussten(LDAP-Authentifizierung) und dieses die höchste Priorität
-//hatte.
-
-
-// const AdminRoutes = () => {
-  
-//   return (
-//     <>
-//       <Route path="/" element={<Home />} />
-//       <Route path="/Home" element={<Home />} />
-//       <Route path="/UniversityTable" element={<UniversityTable />} />
-//       <Route path="/StudentTable" element={<StudentTable />} />
-//       <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
-//       <Route path="/WhitelistVerwalter" element={<WhitelistVerwalter />} />
-//       <Route path="/SelectionProcess" element={<SelectionProcess />} />
-//       <Route path="/UniCardPage" element={<UniCardPage />} />
-//     </>
-//   );
-// };
-
-// const StudentRoutes = () => {
-//   return (
-//     <Route path="/UniCardPage" element={<UniCardPage />} />
-//   );
-// };
-
-// const App = () => {
-//   const { currentUser, isStudent, isAdmin } = useAuth();
- 
-//   return (
-//     <div>
-//       <AuthProvider>
-//         <PrioritySelectionProvider>
-//         <Routes>
-//             <Route
-//               path="/"
-//               element={
-//                 currentUser ? (
-//                   isAdmin ? <AdminRoutes /> : isStudent ? <StudentRoutes /> : <LoginForm />
-//                 ) : (
-//                   <LoginForm />
-//                 )
-//               }
-//             />
-//           </Routes>
-//         </PrioritySelectionProvider>
-//       </AuthProvider>
-//     </div>
-//   );
-// };
-
-// export default App;

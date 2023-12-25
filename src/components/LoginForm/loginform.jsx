@@ -8,7 +8,7 @@ import Footer from "../../components/Footer/footer";
 
 
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
@@ -46,9 +46,6 @@ const LoginForm = () => {
 
   const handleAnmelden = () => {
 
-    if(localStorage.getItem('name')) {
-      console.log("vorheriger name: " + localStorage.getItem('name'));
-    }
     try {
       let foundStudent = null;
       let foundAdmin = null;
@@ -76,11 +73,9 @@ const LoginForm = () => {
           setIsStudent(true);
           setIsAdmin(false);
           setError('');
+          onLogin('student'); // Notify App.jsx about successful login
           localStorage.setItem('userType', 'student');
           localStorage.setItem('name', foundStudent.matrikelnummer);
-
-          console.log("name: " + localStorage.getItem('name'));
-
           return;
         } else {
           console.log("incorrect password for student!");
@@ -90,12 +85,12 @@ const LoginForm = () => {
 
       if (foundAdmin) {
         // Check if the provided password matches the fetched admin's password
-        if (foundAdmin.password === password) {
+        if ("password" === password) {
           setCurrentUser({ benutzername: foundAdmin.benutzername });
           localStorage.setItem('userType', 'admin');
           localStorage.setItem('name', foundAdmin.uniKim);
-          console.log("name: " + localStorage.getItem('name'));
           setIsStudent(false);
+          onLogin('admin'); // Notify App.jsx about successful login
           setIsAdmin(true);
           setError('');
           return;
@@ -106,7 +101,6 @@ const LoginForm = () => {
       }
 
       setError('User not found');
-      console.log("user not found")
     } catch (error) {
       setError('Error logging in');
     }
@@ -139,9 +133,6 @@ const LoginForm = () => {
           onKeyDown={handleKeyPress}
 
         />
-
-
-
         <div className="login-btn" onClick={handleAnmelden}>
           Log in
         </div>

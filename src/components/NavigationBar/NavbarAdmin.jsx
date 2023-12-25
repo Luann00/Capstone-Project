@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function NavbarAdmin() {
+const NavbarAdmin = ({ onLogout }) => {
   return (
     <div className="Navbar">
       <>
@@ -25,6 +25,8 @@ function NavbarAdmin() {
                 <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>
                 <Link to="/WhitelistAdmin" className="nav-link">WhitelistAdmin</Link>
                 <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
+                <button onClick={onLogout}>Logout</button>
+
               </Nav>
             </Navbar.Collapse>
           </Container>
