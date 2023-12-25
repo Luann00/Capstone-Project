@@ -75,7 +75,8 @@ const LoginForm = ({ onLogin }) => {
           setError('');
           onLogin('student'); // Notify App.jsx about successful login
           localStorage.setItem('userType', 'student');
-          localStorage.setItem('name', foundStudent.matrikelnummer);
+          localStorage.setItem('name', foundStudent.vorname + " " + foundStudent.nachname);
+          localStorage.setItem('ID', foundStudent.matrikelnummer);
           return;
         } else {
           console.log("incorrect password for student!");

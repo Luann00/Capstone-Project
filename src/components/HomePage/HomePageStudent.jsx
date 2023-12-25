@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 
 
 const HomeStudent = () => {
-    const [name, setname] = useState(false);
+    const [name, setname] = useState("");
 
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const HomeStudent = () => {
 
     return (
         <div>
-            <h1>Hello, {name} !</h1>
+            <h1>Hello, {name}!</h1>
         </div>
     )
 }
