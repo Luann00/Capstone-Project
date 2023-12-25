@@ -22,11 +22,15 @@ function App() {
 
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
-    console.log(storedUserType);
     if (storedUserType) {
       setIsAdmin(storedUserType === 'admin');
       setIsStudent(storedUserType === 'student');
+      setIsLoggedIn(true)
+    } else {
+      setIsLoggedIn(false);
     }
+
+    console.log("logged in: " + isLoggedIn)
     
     // No need to clear localStorage here
 
@@ -42,7 +46,7 @@ function App() {
     if(setIsAdmin ||setIsStudent) {
       setIsLoggedIn(true)
     }
-  };
+  }; 
 
 
   const handleLogout = () => {
@@ -52,8 +56,7 @@ function App() {
     localStorage.removeItem('name'); // Falls du auch den Benutzernamen gespeichert hast
     setIsAdmin(false);
     setIsStudent(false);
-    
-
+    setIsLoggedIn(false);
   };
 
 
