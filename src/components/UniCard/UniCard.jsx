@@ -10,7 +10,7 @@ import './UniCard.css';
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [currentPriority, setCurrentPriority] = useState('');
+  const [currentPriority, setCurrentPriority] = useState('Choose Preference');
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
@@ -22,7 +22,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [secondPriority, setSecondPriority] = useState('');
   const [thirdPriority, setThirdPriority] = useState('');
 
-  const[ID, setID] = useState('')
+  const [ID, setID] = useState('')
 
 
 
@@ -36,20 +36,24 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         const data = await response.json();
         // Wandele das Objekt in ein Array um
         // Überprüfe, ob Prioritäten für die aktuelle Universität vorhanden sind
-        const universityPriorities = data;
+        // Convert the object to an array
+        const prioritiesArray = data
 
-        if (universityPriorities) {
-          setFirstPriority(universityPriorities.firstPref);
-          setSecondPriority(universityPriorities.secondPref);
-          setThirdPriority(universityPriorities.thirdPref);
+
+
+        setStudentPriorities(prioritiesArray);
+        if (prioritiesArray) {
+          setFirstPriority(prioritiesArray.firstPref);
+          setSecondPriority(prioritiesArray.secondPref);
+          setThirdPriority(prioritiesArray.thirdPref);
 
           // Setze die Dropdown-Auswahl basierend auf den Prioritäten
-          if (universityPriorities.firstPref) {
-            handlePrioritySelect('1st Priority');
-          } else if (universityPriorities.secondPref) {
-            handlePrioritySelect('2nd Priority');
-          } else if (universityPriorities.thirdPref) {
-            handlePrioritySelect('3rd Priority');
+          if (prioritiesArray.firstPref === university.uniId) {
+            setCurrentPriority('1st Priority');
+          } else if (prioritiesArray.secondPref === university.uniId) {
+            setCurrentPriority('2nd Priority');
+          } else if (prioritiesArray.thirdPref === university.uniId) {
+            setCurrentPriority('3rd Priority');
           }
         }
       } catch (error) {
@@ -59,7 +63,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     fetchStudentPriorities();
   }, [ID]);
 
-  
+
 
 
   const isPrioritySelected = (priority) => {
@@ -90,27 +94,31 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   }, [university.uniId, studentPriorities]);
   */
 
+
+  const updatePriorities = async () => {
+
+    //make here put request for updating student preference after dropdown menu gets changed
+
+
+  }
+
   const handlePrioritySelect = async (priority) => {
 
-    if (!selected) {
-      return
-    }
-    
     if (priority === '1st Priority') {
       //if current priority is not one, then set it to one and increment firstPrefs of unicard by 1
+
       if (currentPriority !== '1st Priority') {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         await updateCurrentFirstPrioCount(university.uniId, true);
 
-      }
-
-      if (currentPriority === '') {
+      } else if (currentPriority === '') {
         //if there wasnt a priority selected, increment totalPref variable by 1
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
       }
 
       setCurrentPriority('1st Priority');
+      setFirstPriority(university.uniId);
     } else if (priority === '2nd Priority') {
       //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
       if (currentPriority === '1st Priority') {
@@ -124,6 +132,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       }
 
       setCurrentPriority('2nd Priority');
+      setSecondPriority(university.uniId);
     } else {
       if (currentPriority === '1st Priority') {
         //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
@@ -138,6 +147,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       }
 
       setCurrentPriority('3rd Priority');
+      setThirdPriority(university.uniId);
     }
 
     setSelectedPriority(priority);
@@ -160,7 +170,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     }
     setCurrentPriority('');
     setSelectedPriority('');
-
 
   }
 
@@ -260,15 +269,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
-             {!selected
-              ? (firstPriority === university.uniId
-                ? '1st Priority'
-                : secondPriority === university.uniId
-                  ? '2nd Priority'
-                  : thirdPriority === university.uniId
-                    ? '3rd Priority'
-                    : 'Choose Preference')
-              : "Choose Preference"} 
+            {currentPriority}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handlePrioritySelect('1st Priority')}>
