@@ -22,6 +22,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [secondPriority, setSecondPriority] = useState('');
   const [thirdPriority, setThirdPriority] = useState('');
 
+
+
   const [ID, setID] = useState('')
 
 
@@ -96,8 +98,28 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
   const updatePriorities = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/student/${ID}updatePriorities/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "thirdPref": thirdPriority,
+            "secondPref": secondPriority,
+            "firstPref": firstPriority
+          }),
+        }
 
-    //make here put request for updating student preference after dropdown menu gets changed
+      );
+      if (!response.ok) {
+
+      }
+
+    } catch (error) {
+    }
 
 
   }
@@ -151,6 +173,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     }
 
     setSelectedPriority(priority);
+    updatePriorities();
 
   };
 
