@@ -9,14 +9,9 @@ import './UniCard.css';
 
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
-  const [selectedPriority, setSelectedPriority] = useState('');
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
-  const [showMinGPA, setShowMinGPA] = useState(true);
-
-  const [selected, setSelected] = useState(false);
-
 
   const [firstPriority, setFirstPriority] = useState('');
   const [secondPriority, setSecondPriority] = useState('');
@@ -170,7 +165,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       setThirdPriority(university.uniId);
     }
 
-    setSelectedPriority(priority);
     updatePriorities();
 
 
@@ -200,9 +194,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       setThirdPriority(0);
     }
     setCurrentPriority(null);
-    setSelectedPriority('');
 
-    updatePriorities();
+    await updatePriorities();
 
   }
 
