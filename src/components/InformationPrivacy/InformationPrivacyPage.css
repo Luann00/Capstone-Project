@@ -1,0 +1,13 @@
+h1, h3{
+    text-align:center
+}
+
+#exampleText{
+padding: 80px;
+border-style:solid;
+margin: 20px;
+}
+
+#acceptButton{
+  text-align:center;
+}
