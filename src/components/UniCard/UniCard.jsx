@@ -41,13 +41,11 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         // Convert the object to an array
         const prioritiesArray = data
 
-
-
         setStudentPriorities(prioritiesArray);
         if (prioritiesArray) {
-          setFirstPriority(prioritiesArray.firstPref);
-          setSecondPriority(prioritiesArray.secondPref);
-          setThirdPriority(prioritiesArray.thirdPref);
+          setFirstPriority(prioritiesArray["firstPref"]);
+          setSecondPriority(prioritiesArray["secondPref"]);
+          setThirdPriority(prioritiesArray["thirdPref"]);
 
           // Setze die Dropdown-Auswahl basierend auf den Prioritäten
           if (prioritiesArray.firstPref === university.uniId) {
@@ -61,7 +59,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       } catch (error) {
       }
     };
-
     fetchStudentPriorities();
   }, [ID]);
 
@@ -98,18 +95,19 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
 
   const updatePriorities = async () => {
+
     try {
       const response = await fetch(
-        `http://localhost:8081/student/${ID}updatePriorities/`,
+        `http://localhost:8081/student/${ID}/updatePriorities`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            "thirdPref": thirdPriority,
+            "firstPref": firstPriority,
             "secondPref": secondPriority,
-            "firstPref": firstPriority
+            "thirdPref": thirdPriority
           }),
         }
 
@@ -175,6 +173,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     setSelectedPriority(priority);
     updatePriorities();
 
+
   };
 
 
@@ -193,6 +192,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     }
     setCurrentPriority('');
     setSelectedPriority('');
+
+    updatePriorities();
 
   }
 
