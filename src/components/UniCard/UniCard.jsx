@@ -10,7 +10,7 @@ import './UniCard.css';
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [currentPriority, setCurrentPriority] = useState('Choose Preference');
+  const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
   const [showMinGPA, setShowMinGPA] = useState(true);
@@ -190,7 +190,16 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       await updateCurrentTotalPrioCount(university.uniId, false);
 
     }
-    setCurrentPriority('');
+
+
+    if(currentPriority === '1st Priority') {
+      setFirstPriority(0);
+    } else if(currentPriority === '2nd Priority') {
+      setSecondPriority(0);
+    } else if(currentPriority === '3rd Priority') {
+      setThirdPriority(0);
+    }
+    setCurrentPriority(null);
     setSelectedPriority('');
 
     updatePriorities();
@@ -293,7 +302,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
-            {currentPriority}
+          {currentPriority !== null ? currentPriority : "Choose preference"}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handlePrioritySelect('1st Priority')}>
