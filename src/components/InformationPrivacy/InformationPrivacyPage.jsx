@@ -22,7 +22,7 @@ const InformationPrivacyPage = () => {
 
                     Sed congue velit purus, et pulvinar sem consequat nec. Sed et est imperdiet, ultrices orci a, malesuada ante. Donec ac mi ex. In gravida erat eget diam mattis convallis. Mauris id lacus id ante faucibus euismod. Quisque quis dolor eget urna vestibulum consequat. Morbi sed rutrum nulla, eu posuere mi. Aenean quis massa vitae nibh sollicitudin laoreet.
                 </p>
-                <Button variant="primary" id='acceptButton'>Accept Privacy Policy</Button>{' '}
+                <Button variant="primary" id="acceptButton">Accept Privacy Policy</Button>{' '}
             </div>
         </div>
 

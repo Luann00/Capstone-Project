@@ -1,13 +1,17 @@
-h1, h3{
-    text-align:center
+h1, h3 {
+  text-align: center;
 }
 
-#exampleText{
-padding: 80px;
-border-style:solid;
-margin: 20px;
+#exampleText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  border-style: solid;
+  margin: 20px;
 }
 
-#acceptButton{
-  text-align:center;
+#acceptButton {
+  margin-top: 20px;
 }
