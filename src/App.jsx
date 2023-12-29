@@ -53,7 +53,7 @@ function App() {
     // Zurücksetzen der Zustände und Löschen der Einträge im localStorage
     window.location.href = '/';
     localStorage.removeItem('userType');
-    localStorage.removeItem('name'); // Falls du auch den Benutzernamen gespeichert hast
+    localStorage.removeItem('currentUser');
     setIsAdmin(false);
     setIsStudent(false);
     setIsLoggedIn(false);

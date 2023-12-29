@@ -69,14 +69,15 @@ const LoginForm = ({ onLogin }) => {
       if (foundStudent) {
         // Check if the provided password matches the fetched student's password
         if ("password" === password) {
-          setCurrentUser({ benutzername: foundStudent.benutzername });
+          
           setIsStudent(true);
           setIsAdmin(false);
           setError('');
           onLogin('student'); // Notify App.jsx about successful login
+          localStorage.setItem('currentUser', JSON.stringify(foundStudent)); // Speichere das gesamte Studentenobjekt
           localStorage.setItem('userType', 'student');
-          localStorage.setItem('name', foundStudent.vorname + " " + foundStudent.nachname);
-          localStorage.setItem('ID', foundStudent.matrikelnummer);
+          let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
           return;
         } else {
           console.log("incorrect password for student!");
@@ -85,13 +86,14 @@ const LoginForm = ({ onLogin }) => {
       }
 
       if (foundAdmin) {
-        // Check if the provided password matches the fetched admin's password
+        
         if ("password" === password) {
           setCurrentUser({ benutzername: foundAdmin.benutzername });
+          localStorage.setItem('currentUser', JSON.stringify(foundAdmin)); 
           localStorage.setItem('userType', 'admin');
-          localStorage.setItem('name', foundAdmin.uniKim);
+          console.log("firstPref: " + localStorage.getItem('currentUser'.firstPref))
           setIsStudent(false);
-          onLogin('admin'); // Notify App.jsx about successful login
+          onLogin('admin'); 
           setIsAdmin(true);
           setError('');
           return;
