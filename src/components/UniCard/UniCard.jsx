@@ -32,8 +32,35 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
   useEffect(() => {
 
-    
-    
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const matrikelnummer = currentUser.matrikelnummer;
+
+
+    const fetchStudentPriorities = async () => {
+      try {
+        const response = await fetch(`http://localhost:8081/student/${matrikelnummer}/priorities`);
+        const data = await response.json();
+
+
+        // Update localstorage items from database
+        const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (storedUser) {
+          storedUser.firstPref = data.firstPref;
+          storedUser.secondPref = data.secondPref;
+          storedUser.thirdPref = data.thirdPref;
+
+          localStorage.setItem('currentUser', JSON.stringify(storedUser));
+        }
+
+      } catch (error) {
+        console.log('Error fetching data:' + error);
+      }
+    };
+
+
+
+
     setID(JSON.parse(localStorage.getItem('currentUser')).matrikelnummer);
 
     // Setze die Dropdown-Auswahl basierend auf den Prioritäten
@@ -44,6 +71,12 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
     } else if (thirdPriority === university.uniId) {
       setCurrentPriority('3rd Priority');
     }
+
+    console.log("firstPrio: " + firstPriority)
+
+
+    fetchStudentPriorities();
+
 
   },);
 
@@ -130,7 +163,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       if (storedUser) {
         storedUser.firstPref = university.uniId;
         localStorage.setItem('currentUser', JSON.stringify(storedUser));
-        console.log("new Prio: " + storedUser.firstPref)
       }
 
       setFirstPriority(university.uniId)
