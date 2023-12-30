@@ -42,8 +42,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       setCurrentPriority('3rd Priority');
     }
 
-
-
   },);
 
 
@@ -190,6 +188,24 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       setCurrentPriority('3rd Priority')
       updatePriorities();
 
+    }
+
+
+    if (currentPriority === '1st Priority') {
+      setFirstPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.firstPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    } else if (currentPriority === '2nd Priority') {
+      setSecondPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.secondPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    } else if (currentPriority === '3rd Priority') {
+      setThirdPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.thirdPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
     }
 
     updatePriorities();
@@ -436,6 +452,7 @@ const UniCard = () => {
       </div>
       <div className="search">
         <form className="form-inline">
+
           <span className="icon">🔍</span>
           <input
             className="form-control mr-sm-2"
