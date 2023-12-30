@@ -49,7 +49,6 @@ public class StudentService {
             existingStudent.setGeschlecht(updatedStudent.getGeschlecht());
             existingStudent.setDurchschnitt(updatedStudent.getDurchschnitt());
             existingStudent.setEmail(updatedStudent.getEmail());
-            existingStudent.setZugeteilteUniversitaet(updatedStudent.getZugeteilteUniversitaet());
             existingStudent.setFirstPref(updatedStudent.getFirstPref());
             existingStudent.setSecondPref(updatedStudent.getSecondPref());
             existingStudent.setThirdPref(updatedStudent.getThirdPref());

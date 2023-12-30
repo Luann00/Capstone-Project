@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 
-
-
-
-
-
 const HomeStudent = () => {
     const [name, setname] = useState("");
 
 
     useEffect(() => {
-        const storedUserName = localStorage.getItem('name');
-        if (storedUserName) {
-          setname(storedUserName)
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (currentUser) {
+          setname(currentUser.vorname + " " + currentUser.nachname)
         }
       }, []);
 

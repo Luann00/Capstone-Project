@@ -63,9 +63,9 @@ function Home() {
     { name: 'geschlecht', type: 'text', placeholder: 'Enter geschlecht' },
     { name: 'durchschnitt', type: 'number', step: "0.1", min: '1', max: '4', placeholder: 'Enter durchschnitt' },
     { name: 'email', type: 'email', placeholder: 'Enter e-mail' },
-    { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min:'0' },
-    { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min:'0' },
-    { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference', min:'0' },
+    { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min: '0' },
+    { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min: '0' },
+    { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference', min: '0' },
   ];
 
 
@@ -350,7 +350,8 @@ function Home() {
                   <th>FirstPref</th>
                   <th>SecondPref</th>
                   <th>ThirdPref</th>
-                  <th>Assigned University</th>
+                  {//<th>Assigned University</th>
+                  }
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -368,7 +369,8 @@ function Home() {
                     <td>{row.firstPref}</td>
                     <td>{row.secondPref}</td>
                     <td>{row.thirdPref}</td>
-                    <td>{row.zugeteilteUniversität}</td>
+                    {//  <td>{row.zugeteilteUniversität}</td>
+                    }
                     <td>
                       <a
                         href="#"
