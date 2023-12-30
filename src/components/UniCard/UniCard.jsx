@@ -152,7 +152,8 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
         setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
         await updateCurrentFirstPrioCount(university.uniId, true);
 
-      } else if (currentPriority === null) {
+      }
+      if (currentPriority === null) {
         //if there wasnt a priority selected, increment totalPref variable by 1
         setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
         await updateCurrentTotalPrioCount(university.uniId, true);
