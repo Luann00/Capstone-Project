@@ -31,6 +31,9 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [studentPriorities, setStudentPriorities] = useState([]);
 
   useEffect(() => {
+
+    
+    
     setID(JSON.parse(localStorage.getItem('currentUser')).matrikelnummer);
 
     // Setze die Dropdown-Auswahl basierend auf den Prioritäten
@@ -207,7 +210,6 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
       storedUser.thirdPref = 0;
       localStorage.setItem('currentUser', JSON.stringify(storedUser));
     }
-
     updatePriorities();
 
 
