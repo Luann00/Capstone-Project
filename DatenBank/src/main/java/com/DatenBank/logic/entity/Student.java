@@ -19,7 +19,8 @@ public class Student {
 			String geschlecht,
 			int firstPref,
 			int secondPref,
-			int thirdPref) {
+			int thirdPref
+			) {
 
 		
 		this.matrikelnummer = matrikelnummer;
@@ -32,6 +33,7 @@ public class Student {
 		this.firstPref = firstPref;
 		this.secondPref = secondPref;
 		this.thirdPref = thirdPref;
+		this.acceptedPolicy = "No";
 
 	}
 
@@ -129,5 +131,14 @@ public class Student {
 	private int firstPref;
 	private int secondPref;
 	private int thirdPref;
+	private String acceptedPolicy = "No";
+
+	public String getAcceptedPolicy() {
+		return acceptedPolicy;
+	}
+
+	public void setAcceptedPolicy(String acceptedPolicy) {
+		this.acceptedPolicy = acceptedPolicy;
+	}
 
 }

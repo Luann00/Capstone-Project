@@ -12,6 +12,8 @@ import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
 import HomePageAdmin from "./components/HomePage/HomePageAdmin";
 import HomePageStudent from "./components/HomePage/HomePageStudent";
+import InformationPrivacyPage from "./components/InformationPrivacy/InformationPrivacyPage";
+import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
   const [isStudent, setIsStudent] = useState(false);
@@ -80,6 +82,8 @@ function App() {
                 <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
                 <Route path="/UniCardPage" element={<UniCardPage />} />
+                <Route path="/InformationPrivacyPage" element={<InformationPrivacyPage />} />
+
               </>
             ) : (
               <>

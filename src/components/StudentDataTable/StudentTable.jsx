@@ -37,7 +37,8 @@ function Home() {
     Geschlecht: "",
     FirstPref: "",
     SecondPref: "",
-    ThirdPref: ""
+    ThirdPref: "",
+    AcceptedPolicy: ""
   });
 
 
@@ -56,12 +57,12 @@ function Home() {
 
   //The new values for a new student get saved here initially
   const inputFields = [
-    { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedStudent ? true : false },
-    { name: 'vorname', type: 'text', placeholder: 'Enter Vorname' },
-    { name: 'nachname', type: 'text', placeholder: 'Enter Nachname' },
+    { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter ID', disabled: selectedStudent ? true : false },
+    { name: 'vorname', type: 'text', placeholder: 'Enter name' },
+    { name: 'nachname', type: 'text', placeholder: 'Enter surname' },
     { name: 'titel', type: 'text', placeholder: 'Enter title' },
-    { name: 'geschlecht', type: 'text', placeholder: 'Enter geschlecht' },
-    { name: 'durchschnitt', type: 'number', step: "0.1", min: '1', max: '4', placeholder: 'Enter durchschnitt' },
+    { name: 'geschlecht', type: 'text', placeholder: 'Enter gender' },
+    { name: 'durchschnitt', type: 'number', step: "0.1", min: '1', max: '4', placeholder: 'Enter GPA' },
     { name: 'email', type: 'email', placeholder: 'Enter e-mail' },
     { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min: '0' },
     { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min: '0' },
@@ -100,6 +101,7 @@ function Home() {
       FirstPref: "",
       SecondPref: "",
       ThirdPref: "",
+      AcceptedPolicy: ""
     });
   };
 
@@ -120,6 +122,7 @@ function Home() {
       FirstPref: student.firstPref,
       SecondPref: student.secondPref,
       ThirdPref: student.thirdPref,
+      AcceptedPolicy: student.acceptedPolicy
 
     });
     handleShow();
