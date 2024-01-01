@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { CiPen } from "react-icons/ci";
@@ -7,7 +7,7 @@ import './UniCard.css';
 
 
 
-const UniversityCard = ({ university, priorityState, setPriorityState }) => {
+const UniversityCard = ({ university }) => {
 
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
@@ -19,6 +19,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
   const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
   const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
+ 
 
 
 
