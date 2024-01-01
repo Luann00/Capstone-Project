@@ -7,7 +7,7 @@ const HomeStudent = () => {
 
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  const [acceptedPolicy, setAcceptedPolicy] = useState(storedUser.acceptedPolicy)
+  const [acceptedPolicy, setAcceptedPolicy] = useState(storedUser.acceptedPolicy === 'Yes')
 
 
   useEffect(() => {
@@ -17,7 +17,6 @@ const HomeStudent = () => {
       setname(currentUser.vorname + " " + currentUser.nachname)
     }
 
-    console.log("accepted:" + acceptedPolicy)
   }, []);
 
 
@@ -25,9 +24,9 @@ const HomeStudent = () => {
   return (
     <div>
       {acceptedPolicy ? (
-        <PrivacyPage />
-      ) : (
         <h1>Hello, {name}!</h1>
+      ) : (
+        <PrivacyPage />
 
       )
 

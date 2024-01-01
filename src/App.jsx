@@ -19,19 +19,22 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
+  const [acceptedPolicy, setAcceptedPolicy] = useState(false);
 
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
     if (storedUserType) {
       setIsAdmin(storedUserType === 'admin');
       setIsStudent(storedUserType === 'student');
       setIsLoggedIn(true)
+
+      setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
+
     } else {
       setIsLoggedIn(false);
     }
-    
+
 
   }, []);
 
@@ -41,17 +44,24 @@ function App() {
     setIsAdmin(userType === 'admin');
     setIsStudent(userType === 'student');
 
-    if(setIsAdmin ||setIsStudent) {
+    if (setIsAdmin || setIsStudent) {
       setIsLoggedIn(true)
     }
-  }; 
+
+    //const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+
+    //setAcceptedPolicy(currentUser.acceptedPolicy === 'Yes');
+
+    console.log("acceptedPolicy:", acceptedPolicy);
+
+  };
 
 
   const handleLogout = () => {
     // Zurücksetzen der Zustände und Löschen der Einträge im localStorage
     window.location.href = '/';
-    localStorage.removeItem('userType');
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
     setIsAdmin(false);
     setIsStudent(false);
     setIsLoggedIn(false);
@@ -78,14 +88,20 @@ function App() {
                 <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
                 <Route path="/UniCardPage" element={<UniCardPage />} />
-                <Route path="/InformationPrivacyPage" element={<InformationPrivacyPage />} />
-
               </>
             ) : (
-              <>
-                <Route path="/" element={<HomePageStudent />} />
-                <Route path="/UniCardPage" element={<UniCardPage />} />
-              </>
+
+              acceptedPolicy ? (
+                <>
+                  <Route path="/" element={<HomePageStudent />} />
+                  <Route path="/UniCardPage" element={<UniCardPage />} />
+                </>
+
+              ) :
+                <>
+                  <Route path="/" element={<HomePageStudent />} />
+
+                </>
             )}
           </Routes>
         </>
@@ -93,8 +109,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm onLogin={handleLogin} />} />
         </Routes>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 
