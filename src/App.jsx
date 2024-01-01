@@ -31,11 +31,7 @@ function App() {
     } else {
       setIsLoggedIn(false);
     }
-
-    console.log("logged in: " + isLoggedIn)
     
-    // No need to clear localStorage here
-
 
   }, []);
 
