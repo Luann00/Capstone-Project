@@ -56,19 +56,30 @@ public class StudentService {
             // Save the updated student back to the database
             return studentRepository.save(existingStudent);
         } else {
-            // If the student is not found, you may choose to throw an exception or handle
-            // it as needed
             throw new Exception("Student not found with matrikelnummer: " + matrikelnummer);
         }
 
     }
-    
-    
-    public Student updateStudentPriorities(int matrikelnummer, Map<String, Integer> newPriorities) throws Exception {
-    	
-    	// Find the existing student in the database
+
+    public Student updateAccepted(int matrikelnummer) throws Exception {
+
         Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);
-        
+
+        if (optionalStudent.isPresent()) {
+            Student existingStudent = optionalStudent.get();
+            existingStudent.setAcceptedPolicy("Yes");
+            return studentRepository.save(existingStudent);
+        } else {
+            throw new Exception("Student not found with matrikelnummer: " + matrikelnummer);
+        }
+
+    }
+
+    public Student updateStudentPriorities(int matrikelnummer, Map<String, Integer> newPriorities) throws Exception {
+
+        // Find the existing student in the database
+        Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);
+
         if (optionalStudent.isPresent()) {
             // If the student exists, update the fields
             Student existingStudent = optionalStudent.get();
@@ -77,11 +88,11 @@ public class StudentService {
             existingStudent.setThirdPref(newPriorities.get("thirdPref"));
             // Save the updated student back to the database
             return studentRepository.save(existingStudent);
-    } else {
-        // If the student is not found, you may choose to throw an exception or handle
-        // it as needed
-        throw new Exception("Student not found with matrikelnummer: " + matrikelnummer);
+        } else {
+            // If the student is not found, you may choose to throw an exception or handle
+            // it as needed
+            throw new Exception("Student not found with matrikelnummer: " + matrikelnummer);
+        }
     }
-}
-    
+
 }

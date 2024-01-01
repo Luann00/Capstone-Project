@@ -10,12 +10,37 @@ const InformationPrivacyPage = () => {
     const acceptPolicy = () => {
 
         let storedUser = JSON.parse(localStorage.getItem('currentUser'));
-
         storedUser.acceptedPolicy = 'Yes';
         localStorage.setItem('currentUser', JSON.stringify(storedUser));
 
 
+
+        // Make PUT request to updateAccepted endpoint
+        const matrikelnummer = storedUser.matrikelnummer; // assuming you have matrikelnummer in your storedUser object
+
+        fetch(`http://localhost:8081/student/${matrikelnummer}/updateAccepted`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the successful response
+                console.log('Accepted Policy Updated:', data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('Error updating Accepted Policy:', error);
+            });
     }
+
 
 
     return (
