@@ -15,7 +15,6 @@ public class Student {
 			String nachName,
 			double durchschnitt,
 			String email,
-			int zugeteilteUniversitaet,
 			String titel,
 			String geschlecht,
 			int firstPref,
@@ -29,7 +28,6 @@ public class Student {
 		this.nachname = nachName;
 		this.durchschnitt = durchschnitt;
 		this.email = email;
-		this.zugeteilteUniversitaet = zugeteilteUniversitaet;
 		this.titel = titel;
 		this.geschlecht = geschlecht;
 		this.firstPref = firstPref;
@@ -55,13 +53,7 @@ public class Student {
 		this.geschlecht = geschlecht;
 	}
 
-	public int getZugeteilteUniversitaet() {
-		return zugeteilteUniversitaet;
-	}
-
-	public void setZugeteilteUniversitaet(int zugeteilteUniversitaet) {
-		this.zugeteilteUniversitaet = zugeteilteUniversitaet;
-	}
+	
 
 	@Id
 	private int matrikelnummer; // Primary Key
@@ -136,7 +128,6 @@ public class Student {
 	private String geschlecht;
 	private double durchschnitt;
 	private String email;
-	private int zugeteilteUniversitaet;
 	private int firstPref;
 	private int secondPref;
 	private int thirdPref;

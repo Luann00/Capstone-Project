@@ -1,6 +1,7 @@
 package com.DatenBank.logic.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,6 @@ public class StudentService {
             existingStudent.setGeschlecht(updatedStudent.getGeschlecht());
             existingStudent.setDurchschnitt(updatedStudent.getDurchschnitt());
             existingStudent.setEmail(updatedStudent.getEmail());
-            existingStudent.setZugeteilteUniversitaet(updatedStudent.getZugeteilteUniversitaet());
             existingStudent.setFirstPref(updatedStudent.getFirstPref());
             existingStudent.setSecondPref(updatedStudent.getSecondPref());
             existingStudent.setThirdPref(updatedStudent.getThirdPref());
@@ -62,4 +62,26 @@ public class StudentService {
         }
 
     }
+    
+    
+    public Student updateStudentPriorities(int matrikelnummer, Map<String, Integer> newPriorities) throws Exception {
+    	
+    	// Find the existing student in the database
+        Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);
+        
+        if (optionalStudent.isPresent()) {
+            // If the student exists, update the fields
+            Student existingStudent = optionalStudent.get();
+            existingStudent.setFirstPref(newPriorities.get("firstPref"));
+            existingStudent.setSecondPref(newPriorities.get("secondPref"));
+            existingStudent.setThirdPref(newPriorities.get("thirdPref"));
+            // Save the updated student back to the database
+            return studentRepository.save(existingStudent);
+    } else {
+        // If the student is not found, you may choose to throw an exception or handle
+        // it as needed
+        throw new Exception("Student not found with matrikelnummer: " + matrikelnummer);
+    }
+}
+    
 }

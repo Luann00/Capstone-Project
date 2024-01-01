@@ -87,6 +87,26 @@ public class StudentController {
 	    }
 	  
 	  
+	  @PutMapping("/{matrikelnummer}/updatePriorities")
+	  public ResponseEntity<Student> updateStudentPriorities(
+			  @PathVariable int matrikelnummer,
+			  @RequestBody Map<String, Integer> newPriorities) {
+		  
+		  
+		  try {
+			  Student result = studentService.updateStudentPriorities(matrikelnummer, newPriorities);
+	            return ResponseEntity.ok(result);
+		  } catch(ClassNotFoundException e) {
+			  return ResponseEntity.notFound().build();
+		  } catch(Exception e) {
+			  return ResponseEntity.status(500).build();
+		  }
+		  
+		  
+		  
+	  }
+	  
+	  
 	  @GetMapping("/{matrikelnummer}/priorities")
 	    public ResponseEntity<Map<String, Integer>> getStudentPriorities(@PathVariable int matrikelnummer) {
 	        Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);

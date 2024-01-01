@@ -1,58 +1,113 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import "./loginform.css";
 import logo from "../../logo.png";
+import axios from 'axios';
+
 import Footer from "../../components/Footer/footer";
 
 
 
 
-const LoginForm = () => {
-  const [benutzername, setBenutzername] = useState("");
-  const [passwort, setPasswort] = useState("");
+const LoginForm = ({ onLogin }) => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isStudent, setIsStudent] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [error, setError] = useState("");
 
-  /*URL des LDAP Servers
-  const backendUrl = 'http://localhost:8080';
-  const authenticationEndpoint = '/';
+  const [students, setStudents] = useState([]);
+  const [admins, setAdmins] = useState([]);
 
-  */
+  useEffect(() => {
+    // Fetch students' data once when the component mounts
+    const fetchStudents = async () => {
+      try {
+        const studentsResponse = await axios.get('http://localhost:8081/student');
+        setStudents(studentsResponse.data);
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
 
-  /* Diese Methode hier ist das Gerüst für die LDAP-Authentifizierung. Wenn die Authentifizierung per LDAP
-geklappt hätte, hätten wir einfach die unten stehenden Credentials ersetzen müssen durch die des LDAP-Servers und
-wären fertig gewesen. */
+    // Fetch admins' data once when the component mounts
+    const fetchAdmins = async () => {
+      try {
+        const adminsResponse = await axios.get('http://localhost:8081/admin');
+        setAdmins(adminsResponse.data);
+      } catch (error) {
+        console.error('Error fetching admins:', error);
+      }
+    };
 
+    fetchStudents();
+    fetchAdmins();
+  }, []);
 
-  const handleAnmelden = async () => {
-    /*
+  const handleAnmelden = () => {
+
     try {
-      const response = await fetch(`${backendUrl}${authenticationEndpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          benutzername,
-          passwort,
-        }),
+      let foundStudent = null;
+      let foundAdmin = null;
+
+      // Find the student with the provided matrikelnummer
+      students.forEach(student => {
+        if (foundStudent) return;
+        if (student.matrikelnummer.toString() === userName.toString()) {
+          foundStudent = student;
+        }
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Erfolgreich authentifiziert', data);
-      } else {
-        console.log('Authentifizierung fehlgeschlagen');
+      // Find the admin with the provided uniKim
+      admins.forEach(admin => {
+        if (foundAdmin) return;
+        if (admin.uniKim.toString() === userName.toString()) {
+          foundAdmin = admin;
+        }
+      });
+
+      if (foundStudent) {
+        // Check if the provided password matches the fetched student's password
+        if ("password" === password) {
+          
+          setIsStudent(true);
+          setIsAdmin(false);
+          setError('');
+          onLogin('student'); // Notify App.jsx about successful login
+          localStorage.setItem('currentUser', JSON.stringify(foundStudent)); // Speichere das gesamte Studentenobjekt
+          localStorage.setItem('userType', 'student');
+          let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+          return;
+        } else {
+          console.log("incorrect password for student!");
+        }
+        return;
       }
+
+      if (foundAdmin) {
+        
+        if ("password" === password) {
+          setCurrentUser({ benutzername: foundAdmin.benutzername });
+          localStorage.setItem('currentUser', JSON.stringify(foundAdmin)); 
+          localStorage.setItem('userType', 'admin');
+          console.log("firstPref: " + localStorage.getItem('currentUser'.firstPref))
+          setIsStudent(false);
+          onLogin('admin'); 
+          setIsAdmin(true);
+          setError('');
+          return;
+        } else {
+          console.log("incorrect password for admin!");
+        }
+        return;
+      }
+
+      setError('User not found');
     } catch (error) {
-      alert('ERROR GEHT NICHT', error);
+      setError('Error logging in');
     }
-    */
   };
-  
-  
-
-  
-
-
-
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -66,25 +121,21 @@ wären fertig gewesen. */
         <img src={logo} alt="Your Logo" className="logo" />
 
       </header>
-
       <div className="cover">
         <h1 className="title">Welcome</h1>
         <input
           type="text"
           placeholder="Username"
-          onChange={(e) => setBenutzername(e.target.value)}
+          onChange={(e) => setUserName(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <input
           type="password"
           placeholder="Password"
-          onChange={(e) => setPasswort(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleKeyPress}
 
         />
-
-
-
         <div className="login-btn" onClick={handleAnmelden}>
           Log in
         </div>

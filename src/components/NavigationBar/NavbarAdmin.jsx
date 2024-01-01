@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function NavbarAdmin() {
+const NavbarAdmin = ({ onLogout }) => {
   return (
     <div className="Navbar">
       <>

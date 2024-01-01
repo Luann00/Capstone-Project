@@ -114,6 +114,7 @@ export const WhitelistAdmin = () => {
     setAdmins(updatedAdmins);
     handleClose();
 
+
     try {
       const response = await fetch("http://localhost:8081/whitelistAdmin", {
         method: "POST",
@@ -161,7 +162,9 @@ export const WhitelistAdmin = () => {
     };
   }, [newRow]);
 
-  const addRow = () => {
+  const addRow = (e) => {
+
+    e.preventDefault();
 
     if (newRow.pkz && newRow.year) {
       const newRowData = {

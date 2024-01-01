@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+
 
 const HomeStudent = () => {
+    const [name, setname] = useState("");
+
+
+    useEffect(() => {
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (currentUser) {
+          setname(currentUser.vorname + " " + currentUser.nachname)
+        }
+      }, []);
+
+   
+
     return (
         <div>
-            <h1>This is the main page for the student!</h1>
+            <h1>Hello, {name}!</h1>
         </div>
     )
 }

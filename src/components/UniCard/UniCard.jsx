@@ -9,60 +9,78 @@ import './UniCard.css';
 
 const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
-  const [selectedPriority, setSelectedPriority] = useState('');
-  const [currentPriority, setCurrentPriority] = useState('');
+  const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
-  const [showMinGPA, setShowMinGPA] = useState(true);
 
-  const [selected, setSelected] = useState(false);
+  // Fetching data from localStorage
+  const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
+  const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
+  const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
 
 
-  const [firstPriority, setFirstPriority] = useState('');
-  const [secondPriority, setSecondPriority] = useState('');
-  const [thirdPriority, setThirdPriority] = useState('');
+
+  const [ID, setID] = useState('')
+
+
 
 
 
   const [studentPriorities, setStudentPriorities] = useState([]);
 
-  /* for later, when student priorities get fetched
   useEffect(() => {
+
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const matrikelnummer = currentUser.matrikelnummer;
+
+
     const fetchStudentPriorities = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/student/7379949/priorities`);
+        const response = await fetch(`http://localhost:8081/student/${matrikelnummer}/priorities`);
         const data = await response.json();
-        // Wandele das Objekt in ein Array um
-        // Überprüfe, ob Prioritäten für die aktuelle Universität vorhanden sind
-        const universityPriorities = data;
-
-        if (universityPriorities) {
-          setFirstPriority(universityPriorities.firstPref);
-          setSecondPriority(universityPriorities.secondPref);
-          setThirdPriority(universityPriorities.thirdPref);
 
 
-          // Setze die Dropdown-Auswahl basierend auf den Prioritäten
-          if (universityPriorities.firstPref) {
-            handlePrioritySelect('1st Priority');
-          } else if (universityPriorities.secondPref) {
-            handlePrioritySelect('2nd Priority');
-          } else if (universityPriorities.thirdPref) {
-            handlePrioritySelect('3rd Priority');
-          }
+        // Update localstorage items from database
+        const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (storedUser) {
+          storedUser.firstPref = data.firstPref;
+          storedUser.secondPref = data.secondPref;
+          storedUser.thirdPref = data.thirdPref;
+
+          localStorage.setItem('currentUser', JSON.stringify(storedUser));
         }
 
-
-
       } catch (error) {
-        alert('Error fetching student priorities:' + error);
+        console.log('Error fetching data:' + error);
       }
     };
 
-    fetchStudentPriorities();
-  }, [7379949]);
 
-  */
+
+
+    setID(JSON.parse(localStorage.getItem('currentUser')).matrikelnummer);
+
+    // Setze die Dropdown-Auswahl basierend auf den Prioritäten
+    if (firstPriority === university.uniId) {
+      setCurrentPriority('1st Priority');
+    } else if (secondPriority === university.uniId) {
+      setCurrentPriority('2nd Priority');
+    } else if (thirdPriority === university.uniId) {
+      setCurrentPriority('3rd Priority');
+    }
+
+    console.log("firstPrio: " + firstPriority)
+
+
+    fetchStudentPriorities();
+
+
+  },);
+
+
 
 
   const isPrioritySelected = (priority) => {
@@ -93,78 +111,196 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
   }, [university.uniId, studentPriorities]);
   */
 
+
+  const updatePriorities = async () => {
+
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+
+
+    try {
+      const response = await fetch(
+        `http://localhost:8081/student/${ID}/updatePriorities`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "firstPref": storedUser.firstPref,
+            "secondPref": storedUser.secondPref,
+            "thirdPref": storedUser.thirdPref
+          }),
+        }
+
+      );
+      if (!response.ok) {
+
+      }
+
+    } catch (error) {
+    }
+
+
+  }
+
   const handlePrioritySelect = async (priority) => {
 
-    /* Logik für Prioritäten eines Studenten individuell laden. Kann leider noch nicht implementiert werden
-    if (!selected) {
-      return
-    }
-    */
     if (priority === '1st Priority') {
-      //if current priority is not one, then set it to one and increment firstPrefs of unicard by 1
-      if (currentPriority !== '1st Priority') {
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
-        await updateCurrentFirstPrioCount(university.uniId, true);
+      //check if this preference is already set and if no, store it in Localstorage
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (storedUser && storedUser.firstPref === 0) {
 
+        //if current priority is not one, then set it to one and increment firstPrefs of unicard by 1
+        if (currentPriority !== '1st Priority') {
+          setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref + 1);
+          await updateCurrentFirstPrioCount(university.uniId, true);
+
+        }
+        if (currentPriority === null) {
+          //if there wasnt a priority selected, increment totalPref variable by 1
+          setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
+          await updateCurrentTotalPrioCount(university.uniId, true);
+        }
+
+
+
+
+        storedUser.firstPref = university.uniId;
+        localStorage.setItem('currentUser', JSON.stringify(storedUser));
+
+        setFirstPriority(university.uniId)
+        setCurrentPriority('1st Priority')
+        updatePriorities();
+      } else {
+        alert("This preference is aleady set for another university!");
+        return;
       }
 
-      if (currentPriority === '') {
-        //if there wasnt a priority selected, increment totalPref variable by 1
-        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
-        await updateCurrentTotalPrioCount(university.uniId, true);
-      }
-
-      setCurrentPriority('1st Priority');
     } else if (priority === '2nd Priority') {
-      //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
-      if (currentPriority === '1st Priority') {
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
-        await updateCurrentFirstPrioCount(university.uniId, false);
-      }
 
-      if (currentPriority === '') {
-        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
-        await updateCurrentTotalPrioCount(university.uniId, true);
-      }
+      // Set firstPriority in localStorage
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (storedUser && storedUser.secondPref === 0) {
 
-      setCurrentPriority('2nd Priority');
-    } else {
-      if (currentPriority === '1st Priority') {
         //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
-        setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
-        await updateCurrentFirstPrioCount(university.uniId, false);
+        if (currentPriority === '1st Priority') {
+          setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+          await updateCurrentFirstPrioCount(university.uniId, false);
+        }
+
+        if (currentPriority === null) {
+          setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
+          await updateCurrentTotalPrioCount(university.uniId, true);
+        }
+
+
+
+        storedUser.secondPref = university.uniId;
+        localStorage.setItem('currentUser', JSON.stringify(storedUser));
+
+        setSecondPriority(storedUser.secondPref)
+        setCurrentPriority('2nd Priority')
+        updatePriorities();
+      } else {
+        alert("This preference is aleady set for another university!");
       }
 
-      if (currentPriority === '') {
-        //if there wasnt a priority selected, increment totalPref variable by 1
-        setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
-        await updateCurrentTotalPrioCount(university.uniId, true);
+
+    } else if (priority === '3rd Priority') {
+
+
+      // Set thirdPriority in localStorage
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (storedUser && storedUser.thirdPref === 0) {
+
+        if (currentPriority === '1st Priority') {
+          //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
+          setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
+          await updateCurrentFirstPrioCount(university.uniId, false);
+        }
+
+        if (currentPriority === null) {
+          //if there wasnt a priority selected, increment totalPref variable by 1
+          setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
+          await updateCurrentTotalPrioCount(university.uniId, true);
+        }
+
+
+
+        storedUser.thirdPref = university.uniId;
+        localStorage.setItem('currentUser', JSON.stringify(storedUser));
+
+        setThirdPriority(university.uniId)
+        setCurrentPriority('3rd Priority')
+        updatePriorities();
+
+      } else {
+        alert("This preference is aleady set for another university!")
+        return;
       }
 
-      setCurrentPriority('3rd Priority');
     }
 
-    setSelectedPriority(priority);
+
+    if (currentPriority === '1st Priority') {
+      setFirstPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.firstPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    } else if (currentPriority === '2nd Priority') {
+      setSecondPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.secondPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    } else if (currentPriority === '3rd Priority') {
+      setThirdPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.thirdPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    }
+    updatePriorities();
+
 
   };
 
 
 
   const handleDropPriority = async () => {
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+
     if (currentPriority === '1st Priority' && updatedFirstPref > 0) {
       setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
 
       await updateCurrentFirstPrioCount(university.uniId, false);
 
     }
-    if (currentPriority !== '' && updatedTotalPref > 0) {
+    if (currentPriority !== null && updatedTotalPref > 0) {
       setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref - 1);
       await updateCurrentTotalPrioCount(university.uniId, false);
 
     }
-    setCurrentPriority('');
-    setSelectedPriority('');
 
+
+
+    if (currentPriority === '1st Priority') {
+      setFirstPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.firstPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    } else if (currentPriority === '2nd Priority') {
+      setSecondPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.secondPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    } else if (currentPriority === '3rd Priority') {
+      setThirdPriority(0);
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      storedUser.thirdPref = 0;
+      localStorage.setItem('currentUser', JSON.stringify(storedUser));
+    }
+    setCurrentPriority(null);
+
+    await updatePriorities();
 
   }
 
@@ -264,17 +400,7 @@ const UniversityCard = ({ university, priorityState, setPriorityState }) => {
 
         <Dropdown >
           <Dropdown.Toggle id="dropdown-autoclose-true">
-            {/* Logik für Prioritäten wählen/umsortieren. Kann leider noch nicht implementiert werden
-             {!selected
-              ? (firstPriority === university.uniId
-                ? '1st Priority'
-                : secondPriority === university.uniId
-                  ? '2nd Priority'
-                  : thirdPriority === university.uniId
-                    ? '3rd Priority'
-                    : 'Choose Preference')
-              : "Choose Preference"} */}
-            {selectedPriority || 'Add to Preferences'}
+            {currentPriority !== null ? currentPriority : "Choose preference"}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handlePrioritySelect('1st Priority')}>
@@ -376,6 +502,7 @@ const UniCard = () => {
       </div>
       <div className="search">
         <form className="form-inline">
+
           <span className="icon">🔍</span>
           <input
             className="form-control mr-sm-2"

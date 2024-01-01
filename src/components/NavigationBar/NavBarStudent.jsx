@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function NavbarAdmin() {
+const NavbarStudent = ({ onLogout }) => {
   return (
     <div className="Navbar">
       <>
@@ -21,6 +21,8 @@ function NavbarAdmin() {
               <Nav className="me-auto">
                 <Link to="/" className="nav-link">Home</Link>
                 <Link to="/UniCardPage" className="nav-link">UniCardPage</Link>
+                <button onClick={onLogout}>Logout</button>
+
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -30,5 +32,5 @@ function NavbarAdmin() {
   );
 }
 
-export default NavbarAdmin;
+export default NavbarStudent;
 
