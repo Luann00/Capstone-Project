@@ -26,6 +26,8 @@ const NavbarAdmin = ({ onLogout }) => {
                 <Link to="/WhitelistAdmin" className="nav-link">WhitelistAdmin</Link>
                 <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
                 <Link to="/InformationPrivacyPage" className="nav-link">InformationPrivacyPage</Link>
+                <button onClick={onLogout}>Logout</button>
+
                 
               </Nav>
             </Navbar.Collapse>
