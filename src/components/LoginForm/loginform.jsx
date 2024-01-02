@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./loginform.css";
 import logo from "../../logo.png";
 import axios from 'axios';
+import AlertModal from "../../components/AlertModal/AlertModal"
 
 import Footer from "../../components/Footer/footer";
 
@@ -15,7 +16,7 @@ const LoginForm = ({ onLogin }) => {
   const [isStudent, setIsStudent] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState("");
-
+  const [showAlert, setShowAlert] = useState(false);
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
 
@@ -69,41 +70,40 @@ const LoginForm = ({ onLogin }) => {
       if (foundStudent) {
         // Check if the provided password matches the fetched student's password
         if ("password" === password) {
-          
+
           setIsStudent(true);
           setIsAdmin(false);
           setError('');
           onLogin('student'); // Notify App.jsx about successful login
           localStorage.setItem('currentUser', JSON.stringify(foundStudent)); // Speichere das gesamte Studentenobjekt
           localStorage.setItem('userType', 'student');
-          let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
           return;
         } else {
-          console.log("incorrect password for student!");
+          setShowAlert(true);
         }
         return;
       }
 
       if (foundAdmin) {
-        
+
         if ("password" === password) {
           setCurrentUser({ benutzername: foundAdmin.benutzername });
-          localStorage.setItem('currentUser', JSON.stringify(foundAdmin)); 
+          localStorage.setItem('currentUser', JSON.stringify(foundAdmin));
           localStorage.setItem('userType', 'admin');
-          console.log("firstPref: " + localStorage.getItem('currentUser'.firstPref))
           setIsStudent(false);
-          onLogin('admin'); 
+          onLogin('admin');
           setIsAdmin(true);
           setError('');
           return;
         } else {
-          console.log("incorrect password for admin!");
+          setShowAlert(true);
         }
         return;
       }
 
       setError('User not found');
+      setShowAlert(true);
+
     } catch (error) {
       setError('Error logging in');
     }
@@ -115,6 +115,10 @@ const LoginForm = ({ onLogin }) => {
     }
   };
 
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  }
+
   return (
     <div className="page">
       <header className="App-header">
@@ -123,6 +127,7 @@ const LoginForm = ({ onLogin }) => {
       </header>
       <div className="cover">
         <h1 className="title">Welcome</h1>
+        {showAlert && <AlertModal onClose={handleCloseAlert} />}
         <input
           type="text"
           placeholder="Username"
