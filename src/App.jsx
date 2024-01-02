@@ -12,7 +12,6 @@ import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
 import HomePageAdmin from "./components/HomePage/HomePageAdmin";
 import HomePageStudent from "./components/HomePage/HomePageStudent";
-import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
   const [isStudent, setIsStudent] = useState(false);
