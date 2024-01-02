@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PrivacyPage from "../../components/InformationPrivacy/InformationPrivacyPage"
 
 
-const HomeStudent = () => {
+const HomeStudent = ({ onAccept }) => {
   const [name, setname] = useState("");
 
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -19,6 +19,11 @@ const HomeStudent = () => {
 
   }, []);
 
+  const handleAccept = () => {
+    setAcceptedPolicy(true);
+    onAccept();
+  }
+
 
 
   return (
@@ -26,8 +31,7 @@ const HomeStudent = () => {
       {acceptedPolicy ? (
         <h1>Hello, {name}!</h1>
       ) : (
-        <PrivacyPage />
-
+        <PrivacyPage onAccept={handleAccept} />
       )
 
       }

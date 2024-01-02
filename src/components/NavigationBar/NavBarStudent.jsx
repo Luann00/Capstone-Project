@@ -26,7 +26,6 @@ const NavbarStudent = ({ onLogout }) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                {/* Dynamically render links based on acceptedPolicy */}
                 {acceptedPolicy === 'Yes' && (
                   <>
                     <Link to="/" className="nav-link">Home</Link>

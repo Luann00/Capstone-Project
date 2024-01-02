@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import "./InformationPrivacyPage.css"
 
 
-const InformationPrivacyPage = () => {
+const InformationPrivacyPage = ({ onAccept }) => {
 
 
 
@@ -13,7 +13,7 @@ const InformationPrivacyPage = () => {
         storedUser.acceptedPolicy = 'Yes';
         localStorage.setItem('currentUser', JSON.stringify(storedUser));
 
-
+        onAccept();
 
         // Update Accepted Variable in database
         const matrikelnummer = storedUser.matrikelnummer; // assuming you have matrikelnummer in your storedUser object

@@ -22,16 +22,25 @@ function App() {
 
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
+
     if (storedUserType) {
       setIsAdmin(storedUserType === 'admin');
       setIsStudent(storedUserType === 'student');
-      setIsLoggedIn(true)
+      setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
 
 
-  }, []);
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(storedUser) {
+      setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
+    }
+    console.log("accepted: " + acceptedPolicy)
+
+
+  }, [acceptedPolicy]);
 
 
 
@@ -58,6 +67,17 @@ function App() {
     setIsStudent(false);
     setIsLoggedIn(false);
   };
+
+
+  const handleAccept = () => {
+
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+    storedUser.acceptedPolicy = 'Yes';
+
+    localStorage.setItem('currentUser', JSON.stringify(storedUser));
+
+
+  }
 
 
   return (
@@ -91,7 +111,7 @@ function App() {
 
               ) :
                 <>
-                  <Route path="/" element={<HomePageStudent />} />
+                  <Route path="/" element={<HomePageStudent onAccept={handleAccept} />} />
 
                 </>
             )}
