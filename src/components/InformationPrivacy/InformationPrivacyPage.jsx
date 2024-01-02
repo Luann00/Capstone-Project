@@ -15,7 +15,7 @@ const InformationPrivacyPage = () => {
 
 
 
-        // Make PUT request to updateAccepted endpoint
+        // Update Accepted Variable in database
         const matrikelnummer = storedUser.matrikelnummer; // assuming you have matrikelnummer in your storedUser object
 
         fetch(`http://localhost:8081/student/${matrikelnummer}/updateAccepted`, {
@@ -32,8 +32,11 @@ const InformationPrivacyPage = () => {
                 return response.json();
             })
             .then(data => {
-                // Handle the successful response
                 console.log('Accepted Policy Updated:', data);
+
+                //redirect the student to the main page after successful accept
+                window.location.href = '/';
+
             })
             .catch(error => {
                 // Handle errors
