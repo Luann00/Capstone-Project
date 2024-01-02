@@ -37,7 +37,6 @@ function App() {
     if(storedUser) {
       setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
     }
-    console.log("accepted: " + acceptedPolicy)
 
 
   }, [acceptedPolicy]);

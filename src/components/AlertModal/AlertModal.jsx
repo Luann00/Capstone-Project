@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert';
 function BasicExample() {
   return (
     <Alert variant="danger">
-      Wrong Username or password!
+      Wrong username or password!
     </Alert>
   );
 }
