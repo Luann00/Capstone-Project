@@ -74,9 +74,9 @@ const LoginForm = ({ onLogin }) => {
           setIsStudent(true);
           setIsAdmin(false);
           setError('');
-          onLogin('student'); // Notify App.jsx about successful login
           localStorage.setItem('currentUser', JSON.stringify(foundStudent)); // Speichere das gesamte Studentenobjekt
           localStorage.setItem('userType', 'student');
+          onLogin('student', JSON.parse(localStorage.getItem('currentUser')));
           return;
         } else {
           setShowAlert(true);
@@ -91,7 +91,7 @@ const LoginForm = ({ onLogin }) => {
           localStorage.setItem('currentUser', JSON.stringify(foundAdmin));
           localStorage.setItem('userType', 'admin');
           setIsStudent(false);
-          onLogin('admin');
+          onLogin('admin',null);
           setIsAdmin(true);
           setError('');
           return;

@@ -12,7 +12,6 @@ import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
 import HomePageAdmin from "./components/HomePage/HomePageAdmin";
 import HomePageStudent from "./components/HomePage/HomePageStudent";
-import InformationPrivacyPage from "./components/InformationPrivacy/InformationPrivacyPage";
 import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
@@ -23,14 +22,10 @@ function App() {
 
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
-    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
     if (storedUserType) {
       setIsAdmin(storedUserType === 'admin');
       setIsStudent(storedUserType === 'student');
       setIsLoggedIn(true)
-
-      setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
-
     } else {
       setIsLoggedIn(false);
     }
@@ -40,7 +35,7 @@ function App() {
 
 
 
-  const handleLogin = (userType) => {
+  const handleLogin = (userType, storedUser) => {
     setIsAdmin(userType === 'admin');
     setIsStudent(userType === 'student');
 
@@ -48,14 +43,11 @@ function App() {
       setIsLoggedIn(true)
     }
 
-    //const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-
-    //setAcceptedPolicy(currentUser.acceptedPolicy === 'Yes');
-
-    console.log("acceptedPolicy:", acceptedPolicy);
-
+    if (userType === 'student') {
+      setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
+    }
   };
+
 
 
   const handleLogout = () => {
