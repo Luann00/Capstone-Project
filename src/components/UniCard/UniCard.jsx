@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { CiPen } from "react-icons/ci";
@@ -6,7 +6,7 @@ import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 
 
-const UniversityCard = ({ university }) => {
+const UniversityCard = ({ university, changePreference }) => {
 
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
@@ -18,7 +18,7 @@ const UniversityCard = ({ university }) => {
   const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
   const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
   const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
- 
+
 
 
 
@@ -59,6 +59,7 @@ const UniversityCard = ({ university }) => {
 
 
 
+
     setID(JSON.parse(localStorage.getItem('currentUser')).matrikelnummer);
 
     // Setze die Dropdown-Auswahl basierend auf den Prioritäten
@@ -73,40 +74,12 @@ const UniversityCard = ({ university }) => {
 
     fetchStudentPriorities();
 
-
   },);
-
-
 
 
   const isPrioritySelected = (priority) => {
     return university.uniId === studentPriorities[`${priority}Pref`];
   };
-
-
-
-  /* LOGIK FÜR DIE IMPLEMENTIERUNG DER PRÄFERENZ
-  useEffect(() => {
-    // Überprüfen, ob eine Priorität für die aktuelle Universität vorhanden ist
-    const studentPriority = studentPriorities.find(prio => prio.uniId === university.uniId);
-
-
-    if (studentPriority != null) {
-      // Priorität vorhanden, Dropdown-Auswahl basierend auf der Priorität setzen
-      if (studentPriority.firstPref) {
-        setSelectedPriority('1st Priority');
-        setCurrentPriority('1st Priority');
-      } else if (studentPriority.secondPref) {
-        setSelectedPriority('2nd Priority');
-        setCurrentPriority('2nd Priority');
-      } else if (studentPriority.thirdPref) {
-        setSelectedPriority('3rd Priority');
-        setCurrentPriority('3rd Priority');
-      }
-    }
-  }, [university.uniId, studentPriorities]);
-  */
-
 
   const updatePriorities = async () => {
 
@@ -132,7 +105,6 @@ const UniversityCard = ({ university }) => {
       if (!response.ok) {
 
       }
-
     } catch (error) {
     }
 
@@ -255,6 +227,7 @@ const UniversityCard = ({ university }) => {
       localStorage.setItem('currentUser', JSON.stringify(storedUser));
     }
     updatePriorities();
+    changePreference();
 
 
   };
@@ -418,7 +391,7 @@ const UniversityCard = ({ university }) => {
   );
 };
 
-const UniCard = () => {
+const UniCard = ({ changePreference }) => {
   const [universities, setUniversities] = useState([]);
   const [priorityState, setPriorityState] = useState({
     '1st Priority': "",
@@ -434,6 +407,11 @@ const UniCard = () => {
     setOriginalUniversities(universities);
   }, [universities]);
 
+
+  const handleClick = () => {
+    // Define the functionality you want for changePreference
+    console.log("Mooin")
+  };
 
   //For filter function by region for the student
   const handleFilterByRegion = (region) => {
@@ -524,6 +502,7 @@ const UniCard = () => {
             university={university}
             priorityState={priorityState}
             setPriorityState={setPriorityState}
+            changePreference={changePreference}
           />
         ))}
     </div>
