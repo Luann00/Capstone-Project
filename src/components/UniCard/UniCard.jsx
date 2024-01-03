@@ -6,7 +6,6 @@ import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 
 
-
 const UniversityCard = ({ university }) => {
 
   const [currentPriority, setCurrentPriority] = useState(null);
@@ -70,8 +69,6 @@ const UniversityCard = ({ university }) => {
     } else if (thirdPriority === university.uniId) {
       setCurrentPriority('3rd Priority');
     }
-
-    console.log("firstPrio: " + firstPriority)
 
 
     fetchStudentPriorities();

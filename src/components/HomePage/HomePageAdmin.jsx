@@ -93,12 +93,25 @@ const HomePageAdmin = () => {
         }
         return <td >{pref}</td>;
     };
+
+
+    const tableData = {
+        universities,
+        studentMatrikelnumbers,
+        fillTableCells,
+    };
+
+
+
+
+
+
     return (
         <div>
             <div className="table-container">
                 <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
                 <div className="headerAndButton">
-                    <CSVExportButton data={universities} filename="endTable.csv" />
+                    <CSVExportButton data={tableData} filename="endTable.csv" />
                 </div>
                 <div className="table-responsive " >
 
@@ -135,10 +148,10 @@ const HomePageAdmin = () => {
                         </tbody>
                     </table>
                 </div>
-                </div>
             </div>
-            );
+        </div>
+    );
 
 };
 
-            export default HomePageAdmin;
+export default HomePageAdmin;

@@ -1,9 +1,8 @@
 import React from 'react';
 
-
-const CSVExportButton = ({ data, filename }) => {
+const CSVExportButton = ({ data, filename, selectedAttributes }) => {
   const exportCSV = () => {
-    const csvContent = convertToCSV(data);
+    const csvContent = convertToCSV(data, selectedAttributes);
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
@@ -11,9 +10,9 @@ const CSVExportButton = ({ data, filename }) => {
     link.click();
   };
 
-  const convertToCSV = (data) => {
-    const header = Object.keys(data[0]).join(',') + '\n';
-    const csvRows = data.map((row) => Object.values(row).join(',') + '\n');
+  const convertToCSV = (data, selectedAttributes) => {
+    const header = selectedAttributes.join(',') + '\n';
+    const csvRows = data.map((row) => selectedAttributes.map(attr => row[attr]).join(',') + '\n');
     return header + csvRows.join('');
   };
 

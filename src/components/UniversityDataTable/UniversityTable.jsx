@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
-import CSVExportButton from '../CSVExportButton'; 
+import CSVExportButton from '../CSVExportButton';
 
 
 
@@ -344,10 +344,10 @@ function Home() {
             <Button variant="primary" onClick={handleShow}>
               Add New University
             </Button>
-            <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px"}}>
+            <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Universities
             </Button>
-            <CSVExportButton data={universities} filename="universities.csv"/>
+            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref']} />
           </div>
         </div>
         <div className="row">
