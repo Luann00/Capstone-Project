@@ -9,14 +9,14 @@ const UniCardPage = () => {
   const [processes, setProcesses] = useState([]);
   const [remainingTime, setRemainingTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [extended, setExtended] = useState(false);
-  const [activeProcess, setActiveProcess] = ([])
+  const [extendedDeadline, setExtendedDeadline] = useState({ hours: 0, minutes: 0, seconds: 0 })
 
   const updateProcessData = (data) => {
     const activeProcess = getActiveProcess(data);
 
     if (activeProcess) {
       const endDateTime = new Date(activeProcess.endDate);
-      endDateTime.setHours(17, 45, 59, 999);
+      endDateTime.setHours(18, 55, 0, 999);
 
       // Set the time zone to Europe/Berlin
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -27,11 +27,20 @@ const UniCardPage = () => {
       const seconds = Math.floor((timeRemaining % 60000) / 1000);
 
       // Use the updated state directly in the condition
-      if (hours === 0 && minutes < 7) {
+      if (hours === 0 && minutes < 15) {
         // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
         const extendedDeadline = new Date(endDateTime.getTime() + activeProcess.deadlineExtensionMinutes * 60000);
+        // Berechne hours, minutes und seconds für extendedDeadline
+        const extendedHours = Math.floor(activeProcess.deadlineExtensionMinutes / 60);
+        const extendedMinutes = activeProcess.deadlineExtensionMinutes % 60;
+        const extendedSeconds = 0; // Du kannst hier eine Logik für Sekunden implementieren, wenn nötig
+
+        // Set extended state
         setExtended(true);
-        console.log("truuuee!")
+
+        // Set extended deadline based on the condition
+        setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+
       } else {
         setExtended(false);
       }
@@ -57,14 +66,13 @@ const UniCardPage = () => {
         console.log('Error fetching data:' + error);
       }
     };
-
     fetchProcesses();
     const interval = setInterval(fetchProcesses, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  
+
   const getActiveProcess = (data) => {
     const currentDate = new Date();
 
@@ -76,7 +84,7 @@ const UniCardPage = () => {
       startDateTime.setHours(0, 0, 0, 0);
 
       // Set time to 11:59:59.999 for endDateTime
-      endDateTime.setHours(23, 59, 59, 999);
+      endDateTime.setHours(18, 55, 0, 999);
 
       if (currentDate >= startDateTime && currentDate <= endDateTime) {
         return process;
@@ -90,7 +98,11 @@ const UniCardPage = () => {
     <div className='card-page'>
       {processIsActive ? (
         <div className='title'>
-          Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}
+          {extended ? (
+            <span>Deadline wurde verlängert!</span>
+          ) : (
+            <span>Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
+          )}
           <h1>List of partner universities</h1>
           <span>Pick your top three preferred universities from the list below!</span>
         </div>
@@ -99,7 +111,6 @@ const UniCardPage = () => {
           <h1>There is no selection process open!</h1>
         </div>
       )}
-
       {processIsActive && (
         <div className='card-container'>
           <UniCard />
