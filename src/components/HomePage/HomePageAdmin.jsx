@@ -100,42 +100,45 @@ const HomePageAdmin = () => {
                 <div className="headerAndButton">
                     <CSVExportButton data={universities} filename="endTable.csv" />
                 </div>
-                <table className="table table-bordered table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
-                            {universities.map((university) => (
-                                <td>{university.slots}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
-                            {universities.map((university) => (
-                                <td >{university.firstPref}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <th style={{ backgroundColor: 'LightGreen' }}>Uni Name</th>
-                            {universities.map((university) => (
-                                <td style={{ backgroundColor: '#F4A08E' }} >{university.name}</td>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {studentMatrikelnumbers.map((studentName, index) => (
-                            <tr >
-                                <th colSpan={1}>Student ID {studentName}</th>
+                <div className="table-responsive " >
+
+                    <table className="table table-bordered table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th style={{ backgroundColor: 'LightGreen' }}>Slots</th>
                                 {universities.map((university) => (
-                                    fillTableCells(university.uniId, studentName)
+                                    <td>{university.slots}</td>
                                 ))}
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                            <tr>
+                                <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
+                                {universities.map((university) => (
+                                    <td >{university.firstPref}</td>
+                                ))}
+                            </tr>
+                            <tr>
+                                <th style={{ backgroundColor: 'LightGreen' }}>Uni Name</th>
+                                {universities.map((university) => (
+                                    <td style={{ backgroundColor: '#F4A08E' }} >{university.name}</td>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {studentMatrikelnumbers.map((studentName, index) => (
+                                <tr >
+                                    <th colSpan={1}>Student ID {studentName}</th>
+                                    {universities.map((university) => (
+                                        fillTableCells(university.uniId, studentName)
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </div>
-        </div>
-    );
+            );
 
 };
 
-export default HomePageAdmin;
+            export default HomePageAdmin;
