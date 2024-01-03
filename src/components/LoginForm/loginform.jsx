@@ -12,9 +12,6 @@ import Footer from "../../components/Footer/footer";
 const LoginForm = ({ onLogin }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isStudent, setIsStudent] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [students, setStudents] = useState([]);
@@ -71,8 +68,6 @@ const LoginForm = ({ onLogin }) => {
         // Check if the provided password matches the fetched student's password
         if ("password" === password) {
 
-          setIsStudent(true);
-          setIsAdmin(false);
           setError('');
           localStorage.setItem('currentUser', JSON.stringify(foundStudent)); // Speichere das gesamte Studentenobjekt
           localStorage.setItem('userType', 'student');
@@ -87,12 +82,9 @@ const LoginForm = ({ onLogin }) => {
       if (foundAdmin) {
 
         if ("password" === password) {
-          setCurrentUser({ benutzername: foundAdmin.benutzername });
           localStorage.setItem('currentUser', JSON.stringify(foundAdmin));
           localStorage.setItem('userType', 'admin');
-          setIsStudent(false);
           onLogin('admin',null);
-          setIsAdmin(true);
           setError('');
           return;
         } else {

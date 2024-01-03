@@ -16,7 +16,7 @@ const InformationPrivacyPage = ({ onAccept }) => {
         onAccept();
 
         // Update Accepted Variable in database
-        const matrikelnummer = storedUser.matrikelnummer; // assuming you have matrikelnummer in your storedUser object
+        const matrikelnummer = storedUser.matrikelnummer;
 
         fetch(`http://localhost:8081/student/${matrikelnummer}/updateAccepted`, {
             method: 'PUT',
@@ -39,7 +39,6 @@ const InformationPrivacyPage = ({ onAccept }) => {
 
             })
             .catch(error => {
-                // Handle errors
                 console.error('Error updating Accepted Policy:', error);
             });
     }
