@@ -27,8 +27,6 @@ const UniversityCard = ({ university }) => {
 
 
 
-
-
   const [studentPriorities, setStudentPriorities] = useState([]);
 
   useEffect(() => {
