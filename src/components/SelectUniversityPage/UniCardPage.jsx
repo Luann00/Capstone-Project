@@ -49,7 +49,6 @@ const UniCardPage = () => {
 
 
         setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
-        setProcessIsActive(true);
         setExtended(activeProcess.extended)
         return;
       }
@@ -174,11 +173,41 @@ const UniCardPage = () => {
       const startDateTime = new Date(process.startDate);
       const endDateTime = new Date(process.endDate);
 
-      // Set time to the beginning of the day for startDateTime
-      startDateTime.setHours(0, 0, 0, 0);
 
-      // Set time to 11:59:59.999 for endDateTime
-      endDateTime.setHours(18, 45, 0, 999);
+
+      if (process.extended) {
+          // Set time to the beginning of the day for startDateTime
+          startDateTime.setHours(0, 0, 0, 0);
+
+          // Set time to 11:59:59.999 for endDateTime
+          endDateTime.setHours(18, 45, 0, 999);
+
+        // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
+        const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
+        // Extrahiere Stunden, Minuten und Sekunden aus extendedDeadline
+
+        endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds())
+
+        const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
+
+        const extendedHours = Math.floor(newTimeRemaining / 3600000);
+        const extendedMinutes = Math.floor((newTimeRemaining % 3600000) / 60000);
+        const extendedSeconds = Math.floor((newTimeRemaining % 60000) / 1000);
+
+        // Set extended deadline based on the condition
+        setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+
+        setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+
+
+      } else {
+        // Set time to the beginning of the day for startDateTime
+        startDateTime.setHours(0, 0, 0, 0);
+
+        // Set time to 11:59:59.999 for endDateTime
+        endDateTime.setHours(18, 45, 0, 999);
+      }
+
 
       if (currentDate >= startDateTime && currentDate <= endDateTime) {
         return process;
