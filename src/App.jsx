@@ -12,54 +12,70 @@ import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
 import HomePageAdmin from "./components/HomePage/HomePageAdmin";
 import HomePageStudent from "./components/HomePage/HomePageStudent";
-import InformationPrivacyPage from "./components/InformationPrivacy/InformationPrivacyPage";
-import { BsTruckFlatbed } from "react-icons/bs";
 
 function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
+  const [acceptedPolicy, setAcceptedPolicy] = useState(false);
 
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
+
     if (storedUserType) {
       setIsAdmin(storedUserType === 'admin');
       setIsStudent(storedUserType === 'student');
-      setIsLoggedIn(true)
+      setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
 
-    console.log("logged in: " + isLoggedIn)
-    
-    // No need to clear localStorage here
+
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(storedUser) {
+      setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
+    }
 
 
-  }, []);
+  }, [acceptedPolicy]);
 
 
 
-  const handleLogin = (userType) => {
+  const handleLogin = (userType, storedUser) => {
     setIsAdmin(userType === 'admin');
     setIsStudent(userType === 'student');
 
-    if(setIsAdmin ||setIsStudent) {
+    if (setIsAdmin || setIsStudent) {
       setIsLoggedIn(true)
     }
-  }; 
+
+    if (userType === 'student') {
+      setAcceptedPolicy(storedUser.acceptedPolicy === 'Yes')
+    }
+  };
+
 
 
   const handleLogout = () => {
     // Zurücksetzen der Zustände und Löschen der Einträge im localStorage
     window.location.href = '/';
-    localStorage.removeItem('userType');
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
     setIsAdmin(false);
     setIsStudent(false);
     setIsLoggedIn(false);
   };
+
+
+  const handleAccept = () => {
+
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+    storedUser.acceptedPolicy = 'Yes';
+
+    localStorage.setItem('currentUser', JSON.stringify(storedUser));
+
+
+  }
 
 
   return (
@@ -82,14 +98,20 @@ function App() {
                 <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
                 <Route path="/UniCardPage" element={<UniCardPage />} />
-                <Route path="/InformationPrivacyPage" element={<InformationPrivacyPage />} />
-
               </>
             ) : (
-              <>
-                <Route path="/" element={<HomePageStudent />} />
-                <Route path="/UniCardPage" element={<UniCardPage />} />
-              </>
+
+              acceptedPolicy ? (
+                <>
+                  <Route path="/" element={<HomePageStudent />} />
+                  <Route path="/UniCardPage" element={<UniCardPage />} />
+                </>
+
+              ) :
+                <>
+                  <Route path="/" element={<HomePageStudent onAccept={handleAccept} />} />
+
+                </>
             )}
           </Routes>
         </>
@@ -97,8 +119,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm onLogin={handleLogin} />} />
         </Routes>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 
