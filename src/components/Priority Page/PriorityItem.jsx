@@ -2,7 +2,13 @@ import React,{useEffect} from "react";
 import { Button, Stack } from "react-bootstrap";
 import { usePrioritySelection } from "../contexts/PrioritySelectionContext";
 export function Items() {
-  const { priorities, removePriority } = usePrioritySelection();
+  const { priorities, removePriority,dropPriorityFn } = usePrioritySelection();
+
+  const DropPriority=()=>{
+    if (dropPriorityFn) {
+      dropPriorityFn(); 
+    }
+  }
 
   
   if (!priorities || priorities.length === 0) {
@@ -20,7 +26,7 @@ export function Items() {
               
             </div>
           </div>
-          <Button variant="outline-danger" size="sm" onClick={() => removePriority(priority.id)}>
+          <Button variant="outline-danger" size="sm" onClick={() => {removePriority(priority.id);DropPriority();}}>
             &times;
           </Button>
         </Stack>
