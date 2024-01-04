@@ -26,6 +26,12 @@ const UniversityCard = ({ university }) => {
   const [ID, setID] = useState('')
 
 
+  const universityCardRef = useRef();
+  
+
+
+
+
 
   const [studentPriorities, setStudentPriorities] = useState([]);
 
@@ -88,29 +94,7 @@ const UniversityCard = ({ university }) => {
 
 
 
-  /* LOGIK FÜR DIE IMPLEMENTIERUNG DER PRÄFERENZ
-  useEffect(() => {
-    // Überprüfen, ob eine Priorität für die aktuelle Universität vorhanden ist
-    const studentPriority = studentPriorities.find(prio => prio.uniId === university.uniId);
-
-
-    if (studentPriority != null) {
-      // Priorität vorhanden, Dropdown-Auswahl basierend auf der Priorität setzen
-      if (studentPriority.firstPref) {
-        setSelectedPriority('1st Priority');
-        setCurrentPriority('1st Priority');
-      } else if (studentPriority.secondPref) {
-        setSelectedPriority('2nd Priority');
-        setCurrentPriority('2nd Priority');
-      } else if (studentPriority.thirdPref) {
-        setSelectedPriority('3rd Priority');
-        setCurrentPriority('3rd Priority');
-      }
-    }
-  }, [university.uniId, studentPriorities]);
-  */
-
-
+  
   const updatePriorities = async () => {
 
     const storedUser = JSON.parse(localStorage.getItem('currentUser'));

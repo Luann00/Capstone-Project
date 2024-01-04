@@ -4,10 +4,7 @@ import { usePrioritySelection } from "../contexts/PrioritySelectionContext";
 export function Items() {
   const { priorities, removePriority } = usePrioritySelection();
 
-  useEffect(() => {
-    console.log('priority', priorities);
-  }, [priorities]);
-
+  
   if (!priorities || priorities.length === 0) {
     return <div>No priorities available</div>;
   }
