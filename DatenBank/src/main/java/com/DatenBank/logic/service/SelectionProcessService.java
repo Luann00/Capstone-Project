@@ -36,8 +36,7 @@ public class SelectionProcessService {
         selectionProcessRepository.deleteAll();
     }
 
-
-    //Comes later, dont need this function yet
+    // Comes later, dont need this function yet
     public SelectionProcess updateProcess(int year, SelectionProcess updatedProcess) throws Exception {
         // Find the existing student in the database
         Optional<SelectionProcess> optionalProcess = selectionProcessRepository.findById(year);
@@ -53,11 +52,12 @@ public class SelectionProcessService {
             existingProcess.setNumberOfUniversities(updatedProcess.getNumberOfUniversities());
             existingProcess.setDeadlineExtensionMinutes(updatedProcess.getDeadlineExtensionMinutes());
             existingProcess.setDaysUntilStudentDataDeletion(updatedProcess.getDaysUntilStudentDataDeletion());
+            existingProcess.setExtended(updatedProcess.isExtended());
 
             // Save the updated student back to the database
             return selectionProcessRepository.save(existingProcess);
         } else {
-            
+
             throw new Exception("Student not found with matrikelnummer: " + year);
         }
 
