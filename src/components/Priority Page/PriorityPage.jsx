@@ -15,7 +15,7 @@ function PrioritySelection() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Priorities
+        Your priorities
       </Button>
 
       <Offcanvas show={show} onHide={handleClose}>
