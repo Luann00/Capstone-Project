@@ -23,7 +23,7 @@ const UniCardPage = () => {
       if (activeProcess.extended) {
 
         const endDateTime = new Date(activeProcess.endDate);
-        endDateTime.setHours(18, 45, 0, 999);
+        endDateTime.setHours(19, 30, 0, 999);
         const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
         const timeRemaining = endDateTime.getTime() - new Date().getTime();
@@ -53,7 +53,7 @@ const UniCardPage = () => {
         return;
       }
       const endDateTime = new Date(activeProcess.endDate);
-      endDateTime.setHours(18, 45, 0, 999);
+      endDateTime.setHours(19, 30, 0, 999);
 
       // Set the time zone to Europe/Berlin
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -79,7 +79,7 @@ const UniCardPage = () => {
     const activeProcess = currentProcess;
 
     const endDateTime = new Date(activeProcess.endDate);
-    endDateTime.setHours(18, 45, 0, 999);
+    endDateTime.setHours(19, 30, 0, 999);
 
 
     // Set the time zone to Europe/Berlin
@@ -180,11 +180,10 @@ const UniCardPage = () => {
           startDateTime.setHours(0, 0, 0, 0);
 
           // Set time to 11:59:59.999 for endDateTime
-          endDateTime.setHours(18, 45, 0, 999);
+          endDateTime.setHours(19, 30, 0, 999);
 
         // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
         const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
-        // Extrahiere Stunden, Minuten und Sekunden aus extendedDeadline
 
         endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds())
 
@@ -194,18 +193,16 @@ const UniCardPage = () => {
         const extendedMinutes = Math.floor((newTimeRemaining % 3600000) / 60000);
         const extendedSeconds = Math.floor((newTimeRemaining % 60000) / 1000);
 
-        // Set extended deadline based on the condition
+        // Set extended deadline based on the new time
         setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
 
         setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
 
 
       } else {
-        // Set time to the beginning of the day for startDateTime
         startDateTime.setHours(0, 0, 0, 0);
 
-        // Set time to 11:59:59.999 for endDateTime
-        endDateTime.setHours(18, 45, 0, 999);
+        endDateTime.setHours(19, 30, 0, 999);
       }
 
 
@@ -222,7 +219,7 @@ const UniCardPage = () => {
       {processIsActive ? (
         <div className='title'>
           {extended ? (
-            <span>Deadline wurde verlängert! Neue Deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
+            <span>Deadline was extended!</span>
           ) : (
             <span>Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
           )}
