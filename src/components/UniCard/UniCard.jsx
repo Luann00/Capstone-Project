@@ -4,6 +4,7 @@ import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { CiPen } from "react-icons/ci";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
+import {usePrioritySelection} from '../contexts/PrioritySelectionContext';
 
 
 
@@ -12,6 +13,7 @@ const UniversityCard = ({ university }) => {
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
+  const{addPriority,priority,setDropPriorityFunction,removePriority}= usePrioritySelection;
 
   // Fetching data from localStorage
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -25,8 +27,6 @@ const UniversityCard = ({ university }) => {
 
   const [ID, setID] = useState('')
 
-
-  const universityCardRef = useRef();
   
 
 
@@ -129,7 +129,7 @@ const UniversityCard = ({ university }) => {
   const handlePrioritySelect = async (priority) => {
 
     if (priority === '1st Priority') {
-      //check if this preference is already set and if no, store it in Localstorage
+      
       const storedUser = JSON.parse(localStorage.getItem('currentUser'));
       if (storedUser && storedUser.firstPref === 0) {
 
@@ -243,6 +243,11 @@ const UniversityCard = ({ university }) => {
     }
     updatePriorities();
 
+    addPriority(university.uniId, {
+      universityData: university,
+      priority: { name: university.name, priority },
+    }); 
+
 
   };
 
@@ -284,6 +289,7 @@ const UniversityCard = ({ university }) => {
     setCurrentPriority(null);
 
     await updatePriorities();
+    removePriority(university.uniId);
 
   }
 
@@ -348,6 +354,10 @@ const UniversityCard = ({ university }) => {
       alert("Catch: " + error);
     }
   };
+
+  useEffect(() => {
+    setDropPriorityFunction(handleDropPriority);
+  }, []);
 
 
 

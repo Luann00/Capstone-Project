@@ -22,6 +22,7 @@ export function usePrioritySelection() {
 export function PrioritySelectionProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [priorities, setPriorities] = useLocalStorage("priorities", [] );
+  const [dropPriorityFn, setDropPriorityFn] = useState(null);
 
 
   const openPanel = () => setIsOpen(true);
@@ -60,6 +61,9 @@ export function PrioritySelectionProvider({ children }) {
   function removeAllPriorities() {
     setPriorities([]);
   }
+  const setDropPriorityFunction = (fn) => {
+    setDropPriorityFn(fn);
+  };
 
   return (
     <PrioritySelectionContext.Provider
@@ -71,6 +75,8 @@ export function PrioritySelectionProvider({ children }) {
         removePriority,
         removeAllPriorities,
         priorities,
+        setDropPriorityFunction,
+        dropPriorityFn
       }}
     >
       {children}
