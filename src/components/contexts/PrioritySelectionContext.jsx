@@ -76,7 +76,7 @@ export function PrioritySelectionProvider({ children }) {
         removeAllPriorities,
         priorities,
         setDropPriorityFunction,
-        dropPriorityFn
+        dropPriorityFn,
       }}
     >
       {children}

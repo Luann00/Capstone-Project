@@ -13,7 +13,7 @@ const UniversityCard = ({ university }) => {
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
-  const{addPriority,setDropPriorityFunction,removePriority}= usePrioritySelection;
+  const{addPriority,setDropPriorityFunction,removePriority}= usePrioritySelection();
 
   // Fetching data from localStorage
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -363,7 +363,7 @@ const UniversityCard = ({ university }) => {
 
 
   return (
-    <PrioritySelectionProvider>
+   
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
 
@@ -413,7 +413,7 @@ const UniversityCard = ({ university }) => {
         </Dropdown>
       </Card.Body>
     </Card>
-    </PrioritySelectionProvider>
+    
   );
 };
 
