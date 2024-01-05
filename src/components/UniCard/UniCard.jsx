@@ -14,7 +14,7 @@ const DropPriorityContext = React.createContext();
 
 
 
-const UniversityCard = forwardRef(({ university }, ref) => {
+const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
 
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
@@ -441,6 +441,11 @@ const UniCard = ({ changePreference }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [originalUniversities, setOriginalUniversities] = useState([]);
   const cardRefs = useRef([]);
+  const [priorityState, setPriorityState] = useState({
+    '1st Priority': "",
+    '2nd Priority': "",
+    '3rd Priority': "",
+  });
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
@@ -587,6 +592,9 @@ const UniCard = ({ changePreference }) => {
           <UniversityCard
             key={university.uniId}
             university={university}
+            priorityState={priorityState}
+            setPriorityState={setPriorityState}
+            changePreference={changePreference}
             ref={(el) => {
               if (el) cardRefs.current[university.uniId] = el;
             }} 
