@@ -61,9 +61,7 @@ export function PrioritySelectionProvider({ children }) {
   function removeAllPriorities() {
     setPriorities([]);
   }
-  const setDropPriorityFunction = (fn) => {
-    setDropPriorityFn(fn);
-  };
+  
 
   return (
     <PrioritySelectionContext.Provider
@@ -75,8 +73,8 @@ export function PrioritySelectionProvider({ children }) {
         removePriority,
         removeAllPriorities,
         priorities,
-        setDropPriorityFunction,
         dropPriorityFn,
+        setDropPriorityFn,
       }}
     >
       {children}

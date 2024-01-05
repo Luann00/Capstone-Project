@@ -4,12 +4,7 @@ import { usePrioritySelection } from "../contexts/PrioritySelectionContext";
 export function Items() {
   const { priorities, removePriority,dropPriorityFn } = usePrioritySelection();
 
-  const DropPriority=()=>{
-    if (dropPriorityFn) {
-      dropPriorityFn(); 
-    }
-  }
-
+  
   
   if (!priorities || priorities.length === 0) {
     return <div>No priorities available</div>;
@@ -26,7 +21,7 @@ export function Items() {
               
             </div>
           </div>
-          <Button variant="outline-danger" size="sm" onClick={() => {removePriority(priority.id);DropPriority();}}>
+          <Button variant="outline-danger" size="sm" onClick={() => removePriority(priority.id)}>
             &times;
           </Button>
         </Stack>

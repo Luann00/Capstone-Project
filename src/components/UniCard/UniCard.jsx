@@ -355,9 +355,7 @@ const UniversityCard = ({ university }) => {
     }
   };
 
-  useEffect(() => {
-    setDropPriorityFunction(handleDropPriority);
-  }, []);
+  
 
 
 
