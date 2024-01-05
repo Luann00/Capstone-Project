@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Items } from './PriorityPanelItem';
+import  Items  from './PriorityItem';
 
 import { usePrioritySelection }from '../contexts/PrioritySelectionContext';
 
@@ -15,7 +15,7 @@ function PrioritySelection() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Priorities
+        Your priorities
       </Button>
 
       <Offcanvas show={show} onHide={handleClose}>

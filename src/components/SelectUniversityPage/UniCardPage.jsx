@@ -3,6 +3,7 @@ import { Button, Modal, Input } from 'react-bootstrap';
 import UniCard from "../../components/UniCard/UniCard";
 import NavBarStudent from '../NavigationBar/NavBarStudent';
 import './UniCardPage.css';
+import PrioritySelection from '../Priority Page/PriorityPage';
 
 const UniCardPage = () => {
   const [processIsActive, setProcessIsActive] = useState(false);
@@ -235,7 +236,9 @@ const UniCardPage = () => {
         <div className='card-container'>
           <UniCard changePreference={checkAndExtendTime} />
         </div>
+
       )}
+       
     </div>
   );
 };

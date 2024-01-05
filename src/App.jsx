@@ -7,6 +7,7 @@ import StudentTable from './components/StudentDataTable/StudentTable';
 import UniversityTable from './components/UniversityDataTable/UniversityTable';
 import SelectionProcess from './components/ProcessTable/SelectionProcess';
 import UniCardPage from "./components/SelectUniversityPage/UniCardPage";
+import {usePrioritySelection,PrioritySelectionProvider} from './components/contexts/PrioritySelectionContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
@@ -79,6 +80,7 @@ function App() {
 
 
   return (
+    <PrioritySelectionProvider>
     <div>
       {isLoggedIn ? (
         <>
@@ -122,6 +124,7 @@ function App() {
       )
       }
     </div >
+    </PrioritySelectionProvider>
   );
 }
 

@@ -13,7 +13,7 @@ import { createContext, useContext, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
-const PrioritySelectionContext = createContext({});
+export const PrioritySelectionContext = createContext({});
 
 export function usePrioritySelection() {
   return useContext(PrioritySelectionContext);
@@ -22,6 +22,7 @@ export function usePrioritySelection() {
 export function PrioritySelectionProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [priorities, setPriorities] = useLocalStorage("priorities", [] );
+  const [dropPriorityFn, setDropPriorityFn] = useState(null);
 
 
   const openPanel = () => setIsOpen(true);
@@ -60,6 +61,7 @@ export function PrioritySelectionProvider({ children }) {
   function removeAllPriorities() {
     setPriorities([]);
   }
+  
 
   return (
     <PrioritySelectionContext.Provider
@@ -71,6 +73,8 @@ export function PrioritySelectionProvider({ children }) {
         removePriority,
         removeAllPriorities,
         priorities,
+        dropPriorityFn,
+        setDropPriorityFn,
       }}
     >
       {children}
