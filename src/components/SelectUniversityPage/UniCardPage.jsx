@@ -116,9 +116,7 @@ const UniCardPage = () => {
         </div>
 
       )}
-       <div className='PriorityPanel'>
-        <PrioritySelection/>
-      </div>
+       
     </div>
   );
 };

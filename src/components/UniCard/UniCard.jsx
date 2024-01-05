@@ -1,19 +1,26 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect,useRef,forwardRef,useImperativeHandle,useContext } from 'react';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { CiPen } from "react-icons/ci";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 import {usePrioritySelection,PrioritySelectionProvider} from '../contexts/PrioritySelectionContext';
+import Items from '../Priority Page/PriorityItem';
+
+const DropPriorityContext = React.createContext();
 
 
 
-const UniversityCard = ({ university }) => {
+
+const UniversityCard = forwardRef(({ university }, ref) => {
 
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
-  const{addPriority,setDropPriorityFunction,removePriority}= usePrioritySelection();
+  const{addPriority,removePriority}= usePrioritySelection();
+
 
   // Fetching data from localStorage
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -21,6 +28,7 @@ const UniversityCard = ({ university }) => {
   const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
   const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
   const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
+
  
 
 
@@ -247,7 +255,9 @@ const UniversityCard = ({ university }) => {
       universityData: university,
       priority: { name: university.name, priority },
     }); 
-
+    if (ref.current) {
+      ref.current.getPriority();
+    }
 
   };
 
@@ -290,6 +300,9 @@ const UniversityCard = ({ university }) => {
 
     await updatePriorities();
     removePriority(university.uniId);
+    if (ref.current) {
+      ref.current.dropPriority();
+    }
 
   }
 
@@ -355,6 +368,15 @@ const UniversityCard = ({ university }) => {
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    getPriority: () => {
+      return currentPriority;
+    },
+    dropPriority: () => {
+      handleDropPriority();
+    },
+  }));
+
   
 
 
@@ -413,19 +435,37 @@ const UniversityCard = ({ university }) => {
     </Card>
     
   );
-};
+});
 
 const UniCard = () => {
   const [universities, setUniversities] = useState([]);
-  const [priorityState, setPriorityState] = useState({
-    '1st Priority': "",
-    '2nd Priority': "",
-    '3rd Priority': "",
-  });
+  
   const [showMinGPA, setShowMinGPA] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [originalUniversities, setOriginalUniversities] = useState([]);
+  const cardRefs = useRef([]);
+
+  const dropPriority = (uniId) => {
+    const priorityToDrop = getPriority(uniId);
+  
+    if (priorityToDrop !== null) {
+      cardRefs.current[uniId]?.dropPriority();
+    }
+  };
+  
+  
+  // Function to get selected priority based on uniId
+  const getPriority = (uniId) => {
+    if (cardRefs.current[uniId]) {
+      return cardRefs.current[uniId].getPriority();
+    }
+    return null;
+  };
+
+
+
+
 
   useEffect(() => {
     setOriginalUniversities(universities);
@@ -477,7 +517,34 @@ const UniCard = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const {removeAllPriorities,priorities} = usePrioritySelection(); 
+  const removeAll = () => {
+    priorities.forEach(priority => dropPriority(priority.id));
+  };
+
   return (
+<>
+<div className='priorityPanel'>
+<Button variant="primary" onClick={handleShow}>
+        Your priorities
+      </Button>
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Your Current Priorities</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+        <Items  dropPriority={dropPriority}/>
+        </Offcanvas.Body>
+        <Button variant="primary" onClick={()=> {removeAllPriorities(); removeAll();}}>Delete all</Button>
+      </Offcanvas>
+
+</div>
+
     <div className='card-container'>
       <div className="filter-dropdown">
         <Dropdown>
@@ -519,11 +586,13 @@ const UniCard = () => {
           <UniversityCard
             key={university.uniId}
             university={university}
-            priorityState={priorityState}
-            setPriorityState={setPriorityState}
+            ref={(el) => {
+              if (el) cardRefs.current[university.uniId] = el;
+            }} 
           />
         ))}
     </div>
+    </>
   );
 };
 
