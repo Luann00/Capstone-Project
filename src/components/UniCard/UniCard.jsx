@@ -74,6 +74,7 @@ const UniversityCard = forwardRef(({ university }, ref) => {
 
 
 
+
     setID(JSON.parse(localStorage.getItem('currentUser')).matrikelnummer);
 
     // Setze die Dropdown-Auswahl basierend auf den Prioritäten
@@ -85,15 +86,10 @@ const UniversityCard = forwardRef(({ university }, ref) => {
       setCurrentPriority('3rd Priority');
     }
 
-    console.log("firstPrio: " + firstPriority)
-
 
     fetchStudentPriorities();
 
-
   },);
-
-
 
 
   const isPrioritySelected = (priority) => {
@@ -127,7 +123,6 @@ const UniversityCard = forwardRef(({ university }, ref) => {
       if (!response.ok) {
 
       }
-
     } catch (error) {
     }
 
@@ -250,6 +245,7 @@ const UniversityCard = forwardRef(({ university }, ref) => {
       localStorage.setItem('currentUser', JSON.stringify(storedUser));
     }
     updatePriorities();
+    changePreference();
 
     addPriority(university.uniId, {
       universityData: university,
@@ -437,7 +433,7 @@ const UniversityCard = forwardRef(({ university }, ref) => {
   );
 });
 
-const UniCard = () => {
+const UniCard = ({ changePreference }) => {
   const [universities, setUniversities] = useState([]);
   
   const [showMinGPA, setShowMinGPA] = useState(true);
@@ -471,6 +467,11 @@ const UniCard = () => {
     setOriginalUniversities(universities);
   }, [universities]);
 
+
+  const handleClick = () => {
+    // Define the functionality you want for changePreference
+    console.log("Mooin")
+  };
 
   //For filter function by region for the student
   const handleFilterByRegion = (region) => {

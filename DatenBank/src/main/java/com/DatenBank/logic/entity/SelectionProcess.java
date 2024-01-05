@@ -12,7 +12,7 @@ public class SelectionProcess {
 
 	public SelectionProcess(String startDate, String endDate, int year, int numberOfStudents, int numberOfPreferences,
 			int numberOfDeadlineExtension,
-			int numberOfUniversities, int deadlineExtensionMinutes, int daysUntilStudentDataDeletion) {
+			int numberOfUniversities, int deadlineExtensionMinutes, int daysUntilStudentDataDeletion, boolean extended) {
 
 		super();
 		this.startDate = startDate;
@@ -24,6 +24,7 @@ public class SelectionProcess {
 		this.numberOfUniversities = numberOfUniversities;
 		this.deadlineExtensionMinutes = deadlineExtensionMinutes;
 		this.daysUntilStudentDataDeletion = daysUntilStudentDataDeletion;
+		this.extended = false;
 
 	}
 
@@ -31,15 +32,24 @@ public class SelectionProcess {
 	private int year;
 
 	private int numberOfStudents;
-	private int numberOfPreferences; // Anzahl maximal wählbarer Präferenzen
-	private int numberOfDeadlineExtension; // Anzahl der Verlängerung der Deadline
+	private int numberOfPreferences; 
+	private int numberOfDeadlineExtension; 
 	private int numberOfUniversities;
-	private int deadlineExtensionMinutes; // Anzahl Minuten der Verlängerung der Deadline
-	private int daysUntilStudentDataDeletion; // Anzahl an Tagen, bis Studentendaten gelöscht werden
-	private String startDate; // Add start date variable
-	private String endDate; // Add end date variable
+	private int deadlineExtensionMinutes; 
+	private int daysUntilStudentDataDeletion; 
+	private String startDate; 
+	private String endDate; 
 
-	// private int Anzahl Auswahlverfahren pro Jahr
+	//set extended false per default and change it later after deadline got extended once
+	private boolean extended = false;
+
+	public boolean isExtended() {
+		return extended;
+	}
+
+	public void setExtended(boolean extended) {
+		this.extended = extended;
+	}
 
 	public int getYear() {
 		return year;
