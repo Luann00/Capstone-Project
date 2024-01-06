@@ -12,17 +12,7 @@ function SelectionProcess() {
     const [originalProcesses, setOriginalProcesses] = useState([]);
 
 
-
     const [search, setSearch] = useState("");
-
-
-
-    /*
-    const [sortOrder, setSortOrder] = useState("asc");
-    const [uniIdSortOrder, setUniIdSortOrder] = useState("asc");
-    const [countrySortOrder, setCountrySortOrder] = useState("asc");
-    */
-
 
 
     const [selectedProcess, setSelectedProcess] = useState(null);
@@ -47,7 +37,7 @@ function SelectionProcess() {
         { name: 'numberOfStudents', type: 'number', placeholder: 'Enter number of students' },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
         { name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Enter number of universities' },
-        { name: 'deadlineExtensionMinutes', type: 'number', min:'1', placeholder: 'Enter the extension of the deadline when preferences changes in the last 15 minutes' },
+        { name: 'deadlineExtensionMinutes', type: 'number', min: '1', placeholder: 'Enter the extension of the deadline when preferences changes in the last 15 minutes' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
     ];
 
@@ -139,7 +129,7 @@ function SelectionProcess() {
         try {
 
             const response = await fetch(
-                `http://localhost:8081/university/${selectedProcess.year}`,
+                `http://localhost:8081/selectionProcess/${selectedProcess.year}`,
                 {
                     method: "PUT",
                     headers: {
@@ -274,9 +264,6 @@ function SelectionProcess() {
         }
     };
 
-    //Test
-
-
 
 
 
@@ -290,7 +277,7 @@ function SelectionProcess() {
                                 <span className="icon">🔍</span>
                                 <input className="form-control mr-sm-2"
                                     type="number" min={1}
-                                    placeholder="Search Process by year"
+                                    placeholder="Search by year"
                                     aria-label="Search"
                                     onChange={handleSearch} />
                             </form>
@@ -337,7 +324,7 @@ function SelectionProcess() {
                                         <td>{row.daysUntilStudentDataDeletion}</td>
                                         <td>{processIsActive(row.startDate, row.endDate) ? 'Active 🟢' : 'Inactive🔴'} </td>
                                         <td>
-                                            {/* <a
+                                            <a
                                                 href="#"
                                                 className="edit"
                                                 title="Edit"
@@ -345,7 +332,7 @@ function SelectionProcess() {
                                                 onClick={() => handleEdit(row)}
                                             >
                                                 <i className="material-icons">&#xE254;</i>
-                                            </a>*/}
+                                            </a>
 
 
                                             <a
