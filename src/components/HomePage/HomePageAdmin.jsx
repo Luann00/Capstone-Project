@@ -95,11 +95,7 @@ const HomePageAdmin = () => {
     };
 
 
-    const tableData = {
-        universities,
-        studentMatrikelnumbers,
-        fillTableCells,
-    };
+    
 
 
 
@@ -111,7 +107,7 @@ const HomePageAdmin = () => {
             <div className="table-container">
                 <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
                 <div className="headerAndButton">
-                    <CSVExportButton data={tableData} filename="endTable.csv" />
+                    <CSVExportButton data={students} filename="endTable.csv" />
                 </div>
                 <div className="table-responsive " >
 
