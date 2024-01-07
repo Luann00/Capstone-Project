@@ -36,7 +36,7 @@ public class SelectionProcessService {
         selectionProcessRepository.deleteAll();
     }
 
-    // Comes later, dont need this function yet
+
     public SelectionProcess updateProcess(int year, SelectionProcess updatedProcess) throws Exception {
         // Find the existing student in the database
         Optional<SelectionProcess> optionalProcess = selectionProcessRepository.findById(year);
@@ -57,8 +57,7 @@ public class SelectionProcessService {
             // Save the updated student back to the database
             return selectionProcessRepository.save(existingProcess);
         } else {
-
-            throw new Exception("Student not found with matrikelnummer: " + year);
+            throw new Exception("Pross not found with the year: " + year);
         }
 
     }
