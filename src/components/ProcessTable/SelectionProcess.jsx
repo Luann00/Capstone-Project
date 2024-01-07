@@ -10,6 +10,10 @@ function SelectionProcess() {
     const [show, setShow] = useState(false);
     const [processes, setProcesses] = useState([]);
     const [originalProcesses, setOriginalProcesses] = useState([]);
+    const [universities, setUniversities] = useState([])
+
+    const [students, setStudents] = useState([]);
+
 
 
     const [search, setSearch] = useState("");
@@ -34,9 +38,11 @@ function SelectionProcess() {
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
         { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', min: newProcess.startDate },
-        { name: 'numberOfStudents', type: 'number', placeholder: 'Number of students(auto-filled)',disabled:true},
+        { name: 'numberOfStudents', type: 'number', placeholder: 'Number of students(auto-filled)', disabled: true },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
-        { name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Number of universities(auto-filled)', disabled:true },
+        {
+            name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Number of universities(auto-filled)', disabled: true, value: selectedProcess ? selectedProcess.numberOfUniversities : '', // Set value to '' for new process
+        },
         { name: 'deadlineExtensionMinutes', type: 'number', min: '1', placeholder: 'Enter the extension of the deadline when preferences changes in the last 15 minutes' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
     ];
@@ -88,7 +94,7 @@ function SelectionProcess() {
             year: process.year,
             numberOfStudents: process.numberOfStudents,
             numberOfPreferences: 3,
-            numberOfUniversities: process.numberOfUniversities,
+            numberOfUniversities: universities.length,
             deadlineExtensionMinutes: process.deadlineExtensionMinutes,
             daysUntilStudentDataDeletion: process.daysUntilStudentDataDeletion
         });
@@ -98,21 +104,34 @@ function SelectionProcess() {
 
 
 
-    //Show data of database in the table
     useEffect(() => {
-        const fetchProcesses = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8081/selectionProcess');
-                const data = await response.json();
-                // Kehre die Reihenfolge der Daten um
-                setProcesses(data.reverse());
-                setOriginalProcesses(data);
+                const [processesResponse, universitiesResponse, studentsResponse] = await Promise.all([
+                    fetch('http://localhost:8081/selectionProcess').then(response => response.json()),
+                    fetch('http://localhost:8081/university').then(response => response.json()),
+                    fetch('http://localhost:8081/student').then(response => response.json())
+                ]);
+
+                setProcesses(processesResponse.reverse());
+                setOriginalProcesses(processesResponse);
+                setUniversities(universitiesResponse);
+                setStudents(studentsResponse);
+
+                // Set the initial value for numberOfUniversities in newProcess
+                setNewProcess((prevProcess) => ({
+                    ...prevProcess,
+                    numberOfUniversities: universitiesResponse.length,
+                    numberOfStudents: studentsResponse.length,
+                }));
+
+
             } catch (error) {
                 console.log('Error fetching data:' + error);
             }
         };
 
-        fetchProcesses();
+        fetchData();
     }, []);
 
 
@@ -153,7 +172,6 @@ function SelectionProcess() {
 
 
     //Probably don't need search function by now
-
     const handleSearch = (event) => {
 
         const searchValue = event.target.value;
@@ -174,7 +192,6 @@ function SelectionProcess() {
 
 
     const addProcess = async () => {
-
         try {
             const response = await fetch("http://localhost:8081/selectionProcess", {
                 method: "POST",
@@ -359,9 +376,7 @@ function SelectionProcess() {
                         show={show}
                         onHide={handleClose}
                         backdrop="static"
-
                         keyboard={false}
-
                     >
                         <Modal.Header closeButton>
                             <Modal.Title>Add Process</Modal.Title>
@@ -378,14 +393,13 @@ function SelectionProcess() {
                                             className="form-control"
                                             placeholder={field.placeholder}
                                             name={field.name}
-                                            value={selectedProcess ? selectedProcess[field.name] : newProcess[field.name]}
+                                            value={selectedProcess ? selectedProcess[field.name] : field.value}
                                             onChange={handleChange}
                                             disabled={field.disabled}
                                             required
                                         />
                                     </div>
                                 ))}
-
                                 {selectedProcess ? (
                                     <button type="submit" className="btn btn-success mt-4">
                                         Save Changes
