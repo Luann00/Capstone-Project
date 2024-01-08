@@ -147,7 +147,7 @@ const HomePageAdmin = () => {
                 startDateTime.setHours(0, 0, 0, 0);
 
                 // Set time to 11:59:59.999 for endDateTime
-                endDateTime.setHours(1, 35, 0, 999);
+                endDateTime.setHours(2, 25, 0, 999);
 
                 // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
                 const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
@@ -169,7 +169,7 @@ const HomePageAdmin = () => {
             } else {
                 startDateTime.setHours(0, 0, 0, 0);
 
-                endDateTime.setHours(1, 35, 0, 999);
+                endDateTime.setHours(2, 25, 0, 999);
             }
 
 
@@ -188,21 +188,20 @@ const HomePageAdmin = () => {
     return (
         <div>
             <div className="table-container">
-                <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
-                <div className="headerAndButton">
-                    <CSVExportButton data={students} filename="endTable.csv" />
-                </div>
                 <div>
                     {currentProcess ? (
                         currentProcess.extended ? (
-                            <span>Deadline was extended: Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
+                            <h2 style={{ marginLeft: '20px' }}> Deadline was extended! Current selection process deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`} </h2>
                         ) : (
-                            <span>Deadline: Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
+                            <h2 style={{ marginLeft: '20px' }}> Current selection process deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`} </h2>
                         )
                     ) : (
-                        <span>No process is open!</span>
+                        <h2>No process is open!</h2>
                     )
                     }
+                </div>
+                <div className="headerAndButton">
+                    <CSVExportButton data={students} filename="endTable.csv" />
                 </div>
 
                 <div className="table-responsive " >
