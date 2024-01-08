@@ -9,7 +9,6 @@ import './UniCard.css';
 import {usePrioritySelection,PrioritySelectionProvider} from '../contexts/PrioritySelectionContext';
 import Items from '../Priority Page/PriorityItem';
 
-const DropPriorityContext = React.createContext();
 
 
 

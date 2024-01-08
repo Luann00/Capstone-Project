@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container,Dropdown,Button } from 'react-bootstrap';
 import "./NavbarAdmin.css";
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
@@ -16,34 +16,42 @@ const NavbarStudent = ({ onLogout }) => {
   }, []);
 
   return (
-    <div className="Navbar">
-      <>
+  
+      <div className="Navbar">
         <Navbar bg="dark" variant="dark" expand="lg">
           <Container>
-            <LinkContainer to="/Home">
-              <Navbar.Brand></Navbar.Brand>
-            </LinkContainer>
+            
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 {acceptedPolicy === 'Yes' && (
                   <>
-                    <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/UniCardPage" className="nav-link">UniCardPage</Link>
+                    <LinkContainer to="/">
+                      <Nav.Link>Home</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/UniCardPage">
+                      <Nav.Link>UniCardPage</Nav.Link>
+                    </LinkContainer>
                   </>
-                )
-                
-                
-                }
-
-                <button onClick={onLogout}>Logout</button>
+                )}
               </Nav>
+              <Dropdown alignRight>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  Language
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-1">English</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Deutsch</Dropdown.Item>
+                 
+                </Dropdown.Menu>
+              </Dropdown>
+              <Button variant="outline-light" onClick={onLogout} className="ml-auto">Logout</Button>
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </>
-    </div>
-  );
-}
+      </div>
+    );
+  }
 
-export default NavbarStudent;
+  export default NavbarStudent;
+  
