@@ -99,7 +99,6 @@ function App() {
                 <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
                 <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
-                <Route path="/UniCardPage" element={<UniCardPage />} />
               </>
             ) : (
 
@@ -108,7 +107,6 @@ function App() {
                   <Route path="/" element={<HomePageStudent />} />
                   <Route path="/UniCardPage" element={<UniCardPage />} />
                 </>
-
               ) :
                 <>
                   <Route path="/" element={<HomePageStudent onAccept={handleAccept} />} />
