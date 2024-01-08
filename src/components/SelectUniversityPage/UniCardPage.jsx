@@ -24,7 +24,7 @@ const UniCardPage = () => {
       if (activeProcess.extended) {
 
         const endDateTime = new Date(activeProcess.endDate);
-        endDateTime.setHours(3, 0, 0, 999);
+        endDateTime.setHours(23, 59, 59, 999);
         const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
         const timeRemaining = endDateTime.getTime() - new Date().getTime();
@@ -54,7 +54,7 @@ const UniCardPage = () => {
         return;
       }
       const endDateTime = new Date(activeProcess.endDate);
-      endDateTime.setHours(3, 0, 0, 999);
+      endDateTime.setHours(23, 59, 59, 999);
 
       // Set the time zone to Europe/Berlin
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -80,7 +80,7 @@ const UniCardPage = () => {
     const activeProcess = currentProcess;
 
     const endDateTime = new Date(activeProcess.endDate);
-    endDateTime.setHours(3, 0, 0, 999);
+    endDateTime.setHours(23, 59, 59, 999);
 
 
     // Set the time zone to Europe/Berlin
@@ -181,7 +181,7 @@ const UniCardPage = () => {
           startDateTime.setHours(0, 0, 0, 0);
 
           // Set time to 11:59:59.999 for endDateTime
-          endDateTime.setHours(3, 0, 0, 999);
+          endDateTime.setHours(23, 59, 59, 999);
 
         // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
         const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
@@ -203,7 +203,7 @@ const UniCardPage = () => {
       } else {
         startDateTime.setHours(0, 0, 0, 0);
 
-        endDateTime.setHours(3, 0, 0, 999);
+        endDateTime.setHours(23, 59, 59, 999);
       }
 
 
