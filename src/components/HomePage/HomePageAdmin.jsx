@@ -9,6 +9,16 @@ const HomePageAdmin = () => {
     const [students, setStudents] = useState([]);
     const [studentPreferences, setStudentPreferences] = useState({});
 
+    const [deadline, setDeadline] = useState({});
+    const [processes, setProcesses] = useState([]);
+    const [extendedDeadline, setExtendedDeadline] = useState({ hours: 0, minutes: 0, seconds: 0 })
+    const [extended, setExtended] = useState(false);
+    const [remainingTime, setRemainingTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+    const [currentProcess, setCurrentProcess] = useState([])
+
+
+
+
 
 
     useEffect(() => {
@@ -76,7 +86,7 @@ const HomePageAdmin = () => {
             pref => preferences[pref] === uniID
         );
 
-        //convert string to integer in order to show it in endTable
+        //convert string to integer in order to show the respective preference it in endTable
         let pref = 0;
         if (preferenceOrder === 'thirdPref') {
             pref = 3;
@@ -95,8 +105,98 @@ const HomePageAdmin = () => {
     };
 
 
-    
 
+
+
+    useEffect(() => {
+
+        const fetchProcesses = async () => {
+            try {
+                const response = await fetch('http://localhost:8081/selectionProcess');
+                const data = await response.json();
+                setProcesses(data);
+                const activeProcess = getActiveProcess(data);
+                setCurrentProcess(activeProcess)
+
+            } catch (error) {
+                console.log('Error fetching data:' + error);
+            }
+        };
+
+
+        fetchProcesses();
+        const interval = setInterval(fetchProcesses, 1000);
+
+
+        return () => clearInterval(interval);
+    }, []);
+
+
+
+
+    const getActiveProcess = (data) => {
+        const currentDate = new Date();
+
+        for (const process of data) {
+            const startDateTime = new Date(process.startDate);
+            const endDateTime = new Date(process.endDate);
+
+            if (process.extended) {
+                // Set time to the beginning of the day for startDateTime
+                startDateTime.setHours(0, 0, 0, 0);
+
+                // Set time to 11:59:59.999 for endDateTime
+                endDateTime.setHours(3, 0, 0, 999);
+
+                // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
+                const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
+
+                endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds())
+
+                const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
+
+                const extendedHours = Math.floor(newTimeRemaining / 3600000);
+                const extendedMinutes = Math.floor((newTimeRemaining % 3600000) / 60000);
+                const extendedSeconds = Math.floor((newTimeRemaining % 60000) / 1000);
+
+
+
+                // Set extended deadline based on the new time
+                setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+
+                setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+
+
+            } else {
+                startDateTime.setHours(0, 0, 0, 0);
+
+                endDateTime.setHours(3, 0, 0, 999);
+
+
+                // Set the time zone to Europe/Berlin
+                const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+
+                const timeRemaining = endDateTime.getTime() - new Date().getTime();
+                const hours = Math.floor(timeRemaining / 3600000);
+                const minutes = Math.floor((timeRemaining % 3600000) / 60000);
+                const seconds = Math.floor((timeRemaining % 60000) / 1000);
+
+                setRemainingTime({ hours, minutes, seconds });
+
+
+
+
+
+            }
+
+
+            if (currentDate >= startDateTime && currentDate <= endDateTime) {
+                return process;
+            }
+        }
+
+        return null;
+    };
 
 
 
@@ -105,10 +205,22 @@ const HomePageAdmin = () => {
     return (
         <div>
             <div className="table-container">
-                <h2 style={{ marginLeft: '20px' }}>Current selection process</h2>
+                <div>
+                    {currentProcess ? (
+                        currentProcess.extended ? (
+                            <h2 style={{ marginLeft: '20px' }}> Deadline was extended! New Current selection process deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`} </h2>
+                        ) : (
+                            <h2 style={{ marginLeft: '20px' }}> Current selection process deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`} </h2>
+                        )
+                    ) : (
+                        <h2>No process is open!</h2>
+                    )
+                    }
+                </div>
                 <div className="headerAndButton">
                     <CSVExportButton data={students} filename="endTable.csv" />
                 </div>
+
                 <div className="table-responsive " >
 
                     <table className="table table-bordered table-striped table-hover table-bordered">
