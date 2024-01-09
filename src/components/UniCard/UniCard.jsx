@@ -18,8 +18,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
-  const { addPriority, removePriority } = usePrioritySelection();
-
+  
 
   // Fetching data from localStorage
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -27,6 +26,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
   const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
   const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
   const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
+  const{addPriority,removePriority}= usePrioritySelection();
 
 
 
@@ -253,11 +253,9 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
     }
     updatePriorities();
     changePreference();
+    
 
-    addPriority(university.uniId, {
-      universityData: university,
-      priority: { name: university.name, priority },
-    });
+    
     if (ref.current) {
       ref.current.getPriority();
     }
@@ -314,6 +312,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
     await updatePriorities();
     removePriority(university.uniId);
+    
     if (ref.current) {
       ref.current.dropPriority();
     }
@@ -469,31 +468,45 @@ const UniCard = ({ changePreference }) => {
     '2nd Priority': "",
     '3rd Priority': "",
   });
+  const{addPriority,removePriority}= usePrioritySelection();
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
 
     if (priorityToDrop !== null) {
       cardRefs.current[uniId]?.dropPriority();
+     
     }
   };
-
-
-  // Function to get selected priority based on uniId
-  const getPriority = (uniId) => {
+  
+  
+ 
+  const getPriority = (uniId) => { 
     if (cardRefs.current[uniId]) {
-      return cardRefs.current[uniId].getPriority();
-    }
-    return null;
-  };
+       return cardRefs.current[uniId].getPriority(); 
+      } 
+      return null; 
+    };
+
+      useEffect(() => {
+        universities.forEach((university) => {
+          const priority = getPriority(university.uniId);
+          if (priority !== null) {
+            
+            addPriority(university.uniId, {
+              universityData: university,
+              priority: { name: university.name, priority },
+            });
+          }
+        });
+      }, [universities]);
 
 
 
 
-
-  useEffect(() => {
-    setOriginalUniversities(universities);
-  }, [universities]);
+    useEffect(() => {
+      setOriginalUniversities(universities);
+    }, [universities]);
 
 
   const handleClick = () => {
