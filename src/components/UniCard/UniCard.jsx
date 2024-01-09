@@ -464,25 +464,25 @@ const UniCard = ({ changePreference }) => {
       return null; 
     };
 
+      useEffect(() => {
+        universities.forEach((university) => {
+          const priority = getPriority(university.uniId);
+          if (priority !== null) {
+            
+            addPriority(university.uniId, {
+              universityData: university,
+              priority: { name: university.name, priority },
+            });
+          }
+        });
+      }, [universities]);
+
+
+
+
     useEffect(() => {
-      universities.map((university) => {
-        const priority = getPriority(university.uniId);
-        if (priority !== null) {
-          
-          addPriority(university.uniId, {
-            universityData: university,
-            priority: { name: university.name, priority },
-          });
-        }
-      });
+      setOriginalUniversities(universities);
     }, [universities]);
-
-
-
-
-  useEffect(() => {
-    setOriginalUniversities(universities);
-  }, [universities]);
 
 
   const handleClick = () => {
