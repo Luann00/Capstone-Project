@@ -17,18 +17,21 @@ const Items = ({dropPriority}) =>  {
 
   return (
     <Stack direction="vertical" gap={3}>
-      {priorities.map((priority, index) => (
+      {priorities.sort((a, b) => {
+        const numA = parseInt(a.value.priority.priority.match(/\d+/)[0]);
+        const numB = parseInt(b.value.priority.priority.match(/\d+/)[0]);
+        return numA - numB;
+      }).map((priority, index) => (
         <Stack direction="horizontal" gap={2} className="d-flex align-items-center" key={index}>
           <div className="me-auto">
             <div>
-            <h3> {priority.value.priority.priority}</h3>
+              <h3> {priority.value.priority.priority}</h3>
               <p>Name: {priority.value.universityData.name}</p>
-              
             </div>
           </div>
           <Button variant="outline-danger" size="sm" onClick={() => { removePriority(priority.id); handleRemove(priority.id) }}>
-  &times;
-</Button>
+            &times;
+          </Button>
         </Stack>
       ))}
     </Stack>
