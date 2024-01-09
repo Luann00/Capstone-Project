@@ -139,19 +139,26 @@ const HomePageAdmin = () => {
 
         for (const process of data) {
             const startDateTime = new Date(process.startDate);
+
+
             const endDateTime = new Date(process.endDate);
 
             if (process.extended) {
-                // Set time to the beginning of the day for startDateTime
                 startDateTime.setHours(0, 0, 0, 0);
 
-                // Set time to 11:59:59.999 for endDateTime
-                endDateTime.setHours(23, 35, 59, 999);
+                endDateTime.setHours(23, 59, 59, 999);
+
+                const extensionMinutes = process.deadlineExtensionMinutes;
+
+                const newHours = Math.floor(extensionMinutes / 60);
+                const newMinutes = extensionMinutes % 60;
+                endDateTime.setHours(newHours, newMinutes, 59, 999);
+
 
                 // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
-                const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
 
-                endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds())
+                const extendedDeadline = new Date(endDateTime.getTime());
+
 
                 const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
 
@@ -170,8 +177,7 @@ const HomePageAdmin = () => {
             } else {
                 startDateTime.setHours(0, 0, 0, 0);
 
-                endDateTime.setHours(23, 35, 59, 999);
-
+                endDateTime.setHours(23, 59, 59, 999);
 
                 // Set the time zone to Europe/Berlin
                 const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -182,10 +188,6 @@ const HomePageAdmin = () => {
                 const seconds = Math.floor((timeRemaining % 60000) / 1000);
 
                 setRemainingTime({ hours, minutes, seconds });
-
-
-
-
 
             }
 
