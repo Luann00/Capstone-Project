@@ -264,7 +264,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
     //disable dropdown menu after setting preference to prevent from changing preference every second
     setTimeout(() => {
       setDropdownDisabled(false);
-    }, 1500);
+    }, 5000);
 
 
 
