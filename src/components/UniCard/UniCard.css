@@ -1,5 +1,15 @@
 .universityCard {
-  width: 25rem;
+  width: calc(50% - 20px); /* Adjust the width to occupy 50% of the container minus the margin */
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block; /* Display the cards inline */
+  box-sizing: border-box; /* Include the border and padding in the width calculation */
+}
+
+.universityCard {
+  width: 30rem;
   margin: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -85,21 +95,27 @@
   /* Make the dropdown menu full-width */
 }
 
-.universityCard .dropdown-toggle {
-  width: 100%;
-  /* Make the toggle button full-width */
-}
+
 
 
 .card-container {
+  z-index: 1;
+  position: relative;
   display: grid;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   row-gap: 80px;
   column-gap: 140px;
 
+}
+.priorityPanel{
+  z-index: 1000;
+  position: relative;
+}
+.priorityPanel.hidden{
+  display: none;
 }
 
 @media (max-width: 768px) {

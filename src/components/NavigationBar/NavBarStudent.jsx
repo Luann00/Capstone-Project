@@ -3,9 +3,11 @@ import { Navbar, Nav, Container,Dropdown,Button } from 'react-bootstrap';
 import "./NavbarAdmin.css";
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
+import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
 
 const NavbarStudent = ({ onLogout }) => {
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+  const {openPanel,closePanel} = usePrioritySelection();  
   const [acceptedPolicy, setAcceptedPolicy] = useState(storedUser ? storedUser.acceptedPolicy : false);
 
   // Update links when acceptedPolicy changes
@@ -45,6 +47,7 @@ const NavbarStudent = ({ onLogout }) => {
                  
                 </Dropdown.Menu>
               </Dropdown>
+              <Button variant="outline-light" onClick={openPanel} className="ml-auto">Your Priority</Button>
               <Button variant="outline-light" onClick={onLogout} className="ml-auto">Logout</Button>
             </Navbar.Collapse>
           </Container>

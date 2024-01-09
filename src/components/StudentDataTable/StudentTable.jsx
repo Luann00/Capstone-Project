@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
 import CSVExportButton from '../CSVExportButton';
 
-
-
 import "./StudentTable.css";
 
 function Home() {

@@ -62,6 +62,7 @@ export function PrioritySelectionProvider({ children }) {
       value={{
         openPanel,
         closePanel,
+        isOpen,
         addPriority,
         getPriority,
         removePriority,
