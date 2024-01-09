@@ -146,7 +146,7 @@ const HomePageAdmin = () => {
                 startDateTime.setHours(0, 0, 0, 0);
 
                 // Set time to 11:59:59.999 for endDateTime
-                endDateTime.setHours(23, 59, 59, 999);
+                endDateTime.setHours(23, 35, 59, 999);
 
                 // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
                 const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
@@ -170,7 +170,7 @@ const HomePageAdmin = () => {
             } else {
                 startDateTime.setHours(0, 0, 0, 0);
 
-                endDateTime.setHours(23, 59, 59, 999);
+                endDateTime.setHours(23, 35, 59, 999);
 
 
                 // Set the time zone to Europe/Berlin

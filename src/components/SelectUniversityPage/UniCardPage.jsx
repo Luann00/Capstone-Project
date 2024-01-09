@@ -24,7 +24,7 @@ const UniCardPage = () => {
       if (activeProcess.extended) {
 
         const endDateTime = new Date(activeProcess.endDate);
-        endDateTime.setHours(23, 59, 59, 999);
+        endDateTime.setHours(23, 10, 59, 999);
         const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
         const timeRemaining = endDateTime.getTime() - new Date().getTime();
@@ -54,7 +54,7 @@ const UniCardPage = () => {
         return;
       }
       const endDateTime = new Date(activeProcess.endDate);
-      endDateTime.setHours(23, 59, 59, 999);
+      endDateTime.setHours(23, 10, 59, 999);
 
       // Set the time zone to Europe/Berlin
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -74,13 +74,68 @@ const UniCardPage = () => {
   };
 
 
+
+  const updateProcesses = async (selectedProcess) => {
+    try {
+      // compute new endDate
+      const extendedMinutes = selectedProcess.deadlineExtensionMinutes;
+      const extendedDays = Math.ceil(extendedMinutes / (24 * 60));
+
+      // Convert selectedProcess.endDate to Date object
+      const currentEndDate = new Date(selectedProcess.endDate);
+
+      // Add the calculated days to the current endDate's date part
+      currentEndDate.setDate(currentEndDate.getDate() + extendedDays);
+
+      // Convert currentEndDate to ISO string without the time part
+      const formattedEndDate = currentEndDate.toISOString().split('T')[0];
+
+      
+      selectedProcess.endDate = formattedEndDate;
+
+
+
+      
+
+      const response = await fetch(
+        `http://localhost:8081/selectionProcess/${selectedProcess.year}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectedProcess),
+
+        }
+      );
+
+      if (!response.ok) {
+        console.log("Error updating process. Response status:", response.status);
+        console.log("Response body:", await response.text());
+      } else {
+        console.log("Process updated successfully.");
+      }
+    } catch (error) {
+      console.error("Error updating process:", error);
+      console.log("Error during the request.");
+    }
+  };
+
+
+
   const checkAndExtendTime = () => {
 
     //get current process
     const activeProcess = currentProcess;
 
+    if (activeProcess.extended) {
+      return;
+    } else {
+      updateProcesses(activeProcess);
+    }
+
     const endDateTime = new Date(activeProcess.endDate);
-    endDateTime.setHours(23, 59, 59, 999);
+    endDateTime.setHours(23, 10, 59, 999);
 
 
     // Set the time zone to Europe/Berlin
@@ -92,10 +147,9 @@ const UniCardPage = () => {
     const minutes = Math.floor((timeRemaining % 3600000) / 60000);
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
 
-    if (hours === 0 && minutes < 15) {
-      if (activeProcess.extended) {
-        return;
-      }
+
+    if (minutes < 58) {
+
       // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
       const extendedDeadline = new Date(endDateTime.getTime() + activeProcess.deadlineExtensionMinutes * 60000);
       // Extrahiere Stunden, Minuten und Sekunden aus extendedDeadline
@@ -177,11 +231,11 @@ const UniCardPage = () => {
 
 
       if (process.extended) {
-          // Set time to the beginning of the day for startDateTime
-          startDateTime.setHours(0, 0, 0, 0);
+        // Set time to the beginning of the day for startDateTime
+        startDateTime.setHours(0, 0, 0, 0);
 
-          // Set time to 11:59:59.999 for endDateTime
-          endDateTime.setHours(23, 59, 59, 999);
+        // Set time to 11:59:59.999 for endDateTime
+        endDateTime.setHours(23, 10, 59, 999);
 
         // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
         const extendedDeadline = new Date(endDateTime.getTime() + process.deadlineExtensionMinutes * 60000);
@@ -199,13 +253,11 @@ const UniCardPage = () => {
 
         setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
 
-
       } else {
         startDateTime.setHours(0, 0, 0, 0);
 
-        endDateTime.setHours(23, 59, 59, 999);
+        endDateTime.setHours(23, 10, 59, 999);
       }
-
 
       if (currentDate >= startDateTime && currentDate <= endDateTime) {
         return process;
@@ -220,7 +272,7 @@ const UniCardPage = () => {
       {processIsActive ? (
         <div className='title'>
           {extended ? (
-            <span>Deadline was extended!</span>
+            <span>Deadline was extended! New Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
           ) : (
             <span>Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
           )}
@@ -238,7 +290,7 @@ const UniCardPage = () => {
         </div>
 
       )}
-       
+
     </div>
   );
 };
