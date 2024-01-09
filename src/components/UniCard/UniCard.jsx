@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef,forwardRef,useImperativeHandle,useContext } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
@@ -6,14 +6,14 @@ import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { CiPen } from "react-icons/ci";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
-import {usePrioritySelection,PrioritySelectionProvider} from '../contexts/PrioritySelectionContext';
+import { usePrioritySelection, PrioritySelectionProvider } from '../contexts/PrioritySelectionContext';
 import Items from '../Priority Page/PriorityItem';
 
 
 
 
 
-const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
+const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
@@ -28,13 +28,17 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
   const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
   const{addPriority,removePriority}= usePrioritySelection();
 
- 
+
+
+  const [isDropdownDisabled, setDropdownDisabled] = useState(false);
+
+
 
 
 
   const [ID, setID] = useState('')
 
-  
+
 
 
 
@@ -97,7 +101,7 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
 
 
 
-  
+
   const updatePriorities = async () => {
 
     const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -130,8 +134,11 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
 
   const handlePrioritySelect = async (priority) => {
 
+    setDropdownDisabled(true); // Disable the dropdown during the update
+
+
     if (priority === '1st Priority') {
-      
+
       const storedUser = JSON.parse(localStorage.getItem('currentUser'));
       if (storedUser && storedUser.firstPref === 0) {
 
@@ -147,9 +154,6 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
           await updateCurrentTotalPrioCount(university.uniId, true);
         }
 
-
-
-
         storedUser.firstPref = university.uniId;
         localStorage.setItem('currentUser', JSON.stringify(storedUser));
 
@@ -158,6 +162,7 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
         updatePriorities();
       } else {
         alert("This preference is aleady set for another university!");
+        setDropdownDisabled(false);
         return;
       }
 
@@ -188,6 +193,8 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
         updatePriorities();
       } else {
         alert("This preference is aleady set for another university!");
+        setDropdownDisabled(false);
+        return;
       }
 
 
@@ -220,7 +227,8 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
         updatePriorities();
 
       } else {
-        alert("This preference is aleady set for another university!")
+        alert("This preference is aleady set for another university!");
+        setDropdownDisabled(false);
         return;
       }
 
@@ -252,11 +260,22 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
       ref.current.getPriority();
     }
 
+
+    //disable dropdown menu after setting preference to prevent from changing preference every second
+    setTimeout(() => {
+      setDropdownDisabled(false);
+    }, 1500);
+
+
+
   };
 
 
 
   const handleDropPriority = async () => {
+
+    setDropdownDisabled(true); // Disable the dropdown during the update
+
     const storedUser = JSON.parse(localStorage.getItem('currentUser'));
 
     if (currentPriority === '1st Priority' && updatedFirstPref > 0) {
@@ -297,6 +316,11 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
     if (ref.current) {
       ref.current.dropPriority();
     }
+
+    //disable dropdown menu after setting preference to prevent from changing preference every second
+    setTimeout(() => {
+      setDropdownDisabled(false);
+    }, 3000);
 
   }
 
@@ -371,13 +395,13 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
     },
   }));
 
-  
+
 
 
 
 
   return (
-   
+
     <Card className="universityCard" key={university.uniId} style={{ width: '25rem' }}>
       <Card.Body className='card.body'>
 
@@ -407,7 +431,7 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
         </ListGroup>
 
         <Dropdown >
-          <Dropdown.Toggle id="dropdown-autoclose-true">
+          <Dropdown.Toggle id="dropdown-autoclose-true" disabled={isDropdownDisabled}>
             {currentPriority !== null ? currentPriority : "Choose preference"}
           </Dropdown.Toggle>
           <Dropdown.Menu>
@@ -427,13 +451,13 @@ const UniversityCard = forwardRef(({ university, changePreference}, ref) => {
         </Dropdown>
       </Card.Body>
     </Card>
-    
+
   );
 });
 
 const UniCard = ({ changePreference }) => {
   const [universities, setUniversities] = useState([]);
-  
+
   const [showMinGPA, setShowMinGPA] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRegion, setSelectedRegion] = useState(null);
@@ -448,7 +472,7 @@ const UniCard = ({ changePreference }) => {
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
-  
+
     if (priorityToDrop !== null) {
       cardRefs.current[uniId]?.dropPriority();
      
@@ -539,80 +563,80 @@ const UniCard = ({ changePreference }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const {removeAllPriorities,priorities} = usePrioritySelection(); 
+  const { removeAllPriorities, priorities } = usePrioritySelection();
   const removeAll = () => {
     priorities.forEach(priority => dropPriority(priority.id));
   };
 
   return (
-<>
-<div className='priorityPanel'>
-<Button variant="primary" onClick={handleShow}>
-        Your priorities
-      </Button>
+    <>
+      <div className='priorityPanel'>
+        <Button variant="primary" onClick={handleShow}>
+          Your priorities
+        </Button>
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Your Current Priorities</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-        <Items  dropPriority={dropPriority}/>
-        </Offcanvas.Body>
-        <Button variant="primary" onClick={()=> {removeAllPriorities(); removeAll();}}>Delete all</Button>
-      </Offcanvas>
+        <Offcanvas show={show} onHide={handleClose}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Your Current Priorities</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Items dropPriority={dropPriority} />
+          </Offcanvas.Body>
+          <Button variant="primary" onClick={() => { removeAllPriorities(); removeAll(); }}>Delete all</Button>
+        </Offcanvas>
 
-</div>
-
-    <div className='card-container'>
-      <div className="filter-dropdown">
-        <Dropdown>
-          <Dropdown.Toggle id="dropdown-region">
-            {selectedRegion ? `Filtering by: ${selectedRegion}` : 'Filter by region'}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {getUniqueRegions().map((region) => (
-              <Dropdown.Item key={region} onClick={() => handleFilterByRegion(region)}>
-                {region}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
       </div>
-      <div className="search">
-        <form className="form-inline">
 
-          <span className="icon">🔍</span>
-          <input
-            className="form-control mr-sm-2"
-            type="text"
-            placeholder="Search by names..."
-            aria-label="Search"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-        </form>
+      <div className='card-container'>
+        <div className="filter-dropdown">
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-region">
+              {selectedRegion ? `Filtering by: ${selectedRegion}` : 'Filter by region'}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {getUniqueRegions().map((region) => (
+                <Dropdown.Item key={region} onClick={() => handleFilterByRegion(region)}>
+                  {region}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="search">
+          <form className="form-inline">
+
+            <span className="icon">🔍</span>
+            <input
+              className="form-control mr-sm-2"
+              type="text"
+              placeholder="Search by names..."
+              aria-label="Search"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </form>
+        </div>
+        {universities
+          .filter((university) =>
+            (selectedRegion ?
+              university.country.toLowerCase().includes(selectedRegion.toLowerCase()) ||
+              university.city.toLowerCase().includes(selectedRegion.toLowerCase()) :
+              true) &&
+            university.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((university) => (
+            <UniversityCard
+              key={university.uniId}
+              university={university}
+              priorityState={priorityState}
+              setPriorityState={setPriorityState}
+              changePreference={changePreference}
+              ref={(el) => {
+                if (el) cardRefs.current[university.uniId] = el;
+              }}
+            />
+          ))}
       </div>
-      {universities
-        .filter((university) =>
-          (selectedRegion ?
-            university.country.toLowerCase().includes(selectedRegion.toLowerCase()) ||
-            university.city.toLowerCase().includes(selectedRegion.toLowerCase()) :
-            true) &&
-          university.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        .map((university) => (
-          <UniversityCard
-            key={university.uniId}
-            university={university}
-            priorityState={priorityState}
-            setPriorityState={setPriorityState}
-            changePreference={changePreference}
-            ref={(el) => {
-              if (el) cardRefs.current[university.uniId] = el;
-            }} 
-          />
-        ))}
-    </div>
     </>
   );
 };
