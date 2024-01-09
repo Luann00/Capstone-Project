@@ -432,7 +432,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 </ListGroup>
 
                 <Dropdown >
-                    <Dropdown.Toggle id="dropdown-autoclose-true" disabled={isDropdownDisabled}>
+                    <Dropdown.Toggle id="dropdown-autoclose-true" disabled={isDropdownDisabled} >
                         {currentPriority !== null ? currentPriority : "Choose preference"}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>

@@ -32,10 +32,11 @@ const NavbarStudent = ({ onLogout }) => {
                       <Nav.Link>Home</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/UniCardPage">
-                      <Nav.Link>UniCardPage</Nav.Link>
+                      <Nav.Link>Universities</Nav.Link>
                     </LinkContainer>
                   </>
                 )}
+                <Button variant="outline-light" onClick={openPanel} >Your Priority</Button>
               </Nav>
               <Dropdown alignRight>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -47,7 +48,7 @@ const NavbarStudent = ({ onLogout }) => {
                  
                 </Dropdown.Menu>
               </Dropdown>
-              <Button variant="outline-light" onClick={openPanel} className="ml-auto">Your Priority</Button>
+              
               <Button variant="outline-light" onClick={onLogout} className="ml-auto">Logout</Button>
             </Navbar.Collapse>
           </Container>

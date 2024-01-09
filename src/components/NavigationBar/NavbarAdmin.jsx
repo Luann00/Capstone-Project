@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container,Button } from 'react-bootstrap';
 import "./NavbarAdmin.css";
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom';
@@ -25,8 +25,9 @@ const NavbarAdmin = ({ onLogout }) => {
                 <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>
                 <Link to="/WhitelistAdmin" className="nav-link">WhitelistAdmin</Link>
                 <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
-                <button onClick={onLogout}>Logout</button>
+                
               </Nav>
+              <Button variant="outline-light" onClick={onLogout} className="ml-auto">Logout</Button>
             </Navbar.Collapse>
           </Container>
         </Navbar>

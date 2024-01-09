@@ -88,12 +88,25 @@
   background-color: rgb(96, 129, 27);
 }
 
+
 .universityCard .dropdown-menu {
   position: relative;
-  z-index: 1000;
   width: 100%;
-  /* Make the dropdown menu full-width */
+  
+  transition: max-height 0.3s ease-in-out;
+  /* Add a smooth transition effect for max-height property */
+  max-height: 0;
+  overflow: hidden;
 }
+
+.universityCard .dropdown-menu.show {
+  max-height: 500px;
+
+  width: 100%;
+}
+ 
+  /* Make the dropdown menu full-width */
+
 
 
 
