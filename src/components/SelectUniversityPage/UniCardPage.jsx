@@ -237,7 +237,6 @@ const UniCardPage = () => {
         const data = await response.json();
         setProcesses(data);
         updateProcessData(data);
-        if (extendedDeadline === null) { }
 
       } catch (error) {
         console.log('Error fetching data:' + error);
