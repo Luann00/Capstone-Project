@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container,Dropdown,Button } from 'react-bootstrap';
-import "./NavbarAdmin.css";
+import "./NavBarStudent.css";
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
@@ -20,7 +20,7 @@ const NavbarStudent = ({ onLogout }) => {
   return (
   
       <div className="Navbar">
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar  expand="lg">
           <Container>
             
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -36,7 +36,7 @@ const NavbarStudent = ({ onLogout }) => {
                     </LinkContainer>
                   </>
                 )}
-                <Button variant="outline-light" onClick={openPanel} >Your Priority</Button>
+                <Button  onClick={openPanel} >Your Priority</Button>
               </Nav>
               <Dropdown alignRight>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -49,7 +49,7 @@ const NavbarStudent = ({ onLogout }) => {
                 </Dropdown.Menu>
               </Dropdown>
               
-              <Button variant="outline-light" onClick={onLogout} className="ml-auto">Logout</Button>
+              <Button onClick={onLogout} className="ml-auto">Logout</Button>
             </Navbar.Collapse>
           </Container>
         </Navbar>

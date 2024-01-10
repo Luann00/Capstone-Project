@@ -72,6 +72,7 @@ const UniCard = ({ changePreference }) => {
   //For filter function by region for the student
   const handleFilterByRegion = (region) => {
     setSelectedRegion(region);
+    
 
     const updatedTableData = originalUniversities.filter((university) =>
       university.country.toLowerCase().includes(region.toLowerCase()) ||

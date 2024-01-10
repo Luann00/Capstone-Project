@@ -1,10 +1,11 @@
-/*
-.nav {
+
+.Navbar {
   background-color: rgb(69, 122, 147);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 50px;
   width: 100%;
-
+position: sticky;
+z-index: 1000;
   justify-content: space-between;
   align-items: center;
 }
@@ -14,7 +15,7 @@
 
 
 
-.nav .signout {
+.Navbar .Button {
 
   background-color: #77bb12;
   border: none;
@@ -22,7 +23,7 @@
 
 }
 
-.nav .signout:hover {
+.Navbar .Button:hover {
   background-color: rgb(118, 171, 2);
 }
 
@@ -39,7 +40,7 @@
   background-color: #fff;
   border: 1px solid #ccc;
 }
-*/
+
 
 
 
