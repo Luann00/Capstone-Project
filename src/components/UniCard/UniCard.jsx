@@ -125,10 +125,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
       );
       if (!response.ok) {
 
-      } else {
-        
-        alert("Your priority was set!")
-      }
+      } 
     } catch (error) {
     }
 
