@@ -27,7 +27,7 @@ const NavbarAdmin = ({ onLogout }) => {
                 <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
                 
               </Nav>
-              <Button variant="outline-light" onClick={onLogout} className="ml-auto">Logout</Button>
+              <Button  onClick={onLogout} className="ml-auto" >Logout</Button>
             </Navbar.Collapse>
           </Container>
         </Navbar>

@@ -1,51 +1,65 @@
 
 .Navbar {
   background-color: rgb(69, 122, 147);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
   width: 100%;
 position: sticky;
 z-index: 1000;
-  justify-content: space-between;
-  align-items: center;
+padding: 0;
+margin: 0;
+
+  
+}
+
+
+.Navbar .Nav {
+  display: flex;
+  align-items: space-between; 
 }
 
 
 
+.PriorityButton {
 
-
-
-.Navbar .Button {
-
-  background-color: #77bb12;
+  background-color: rgb(69, 122, 147);
   border: none;
-  margin-right: 50px;
+  margin: 0 10px;
+  font-weight: bold;
 
 }
 
-.Navbar .Button:hover {
-  background-color: rgb(118, 171, 2);
+.PriorityButton:active {
+  background-color: #fff;
+  color: rgb(69, 122, 147);
+}
+
+.ml-auto{
+  background-color: rgb(69, 122, 147);
+  border: 1px solid #fff;
+  margin: 0 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ml-auto:hover {
+  background-color: #fff;
+  color: rgb(69, 122, 147);
 }
 
 .nav-link {
   font-weight: bold;
   color: #fff;
+  margin: 0 10px;
+  
 }
 
-.nav-link:hover {
-  color: #77bb12;
+.nav-link :hover {
+
+  color: #fff;
+  background-color: rgb(69, 122, 147);
+  padding: 5px;
 }
 
-.dropdown-menu {
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
 
 
 
-
-
-
-.btn:hover {
-  background-color: #0056b3;
-}
+ 

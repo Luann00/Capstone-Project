@@ -317,11 +317,49 @@ const UniCardPage = () => {
     <div className='card-page'>
       {processIsActive ? (
         <div className='title'>
+          <div className='countdown'>
           {extended ? (
-            <span>Deadline was extended! New Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
-          ) : (
-            <span>Remaining Time: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`}</span>
+            
+            <div className='clock'>
+              <h4>Deadline was extended! New Time: </h4>
+              <div className='content'>
+
+              {Object.entries(remainingTime).map((el) => {
+					const label = el[0];
+					const value = el[1];
+					return (
+						<div className='box' key={label}>
+							<div className='value'>
+								<span>{value}</span>
+							</div>
+							<span className='label'> {label} </span>
+						</div>
+					);
+				})}
+                </div></div>
+          ) : (<div className='clock'>
+          <h4>Remaining time: </h4>
+          <div className='content'>
+
+          {Object.entries(remainingTime).map((el) => {
+      const label = el[0];
+      const value = el[1];
+      return (
+        <div className='box' key={label}>
+          <div className='value'>
+            <span>{value}</span>
+          </div>
+          <span className='label'> {label} </span>
+        </div>
+      );
+    })}
+            </div></div>
+            
           )}
+
+          </div>
+
+          
           <h1>List of partner universities</h1>
           <span>Pick your top three preferred universities from the list below!</span>
         </div>
