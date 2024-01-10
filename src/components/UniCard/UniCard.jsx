@@ -125,6 +125,9 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
       );
       if (!response.ok) {
 
+      } else {
+        
+        alert("Your priority was set!")
       }
     } catch (error) {
     }
@@ -159,7 +162,6 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
         setFirstPriority(university.uniId)
         setCurrentPriority('1st Priority')
-        updatePriorities();
       } else {
         alert("This preference is aleady set for another university!");
         setDropdownDisabled(false);
@@ -199,8 +201,6 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
 
     } else if (priority === '3rd Priority') {
-
-
       // Set thirdPriority in localStorage
       const storedUser = JSON.parse(localStorage.getItem('currentUser'));
       if (storedUser && storedUser.thirdPref === 0) {
@@ -631,6 +631,7 @@ const UniCard = ({ changePreference }) => {
               priorityState={priorityState}
               setPriorityState={setPriorityState}
               changePreference={changePreference}
+              
               ref={(el) => {
                 if (el) cardRefs.current[university.uniId] = el;
               }}
