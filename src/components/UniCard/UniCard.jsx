@@ -6,6 +6,7 @@ import './UniCard.css';
 import { usePrioritySelection} from '../contexts/PrioritySelectionContext';
 import Items from '../Priority Page/PriorityItem';
 import { UniversityCard } from './UniversityCard';
+import { BiSearchAlt } from "react-icons/bi";
 
 
 
@@ -153,7 +154,7 @@ const UniCard = ({ changePreference }) => {
         <div className="search">
           <form className="form-inline">
 
-            <span className="icon">🔍</span>
+            <span className="icon"><BiSearchAlt /></span>
             <input
               className="form-control mr-sm-2"
               type="text"

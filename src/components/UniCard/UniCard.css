@@ -1,5 +1,6 @@
 
 .universityCard {
+  
   width: 30rem;
   margin: 10px;
   
@@ -9,7 +10,8 @@
     /* Increase the box shadow to make it more prominent */
     transition: transform 0.3s ease-in-out;
     /* Add a smooth transition effect for transform property */
-    z-index: 1;
+    
+    
   }
   
 
@@ -101,7 +103,8 @@
   /* Push the dropdown to the bottom */
   margin-right: 30px;
   /* Add margin for spacing */
-  z-index: 1000;
+  
+  
 
 }
 
@@ -118,23 +121,25 @@
 
 
 .universityCard .dropdown-menu {
-  position: relative;
+
   width: 100%;
   
   transition: max-height 0.3s ease-in-out;
   /* Add a smooth transition effect for max-height property */
-  max-height: 0;
-  overflow: hidden;
-  z-index: 1001;
+  
+
+  
 
 
 }
+
 
 .universityCard .dropdown-menu .dropdown-item {
   font-size: 1.1rem;
   color: #555;
   transition: background-color 0.3s ease-in-out;
-  /* Add a smooth transition effect for background-color property */
+  z-index: 2 !important;
+  
 }
 .universityCard .dropdown-menu .dropdown-item:hover {
   background-color: rgba(131, 175, 35,0.3);
@@ -252,5 +257,40 @@
 
   .universityCard .list-group-item span {
     font-size: 1rem;
+  }
+}
+.search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search .form-inline {
+  display: flex;
+  width: 100%;
+
+
+}
+
+
+.search .icon {
+  margin-right: 10px;
+}
+
+.search .form-control {
+  width: 100%;
+  font-size: 1.25rem;
+  border-radius: 50px;
+  border:rgb(58, 104, 125)1px solid;
+}
+
+.search .form-control:hover {
+  box-shadow: 0 0 5px rgb(58, 104, 125,0.5);
+  
+
+}
+@media (max-width: 768px) {
+  .search .form-inline {
+    width: 100%;
   }
 }

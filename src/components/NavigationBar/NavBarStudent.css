@@ -5,7 +5,7 @@
 }
 .Navbar {
 
-  background-color: rgb(69, 122, 147);
+  background-color: #32475B;
   width: 100%;
 
 padding-top: 15px;
@@ -25,7 +25,7 @@ margin: 0;
 
 .PriorityButton {
 
-  background-color: rgb(69, 122, 147);
+  background-color:#32475B;
   border: none;
   padding-bottom: 10px;
   font-weight: bold;
@@ -48,7 +48,7 @@ margin: 0;
 }
 
 .Logout{
-  background-color: rgb(69, 122, 147);
+  background-color: #32475B;
   border: 1.5px solid #fff;
   margin-left: auto;
   
@@ -60,7 +60,8 @@ margin: 0;
 .Logout:hover {
   background-color: #fff;
   color: rgba(131, 175, 35);
-  transform: scale(1.05);
+  transform: scale(1.1);
+  border:none;
 }
 
 .nav-link {
