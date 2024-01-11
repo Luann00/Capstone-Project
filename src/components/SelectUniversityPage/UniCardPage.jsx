@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Input } from 'react-bootstrap';
 import UniCard from "../../components/UniCard/UniCard";
-import NavBarStudent from '../NavigationBar/NavBarStudent';
 import './UniCardPage.css';
-import PrioritySelection from '../Priority Page/PriorityPage';
 
 const UniCardPage = () => {
   const [processIsActive, setProcessIsActive] = useState(false);

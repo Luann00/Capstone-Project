@@ -137,7 +137,7 @@ const UniCard = ({ changePreference }) => {
             <Items dropPriority={dropPriority} />
           </Offcanvas.Body>
           
-          <Button variant="primary" onClick={() => { removeAllPriorities(); removeAll(); }}>Delete all</Button>
+          <Button className="deleteAll" onClick={() => { removeAllPriorities(); removeAll(); }}>Delete all</Button>
         </Offcanvas>
 
       </div>

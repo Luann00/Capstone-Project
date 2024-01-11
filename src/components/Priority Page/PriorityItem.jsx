@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Stack } from "react-bootstrap";
 import { usePrioritySelection } from "../contexts/PrioritySelectionContext";
-import {DropPriorityContext} from '../UniCard/UniCard';
 import "./PriorityItem.css";
 
 
@@ -23,12 +22,12 @@ const Items = ({dropPriority}) =>  {
         const numB = parseInt(b.value.priority.priority.match(/\d+/)[0]);
         return numA - numB;
       }).map((priority, index) => (
-        <Stack direction="horizontal" gap={2} className="Item" key={index}>
-          <div className="me-auto">
-            <div>
+        <Stack direction="horizontal" gap={3} className="Item" key={index}>
+          <div className="Item-content">
+            
               <h3> {priority.value.priority.priority}</h3>
-              <p>Name: {priority.value.universityData.name}</p>
-            </div>
+              <p>{priority.value.universityData.name}</p>
+            
           </div>
           <Button variant="outline-danger" size="sm" onClick={() => { removePriority(priority.id); handleRemove(priority.id) }}>
             &times;

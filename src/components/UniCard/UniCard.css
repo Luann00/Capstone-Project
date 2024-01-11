@@ -136,6 +136,17 @@
   margin: 20px 0px;
 }
 
+.deleteAll{
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  height: 60px;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+}
+
 @media (max-width: 768px) {
   .universityCard .dropdown {
     align-self: stretch;
