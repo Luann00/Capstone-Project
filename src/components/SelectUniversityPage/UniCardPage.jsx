@@ -65,7 +65,7 @@ const UniCardPage = () => {
         return;
       }
       const endDateTime = new Date(activeProcess.endDate);
-      endDateTime.setHours(4, 25, 0, 999);
+      endDateTime.setHours(23, 59, 59, 999);
 
       // Set the time zone to Europe/Berlin
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -158,7 +158,7 @@ const UniCardPage = () => {
     const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
     // Set hours, minutes, and seconds of endDateTime to 0
-    endDateTime.setHours(4, 25, 0, 999);
+    endDateTime.setHours(23, 59, 59, 999);
 
 
     console.log("end time: " + endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -297,7 +297,7 @@ const UniCardPage = () => {
       } else {
         startDateTime.setHours(0, 0, 0, 0);
 
-        endDateTime.setHours(4, 25, 0, 999);
+        endDateTime.setHours(23, 59, 59, 999);
       }
 
       if (currentDate >= startDateTime && currentDate <= endDateTime) {
