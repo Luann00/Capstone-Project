@@ -1,8 +1,8 @@
 
 .Navbar {
+
   background-color: rgb(69, 122, 147);
   width: 100%;
-position: sticky;
 z-index: 1000;
 padding-top: 15px;
 padding-bottom: 0;
@@ -23,43 +23,51 @@ margin: 0;
 
   background-color: rgb(69, 122, 147);
   border: none;
-  margin: 0 10px;
+  padding-bottom: 10px;
   font-weight: bold;
   cursor: pointer;
+  font-size: 1.25rem;
   
 
 }
 
 
-.PriorityButton:active {
-  background-color: #fff;
-  color: rgb(69, 122, 147);
+.PriorityButton.active {
+  background-color: #fff !important;
+  color: rgb(69, 122, 147) !important;
 }
 
-.ml-auto{
+.Logout{
   background-color: rgb(69, 122, 147);
-  border: 1px solid #fff;
-  margin: 0 10px;
+  border: 1.5px solid #fff;
+  margin-left: auto;
   font-weight: bold;
   cursor: pointer;
+  font-size: 1.25rem;
 }
 
-.ml-auto:hover {
+.Logout:hover {
   background-color: #fff;
-  color: rgb(69, 122, 147);
+  color: rgba(131, 175, 35);
+  transform: scale(1.05);
 }
 
 .nav-link {
   font-weight: bold;
   color: #fff;
   margin: 0 5px;
+  font-size: 1.25rem;
   
 }
 .nav-link:hover {
   color: rgba(131, 175, 35);
 }
+.nav-link.active {
+  color: rgba(131, 175, 35) !important;
+}
 .link-container:hover {
   background-color: rgba(27, 24, 115, 0.1);
+  border:none;
   
 }
 

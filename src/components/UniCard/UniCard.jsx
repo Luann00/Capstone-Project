@@ -10,23 +10,17 @@ import { UniversityCard } from './UniversityCard';
 
 
 
-
-
-
+//The University Card component is the main component of the application. It is responsible for fetching the data from the server and displaying it. It also contains the logic for filtering and searching the data, the logic for the priority selection and is also responsible for displaying the priority panel.
 const UniCard = ({ changePreference }) => {
   const [universities, setUniversities] = useState([]);
-
   const [showMinGPA, setShowMinGPA] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [originalUniversities, setOriginalUniversities] = useState([]);
   const cardRefs = useRef([]);
-  const [priorityState, setPriorityState] = useState({
-    '1st Priority': "",
-    '2nd Priority': "",
-    '3rd Priority': "",
-  });
-  const { addPriority, removePriority,closePanel } = usePrioritySelection();
+  
+  
+  const { removeAllPriorities, priorities,isOpen, addPriority, closePanel } = usePrioritySelection();
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
@@ -37,9 +31,7 @@ const UniCard = ({ changePreference }) => {
     }
   };
 
-
-
-
+//using the ref to get the priority of the university
   const getPriority = (uniId) => {
     if (cardRefs.current[uniId]) {
       return cardRefs.current[uniId].getPriority();
@@ -119,7 +111,7 @@ const UniCard = ({ changePreference }) => {
 
 
   
-  const { removeAllPriorities, priorities,isOpen } = usePrioritySelection();
+  
   const removeAll = () => {
     priorities.forEach(priority => dropPriority(priority.id));
   };
@@ -184,8 +176,6 @@ const UniCard = ({ changePreference }) => {
             <UniversityCard
               key={university.uniId}
               university={university}
-              priorityState={priorityState}
-              setPriorityState={setPriorityState}
               changePreference={changePreference}
 
               ref={(el) => {

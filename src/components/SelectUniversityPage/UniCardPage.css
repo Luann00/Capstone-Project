@@ -85,7 +85,7 @@
 }
 
 .countdown .value {
-	font-size: 3.5 rem;
+	
 	font-weight: 700;
 	background-color: rgb(69, 122, 147);
 	color: white;
@@ -97,6 +97,10 @@
 	height: 30px;
 	position: relative;
 	box-shadow: -2px 0px 5px 1px #232423ad;
+}
+.countdown .value span {
+	font-size: 50px;
+	margin-top: -5px;
 }
 
 @media screen and (min-width: 550px) {

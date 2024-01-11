@@ -29,10 +29,10 @@ const NavbarStudent = ({ onLogout }) => {
                 {acceptedPolicy === 'Yes' && (
                   <>
                     <LinkContainer className='link-container' to="/">
-                      <Nav.Link className="nav-link">Home</Nav.Link>
+                      <Nav.Link className="nav-link" >Home</Nav.Link>
                     </LinkContainer>
                     <LinkContainer className='link-container' to="/UniCardPage">
-                      <Nav.Link  className="nav-link">Universities</Nav.Link>
+                      <Nav.Link  className="nav-link" >Universities</Nav.Link>
                     </LinkContainer>
                   </>
                 )}
@@ -50,7 +50,7 @@ const NavbarStudent = ({ onLogout }) => {
               </Nav>
               
               
-              <Button  onClick={onLogout} className="ml-auto"> Log out</Button>
+              <Button  onClick={onLogout} className="Logout"> Log out</Button>
             </Navbar.Collapse>
           </Container>
         </Navbar>
