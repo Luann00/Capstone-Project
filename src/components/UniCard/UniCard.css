@@ -2,21 +2,26 @@
 .universityCard {
   width: 30rem;
   margin: 10px;
-  border: 1px solid #ccc;
+  
   border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-  /* Add a smooth transition effect for transform property */
-  z-index: 1;
-}
+  
+    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
+    /* Increase the box shadow to make it more prominent */
+    transition: transform 0.3s ease-in-out;
+    /* Add a smooth transition effect for transform property */
+    z-index: 1;
+  }
+  
 
 .universityCard:hover {
   transform: scale(1.05);
   /* /* Enlarge the card by 5%  */
+  
 } 
 
 .universityCard:has(:hover, :focus) {
-  background-color: rgba(131, 175, 35, 0.1);
+  background-color: rgba(69, 122, 147);
+  transition: background-color 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
@@ -39,22 +44,41 @@
   /* Enlarge the card title by 5% */
   transition: transform 0.3s ease-in-out;
   /* Add a smooth transition effect */
+  
+}
+.universityCard:hover .card-title a {
+  color: #fff; /* Replace with the color you want */
 }
 
 .universityCard .card-title a {
   text-decoration: none;
   color: rgba(69, 122, 147);
+  transition: color 0.3s ease-in-out;
+  font-size: 1.5rem;
 }
+
 
 .universityCard .card-text {
   text-align: center;
+  font-size: 1.1rem;
   color: #555;
+}
+.universityCard:hover .card-text {
+  
+  color: #ffffffe0;
 }
 
 .universityCard .list-group-item {
   border: none;
+  font-size: 1.2rem;
+  color:rgb(58, 104, 125);
 
 }
+
+.universityCard .list-group-item span {
+  font-size: 1.25rem;
+}
+
 
 .universityCard .list-group {
   margin-bottom: 30px;
@@ -62,8 +86,10 @@
 }
 
 .universityCard .list-group .list-group-item:hover {	
-  background-color: rgba(131, 175, 35, 0.1);
+  background-color: rgba(56, 99, 118, 0.5);
+  color:#fff;
 }
+
 
 
 /* Styling for the dropdown */
@@ -160,4 +186,14 @@
   .priorityPanel{
     max-width: 50%;
   }
+}
+
+.filter-button #dropdown-region{
+  background-color: rgba(131, 175, 35);
+  border:none;
+  font-size: 1.25rem;
+}
+
+.filter-button #dropdown-region:hover{
+  background-color: rgb(96, 129, 27);
 }

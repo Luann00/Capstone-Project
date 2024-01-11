@@ -144,7 +144,7 @@ const UniCard = ({ changePreference }) => {
 
       <div className='card-container'>
         <div className="filter-dropdown">
-          <Dropdown>
+          <Dropdown className ="filter-button">
             <Dropdown.Toggle id="dropdown-region">
               {selectedRegion ? `Filtering by: ${selectedRegion}` : 'Filter by region'}
             </Dropdown.Toggle>
