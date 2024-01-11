@@ -308,6 +308,9 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
     updatePriorities();
     removePriority(university.uniId);
 
+    changePreference();
+
+
     if (ref.current) {
       ref.current.dropPriority();
     }
