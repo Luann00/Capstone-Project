@@ -85,9 +85,9 @@ function App() {
       {isLoggedIn ? (
         <>
           {isAdmin ? (
-            <NavbarAdmin className="navbar sticky-top" onLogout={handleLogout} />
+            <NavbarAdmin  onLogout={handleLogout} />
           ) : (
-            <NavBarStudent className="navbar sticky-top" onLogout={handleLogout} />
+            <NavBarStudent onLogout={handleLogout} />
           )}
           <Routes>
             {isAdmin ? (
