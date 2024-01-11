@@ -17,12 +17,17 @@ const LoginForm = ({ onLogin }) => {
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
 
+  const [whitelistStudents, setWhitelistStudents] = useState([]);
+  const [whitelistAdmins, setWhitelistAdmins] = useState([]);
+
+
+
   useEffect(() => {
     // Fetch students' data once when the component mounts
     const fetchStudents = async () => {
       try {
-        const studentsResponse = await axios.get('http://localhost:8081/student');
-        setStudents(studentsResponse.data);
+        const studentItems = await axios.get('http://localhost:8081/student');
+        setStudents(studentItems.data);
       } catch (error) {
         console.error('Error fetching students:', error);
       }
@@ -31,15 +36,39 @@ const LoginForm = ({ onLogin }) => {
     // Fetch admins' data once when the component mounts
     const fetchAdmins = async () => {
       try {
-        const adminsResponse = await axios.get('http://localhost:8081/admin');
-        setAdmins(adminsResponse.data);
+        const adminItems = await axios.get('http://localhost:8081/admin');
+        setAdmins(adminItems.data);
       } catch (error) {
         console.error('Error fetching admins:', error);
       }
     };
 
+
+    const fetchWhitelistStudents = async () => {
+      try {
+        const whitelistStudentItems = await axios.get('http://localhost:8081/whitelistStudent');
+        setWhitelistStudents(whitelistStudentItems.data);
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
+
+
+    const fetchWhitelistAdmins = async () => {
+      try {
+        const whitelistAdminItems = await axios.get('http://localhost:8081/whitelistAdmin');
+        setWhitelistAdmins(whitelistAdminItems.data);
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
+
     fetchStudents();
     fetchAdmins();
+
+    fetchWhitelistStudents();
+    fetchWhitelistAdmins();
+
   }, []);
 
   const handleAnmelden = () => {
@@ -52,22 +81,29 @@ const LoginForm = ({ onLogin }) => {
       students.forEach(student => {
         if (foundStudent) return;
         if (student.matrikelnummer.toString() === userName.toString()) {
-          foundStudent = student;
+          whitelistStudents.forEach(whitelistStudent => {
+            if (whitelistStudent.matrikelnummer.toString() === userName.toString()) {
+              foundStudent = student;
+            }
+          })
         }
       });
 
-      // Find the admin with the provided uniKim
+      // Find the admin with the provided uniKim both in admin table and whitelist
       admins.forEach(admin => {
         if (foundAdmin) return;
         if (admin.uniKim.toString() === userName.toString()) {
-          foundAdmin = admin;
+          whitelistAdmins.forEach(whitelistAdmin => {
+            if (whitelistAdmin.pkz.toString() === userName.toString()) {
+              foundAdmin = admin;
+            }
+          })
         }
       });
 
       if (foundStudent) {
-        // Check if the provided password matches the fetched student's password
         if ("password" === password) {
-
+          //if password is right, set the student data on local computer to work with them after login
           setError('');
           localStorage.setItem('currentUser', JSON.stringify(foundStudent)); // Speichere das gesamte Studentenobjekt
           localStorage.setItem('userType', 'student');
@@ -80,11 +116,11 @@ const LoginForm = ({ onLogin }) => {
       }
 
       if (foundAdmin) {
-
         if ("password" === password) {
+          //if password is right, set the student data on local computer to work with them after login
           localStorage.setItem('currentUser', JSON.stringify(foundAdmin));
           localStorage.setItem('userType', 'admin');
-          onLogin('admin',null);
+          onLogin('admin', null);
           setError('');
           return;
         } else {
