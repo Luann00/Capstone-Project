@@ -18,7 +18,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
   const [currentPriority, setCurrentPriority] = useState(null);
   const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
   const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
-  
+
 
   // Fetching data from localStorage
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -26,7 +26,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
   const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
   const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
   const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
-  const{addPriority,removePriority}= usePrioritySelection();
+  const { addPriority, removePriority } = usePrioritySelection();
 
 
 
@@ -159,7 +159,6 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
         setFirstPriority(university.uniId)
         setCurrentPriority('1st Priority')
-        updatePriorities();
       } else {
         alert("This preference is aleady set for another university!");
         setDropdownDisabled(false);
@@ -190,7 +189,6 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
         setSecondPriority(storedUser.secondPref)
         setCurrentPriority('2nd Priority')
-        updatePriorities();
       } else {
         alert("This preference is aleady set for another university!");
         setDropdownDisabled(false);
@@ -199,8 +197,6 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
 
     } else if (priority === '3rd Priority') {
-
-
       // Set thirdPriority in localStorage
       const storedUser = JSON.parse(localStorage.getItem('currentUser'));
       if (storedUser && storedUser.thirdPref === 0) {
@@ -224,7 +220,6 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
 
         setThirdPriority(university.uniId)
         setCurrentPriority('3rd Priority')
-        updatePriorities();
 
       } else {
         alert("This preference is aleady set for another university!");
@@ -253,9 +248,9 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
     }
     updatePriorities();
     changePreference();
-    
 
-    
+
+
     if (ref.current) {
       ref.current.getPriority();
     }
@@ -264,7 +259,7 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
     //disable dropdown menu after setting preference to prevent from changing preference every second
     setTimeout(() => {
       setDropdownDisabled(false);
-    }, 1500);
+    }, 5000);
 
 
 
@@ -310,9 +305,12 @@ const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
     }
     setCurrentPriority(null);
 
-    await updatePriorities();
+    updatePriorities();
     removePriority(university.uniId);
-    
+
+    changePreference();
+
+
     if (ref.current) {
       ref.current.dropPriority();
     }
@@ -468,45 +466,45 @@ const UniCard = ({ changePreference }) => {
     '2nd Priority': "",
     '3rd Priority': "",
   });
-  const{addPriority,removePriority}= usePrioritySelection();
+  const { addPriority, removePriority } = usePrioritySelection();
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
 
     if (priorityToDrop !== null) {
       cardRefs.current[uniId]?.dropPriority();
-     
+
     }
   };
-  
-  
- 
-  const getPriority = (uniId) => { 
+
+
+
+  const getPriority = (uniId) => {
     if (cardRefs.current[uniId]) {
-       return cardRefs.current[uniId].getPriority(); 
-      } 
-      return null; 
-    };
+      return cardRefs.current[uniId].getPriority();
+    }
+    return null;
+  };
 
-      useEffect(() => {
-        universities.forEach((university) => {
-          const priority = getPriority(university.uniId);
-          if (priority !== null) {
-            
-            addPriority(university.uniId, {
-              universityData: university,
-              priority: { name: university.name, priority },
-            });
-          }
+  useEffect(() => {
+    universities.forEach((university) => {
+      const priority = getPriority(university.uniId);
+      if (priority !== null) {
+
+        addPriority(university.uniId, {
+          universityData: university,
+          priority: { name: university.name, priority },
         });
-      }, [universities]);
+      }
+    });
+  }, [universities]);
 
 
 
 
-    useEffect(() => {
-      setOriginalUniversities(universities);
-    }, [universities]);
+  useEffect(() => {
+    setOriginalUniversities(universities);
+  }, [universities]);
 
 
   const handleClick = () => {
@@ -631,6 +629,7 @@ const UniCard = ({ changePreference }) => {
               priorityState={priorityState}
               setPriorityState={setPriorityState}
               changePreference={changePreference}
+
               ref={(el) => {
                 if (el) cardRefs.current[university.uniId] = el;
               }}
