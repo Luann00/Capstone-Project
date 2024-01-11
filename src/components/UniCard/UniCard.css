@@ -109,6 +109,7 @@
   background-color: rgba(131, 175, 35);
   color: #fff;
   border: none;
+  font-size: 1.25rem;
 }
 
 .universityCard .dropdown-toggle:hover {
@@ -125,7 +126,21 @@
   max-height: 0;
   overflow: hidden;
   z-index: 1001;
+
+
 }
+
+.universityCard .dropdown-menu .dropdown-item {
+  font-size: 1.1rem;
+  color: #555;
+  transition: background-color 0.3s ease-in-out;
+  /* Add a smooth transition effect for background-color property */
+}
+.universityCard .dropdown-menu .dropdown-item:hover {
+  background-color: rgba(131, 175, 35,0.3);
+  transform: scale(1.05);
+}
+
 
 .universityCard .dropdown-menu.show {
   max-height: 500px;
@@ -192,8 +207,50 @@
   background-color: rgba(131, 175, 35);
   border:none;
   font-size: 1.25rem;
+  z-index: 1;
 }
 
 .filter-button #dropdown-region:hover{
   background-color: rgb(96, 129, 27);
+}
+
+
+@media (max-width: 768px) {
+  .universityCard {
+    width: 100%;
+    margin: 20px;
+  }
+
+  .universityCard .dropdown {
+    align-self: stretch;
+    margin-top: 10px;
+    margin-right: 0;
+  }
+
+  .priorityPanel{
+    max-width: 100%;
+  }
+
+  .card-container {
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    row-gap: 70px;
+    column-gap: 70px;
+  }
+
+  .universityCard .card-title {
+    font-size: 1.2rem;
+  }
+
+  .universityCard .card-text {
+    font-size: 0.9rem;
+  }
+
+  .universityCard .list-group-item {
+    font-size: 1rem;
+  }
+
+  .universityCard .list-group-item span {
+    font-size: 1rem;
+  }
 }

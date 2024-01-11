@@ -1,9 +1,13 @@
-
+.navbar-container{
+  position: sticky !important;
+  top:0;
+  z-index: 1000;
+}
 .Navbar {
 
   background-color: rgb(69, 122, 147);
   width: 100%;
-z-index: 1000;
+
 padding-top: 15px;
 padding-bottom: 0;
 margin: 0;
@@ -27,10 +31,16 @@ margin: 0;
   font-weight: bold;
   cursor: pointer;
   font-size: 1.25rem;
-  
+  text-align: left;
+  margin-left: 5px;
 
 }
 
+.PriorityButton:hover {
+  background-color: #fff;
+  color: rgba(131, 175, 35);
+  transform: scale(1.05);
+}
 
 .PriorityButton.active {
   background-color: #fff !important;
@@ -41,6 +51,7 @@ margin: 0;
   background-color: rgb(69, 122, 147);
   border: 1.5px solid #fff;
   margin-left: auto;
+  
   font-weight: bold;
   cursor: pointer;
   font-size: 1.25rem;
@@ -57,6 +68,7 @@ margin: 0;
   color: #fff;
   margin: 0 5px;
   font-size: 1.25rem;
+  text-align: left;
   
 }
 .nav-link:hover {
@@ -65,6 +77,8 @@ margin: 0;
 .nav-link.active {
   color: rgba(131, 175, 35) !important;
 }
+
+
 .link-container:hover {
   background-color: rgba(27, 24, 115, 0.1);
   border:none;
