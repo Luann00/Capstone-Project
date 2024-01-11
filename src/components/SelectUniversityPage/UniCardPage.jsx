@@ -19,11 +19,61 @@ const UniCardPage = () => {
       //if deadline was extended, set the new deadline based on the minutes specified in process table
       if (activeProcess.extended) {
 
+        const endDateTime = new Date(activeProcess.endDate);
+
+
+        // calculate the new deadline based on the extension minutes
+        const extensionMinutes = activeProcess.deadlineExtensionMinutes;
+
+        // calculate new hours, minutes, and seconds
+        const newHours = Math.floor(extensionMinutes / 60);
+        const newMinutes = extensionMinutes % 60;
+
+        // extend the deadline
+        endDateTime.setHours(newHours, newMinutes, 0, 999);
+
+        const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+
+        const timeRemaining = endDateTime.getTime() - new Date().getTime();
+        const hours = Math.floor(timeRemaining / 3600000);
+        const minutes = Math.floor((timeRemaining % 3600000) / 60000);
+        const seconds = Math.floor((timeRemaining % 60000) / 1000);
+
+
         setProcessIsActive(true);
 
+        // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
+        const extendedDeadline = new Date(endDateTime.getTime());
+
+
+        const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
+
+        const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
+        const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+        const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
+
+
+        // Set extended deadline based on the condition
+
+
+        setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
         setExtended(activeProcess.extended)
         return;
       }
+      const endDateTime = new Date(activeProcess.endDate);
+      endDateTime.setHours(23, 59, 59, 999);
+
+      // Set the time zone to Europe/Berlin
+      const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+
+      const timeRemaining = endDateTime.getTime() - new Date().getTime();
+      const days = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
+      const hours = Math.floor((timeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+      const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+      const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
+
+      setRemainingTime({ days, hours, minutes });
 
       setProcessIsActive(true);
       setExtended(activeProcess.extended)
@@ -31,6 +81,9 @@ const UniCardPage = () => {
       setProcessIsActive(false);
     }
   };
+
+
+
 
 
 
@@ -116,7 +169,6 @@ const UniCardPage = () => {
     const hours = Math.floor(Math.floor(timeRemaining / 3600000));
     const minutes = Math.floor((timeRemaining % 3600000) / 60000);
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
-    console.log(hours)
 
 
     if (hours === 0 && minutes < 15) {
