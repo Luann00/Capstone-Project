@@ -26,7 +26,7 @@ const UniCard = ({ changePreference }) => {
     '2nd Priority': "",
     '3rd Priority': "",
   });
-  const { addPriority, removePriority,openPanel,closePanel } = usePrioritySelection();
+  const { addPriority, removePriority } = usePrioritySelection();
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
@@ -36,6 +36,10 @@ const UniCard = ({ changePreference }) => {
 
     }
   };
+
+
+
+  const getPriority = (uniId) => {
 
 
 
@@ -186,6 +190,7 @@ const UniCard = ({ changePreference }) => {
               priorityState={priorityState}
               setPriorityState={setPriorityState}
               changePreference={changePreference}
+
               ref={(el) => {
                 if (el) cardRefs.current[university.uniId] = el;
               }}

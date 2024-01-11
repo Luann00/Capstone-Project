@@ -11,9 +11,9 @@ const HomePageAdmin = () => {
 
     const [deadline, setDeadline] = useState({});
     const [processes, setProcesses] = useState([]);
-    const [extendedDeadline, setExtendedDeadline] = useState({ hours: 0, minutes: 0, seconds: 0 })
+    const [extendedDeadline, setExtendedDeadline] = useState({ days: 0, hours: 0, minutes: 0 })
     const [extended, setExtended] = useState(false);
-    const [remainingTime, setRemainingTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+    const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0 });
     const [currentProcess, setCurrentProcess] = useState([])
 
 
@@ -146,48 +146,46 @@ const HomePageAdmin = () => {
             if (process.extended) {
                 startDateTime.setHours(0, 0, 0, 0);
 
-                endDateTime.setHours(23, 59, 59, 999);
+                endDateTime.setHours(23, 59, 59, 0);
 
                 const extensionMinutes = process.deadlineExtensionMinutes;
 
                 const newHours = Math.floor(extensionMinutes / 60);
                 const newMinutes = extensionMinutes % 60;
-                endDateTime.setHours(newHours, newMinutes, 59, 999);
+                endDateTime.setHours(newHours, newMinutes, 0, 999);
 
 
                 // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
 
                 const extendedDeadline = new Date(endDateTime.getTime());
-
-
                 const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
-
-                const extendedHours = Math.floor(newTimeRemaining / 3600000);
-                const extendedMinutes = Math.floor((newTimeRemaining % 3600000) / 60000);
-                const extendedSeconds = Math.floor((newTimeRemaining % 60000) / 1000);
+                const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
+                const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+                const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
 
 
 
                 // Set extended deadline based on the new time
-                setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+                setExtendedDeadline({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
 
-                setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+                setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
 
 
             } else {
                 startDateTime.setHours(0, 0, 0, 0);
 
-                endDateTime.setHours(23, 59, 59, 999);
+                endDateTime.setHours(23, 59, 59, 0);
 
                 // Set the time zone to Europe/Berlin
                 const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
                 const timeRemaining = endDateTime.getTime() - new Date().getTime();
-                const hours = Math.floor(timeRemaining / 3600000);
-                const minutes = Math.floor((timeRemaining % 3600000) / 60000);
-                const seconds = Math.floor((timeRemaining % 60000) / 1000);
-
-                setRemainingTime({ hours, minutes, seconds });
+                const days = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
+                const hours = Math.floor((timeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+                const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
+                setRemainingTime({ days, hours, minutes });
 
             }
 
@@ -210,9 +208,9 @@ const HomePageAdmin = () => {
                 <div>
                     {currentProcess ? (
                         currentProcess.extended ? (
-                            <h2 style={{ marginLeft: '20px' }}> Deadline was extended! New Current selection process deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`} </h2>
+                            <h2 style={{ marginLeft: '20px' }}> Deadline was extended! New Current selection process deadline: {`${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`} </h2>
                         ) : (
-                            <h2 style={{ marginLeft: '20px' }}> Current selection process deadline: {`${remainingTime.hours} hours, ${remainingTime.minutes} minutes, ${remainingTime.seconds} seconds`} </h2>
+                            <h2 style={{ marginLeft: '20px' }}> Current selection process deadline: {`${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`} </h2>
                         )
                     ) : (
                         <h2>No process is open!</h2>

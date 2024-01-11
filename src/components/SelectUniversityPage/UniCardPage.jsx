@@ -6,9 +6,8 @@ const UniCardPage = () => {
   const [processIsActive, setProcessIsActive] = useState(false);
   const [processes, setProcesses] = useState([]);
   const [currentProcess, setCurrentProcess] = useState([])
-  const [remainingTime, setRemainingTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [extended, setExtended] = useState(false);
-  const [extendedDeadline, setExtendedDeadline] = useState({ hours: 0, minutes: 0, seconds: 0 })
 
 
   const updateProcessData = (data) => {
@@ -31,7 +30,7 @@ const UniCardPage = () => {
         const newMinutes = extensionMinutes % 60;
 
         // extend the deadline
-        endDateTime.setHours(newHours, newMinutes, 59, 999);
+        endDateTime.setHours(newHours, newMinutes, 0, 999);
 
         const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
@@ -49,15 +48,16 @@ const UniCardPage = () => {
 
         const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
 
-        const extendedHours = Math.floor(newTimeRemaining / 3600000);
-        const extendedMinutes = Math.floor((newTimeRemaining % 3600000) / 60000);
-        const extendedSeconds = Math.floor((newTimeRemaining % 60000) / 1000);
+        const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
+        const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+        const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
+
 
         // Set extended deadline based on the condition
-        setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
 
 
-        setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+        setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
         setExtended(activeProcess.extended)
         return;
       }
@@ -68,11 +68,12 @@ const UniCardPage = () => {
       const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
       const timeRemaining = endDateTime.getTime() - new Date().getTime();
-      const hours = Math.floor(timeRemaining / 3600000);
-      const minutes = Math.floor((timeRemaining % 3600000) / 60000);
-      const seconds = Math.floor((timeRemaining % 60000) / 1000);
+      const days = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
+      const hours = Math.floor((timeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+      const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+      const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
 
-      setRemainingTime({ hours, minutes, seconds });
+      setRemainingTime({ days, hours, minutes });
 
       setProcessIsActive(true);
       setExtended(activeProcess.extended)
@@ -154,7 +155,7 @@ const UniCardPage = () => {
     const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
     // Set hours, minutes, and seconds of endDateTime to 0
-    endDateTime.setHours(23, 59, 99, 999);
+    endDateTime.setHours(23, 59, 59, 999);
 
 
     console.log("end time: " + endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
@@ -164,9 +165,6 @@ const UniCardPage = () => {
     const hours = Math.floor(Math.floor(timeRemaining / 3600000));
     const minutes = Math.floor((timeRemaining % 3600000) / 60000);
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
-    console.log("hours: " + hours);
-    console.log("minutes: " + minutes);
-    console.log("seconds: " + seconds);
 
 
     if (hours === 0 && minutes < 15) {
@@ -179,7 +177,7 @@ const UniCardPage = () => {
       // calculate new hours, minutes, and seconds
       const newHours = Math.floor(extensionMinutes / 60);
       const newMinutes = extensionMinutes % 60;
-      endDateTime.setHours(newHours, newMinutes, 59, 999);
+      endDateTime.setHours(newHours, newMinutes, 0, 999);
 
 
       // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
@@ -194,7 +192,6 @@ const UniCardPage = () => {
 
 
       // Set extended deadline based on the condition
-      setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
 
 
       //set extended in database to true
@@ -237,7 +234,6 @@ const UniCardPage = () => {
         const data = await response.json();
         setProcesses(data);
         updateProcessData(data);
-        if (extendedDeadline === null) { }
 
       } catch (error) {
         console.log('Error fetching data:' + error);
@@ -278,7 +274,7 @@ const UniCardPage = () => {
         const newMinutes = extensionMinutes % 60;
 
         // extend the deadline
-        endDateTime.setHours(newHours, newMinutes, 59, 999);
+        endDateTime.setHours(newHours, newMinutes, 0, 999);
 
         // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
         const extendedDeadline = new Date(endDateTime.getTime());
@@ -287,14 +283,13 @@ const UniCardPage = () => {
 
         const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
 
-        const extendedHours = Math.floor(newTimeRemaining / 3600000);
-        const extendedMinutes = Math.floor((newTimeRemaining % 3600000) / 60000);
-        const extendedSeconds = Math.floor((newTimeRemaining % 60000) / 1000);
+        const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
+        const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+        const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
 
         // Set extended deadline based on the new time
-        setExtendedDeadline({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
-
-        setRemainingTime({ hours: extendedHours, minutes: extendedMinutes, seconds: extendedSeconds });
+        setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
 
       } else {
         startDateTime.setHours(0, 0, 0, 0);
