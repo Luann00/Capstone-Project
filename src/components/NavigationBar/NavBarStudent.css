@@ -4,7 +4,8 @@
   width: 100%;
 position: sticky;
 z-index: 1000;
-padding: 0;
+padding-top: 15px;
+padding-bottom: 0;
 margin: 0;
 
   
@@ -24,8 +25,11 @@ margin: 0;
   border: none;
   margin: 0 10px;
   font-weight: bold;
+  cursor: pointer;
+  
 
 }
+
 
 .PriorityButton:active {
   background-color: #fff;
@@ -48,15 +52,15 @@ margin: 0;
 .nav-link {
   font-weight: bold;
   color: #fff;
-  margin: 0 10px;
+  margin: 0 5px;
   
 }
-
-.nav-link :hover {
-
-  color: #fff;
-  background-color: rgb(69, 122, 147);
-  padding: 5px;
+.nav-link:hover {
+  color: rgba(131, 175, 35);
+}
+.link-container:hover {
+  background-color: rgba(27, 24, 115, 0.1);
+  
 }
 
 

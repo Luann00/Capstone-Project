@@ -131,7 +131,7 @@ const UniCard = ({ changePreference }) => {
 
         <Offcanvas show={isOpen} onHide={closePanel}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Your Current Priorities</Offcanvas.Title>
+            <Offcanvas.Title className='priorityPage-title'> <h3>Your Current Preferences:</h3></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Items dropPriority={dropPriority} />

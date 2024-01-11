@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Stack } from "react-bootstrap";
 import { usePrioritySelection } from "../contexts/PrioritySelectionContext";
 import {DropPriorityContext} from '../UniCard/UniCard';
+import "./PriorityItem.css";
 
 
 const Items = ({dropPriority}) =>  {
@@ -9,7 +10,7 @@ const Items = ({dropPriority}) =>  {
   
   
   if (!priorities || priorities.length === 0) {
-    return <div>No priorities available</div>;
+    return <div>You have not chosen any preferences.</div>;
   }
   const handleRemove = (id) => {
     dropPriority(id);
@@ -22,7 +23,7 @@ const Items = ({dropPriority}) =>  {
         const numB = parseInt(b.value.priority.priority.match(/\d+/)[0]);
         return numA - numB;
       }).map((priority, index) => (
-        <Stack direction="horizontal" gap={2} className="d-flex align-items-center" key={index}>
+        <Stack direction="horizontal" gap={2} className="Item" key={index}>
           <div className="me-auto">
             <div>
               <h3> {priority.value.priority.priority}</h3>

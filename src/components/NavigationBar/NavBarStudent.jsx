@@ -19,24 +19,24 @@ const NavbarStudent = ({ onLogout }) => {
 
   return (
   
-      <div className="Navbar">
-        <Navbar >
+      
+        <Navbar className='Navbar' expand="lg" >
           <Container>
             
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto" variant="pills" >
+              <Nav className="me-auto" variant="tabs" >
                 {acceptedPolicy === 'Yes' && (
                   <>
-                    <LinkContainer to="/">
-                      <Nav.Link>Home</Nav.Link>
+                    <LinkContainer className='link-container' to="/">
+                      <Nav.Link className="nav-link">Home</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/UniCardPage">
-                      <Nav.Link>Universities</Nav.Link>
+                    <LinkContainer className='link-container' to="/UniCardPage">
+                      <Nav.Link  className="nav-link">Universities</Nav.Link>
                     </LinkContainer>
                   </>
                 )}
-                <Button className='PriorityButton' onClick={openPanel} >Your Priority</Button>
+                <Button className='PriorityButton' onClick={openPanel} >Your preferences</Button>
                 <Dropdown >
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   Language
@@ -54,7 +54,7 @@ const NavbarStudent = ({ onLogout }) => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </div>
+      
     );
   }
 

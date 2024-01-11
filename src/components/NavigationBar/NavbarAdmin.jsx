@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom';
 const NavbarAdmin = ({ onLogout }) => {
   return (
     <div className="Navbar">
-      <>
+      
         <Navbar bg="dark" variant="dark" expand="lg">
           <Container>
             <LinkContainer to="/Home">
-              <Navbar.Brand></Navbar.Brand>
+          
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -31,7 +31,7 @@ const NavbarAdmin = ({ onLogout }) => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </>
+      
     </div>
   );
 }

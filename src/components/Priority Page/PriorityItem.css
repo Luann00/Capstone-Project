@@ -1,0 +1,10 @@
+.Item{
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+}
+.Item:hover{
+    transform: scale(1.05);
+    background-color: rgb(69, 122, 147,0.2);
+}

@@ -361,7 +361,7 @@ const UniCardPage = () => {
 
           
           <h1>List of partner universities</h1>
-          <span>Pick your top three preferred universities from the list below!</span>
+          <p>Pick your top three preferred universities from the list below!</p>
         </div>
       ) : (
         <div className='empty-page'>

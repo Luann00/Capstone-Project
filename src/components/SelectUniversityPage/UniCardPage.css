@@ -2,7 +2,7 @@
 .card-page {
   top: 0;
   left: 0;
-  min-height: 120vh;
+ min-height: 150vh;
   width: 100%;
 }
 
@@ -69,9 +69,9 @@
 	margin: auto;
 	gap: 12px;
 }
-.countdown h2 {
-	margin-bottom: 20px;
-	font-size: 50px;
+.countdown h4 {
+	margin: 30px;
+	font-size: 2rem;
 }
 
 .countdown .box {
