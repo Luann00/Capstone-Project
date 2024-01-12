@@ -52,6 +52,7 @@ public class UniversityService {
             existingUniversity.setSlots(updatedUniversity.getSlots());
             existingUniversity.setFirstPref(updatedUniversity.getFirstPref());
             existingUniversity.setTotalPref(updatedUniversity.getTotalPref());
+            existingUniversity.setUniLink(updatedUniversity.getUniLink());
 
             // Save the updated university back to the database
             return universityRepository.save(existingUniversity);

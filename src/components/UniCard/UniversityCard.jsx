@@ -406,7 +406,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         <Card className="universityCard" key={university.uniId} >
             <Card.Body className='card.body'>
 
-                <Card.Title> <a href="#">{university.name} ({university.abbName})</a></Card.Title>
+                <Card.Title> <a href={university.uniLink}>{university.name} ({university.abbName})</a></Card.Title>
                 <Card.Text>
 
                     <span><BsPinMapFill /></span>

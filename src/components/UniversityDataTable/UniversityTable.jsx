@@ -39,7 +39,8 @@ function Home() {
     minGPA: "",
     slots: "",
     firstPref: "",
-    totalPref: ""
+    totalPref: "",
+    uniLink: "",
 
   });
 
@@ -54,7 +55,9 @@ function Home() {
     { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots' },
     { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
     { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences' },
+    { name: 'uniLink', type: 'text', placeholder: 'Enter Link to University website' },
   ];
+
 
 
   const handleShowMinGPAColumn = async () => {
@@ -95,6 +98,7 @@ function Home() {
       slots: "",
       firstPref: "",
       totalPref: "",
+      uniLink: "",
 
     });
   };
@@ -115,6 +119,7 @@ function Home() {
       slots: university.slots,
       firstPref: university.firstPref,
       totalPref: university.totalPref,
+      uniLink: university.uniLink,
 
     });
     handleShow();
@@ -347,7 +352,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Universities
             </Button>
-            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref']} />
+            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref','uniLink']} />
           </div>
         </div>
         <div className="row">
@@ -364,6 +369,7 @@ function Home() {
                   </th>
                   <th>Name</th>
                   <th>Abbreviated Name</th>
+                  
                   <th onClick={() => handleSort("country")}>
                     Country
                     <a href="#" className="sort-icon" data-toggle="tooltip">
@@ -396,6 +402,7 @@ function Home() {
                       {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
                     </a>
                   </th>
+                  <th>Link to University Website</th>
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -412,6 +419,7 @@ function Home() {
                     <td>{row.slots}</td>
                     <td>{row.firstPref}</td>
                     <td>{row.totalPref}</td>
+                    <td>{row.uniLink}</td>
 
                     <td>
                       <a
