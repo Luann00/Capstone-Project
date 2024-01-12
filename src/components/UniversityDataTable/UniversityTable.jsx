@@ -129,11 +129,9 @@ function Home() {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
 
-        if (JSON.stringify(data) !== JSON.stringify(universities)) {
-          console.log("ja")
           setUniversities(data);
           setoriginalUniversities(data);
-        }
+        
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
         setShowMinGPAColumn(initialShowMinGPAColumn);
 
@@ -144,11 +142,7 @@ function Home() {
     };
 
     fetchUniversities();
-
-    //fetch interval every 3 seconds
-    const intervalId = setInterval(fetchUniversities, 1000);
-
-    return () => clearInterval(intervalId);
+    
   }, []);
 
 
