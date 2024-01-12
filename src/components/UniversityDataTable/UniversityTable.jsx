@@ -58,8 +58,6 @@ function Home() {
     { name: 'uniLink', type: 'text', placeholder: 'Enter Link to University website', required: false },
   ];
 
-
-
   const handleShowMinGPAColumn = async () => {
     setShowMinGPAColumn(!showMinGPAColumn);
     try {
@@ -130,9 +128,12 @@ function Home() {
       try {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
-        setUniversities(data);
-        setoriginalUniversities(data);
 
+        if (JSON.stringify(data) !== JSON.stringify(universities)) {
+          console.log("ja")
+          setUniversities(data);
+          setoriginalUniversities(data);
+        }
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
         setShowMinGPAColumn(initialShowMinGPAColumn);
 
