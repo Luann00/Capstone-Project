@@ -338,7 +338,7 @@ function Home() {
                 <span className="icon">🔍</span>
                 <input className="form-control mr-sm-2"
                   type="number" min={1}
-                  placeholder="Search University"
+                  placeholder="Search by ID"
                   aria-label="Search"
                   onChange={handleSearch} />
               </form>
