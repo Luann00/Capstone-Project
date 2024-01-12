@@ -216,10 +216,7 @@ const HomePageAdmin = () => {
                     )
                     }
                 </div>
-                <div className="headerAndButton">
-                    <CSVExportButton data={students} filename="endTable.csv" />
-                </div>
-
+               
                 <div className="table-responsive " >
 
                     <table className="table table-bordered table-striped table-hover table-bordered">
