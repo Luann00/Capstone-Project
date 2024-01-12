@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
 import CSVExportButton from '../CSVExportButton';
 
@@ -39,6 +39,9 @@ function Home() {
     ThirdPref: "",
     AcceptedPolicy: ""
   });
+
+  const studentsRef = useRef(students);
+  studentsRef.current = students;
 
   //The new values for a new student get saved here initially
   const inputFields = [
@@ -119,11 +122,11 @@ function Home() {
         const response = await fetch('http://localhost:8081/student');
         const data = await response.json();
 
-        if (JSON.stringify(data) !== JSON.stringify(originalStudents)) {
+        if (JSON.stringify(data) !== JSON.stringify(studentsRef.current)) {
           setStudents(data);
           setOriginalStudents(data);
         }
-       
+
       } catch (error) {
         console.log('Error fetching data:' + error);
       }
