@@ -41,16 +41,15 @@ export const WhitelistStudent = () => {
 
   ];
 
+  //update the value of inputfield
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedStudent) {
-      // If editing, update the selected student
       setSelectedStudent((prevStudent) => ({
         ...prevStudent,
         [name]: value,
       }));
     } else {
-      // If adding a new student, update the new student
       setNewStudent((prevNewStudent) => ({
         ...prevNewStudent,
         [name]: value,

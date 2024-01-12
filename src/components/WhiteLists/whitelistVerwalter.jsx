@@ -37,7 +37,7 @@ export const WhitelistAdmin = () => {
 
   const inputFields = [
     { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedAdmin ? true : false},
-    { name: 'year', type: 'text', placeholder: 'Enter year', min: '0' },
+    { name: 'year', type: 'number', placeholder: 'Enter year', min: '1' },
 
   ];
 
