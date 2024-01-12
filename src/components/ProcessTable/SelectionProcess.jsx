@@ -40,10 +40,10 @@ function SelectionProcess() {
         {
             name: 'year', type: 'number', placeholder: 'Enter year of the process', min: new Date(newProcess.endDate).getFullYear(), // Set the minimum year to the year of 'endDate'
         },
-        { name: 'numberOfStudents', type: 'number', placeholder: 'Number of students(auto-filled)', value: selectedProcess ? selectedProcess.numberOfUniversities : '' },
+        { name: 'numberOfStudents', type: 'number', placeholder: 'Number of students(auto-filled)', disabled: true },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
         {
-            name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Number of universities(auto-filled)', value: selectedProcess ? selectedProcess.numberOfUniversities : '',
+            name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Number of universities(auto-filled)', disabled: true
         },
         { name: 'deadlineExtensionMinutes', type: 'number', min: '1', max: '1440', placeholder: 'Enter the extension of the deadline' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
@@ -69,14 +69,27 @@ function SelectionProcess() {
     };
 
     // Function to check if the current time is within the interval of a specific process
-    const processIsActive = (startDate, endDate) => {
+    const processIsActive = (process) => {
         const currentDate = new Date();
-        const startDateTime = new Date(startDate);
-        const endDateTime = new Date(endDate);
+        const startDateTime = new Date(process.startDate);
+        const endDateTime = new Date(process.endDate);
 
-        //Set the day to the beginning of the day
-        startDateTime.setHours(0, 0, 0, 0);
-        endDateTime.setHours(23, 59, 59, 999);
+        if (process.extended) {
+            startDateTime.setHours(0, 0, 0, 0);
+            // calculate new hours, minutes, and seconds
+            const newHours = Math.floor(process.deadlineExtensionMinutes / 60);
+            const newMinutes = process.deadlineExtensionMinutes % 60;
+
+            // extend the deadline
+            endDateTime.setHours(newHours, newMinutes, 0, 999);
+        } else {
+            startDateTime.setHours(0, 0, 0, 0);
+            endDateTime.setHours(23, 59, 59, 999);
+
+        }
+
+
+        console.log(endDateTime)
 
 
 
@@ -208,7 +221,6 @@ function SelectionProcess() {
                 setProcesses(updatedProcesses);
                 handleClose();
             } else {
-                console.log("Error adding process. Response status:", response.status);
                 console.log("Response body:", await response.text());
             }
 
@@ -341,7 +353,7 @@ function SelectionProcess() {
                                         <td>{row.numberOfUniversities}</td>
                                         <td>{row.deadlineExtensionMinutes}</td>
                                         <td>{row.daysUntilStudentDataDeletion}</td>
-                                        <td>{processIsActive(row.startDate, row.endDate) ? 'Active 🟢' : 'Inactive🔴'} </td>
+                                        <td>{processIsActive(row) ? 'Active 🟢' : 'Inactive🔴'} </td>
                                         <td>
                                             <a
                                                 href="#"
