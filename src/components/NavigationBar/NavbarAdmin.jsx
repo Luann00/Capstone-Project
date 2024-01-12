@@ -32,6 +32,7 @@ const NavbarAdmin = ({ onLogout }) => {
         </Navbar>
       </>
     </div>
+
   );
 }
 

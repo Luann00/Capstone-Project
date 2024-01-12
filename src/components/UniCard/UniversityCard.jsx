@@ -417,7 +417,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 </Card.Text>
 
                 <ListGroup variant="flush">
-                    <ListGroup.Item> <span><MdChairAlt /></span> Places available: {university.slots}</ListGroup.Item>
+                    <ListGroup.Item> <span><MdChairAlt /></span> Slots available: {university.slots}</ListGroup.Item>
 
 
                     {university.showGPA ? (

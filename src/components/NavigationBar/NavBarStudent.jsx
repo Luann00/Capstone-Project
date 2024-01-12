@@ -19,7 +19,7 @@ const NavbarStudent = ({ onLogout }) => {
 
   return (
   
-      
+      <div className="navbar-container">
         <Navbar className='Navbar' expand="lg" >
           <Container>
             
@@ -37,16 +37,7 @@ const NavbarStudent = ({ onLogout }) => {
                   </>
                 )}
                 <Button className='PriorityButton' onClick={openPanel} >Your preferences</Button>
-                <Dropdown >
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Language
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">English</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Deutsch</Dropdown.Item>
-                 
-                </Dropdown.Menu>
-              </Dropdown>
+                
               </Nav>
               
               
@@ -54,6 +45,7 @@ const NavbarStudent = ({ onLogout }) => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+        </div>
       
     );
   }
