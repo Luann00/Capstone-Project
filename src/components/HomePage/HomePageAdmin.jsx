@@ -23,7 +23,6 @@ const HomePageAdmin = () => {
 
     useEffect(() => {
 
-        //fetch all universities and store them in universities usestate
         const fetchUniversities = async () => {
             try {
                 const response = await fetch('http://localhost:8081/university');
@@ -34,7 +33,6 @@ const HomePageAdmin = () => {
             }
         };
 
-        //fetch all students and store them in students usestate
         const fetchStudents = async () => {
             try {
                 const response = await fetch('http://localhost:8081/student');
@@ -45,7 +43,6 @@ const HomePageAdmin = () => {
             }
         };
 
-        //fetch student preferences and store them in an object
         const fetchStudentPreferences = async () => {
             try {
                 const preferences = await Promise.all(
@@ -86,7 +83,6 @@ const HomePageAdmin = () => {
             pref => preferences[pref] === uniID
         );
 
-        //convert string to integer in order to show the respective preference it in endTable
         let pref = 0;
         if (preferenceOrder === 'thirdPref') {
             pref = 3;
@@ -97,14 +93,11 @@ const HomePageAdmin = () => {
         } else {
             pref = '';
         }
-        // If no setted preference is found, show nothing
         if (preferenceOrder === -1) {
             return <td ></td>;
         }
         return <td >{pref}</td>;
     };
-
-
 
 
 
@@ -133,7 +126,7 @@ const HomePageAdmin = () => {
 
 
 
-
+    //fetch the current process if one is active or return false otherwise
     const getActiveProcess = (data) => {
         const currentDate = new Date();
 
@@ -155,15 +148,12 @@ const HomePageAdmin = () => {
                 endDateTime.setHours(newHours, newMinutes, 0, 999);
 
                 // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
-
                 const extendedDeadline = new Date(endDateTime.getTime());
                 const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
                 const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
                 const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
                 const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
                 const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
-
-
 
                 // Set extended deadline based on the new time
                 setExtendedDeadline({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
@@ -176,7 +166,6 @@ const HomePageAdmin = () => {
 
                 endDateTime.setHours(23, 59, 59, 0);
 
-                // Set the time zone to Europe/Berlin
                 const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
 
                 const timeRemaining = endDateTime.getTime() - new Date().getTime();
@@ -192,11 +181,8 @@ const HomePageAdmin = () => {
                 return process;
             }
         }
-
         return null;
     };
-
-
 
 
 
@@ -215,7 +201,7 @@ const HomePageAdmin = () => {
                     )
                     }
                 </div>
-               
+
                 <div className="table-responsive " >
 
                     <table className="table table-bordered table-striped table-hover table-bordered">

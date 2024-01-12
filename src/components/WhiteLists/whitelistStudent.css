@@ -19,18 +19,6 @@
 }
 
 
-
-
-
-/*
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* Mindesthöhe auf volle Bildschirmhöhe setzen 
-}
-*/
 .list-page {
   top: 0;
   left: 0;
@@ -60,7 +48,7 @@
 
 .tabelle {
   border-collapse: collapse;
-  width: 100%; /* Die Tabelle nimmt die volle Breite des Containers ein */
+  width: 100%; 
 
 }
 
@@ -128,7 +116,7 @@
   align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 80%; /* Ändere die Breite nach Bedarf */
+  width: 80%; 
   margin: auto; 
   
   

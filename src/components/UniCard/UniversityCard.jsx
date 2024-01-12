@@ -9,7 +9,6 @@ import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
 
 
 export const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
-
     const [currentPriority, setCurrentPriority] = useState(null);
     const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
     const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
@@ -17,43 +16,24 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
     // Fetching data from localStorage
     const storedUser = JSON.parse(localStorage.getItem('currentUser'));
-
     const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
     const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
     const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
     const { addPriority, removePriority } = usePrioritySelection();
-
-
-
     const [isDropdownDisabled, setDropdownDisabled] = useState(false);
 
-
-
-
-
     const [ID, setID] = useState('')
-
-
-
-
-
-
-
     const [studentPriorities, setStudentPriorities] = useState([]);
 
+
     useEffect(() => {
-
-
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const matrikelnummer = currentUser.matrikelnummer;
-
 
         const fetchStudentPriorities = async () => {
             try {
                 const response = await fetch(`http://localhost:8081/student/${matrikelnummer}/priorities`);
                 const data = await response.json();
-
-
                 // Update localstorage items from database
                 const storedUser = JSON.parse(localStorage.getItem('currentUser'));
                 if (storedUser) {
@@ -70,9 +50,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         };
 
 
-
-
-
         setID(JSON.parse(localStorage.getItem('currentUser')).matrikelnummer);
 
         // Setze die Dropdown-Auswahl basierend auf den Prioritäten
@@ -84,7 +61,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
             setCurrentPriority('3rd Priority');
         }
 
-
         fetchStudentPriorities();
 
     },);
@@ -94,14 +70,8 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         return university.uniId === studentPriorities[`${priority}Pref`];
     };
 
-
-
-
     const updatePriorities = async () => {
-
         const storedUser = JSON.parse(localStorage.getItem('currentUser'));
-
-
         try {
             const response = await fetch(
                 `http://localhost:8081/student/${ID}/updatePriorities`,
@@ -129,10 +99,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
 
     const handlePrioritySelect = async (priority) => {
-
         setDropdownDisabled(true); // Disable the dropdown during the update
-
-
         if (priority === '1st Priority') {
 
             const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -195,29 +162,22 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
 
         } else if (priority === '3rd Priority') {
-
-
             // Set thirdPriority in localStorage
             const storedUser = JSON.parse(localStorage.getItem('currentUser'));
             if (storedUser && storedUser.thirdPref === 0) {
-
                 if (currentPriority === '1st Priority') {
                     //if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
                     setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
                     await updateCurrentFirstPrioCount(university.uniId, false);
                 }
-
                 if (currentPriority === null) {
                     //if there wasnt a priority selected, increment totalPref variable by 1
                     setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref + 1);
                     await updateCurrentTotalPrioCount(university.uniId, true);
                 }
 
-
-
                 storedUser.thirdPref = university.uniId;
                 localStorage.setItem('currentUser', JSON.stringify(storedUser));
-
                 setThirdPriority(university.uniId)
                 setCurrentPriority('3rd Priority')
                 updatePriorities();
@@ -229,7 +189,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
             }
 
         }
-
 
         if (currentPriority === '1st Priority') {
             setFirstPriority(0);
@@ -256,7 +215,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
             ref.current.getPriority();
         }
 
-
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setDropdownDisabled(false);
@@ -265,33 +223,23 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         addPriority(university.uniId, {
             universityData: university,
             priority: { name: university.name, priority },
-          });
-
-
-
+        });
     };
 
 
 
     const handleDropPriority = async () => {
-
         setDropdownDisabled(true); // Disable the dropdown during the update
-
         const storedUser = JSON.parse(localStorage.getItem('currentUser'));
 
         if (currentPriority === '1st Priority' && updatedFirstPref > 0) {
             setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
-
             await updateCurrentFirstPrioCount(university.uniId, false);
-
         }
         if (currentPriority !== null && updatedTotalPref > 0) {
             setUpdatedTotalPref((prevUpdatedTotalPref) => prevUpdatedTotalPref - 1);
             await updateCurrentTotalPrioCount(university.uniId, false);
-
         }
-
-
 
         if (currentPriority === '1st Priority') {
             setFirstPriority(0);
@@ -320,7 +268,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
         changePreference();
 
-
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setDropdownDisabled(false);
@@ -328,8 +275,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
     }
 
-
-
+    //this method sets firstPrio count in university table
     const updateCurrentFirstPrioCount = async (uniId, increment) => {
         try {
             // Fetch the current university data
@@ -341,8 +287,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 ? universityData.firstPref + 1
                 : universityData.firstPref - 1;
 
-
-            // Update the API with the modified data
+            // Update the database with the modified data
             const putResponse = await fetch(`http://localhost:8081/university/${uniId}`, {
                 method: 'PUT',
                 headers: {
@@ -359,21 +304,16 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         }
     };
 
-
-
+    //this method sets total prio count in university table
     const updateCurrentTotalPrioCount = async (uniId, increment) => {
         try {
-            // Fetch the current university data
             const response = await fetch(`http://localhost:8081/university/${uniId}`);
             const universityData = await response.json();
-
-            // Update the firstPref count based on the provided increment value
 
             universityData.totalPref = increment
                 ? universityData.totalPref + 1
                 : universityData.totalPref - 1; // or use any other logic you need
 
-            // Update the API with the modified data
             const putResponse = await fetch(`http://localhost:8081/university/${uniId}`, {
                 method: 'PUT',
                 headers: {
@@ -400,12 +340,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
     }));
 
 
-
-
-
-
     return (
-
         <Card className="universityCard" key={university.uniId} >
             <Card.Body className='card.body'>
 
@@ -415,11 +350,8 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                     <span><BsPinMapFill /></span>
                     <span> {university.country},{university.city}</span>
                 </Card.Text>
-
                 <ListGroup variant="flush">
                     <ListGroup.Item> <span><MdChairAlt /></span> Slots available: {university.slots}</ListGroup.Item>
-
-
                     {university.showGPA ? (
                         <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
                     ) : null}

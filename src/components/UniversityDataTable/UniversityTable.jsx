@@ -276,6 +276,7 @@ function Home() {
 
 
 
+  //this method deletes all universities which ar estored in the local array and then deletes from the database
   const deleteAllUniversities = () => {
     if (window.confirm('Are you sure you want to remove all Universities?')) {
       setUniversities([]);
@@ -283,6 +284,7 @@ function Home() {
     }
 
   };
+
 
   const deleteAllUniversityDatabase = async () => {
     const deleteEndpoint = `http://localhost:8081/university/all`;
@@ -304,6 +306,7 @@ function Home() {
     const { showGPA } = e.target;
   }
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedUniversity) {
@@ -320,9 +323,6 @@ function Home() {
       }));
     }
   };
-
-
-
 
 
   return (
@@ -418,7 +418,6 @@ function Home() {
                     <td>{row.firstPref}</td>
                     <td>{row.totalPref}</td>
                     <td>{row.uniLink}</td>
-
                     <td>
                       <a
                         href="#"
@@ -489,10 +488,9 @@ function Home() {
                     Add University
                   </button>
                 )}
-
               </form>
             </Modal.Body>
-
+            
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close

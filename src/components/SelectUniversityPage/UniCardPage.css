@@ -1,12 +1,9 @@
-
-/* Common styles for all screen sizes */
 .card-page {
   top: 0;
   left: 0;
  min-height: 150dvh;
   width: 100%;
 }
-
 
 
 .title {
@@ -38,17 +35,16 @@
 /* Media query for screens with a maximum width of 768px (typical tablet size) */
 @media (max-width: 768px) {
   .title h1 {
-	font-size: 2rem; /* Adjust the font size for tablets */
+	font-size: 2rem; 
   
   }
   .title p{
-	  font-size: 1.2rem; /* Adjust the font size for tablets */
+	  font-size: 1.2rem; 
   
   }
 
   .title span {
     font-size: 10px;
-	 /* Adjust the font size for tablets */
   }
 
   .card-container {
@@ -62,11 +58,11 @@
 /* Media query for screens with a maximum width of 576px */
 @media (max-width: 576px) {
   .title h1 {
-    font-size: 20px; /* Adjust the font size for mobile devices */
+    font-size: 20px; 
   }
 
   .title span {
-    font-size: 12px; /* Adjust the font size for mobile devices */
+    font-size: 12px; 
   }
 
   .card-container {

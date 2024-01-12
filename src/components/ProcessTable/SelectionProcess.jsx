@@ -33,7 +33,7 @@ function SelectionProcess() {
         daysUntilStudentDataDeletion: ""
     });
 
-    //The new values for a new university get savet here initially
+    //The new values for a new university get saved here initially
     const inputFields = [
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
@@ -48,9 +48,6 @@ function SelectionProcess() {
         { name: 'deadlineExtensionMinutes', type: 'number', min: '1', max: '1440', placeholder: 'Enter the extension of the deadline' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
     ];
-
-
-
 
 
     const handleClose = () => {
@@ -76,7 +73,6 @@ function SelectionProcess() {
 
         if (process.extended) {
             startDateTime.setHours(0, 0, 0, 0);
-            // calculate new hours, minutes, and seconds
             const newHours = Math.floor(process.deadlineExtensionMinutes / 60);
             const newMinutes = process.deadlineExtensionMinutes % 60;
 
@@ -85,13 +81,7 @@ function SelectionProcess() {
         } else {
             startDateTime.setHours(0, 0, 0, 0);
             endDateTime.setHours(23, 59, 59, 999);
-
         }
-
-
-        console.log(endDateTime)
-
-
 
         return currentDate >= startDateTime && currentDate <= endDateTime;
     };
@@ -198,12 +188,7 @@ function SelectionProcess() {
 
         // Update the displayed processes
         setProcesses(updatedTableData);
-
-
     };
-
-
-
 
 
     const addProcess = async () => {
@@ -228,7 +213,6 @@ function SelectionProcess() {
             console.error("Error adding process:", error);
         }
     };
-
 
 
     const deleteProcess = async (year) => {
@@ -342,7 +326,7 @@ function SelectionProcess() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/*Show data in the table*/}
+                                {/*Show the processes in the table*/}
                                 {processes.map((row) => (
                                     <tr key={row.id}>
                                         <td>{row.year}</td>

@@ -83,6 +83,7 @@ const UniCardPage = () => {
 
 
 
+  //update the process after making changes to the university
   const updateProcesses = async (selectedProcess) => {
 
     try {
@@ -140,11 +141,7 @@ const UniCardPage = () => {
 
 
     const endDateTime = new Date(activeProcess.endDate);
-
-
-
     const extensionMinutes = activeProcess.deadlineExtensionMinutes;
-
     const newHours = Math.floor(extensionMinutes / 60);
     const newMinutes = extensionMinutes % 60;
 
@@ -160,6 +157,7 @@ const UniCardPage = () => {
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
 
 
+    //only extend if there is less than 15 minutes left
     if (hours === 0 && minutes < 15) {
       updateProcesses(activeProcess);
       const endDateTime = new Date(activeProcess.endDate);
@@ -175,9 +173,8 @@ const UniCardPage = () => {
       console.log(endDateTime)
 
 
-      // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
+      //extend the deadline
       const extendedDeadline = new Date(endDateTime.getTime());
-      // Extrahiere Stunden, Minuten und Sekunden aus extendedDeadline
       const extendedHours = extendedDeadline.getHours();
       const extendedMinutes = extendedDeadline.getMinutes();
       const extendedSeconds = extendedDeadline.getSeconds();
@@ -238,7 +235,7 @@ const UniCardPage = () => {
 
     fetchProcesses();
 
-    //fetch every 1000 seconds
+    //fetch the processes every 1000 seconds from the database
     const interval = setInterval(fetchProcesses, 1000);
 
 
@@ -275,9 +272,6 @@ const UniCardPage = () => {
         const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
         const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
 
-
-
-
         setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
 
       } else {
@@ -307,7 +301,6 @@ const UniCardPage = () => {
                 <h4>Deadline was extended!</h4>
                 <div className='content'>
 
-
                 </div></div>
             ) : (<div className='clock'>
               <h4>Remaining time: </h4>
@@ -326,11 +319,8 @@ const UniCardPage = () => {
                   );
                 })}
               </div></div>
-
             )}
-
           </div>
-
 
           <h1>List of partner universities</h1>
           <p>Pick your top three preferred universities from the list below!</p>
@@ -344,9 +334,7 @@ const UniCardPage = () => {
         <div className='card-container'>
           <UniCard changePreference={checkAndExtendTime} />
         </div>
-
       )}
-
     </div>
   );
 };

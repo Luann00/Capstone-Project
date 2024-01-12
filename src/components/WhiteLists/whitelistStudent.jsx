@@ -107,9 +107,8 @@ export const WhitelistStudent = () => {
     fetchData();
 
 
-    const intervalId = setInterval(fetchData, 1000); // Hier wird alle 60 Sekunden (60.000 Millisekunden) gefetcht. Passe dies nach Bedarf an.
-
-    // Aufräumarbeiten: Clear das Intervall, wenn die Komponente unmounted wird
+    //fetch data every 1 second
+    const intervalId = setInterval(fetchData, 1000); 
     return () => clearInterval(intervalId);
 
 
@@ -204,9 +203,7 @@ export const WhitelistStudent = () => {
 
 
   const deleteStudent = async (matrikelnummer) => {
-
     if (window.confirm('Are you sure you want to delete this student from this list?')) {
-
       const deleteEndpoint = `http://localhost:8081/whitelistStudent/${matrikelnummer}`;
 
       try {
@@ -241,6 +238,8 @@ export const WhitelistStudent = () => {
     });
     handleShow();
   };
+
+  
 
   //Show data of database in the table
   useEffect(() => {

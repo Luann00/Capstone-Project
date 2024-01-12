@@ -11,7 +11,11 @@ import { BiSearchAlt } from "react-icons/bi";
 
 
 
-//The University Card component is the main component of the application. It is responsible for fetching the data from the server and displaying it. It also contains the logic for filtering and searching the data, the logic for the priority selection and is also responsible for displaying the priority panel.
+/*
+The University Card component is the main component of the application.
+It is responsible for fetching the data from the server and displaying it.
+It also contains the logic for filtering and searching the data, the logic for the priority selection and is also responsible for displaying the priority panel.
+*/
 const UniCard = ({ changePreference }) => {
   const [universities, setUniversities] = useState([]);
   const [showMinGPA, setShowMinGPA] = useState(true);
@@ -82,6 +86,7 @@ const UniCard = ({ changePreference }) => {
     return regions.filter(Boolean);
   };
 
+  //for searching universities
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
