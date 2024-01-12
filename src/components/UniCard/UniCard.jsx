@@ -1,9 +1,9 @@
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
-import {  Dropdown} from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './UniCard.css';
-import { usePrioritySelection} from '../contexts/PrioritySelectionContext';
+import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
 import Items from '../Priority Page/PriorityItem';
 import { UniversityCard } from './UniversityCard';
 import { BiSearchAlt } from "react-icons/bi";
@@ -19,9 +19,9 @@ const UniCard = ({ changePreference }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [originalUniversities, setOriginalUniversities] = useState([]);
   const cardRefs = useRef([]);
-  
-  
-  const { removeAllPriorities, priorities,isOpen, addPriority, closePanel } = usePrioritySelection();
+
+
+  const { removeAllPriorities, priorities, isOpen, addPriority, closePanel } = usePrioritySelection();
 
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
@@ -32,7 +32,7 @@ const UniCard = ({ changePreference }) => {
     }
   };
 
-//using the ref to get the priority of the university
+  //using the ref to get the priority of the university
   const getPriority = (uniId) => {
     if (cardRefs.current[uniId]) {
       return cardRefs.current[uniId].getPriority();
@@ -61,12 +61,12 @@ const UniCard = ({ changePreference }) => {
   }, [universities]);
 
 
-  
+
 
   //For filter function by region for the student
   const handleFilterByRegion = (region) => {
     setSelectedRegion(region);
-    
+
 
     const updatedTableData = originalUniversities.filter((university) =>
       university.country.toLowerCase().includes(region.toLowerCase()) ||
@@ -103,7 +103,7 @@ const UniCard = ({ changePreference }) => {
     };
 
     fetchUniversities();
-    
+
 
     const interval = setInterval(fetchUniversities, 10000);
 
@@ -111,17 +111,17 @@ const UniCard = ({ changePreference }) => {
   }, []);
 
 
-  
-  
+
+
   const removeAll = () => {
     priorities.forEach(priority => dropPriority(priority.id));
   };
 
   return (
     <>
-    
+
       <div className={`priorityPanel ${isOpen ? '' : 'hidden'}`}>
-        
+
 
         <Offcanvas show={isOpen} onHide={closePanel}>
           <Offcanvas.Header closeButton>
@@ -130,15 +130,18 @@ const UniCard = ({ changePreference }) => {
           <Offcanvas.Body>
             <Items dropPriority={dropPriority} />
           </Offcanvas.Body>
-          
-          <Button className="deleteAll" onClick={() => { removeAllPriorities(); removeAll(); }}>Delete all</Button>
+
+          <Button className="deleteAll" onClick={() => {
+            removeAll();
+            removeAllPriorities();
+          }}>Delete all</Button>
         </Offcanvas>
 
       </div>
 
       <div className='card-container'>
         <div className="filter-dropdown">
-          <Dropdown className ="filter-button">
+          <Dropdown className="filter-button">
             <Dropdown.Toggle id="dropdown-region">
               {selectedRegion ? `Filtering by: ${selectedRegion}` : 'Filter by region'}
             </Dropdown.Toggle>
