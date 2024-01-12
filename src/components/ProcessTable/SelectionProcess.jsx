@@ -37,13 +37,15 @@ function SelectionProcess() {
     const inputFields = [
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
-        { name: 'year', type: 'number', min: '1', placeholder: 'Enter year of the process', min: newProcess.startDate },
+        {
+            name: 'year', type: 'number', placeholder: 'Enter year of the process', min: new Date(newProcess.endDate).getFullYear(), // Set the minimum year to the year of 'endDate'
+        },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Number of students(auto-filled)', disabled: true },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
         {
             name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Number of universities(auto-filled)', disabled: true, value: selectedProcess ? selectedProcess.numberOfUniversities : '', // Set value to '' for new process
         },
-        { name: 'deadlineExtensionMinutes', type: 'number', min: '1', placeholder: 'Enter the extension of the deadline when preferences changes in the last 15 minutes' },
+        { name: 'deadlineExtensionMinutes', type: 'number', min: '1', max: '1440', placeholder: 'Enter the extension of the deadline' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
     ];
 

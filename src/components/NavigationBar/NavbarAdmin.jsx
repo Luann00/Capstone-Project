@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Nav, Container,Button } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import "./NavbarAdmin.css";
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom';
 
@@ -8,38 +9,28 @@ import { Link } from 'react-router-dom';
 
 const NavbarAdmin = ({ onLogout }) => {
   return (
-    <div className="navbar-container">
-      <Navbar className="Navbar" expand="lg">
-        <Container>
-          
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto" variant="tabs">
-              
-                
-                  <LinkContainer className='link-container' to="/HomePageAdmin">
-                    <Nav.Link className="nav-link">Home</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer className='link-container' to="/StudentTable">
-                    <Nav.Link className="nav-link">Students</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer className='link-container' to="/UniversityTable">
-                    <Nav.Link className="nav-link">Universities</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer className='link-container' to="/WhitelistStudent">
-                    <Nav.Link className="nav-link">WhitelistStudent</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer className='link-container' to="/WhitelistAdmin">
-                    <Nav.Link className="nav-link">WhitelistAdmin</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer className='link-container' to="/SelectionProcess">
-                    <Nav.Link className="nav-link">SelectionProcess</Nav.Link>
-                  </LinkContainer>
-            </Nav>
-            <Button onClick={onLogout} className="Logout">Logout</Button>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+    <div className="Navbar">
+      <>
+        <Navbar bg="dark" variant="dark" expand="lg">
+          <Container>
+            <LinkContainer to="/Home">
+              <Navbar.Brand></Navbar.Brand>
+            </LinkContainer>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Link to="/HomePageAdmin" className="nav-link">Home</Link>
+                <Link to="/StudentTable" className="nav-link">Students</Link>
+                <Link to="/UniversityTable" className="nav-link">Universities</Link>
+                <Link to="/WhitelistStudent" className="nav-link">WhitelistStudent</Link>
+                <Link to="/WhitelistAdmin" className="nav-link">WhitelistAdmin</Link>
+                <Link to="/SelectionProcess" className="nav-link">SelectionProcess</Link>
+                <button onClick={onLogout}>Logout</button>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </>
     </div>
 
   );
