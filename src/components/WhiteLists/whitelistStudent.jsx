@@ -37,7 +37,7 @@ export const WhitelistStudent = () => {
 
   const inputFields = [
     { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedStudent ? true : false },
-    { name: 'jahr', type: 'text', placeholder: 'Enter year', min: '0' },
+    { name: 'jahr', type: 'number', min: '1', placeholder: 'Enter year' },
 
   ];
 
