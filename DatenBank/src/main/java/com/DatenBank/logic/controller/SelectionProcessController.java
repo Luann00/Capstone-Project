@@ -53,10 +53,8 @@ public class SelectionProcessController {
 			SelectionProcess result = selectionProcessService.updateProcess(year, updatedProcess);
 			return ResponseEntity.ok(result);
 		} catch (ClassNotFoundException e) {
-			// Handle not found exception
 			return ResponseEntity.notFound().build();
 		} catch (Exception e) {
-			// Handle other exceptions
 			return ResponseEntity.status(500).build();
 		}
 	}

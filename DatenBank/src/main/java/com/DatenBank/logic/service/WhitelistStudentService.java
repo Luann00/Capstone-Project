@@ -41,10 +41,8 @@ public class WhitelistStudentService {
             whitelistEntry.setMatrikelnummer(updatedEntity.getMatrikelnummer());
             whitelistEntry.setJahr(updatedEntity.getJahr());
 
-            // Save the updated entity
             return whitelistStudentRepository.save(whitelistEntry);
         } else {
-            // Handle the case when the entity with the given ID is not found
             throw new EntityNotFoundException("Entity with ID " + id + " not found");
         }
 

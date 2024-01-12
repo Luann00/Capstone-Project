@@ -62,7 +62,6 @@ public class StudentController {
 		studentService.deleteAllStudents();
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
 	@PutMapping("/{matrikelnummer}")
 	public ResponseEntity<Student> updateStudent(
 			@PathVariable int matrikelnummer,
@@ -91,7 +90,6 @@ public class StudentController {
 		} catch (Exception e) {
 			return ResponseEntity.status(500).build();
 		}
-
 	}
 
 	@PutMapping("/{matrikelnummer}/updateAccepted")
@@ -107,7 +105,6 @@ public class StudentController {
 	}
 
 	@GetMapping("/{matrikelnummer}/priorities")
-
 	public ResponseEntity<Map<String, Integer>> getStudentPriorities(@PathVariable int matrikelnummer) {
 		Optional<Student> optionalStudent = studentRepository.findById(matrikelnummer);
 

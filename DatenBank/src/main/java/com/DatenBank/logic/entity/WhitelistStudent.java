@@ -11,8 +11,6 @@ public WhitelistStudent() {
 		
 	}
 	
-
-	
 	
 	public WhitelistStudent(int matrikelnummer,int jahr) {
 		this.matrikelnummer = matrikelnummer;
