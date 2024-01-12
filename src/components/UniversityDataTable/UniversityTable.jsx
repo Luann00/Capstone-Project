@@ -101,8 +101,6 @@ function Home() {
     });
   };
 
-
-
   const handleShow = () => setShow(true);
 
   const handleEdit = (university) => {
@@ -129,9 +127,9 @@ function Home() {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
 
-          setUniversities(data);
-          setoriginalUniversities(data);
-        
+        setUniversities(data);
+        setoriginalUniversities(data);
+
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
         setShowMinGPAColumn(initialShowMinGPAColumn);
 
@@ -142,7 +140,7 @@ function Home() {
     };
 
     fetchUniversities();
-    
+
   }, []);
 
 
