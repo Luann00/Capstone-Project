@@ -6,7 +6,7 @@ const UniCardPage = () => {
   const [processIsActive, setProcessIsActive] = useState(false);
   const [processes, setProcesses] = useState([]);
   const [currentProcess, setCurrentProcess] = useState([])
-  const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0 });
   const [extended, setExtended] = useState(false);
 
 
@@ -83,6 +83,11 @@ const UniCardPage = () => {
   };
 
 
+
+
+
+
+
   const updateProcesses = async (selectedProcess) => {
 
     try {
@@ -137,6 +142,7 @@ const UniCardPage = () => {
 
     //if process is already extended, leave the method and do nothing. if not, change database with put request accordingly
     if (activeProcess.extended) {
+
       return;
     }
 
@@ -158,8 +164,6 @@ const UniCardPage = () => {
     endDateTime.setHours(23, 59, 59, 999);
 
 
-    console.log("end time: " + endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
-
     // compute time
     const timeRemaining = endDateTime.getTime() - new Date().getTime();
     const hours = Math.floor(Math.floor(timeRemaining / 3600000));
@@ -178,6 +182,8 @@ const UniCardPage = () => {
       const newHours = Math.floor(extensionMinutes / 60);
       const newMinutes = extensionMinutes % 60;
       endDateTime.setHours(newHours, newMinutes, 0, 999);
+
+      console.log(endDateTime)
 
 
       // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
@@ -254,8 +260,7 @@ const UniCardPage = () => {
 
     for (const process of data) {
       const startDateTime = new Date(process.startDate);
-      const endDateTime = new Date(process.endDate);
-
+      let endDateTime = new Date(process.endDate);
 
 
       if (process.extended) {
@@ -263,33 +268,54 @@ const UniCardPage = () => {
         // Set time to the beginning of the day
         startDateTime.setHours(0, 0, 0, 0);
 
-        const endDateTime = new Date(process.endDate);
+        endDateTime = new Date(process.endDate);
+
 
 
         // calculate the new deadline based on the extension minutes
         const extensionMinutes = process.deadlineExtensionMinutes;
 
         // calculate new hours, minutes, and seconds
-        const newHours = Math.floor(extensionMinutes / 60);
-        const newMinutes = extensionMinutes % 60;
+        let days = 0;
+        let newHours = Math.floor(extensionMinutes / 60);
+        let newMinutes = extensionMinutes % 60;
 
-        // extend the deadline
-        endDateTime.setHours(newHours, newMinutes, 0, 999);
+        if (newHours >= 24) {
+          days = Math.floor(extensionMinutes / (24 * 60));
+          newHours = Math.floor((extensionMinutes % (24 * 60)) / 60);
+          newMinutes = extensionMinutes % 60;
+        } else {
+
+        }
+
+
+
+        endDateTime.setHours(0, 0, 0, 0);
+
+        // extend the deadline by adding the newHours and newMinutes
+        endDateTime.setHours(endDateTime.getHours() + newHours);
+        endDateTime.setMinutes(endDateTime.getMinutes() + newMinutes);
+        endDateTime.setSeconds(0);
+        endDateTime.setMilliseconds(999);
+
+
+
+        const remainingTimeMillis = endDateTime.getTime() - currentDate.getTime();
+
+        // Konvertiere die verbleibende Zeit in Tage, Stunden, Minuten und Sekunden
+        const remainingDays = Math.floor(remainingTimeMillis / (24 * 60 * 60 * 1000));
+        const remainingHours = Math.floor((remainingTimeMillis % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const remainingMinutes = Math.floor((remainingTimeMillis % (60 * 60 * 1000)) / (60 * 1000));
+        const remainingSeconds = Math.floor((remainingTimeMillis % (60 * 1000)) / 1000);
+
+        // Gib die verbleibende Zeit aus
+        console.log(`Verbleibende Zeit: ${remainingDays} Tage, ${remainingHours} Stunden, ${remainingMinutes} Minuten, ${remainingSeconds} Sekunden`);
 
         // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
-        const extendedDeadline = new Date(endDateTime.getTime());
 
-        endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds())
-
-        const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
-
-        const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
-        const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-        const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
-        const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
 
         // Set extended deadline based on the new time
-        setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
+        setRemainingTime({ days: remainingDays, hours: remainingHours, minutes: remainingMinutes });
 
       } else {
         startDateTime.setHours(0, 0, 0, 0);
@@ -305,53 +331,55 @@ const UniCardPage = () => {
     return null;
   };
 
+
+
   return (
     <div className='card-page'>
       {processIsActive ? (
         <div className='title'>
           <div className='countdown'>
-          {extended ? (
-            
-            <div className='clock'>
-              <h4>Deadline was extended! New Time: </h4>
+            {extended ? (
+
+              <div className='clock'>
+                <h4>Deadline was extended! New Time: </h4>
+                <div className='content'>
+
+                  {Object.entries(remainingTime).map((el) => {
+                    const label = el[0];
+                    const value = el[1];
+                    return (
+                      <div className='box' key={label}>
+                        <div className='value'>
+                          <span>{value}</span>
+                        </div>
+                        <span className='label'> {label} </span>
+                      </div>
+                    );
+                  })}
+                </div></div>
+            ) : (<div className='clock'>
+              <h4>Remaining time: </h4>
               <div className='content'>
 
-              {Object.entries(remainingTime).map((el) => {
-					const label = el[0];
-					const value = el[1];
-					return (
-						<div className='box' key={label}>
-							<div className='value'>
-								<span>{value}</span>
-							</div>
-							<span className='label'> {label} </span>
-						</div>
-					);
-				})}
-                </div></div>
-          ) : (<div className='clock'>
-          <h4>Remaining time: </h4>
-          <div className='content'>
+                {Object.entries(remainingTime).map((el) => {
+                  const label = el[0];
+                  const value = el[1];
+                  return (
+                    <div className='box' key={label}>
+                      <div className='value'>
+                        <span>{value}</span>
+                      </div>
+                      <span className='label'> {label} </span>
+                    </div>
+                  );
+                })}
+              </div></div>
 
-          {Object.entries(remainingTime).map((el) => {
-      const label = el[0];
-      const value = el[1];
-      return (
-        <div className='box' key={label}>
-          <div className='value'>
-            <span>{value}</span>
-          </div>
-          <span className='label'> {label} </span>
-        </div>
-      );
-    })}
-            </div></div>
-            
-          )}
+            )}
 
           </div>
 
-          
+
           <h1>List of partner universities</h1>
           <p>Pick your top three preferred universities from the list below!</p>
         </div>

@@ -318,6 +318,9 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
             ref.current.dropPriority();
         }
 
+        changePreference();
+
+
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setDropdownDisabled(false);
