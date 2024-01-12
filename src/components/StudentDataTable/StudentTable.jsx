@@ -40,20 +40,6 @@ function Home() {
     AcceptedPolicy: ""
   });
 
-
-
-  const numberOfPreferences = 3
-
-  //render the preferences column 
-  const renderPreferenceColumns = () => {
-    const preferenceColumns = [];
-    for (let i = 1; i <= numberOfPreferences; i++) {
-      preferenceColumns.push(<th key={`preference${i}`}>Präferenz {i}</th>);
-    }
-    return preferenceColumns;
-  };
-
-
   //The new values for a new student get saved here initially
   const inputFields = [
     { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter ID', disabled: selectedStudent ? true : false },
@@ -132,8 +118,12 @@ function Home() {
       try {
         const response = await fetch('http://localhost:8081/student');
         const data = await response.json();
-        setStudents(data);
-        setOriginalStudents(data)
+
+        if (JSON.stringify(data) !== JSON.stringify(originalStudents)) {
+          setStudents(data);
+          setOriginalStudents(data);
+        }
+       
       } catch (error) {
         console.log('Error fetching data:' + error);
       }

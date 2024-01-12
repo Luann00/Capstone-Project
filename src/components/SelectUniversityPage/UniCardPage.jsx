@@ -248,6 +248,8 @@ const UniCardPage = () => {
 
 
     fetchProcesses();
+    
+    //fetch every 1000 seconds
     const interval = setInterval(fetchProcesses, 1000);
 
 

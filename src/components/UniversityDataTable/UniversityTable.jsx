@@ -46,16 +46,16 @@ function Home() {
 
   //The new values for a new university get saved here initially
   const inputFields = [
-    { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false, required:true },
-    { name: 'name', type: 'text', placeholder: 'Enter name', required:true },
-    { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name',required:true },
-    { name: 'country', type: 'text', placeholder: 'Enter Country', required:true },
-    { name: 'city', type: 'text', placeholder: 'Enter City', required:true },
-    { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA', required:true },
-    { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots', required:true },
-    { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences', required:true },
-    { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences', required:true },
-    { name: 'uniLink', type: 'text', placeholder: 'Enter Link to University website', required : false },
+    { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false, required: true },
+    { name: 'name', type: 'text', placeholder: 'Enter name', required: true },
+    { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name', required: true },
+    { name: 'country', type: 'text', placeholder: 'Enter Country', required: true },
+    { name: 'city', type: 'text', placeholder: 'Enter City', required: true },
+    { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA', required: true },
+    { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots', required: true },
+    { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences', required: true },
+    { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences', required: true },
+    { name: 'uniLink', type: 'text', placeholder: 'Enter Link to University website', required: false },
   ];
 
 
@@ -143,6 +143,11 @@ function Home() {
     };
 
     fetchUniversities();
+
+    //fetch interval every 3 seconds
+    const intervalId = setInterval(fetchUniversities, 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
 
@@ -352,7 +357,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Universities
             </Button>
-            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref','uniLink']} />
+            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref', 'uniLink']} />
           </div>
         </div>
         <div className="row">
@@ -369,7 +374,7 @@ function Home() {
                   </th>
                   <th>Name</th>
                   <th>Abbreviated Name</th>
-                  
+
                   <th onClick={() => handleSort("country")}>
                     Country
                     <a href="#" className="sort-icon" data-toggle="tooltip">
@@ -477,7 +482,7 @@ function Home() {
                       value={selectedUniversity ? selectedUniversity[field.name] : newUniversity[field.name]}
                       onChange={handleChange}
                       disabled={field.disabled}
-                      required = {field.required}
+                      required={field.required}
                     />
                   </div>
                 ))}

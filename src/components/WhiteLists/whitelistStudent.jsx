@@ -107,7 +107,7 @@ export const WhitelistStudent = () => {
     fetchData();
 
 
-    const intervalId = setInterval(fetchData, 3000); // Hier wird alle 60 Sekunden (60.000 Millisekunden) gefetcht. Passe dies nach Bedarf an.
+    const intervalId = setInterval(fetchData, 1000); // Hier wird alle 60 Sekunden (60.000 Millisekunden) gefetcht. Passe dies nach Bedarf an.
 
     // Aufräumarbeiten: Clear das Intervall, wenn die Komponente unmounted wird
     return () => clearInterval(intervalId);
