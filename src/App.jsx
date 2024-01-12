@@ -157,7 +157,7 @@ public class WebSecurityConfig {
             .userDnPatterns("uid={0},ou=People,dc=uni-koeln,dc=de")
             .contextSource()
                 .url("ldaps://ldaptest-rzkj.rrz.uni-koeln.de:636") 
-                .managerDn("cn=wiso-mess,ou=AuthConsumer,dc=uni-koeln,dc=de")
+                .managerDn("")
                 .managerPassword("");   
 	 }
 	    }
