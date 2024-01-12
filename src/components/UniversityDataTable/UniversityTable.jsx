@@ -46,16 +46,16 @@ function Home() {
 
   //The new values for a new university get saved here initially
   const inputFields = [
-    { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false },
-    { name: 'name', type: 'text', placeholder: 'Enter name' },
-    { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name' },
-    { name: 'country', type: 'text', placeholder: 'Enter Country' },
-    { name: 'city', type: 'text', placeholder: 'Enter City' },
-    { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA' },
-    { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots' },
-    { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences' },
-    { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences' },
-    { name: 'uniLink', type: 'text', placeholder: 'Enter Link to University website' },
+    { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false, required:true },
+    { name: 'name', type: 'text', placeholder: 'Enter name', required:true },
+    { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name',required:true },
+    { name: 'country', type: 'text', placeholder: 'Enter Country', required:true },
+    { name: 'city', type: 'text', placeholder: 'Enter City', required:true },
+    { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA', required:true },
+    { name: 'slots', type: 'number', min: '0', placeholder: 'Enter slots', required:true },
+    { name: 'firstPref', type: 'number', min: '0', placeholder: 'Enter first Preferences', required:true },
+    { name: 'totalPref', type: 'number', min: '0', placeholder: 'Enter number of total Preferences', required:true },
+    { name: 'uniLink', type: 'text', placeholder: 'Enter Link to University website', required : false },
   ];
 
 
@@ -477,7 +477,7 @@ function Home() {
                       value={selectedUniversity ? selectedUniversity[field.name] : newUniversity[field.name]}
                       onChange={handleChange}
                       disabled={field.disabled}
-                      required
+                      required = {field.required}
                     />
                   </div>
                 ))}
