@@ -1,25 +1,21 @@
-
 .universityCard {
-  
   width: 30rem;
   margin: 10px;
-  
   border-radius: 20px;
-  
-    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
-    /* Increase the box shadow to make it more prominent */
-    transition: transform 0.3s ease-in-out;
-    /* Add a smooth transition effect for transform property */
-    
-    
-  }
-  
+
+  box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
+  /* Increase the box shadow to make it more prominent */
+  transition: transform 0.3s ease-in-out;
+  /* Add a smooth transition effect for transform property */
+
+}
+
 
 .universityCard:hover {
   transform: scale(1.05);
   /* /* Enlarge the card by 5%  */
-  
-} 
+
+}
 
 .universityCard:has(:hover, :focus) {
   background-color: rgba(69, 122, 147);
@@ -45,11 +41,12 @@
   transform: scale(1.05);
   /* Enlarge the card title by 5% */
   transition: transform 0.3s ease-in-out;
-  /* Add a smooth transition effect */
-  
+  /* smooth transition effect */
+
 }
+
 .universityCard:hover .card-title a {
-  color: #fff; /* Replace with the color you want */
+  color: #fff;
 }
 
 .universityCard .card-title a {
@@ -65,15 +62,16 @@
   font-size: 1.1rem;
   color: #555;
 }
+
 .universityCard:hover .card-text {
-  
+
   color: #ffffffe0;
 }
 
 .universityCard .list-group-item {
   border: none;
   font-size: 1.2rem;
-  color:rgb(58, 104, 125);
+  color: rgb(58, 104, 125);
 
 }
 
@@ -87,25 +85,18 @@
 
 }
 
-.universityCard .list-group .list-group-item:hover {	
+.universityCard .list-group .list-group-item:hover {
   background-color: rgba(56, 99, 118, 0.5);
-  color:#fff;
+  color: #fff;
 }
 
 
 
-/* Styling for the dropdown */
+/* Styling for the dropdown menu */
 .universityCard .dropdown {
-
   align-self: flex-end;
-  /* Align the dropdown to the end of the flex container */
   margin-top: auto;
-  /* Push the dropdown to the bottom */
   margin-right: 30px;
-  /* Add margin for spacing */
-  
-  
-
 }
 
 .universityCard .dropdown-toggle {
@@ -121,16 +112,8 @@
 
 
 .universityCard .dropdown-menu {
-
   width: 100%;
-  
   transition: max-height 0.3s ease-in-out;
-  /* Add a smooth transition effect for max-height property */
-  
-
-  
-
-
 }
 
 
@@ -139,24 +122,21 @@
   color: #555;
   transition: background-color 0.3s ease-in-out;
   z-index: 2 !important;
-  
 }
+
 .universityCard .dropdown-menu .dropdown-item:hover {
-  background-color: rgba(131, 175, 35,0.3);
+  background-color: rgba(131, 175, 35, 0.3);
   transform: scale(1.05);
 }
 
 
 .universityCard .dropdown-menu.show {
   max-height: 500px;
-
   width: 100%;
-  
 }
- 
+
 
 .card-container {
-  
   position: relative;
   display: grid;
   width: 80%;
@@ -165,24 +145,25 @@
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   row-gap: 140px;
   column-gap: 140px;
-
 }
 
-.priorityPanel{
+.priorityPanel {
   z-index: 1000;
   position: relative;
 }
-.priorityPanel.hidden{
+
+.priorityPanel.hidden {
   display: none;
 }
-.priorityPage-title h3{
+
+.priorityPage-title h3 {
   text-align: left;
   font-size: 2rem;
   font-weight: bold;
   margin: 20px 0px;
 }
 
-.deleteAll{
+.deleteAll {
   text-align: center;
   font-size: larger;
   font-weight: bold;
@@ -196,26 +177,23 @@
 @media (max-width: 768px) {
   .universityCard .dropdown {
     align-self: stretch;
-    /* Make the dropdown full-width */
     margin-top: 10px;
-    /* Add some space at the top */
     margin-right: 0;
-    /* Remove right margin */
   }
 
-  .priorityPanel{
+  .priorityPanel {
     max-width: 50%;
   }
 }
 
-.filter-button #dropdown-region{
+.filter-button #dropdown-region {
   background-color: rgba(131, 175, 35);
-  border:none;
+  border: none;
   font-size: 1.25rem;
   z-index: 1;
 }
 
-.filter-button #dropdown-region:hover{
+.filter-button #dropdown-region:hover {
   background-color: rgb(96, 129, 27);
 }
 
@@ -232,7 +210,7 @@
     margin-right: 0;
   }
 
-  .priorityPanel{
+  .priorityPanel {
     max-width: 100%;
   }
 
@@ -259,6 +237,7 @@
     font-size: 1rem;
   }
 }
+
 .search {
   display: flex;
   justify-content: center;
@@ -281,14 +260,15 @@
   width: 100%;
   font-size: 1.25rem;
   border-radius: 50px;
-  border:rgb(58, 104, 125)1px solid;
+  border: rgb(58, 104, 125)1px solid;
 }
 
 .search .form-control:hover {
-  box-shadow: 0 0 5px rgb(58, 104, 125,0.5);
-  
+  box-shadow: 0 0 5px rgb(58, 104, 125, 0.5);
+
 
 }
+
 @media (max-width: 768px) {
   .search .form-inline {
     width: 100%;

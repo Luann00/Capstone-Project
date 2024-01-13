@@ -37,11 +37,11 @@ public class UniversityService {
     }
 
     public University updateUniversity(int uniId, University updatedUniversity) throws Exception {
-        // Find the existing student in the database
+        // Find the existing university in the database
         Optional<University> optionalUniversity = universityRepository.findById(uniId);
 
         if (optionalUniversity.isPresent()) {
-            // If the student exists, update the fields
+            // If the university exists, update the fields
             University existingUniversity = optionalUniversity.get();
             existingUniversity.setUniId(updatedUniversity.getUniId());
             existingUniversity.setName(updatedUniversity.getName());

@@ -1,7 +1,3 @@
-
-// Context for the priority selection panel
-
-
 import { createContext, useContext, useState } from "react";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -31,19 +27,16 @@ export function PrioritySelectionProvider({ children }) {
       const priorityExists = prevPriorities.some((priority) => priority.id === id);
   
       if (priorityExists) {
-        // Update the existing priority
         const updatedPriorities = prevPriorities.map((priority) => {
           if (priority.id === id) {
-            return { ...priority, value: newValue }; // Replace 'value' with the property you want to update
+            return { ...priority, value: newValue }; 
           }
           return priority;
         });
   
-        // Return the updated priorities
         return updatedPriorities;
       } else {
-        // Add a new priority
-        return [...prevPriorities, { id: id, value: newValue }]; // Replace 'value' with the property you want to set
+        return [...prevPriorities, { id: id, value: newValue }]; 
       }
     });
   }

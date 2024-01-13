@@ -12,7 +12,7 @@ export function useLocalStorage(key, initialValue) {
     }
   });
 
-  // Effect to retrieve item from localStorage and set the initial state
+  //  retrieve item from localStorage and set the initial state
   useEffect(() => {
     const storedValue = localStorage.getItem(key);
     if (storedValue !== null) {
@@ -20,7 +20,7 @@ export function useLocalStorage(key, initialValue) {
     }
   }, [key]);
 
-  // Effect to update localStorage whenever the value changes
+  //  update localStorage whenever the value changes
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);

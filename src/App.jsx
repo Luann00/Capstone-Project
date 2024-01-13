@@ -127,3 +127,38 @@ function App() {
 }
 
 export default App;
+
+
+
+/*
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+			.authorizeRequests()
+				.anyRequest().fullyAuthenticated()
+				.and()
+			.formLogin()            
+			.defaultSuccessUrl("/Test", true)
+        .permitAll();
+		return http.build();
+	}
+	 @Autowired
+	    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+	        auth
+	        .ldapAuthentication()
+            .userSearchFilter("(uid={0})")
+            .userSearchBase("ou=People,dc=uni-koeln,dc=de")
+            .groupSearchBase("ou=Group,dc=uni-koeln,dc=de")
+            .groupSearchFilter("(member={0})")
+            .userDnPatterns("uid={0},ou=People,dc=uni-koeln,dc=de")
+            .contextSource()
+                .url("ldaps://ldaptest-rzkj.rrz.uni-koeln.de:636") 
+                .managerDn("")
+                .managerPassword("");   
+	 }
+	    }
+*/

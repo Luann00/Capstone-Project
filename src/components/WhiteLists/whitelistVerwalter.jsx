@@ -36,7 +36,7 @@ export const WhitelistAdmin = () => {
 
 
   const inputFields = [
-    { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedAdmin ? true : false},
+    { name: 'pkz', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Matrikelnummer', disabled: selectedAdmin ? true : false },
     { name: 'year', type: 'number', placeholder: 'Enter year', min: '1' },
 
   ];
@@ -105,6 +105,12 @@ export const WhitelistAdmin = () => {
       }
     };
     fetchData();
+
+    //fetch interval every 3 seconds
+    const intervalId = setInterval(fetchData, 1000); 
+
+    return () => clearInterval(intervalId);
+
   }, []);
 
 

@@ -14,7 +14,6 @@
   position: absolute;
   right: 0;
   font-size: 25px;
-  /* Corrected property */
 }
 
 input::-webkit-outer-spin-button,
@@ -27,15 +26,12 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/* Add these styles to your stylesheet */
 .activeStatus {
   color: green;
   content: "\1F7E2";
-  /* Set the color for active status */
 }
 
 .inactiveStatus {
   color: red;
   content: "\1F534";
-  /* Set the color for inactive status */
 }

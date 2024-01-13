@@ -19,7 +19,6 @@ const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    // Fetch students' data once when the component mounts
     const fetchStudents = async () => {
       try {
         const studentsResponse = await axios.get('http://localhost:8081/student');
@@ -29,7 +28,6 @@ const AuthProvider = ({ children }) => {
       }
     };
 
-    // Fetch admins' data once when the component mounts
     const fetchAdmins = async () => {
       try {
         const adminsResponse = await axios.get('http://localhost:8081/admin');
@@ -41,7 +39,7 @@ const AuthProvider = ({ children }) => {
 
     fetchStudents();
     fetchAdmins();
-  }, []); // Empty dependency array ensures these effects run only once on mount
+  }, []); 
 
   const login = (id, password) => {
     try {
@@ -49,25 +47,21 @@ const AuthProvider = ({ children }) => {
       let foundAdmin = null;
 
 
-      // Find the student with the provided matrikelnummer
       students.forEach(student => {
-        if (foundStudent) return; // Abbruch, wenn bereits gefunden
+        if (foundStudent) return; 
         if (student.matrikelnummer.toString() === id.toString()) {
           foundStudent = student;
         }
       });
 
-      // Find the admin with the provided uniKim
       admins.forEach(admin => {
-        if (foundAdmin) return; // Abbruch, wenn bereits gefunden
+        if (foundAdmin) return; 
         if (admin.uniKim.toString() === id.toString()) {
           foundAdmin = admin;
         }
       });
 
-      // Check if a student with the provided matrikelnummer exists
       if (foundStudent) {
-        // Check if the provided password matches the fetched student's password
         if ("password" === password) {
           setCurrentUser(foundStudent);
           setIsStudent(true);

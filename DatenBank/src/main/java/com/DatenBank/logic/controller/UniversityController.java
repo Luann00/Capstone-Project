@@ -27,8 +27,6 @@ public class UniversityController {
 	
 private UniversityService universityService;
 	
-	
-	
 	@Autowired
 	public UniversityController(UniversityService universityService) {
 		this.universityService = universityService;

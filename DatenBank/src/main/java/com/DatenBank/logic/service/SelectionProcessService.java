@@ -38,11 +38,11 @@ public class SelectionProcessService {
 
 
     public SelectionProcess updateProcess(int year, SelectionProcess updatedProcess) throws Exception {
-        // Find the existing student in the database
+        // Find the existing process in the database
         Optional<SelectionProcess> optionalProcess = selectionProcessRepository.findById(year);
 
         if (optionalProcess.isPresent()) {
-            // If the student exists, update the fields
+            // If the process exists, update the fields
             SelectionProcess existingProcess = optionalProcess.get();
             existingProcess.setStartDate(updatedProcess.getStartDate());
             existingProcess.setEndDate(updatedProcess.getEndDate());
@@ -54,7 +54,7 @@ public class SelectionProcessService {
             existingProcess.setDaysUntilStudentDataDeletion(updatedProcess.getDaysUntilStudentDataDeletion());
             existingProcess.setExtended(updatedProcess.isExtended());
 
-            // Save the updated student back to the database
+            // Save the updated process back to the database
             return selectionProcessRepository.save(existingProcess);
         } else {
             throw new Exception("Pross not found with the year: " + year);

@@ -41,19 +41,6 @@ function Home() {
   });
 
 
-
-  const numberOfPreferences = 3
-
-  //render the preferences column 
-  const renderPreferenceColumns = () => {
-    const preferenceColumns = [];
-    for (let i = 1; i <= numberOfPreferences; i++) {
-      preferenceColumns.push(<th key={`preference${i}`}>Präferenz {i}</th>);
-    }
-    return preferenceColumns;
-  };
-
-
   //The new values for a new student get saved here initially
   const inputFields = [
     { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter ID', disabled: selectedStudent ? true : false },
@@ -81,9 +68,6 @@ function Home() {
     setStudents(updatedTableData);
 
   };
-
-
-
 
 
   const handleClose = () => {
@@ -132,8 +116,12 @@ function Home() {
       try {
         const response = await fetch('http://localhost:8081/student');
         const data = await response.json();
-        setStudents(data);
-        setOriginalStudents(data)
+
+        if (JSON.stringify(data) !== JSON.stringify(students)) {
+          setStudents(data);
+          setOriginalStudents(data);
+        }
+
       } catch (error) {
         console.log('Error fetching data:' + error);
       }
@@ -144,8 +132,6 @@ function Home() {
 
 
   const updateStudent = async () => {
-
-
     //Update at first the local table for a smoother user experience
     const updatedStudents = students.map((student) =>
       student.matrikelnummer === selectedStudent.matrikelnummer
@@ -165,20 +151,16 @@ function Home() {
           },
           body: JSON.stringify(selectedStudent),
         }
-
       );
-
-
       if (!response.ok) {
-
+        console.log(response);
       }
 
     } catch (error) {
+      console.error("Error during the fetch operation:", error);
     }
 
   };
-
-
 
 
   const addStudent = async () => {
@@ -209,15 +191,12 @@ function Home() {
 
 
   const deleteStudent = async (matrikelnummer) => {
-
     //Delete student at first from the local table for a smoother user experience
     const updatedTableData = students.filter((row) => row.matrikelnummer !== matrikelnummer);
     setStudents(updatedTableData);
 
     if (window.confirm('Are you sure you want to delete this student?')) {
-
       const deleteEndpoint = `http://localhost:8081/student/${matrikelnummer}`;
-
       try {
         const response = await fetch(deleteEndpoint, {
           method: "DELETE",
@@ -238,7 +217,6 @@ function Home() {
       setStudents([]);
       deleteAllStudentsDatabase();
     }
-
   };
 
   const deleteAllStudentsDatabase = async () => {
@@ -258,7 +236,7 @@ function Home() {
   };
 
 
-  //Sort function
+  //Sort function for sorting the students
   const handleSort = (column) => {
     let sortOrderForColumn, sortFunction;
 
