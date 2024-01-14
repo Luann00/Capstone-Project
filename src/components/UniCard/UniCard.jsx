@@ -120,6 +120,7 @@ const UniCard = ({ changePreference }) => {
 
   const removeAll = () => {
     priorities.forEach(priority => dropPriority(priority.id));
+    removeAllPriorities();
   };
 
   return (
@@ -138,7 +139,7 @@ const UniCard = ({ changePreference }) => {
 
           <Button className="deleteAll" onClick={() => {
             removeAll();
-            removeAllPriorities();
+           
           }}>Delete all</Button>
         </Offcanvas>
 

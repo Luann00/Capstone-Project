@@ -11,6 +11,8 @@ function Home() {
   const [students, setStudents] = useState([]);
   const [studentsDownload, setStudentsDownload] = useState([])
   const [originalStudents, setOriginalStudents] = useState([]);
+  const[universities, setUniversities] = useState([]);
+  const[uniName, setUniName] = useState(null);
 
 
 
@@ -34,9 +36,9 @@ function Home() {
     Email: "",
     Titel: "",
     Geschlecht: "",
-    FirstPref: "",
-    SecondPref: "",
-    ThirdPref: "",
+    // FirstPref: "",
+    // SecondPref: "",
+    // ThirdPref: "",
     AcceptedPolicy: ""
   });
 
@@ -271,6 +273,31 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    const fetchUniversities = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/university');
+        const data = await response.json();
+        setUniversities(data); 
+
+          
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchUniversities();
+   
+
+  }, []);
+
+  const getUniName = (id) => {
+    const uni = universities.find((uni) => uni.uniId === id);
+    return uni ? uni.abbName : '';
+  }
+
+
+
 
 
 
@@ -347,9 +374,9 @@ function Home() {
                     <td>{row.geschlecht}</td>
                     <td>{row.durchschnitt}</td>
                     <td>{row.email}</td>
-                    <td>{row.firstPref}</td>
-                    <td>{row.secondPref}</td>
-                    <td>{row.thirdPref}</td>
+                    <td>{getUniName(row.firstPref)}</td>
+                    <td>{getUniName(row.secondPref)}</td>
+                    <td>{getUniName(row.thirdPref)}</td>
                     <td>{row.acceptedPolicy}</td>
                     {//  <td>{row.zugeteilteUniversität}</td>
                     }
