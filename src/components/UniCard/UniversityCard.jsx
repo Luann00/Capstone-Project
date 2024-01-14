@@ -216,7 +216,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setIsDropdownDisabled(false);
-        }, 1500);
+        }, 10000);
 
         addPriority(university.uniId, {
             universityData: university,
