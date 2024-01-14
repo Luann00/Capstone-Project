@@ -6,7 +6,7 @@ const UniCardPage = () => {
   const [processIsActive, setProcessIsActive] = useState(false);
   const [processes, setProcesses] = useState([]);
   const [currentProcess, setCurrentProcess] = useState([])
-  const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0});
+  const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0 });
   const [extended, setExtended] = useState(false);
 
 
@@ -24,13 +24,15 @@ const UniCardPage = () => {
         setExtended(activeProcess.extended)
         return;
       }
-    
+
       setProcessIsActive(true);
       setExtended(activeProcess.extended)
     } else {
       setProcessIsActive(false);
     }
   };
+
+
 
 
   const updateProcesses = async (selectedProcess) => {
@@ -87,6 +89,7 @@ const UniCardPage = () => {
 
     //if process is already extended, leave the method and do nothing. if not, change database with put request accordingly
     if (activeProcess.extended) {
+
       return;
     }
 
@@ -113,6 +116,7 @@ const UniCardPage = () => {
     const hours = Math.floor(Math.floor(timeRemaining / 3600000));
     const minutes = Math.floor((timeRemaining % 3600000) / 60000);
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
+    console.log(hours)
 
 
     if (hours === 0 && minutes < 15) {
@@ -126,6 +130,8 @@ const UniCardPage = () => {
       const newHours = Math.floor(extensionMinutes / 60);
       const newMinutes = extensionMinutes % 60;
       endDateTime.setHours(newHours, newMinutes, 0, 999);
+
+      console.log(endDateTime)
 
 
       // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
@@ -272,6 +278,8 @@ const UniCardPage = () => {
 
     return null;
   };
+
+
 
   return (
     <div className='card-page'>
