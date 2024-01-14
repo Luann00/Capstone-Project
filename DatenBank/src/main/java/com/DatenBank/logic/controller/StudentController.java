@@ -1,5 +1,4 @@
 package com.DatenBank.logic.controller;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.repository.StudentRepository;
-import com.DatenBank.logic.service.StudentService;
-import com.DatenBank.logic.service.UniversityService;
-import com.DatenBank.logic.entity.University;
 import com.DatenBank.logic.service.DecisionMakingService;
+import com.DatenBank.logic.service.StudentService;
 
 @Controller // This means that this class is a Controller
 @CrossOrigin
