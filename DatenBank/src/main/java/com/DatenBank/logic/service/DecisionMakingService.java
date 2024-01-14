@@ -32,17 +32,16 @@ public class DecisionMakingService {
         List<Student> students = studentRepository.findAll();
     
         for (Student student : students) {
-            if (student.getAssignedUniversity() == 0) {
+            
                 assignFirstPriorityStudent(student);
-            }
+            
     
-            else if (student.getAssignedUniversity() != student.getFirstPref() && student.getAssignedUniversity() == 0) {
+            if (student.getAssignedUniversity()==0) {
                 assignSecondPriorityStudent(student);
             }
     
-            else if (student.getAssignedUniversity() != student.getFirstPref()
-            && student.getAssignedUniversity() != student.getSecondPref()
-            && student.getAssignedUniversity() == 0) {
+            if (student.getAssignedUniversity() == 0
+            ) {
                 assignThirdPriorityStudent(student);
             }
         }
@@ -52,7 +51,7 @@ public class DecisionMakingService {
         List<University> universities = universityRepository.findAll();
     
         for (University university : universities) {
-            if (student.getFirstPref() == university.getUniId()) {
+            if (student.getFirstPref() != 0 &&student.getFirstPref() == university.getUniId()) {
                 int availableSlots = university.getSlots();
                 List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
     
@@ -67,7 +66,7 @@ public class DecisionMakingService {
         List<University> universities = universityRepository.findAll();
     
         for (University university : universities) {
-            if (student.getSecondPref() == university.getUniId()) {
+            if (student.getSecondPref() != 0 &&student.getSecondPref() == university.getUniId()) {
                 int availableSlots = university.getSlots();
                 List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
                 List<Student> secondPriorityAssignedStudents = getAssignedStudentsByPriority(university, 2);
@@ -83,7 +82,7 @@ public class DecisionMakingService {
         List<University> universities = universityRepository.findAll();
     
         for (University university : universities) {
-            if (student.getThirdPref() == university.getUniId()) {
+            if (student.getFirstPref() != 0 &&student.getThirdPref() == university.getUniId()) {
                 int availableSlots = university.getSlots();
                 List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
                 List<Student> secondPriorityAssignedStudents = getAssignedStudentsByPriority(university, 2);

@@ -11,9 +11,72 @@
     color:rgba(69, 122, 147);
    
     text-align: left;
+    margin-top: 10rem;
+    padding: 0;
+}
+.homepage h3{
+    font-size: 1.75rem;
+    font-weight: 700;
+    color:rgba(69, 122, 147);
+   
+    text-align: left;
+    margin-top: 2rem;
+    padding: 0;
+}
+
+.instruction-card{
+    box-shadow: 1 0 5px rgba(0,0,0,0.3);
+   background-color:rgb(149, 197, 47,0.1);
+}
+.instruction-card:hover{
+    box-shadow: 1 0 5px rgba(0,0,0,0.3);
+    background-color:rgb(149, 197, 47,0.5);
+    transition: background-color 0.3s ease-in-out;
+    transform: scale(1.05);
+}
+.instruction-card .instruction-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color:rgba(69, 122, 147);
+    text-align: left;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+.instruction-card .instruction-content{
+    font-size: 1.2rem;
+    font-weight: 500;
+    
+    text-align: left;
     margin: 0;
     padding: 0;
 }
-.homepage.instruction-card{
-    box-shadow: 0 1 10px rgba(0,0,0,0.2);
+@media screen and (max-width: 768px) {
+    .homepage h2{
+        font-size: 2rem;
+    }
+    .homepage h3{
+        font-size: 1.5rem;
+    }
+    .instruction-card .instruction-title{
+        font-size: 1.25rem;
+    }
+    .instruction-card .instruction-content{
+        font-size: 1rem;
+    }
+    
+}
+@media screen and (max-width: 576px) {
+    .homepage h2{
+        font-size: 1.5rem;
+    }
+    .homepage h3{
+        font-size: 1.25rem;
+    }
+    .instruction-card .instruction-title{
+        font-size: 1rem;
+    }
+    .instruction-card .instruction-content{
+        font-size: 0.9rem;
+    }
+    
 }
