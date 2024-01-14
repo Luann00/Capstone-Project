@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle, useContext } from 'react';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import React, { useState, useEffect, forwardRef, useImperativeHandle} from 'react';
+
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
 import { CiPen } from "react-icons/ci";
@@ -20,7 +20,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
     const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
     const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
     const { addPriority, removePriority } = usePrioritySelection();
-    const [isDropdownDisabled, setDropdownDisabled] = useState(false);
+    const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
 
     const [ID, setID] = useState('')
     const [studentPriorities, setStudentPriorities] = useState([]);
@@ -88,9 +88,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 }
 
             );
-            if (!response.ok) {
-
-            }
+            
         } catch (error) {
         }
 
@@ -99,7 +97,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
 
     const handlePrioritySelect = async (priority) => {
-        setDropdownDisabled(true); // Disable the dropdown during the update
+        setIsDropdownDisabled(true); // Disable the dropdown during the update
         if (priority === '1st Priority') {
 
             const storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -125,7 +123,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 updatePriorities();
             } else {
                 alert("This preference is aleady set for another university!");
-                setDropdownDisabled(false);
+                setIsDropdownDisabled(false);
                 return;
             }
 
@@ -156,7 +154,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 updatePriorities();
             } else {
                 alert("This preference is aleady set for another university!");
-                setDropdownDisabled(false);
+                setIsDropdownDisabled(false);
                 return;
             }
 
@@ -184,7 +182,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
             } else {
                 alert("This preference is aleady set for another university!");
-                setDropdownDisabled(false);
+                setIsDropdownDisabled(false);
                 return;
             }
 
@@ -217,7 +215,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
-            setDropdownDisabled(false);
+            setIsDropdownDisabled(false);
         }, 1500);
 
         addPriority(university.uniId, {
@@ -229,9 +227,8 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
 
     const handleDropPriority = async () => {
-        setDropdownDisabled(true); // Disable the dropdown during the update
-        const storedUser = JSON.parse(localStorage.getItem('currentUser'));
-
+        setIsDropdownDisabled(true); // Disable the dropdown during the update
+       
         if (currentPriority === '1st Priority' && updatedFirstPref > 0) {
             setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
             await updateCurrentFirstPrioCount(university.uniId, false);
@@ -270,7 +267,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
-            setDropdownDisabled(false);
+            setIsDropdownDisabled(false);
         }, 3000);
 
     }

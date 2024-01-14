@@ -19,7 +19,8 @@ public class Student {
 			String geschlecht,
 			int firstPref,
 			int secondPref,
-			int thirdPref
+			int thirdPref,
+			int assignedUniversity
 			) {
 
 		
@@ -34,6 +35,7 @@ public class Student {
 		this.secondPref = secondPref;
 		this.thirdPref = thirdPref;
 		this.acceptedPolicy = "No";
+		this.assignedUniversity = assignedUniversity;	
 
 	}
 
@@ -132,6 +134,15 @@ public class Student {
 	private int secondPref;
 	private int thirdPref;
 	private String acceptedPolicy = "No";
+	private int assignedUniversity;
+
+	public int getAssignedUniversity() {
+		return assignedUniversity;
+	}
+
+	public void setAssignedUniversity(int assignedUniversity) {
+		this.assignedUniversity = assignedUniversity;
+	}
 
 	public String getAcceptedPolicy() {
 		return acceptedPolicy;
