@@ -23,18 +23,24 @@ public class DecisionMakingService {
     public void assignStudentToUniversity(int matrikelnummer, int uniId) {
         Student student = studentRepository.findById(matrikelnummer).orElseThrow();
         University university = universityRepository.findById(uniId).orElseThrow();
+        updateAvailableSlots(university);
 
         student.setAssignedUniversity(university.getUniId());
         studentRepository.save(student);
+    }
+
+    private void updateAvailableSlots(University university) {
+        university.setSlots(university.getSlots() - 1);
+        universityRepository.save(university);
     }
 
     public void allocateStudentsToUniversities() {
         List<Student> students = studentRepository.findAll();
     
         for (Student student : students) {
-            
+if(student.getAssignedUniversity()==0){
                 assignFirstPriorityStudent(student);
-            
+}
     
             if (student.getAssignedUniversity()==0) {
                 assignSecondPriorityStudent(student);
@@ -48,17 +54,13 @@ public class DecisionMakingService {
     }
     
     private void assignFirstPriorityStudent(Student student) {
-        List<University> universities = universityRepository.findAll();
+        University university = universityRepository.findById(student.getFirstPref()).orElse(null);
     
-        for (University university : universities) {
-            if (student.getFirstPref() != 0 &&student.getFirstPref() == university.getUniId()) {
-                int availableSlots = university.getSlots();
-                List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
-    
-                List<Student> firstPriorityStudents = List.of(student);
-                assignStudentsBasedOnAvailableSlots(firstPriorityStudents, availableSlots - firstPriorityAssignedStudents.size(), university.getUniId());
-                break; // Break after assigning to the first preference
-            }
+        if (university != null) {
+            int availableSlots = university.getSlots();
+           
+            List<Student> firstPriorityStudents = List.of(student);
+            assignStudentsBasedOnAvailableSlots(firstPriorityStudents, availableSlots,university.getUniId());
         }
     }
     
@@ -68,11 +70,11 @@ public class DecisionMakingService {
         for (University university : universities) {
             if (student.getSecondPref() != 0 &&student.getSecondPref() == university.getUniId()) {
                 int availableSlots = university.getSlots();
-                List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
-                List<Student> secondPriorityAssignedStudents = getAssignedStudentsByPriority(university, 2);
+                
+                
     
                 List<Student> secondPriorityStudents = List.of(student);
-                assignStudentsBasedOnAvailableSlots(secondPriorityStudents, availableSlots - firstPriorityAssignedStudents.size() - secondPriorityAssignedStudents.size(), university.getUniId());
+                assignStudentsBasedOnAvailableSlots(secondPriorityStudents, availableSlots , university.getUniId());
                 break; // Break after assigning to the second preference
             }
         }
@@ -84,11 +86,10 @@ public class DecisionMakingService {
         for (University university : universities) {
             if (student.getFirstPref() != 0 &&student.getThirdPref() == university.getUniId()) {
                 int availableSlots = university.getSlots();
-                List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
-                List<Student> secondPriorityAssignedStudents = getAssignedStudentsByPriority(university, 2);
+               
     
                 List<Student> thirdPriorityStudents = List.of(student);
-                assignStudentsBasedOnAvailableSlots(thirdPriorityStudents, availableSlots - firstPriorityAssignedStudents.size() - secondPriorityAssignedStudents.size(), university.getUniId());
+                assignStudentsBasedOnAvailableSlots(thirdPriorityStudents, availableSlots, university.getUniId());
                 break; // Break after assigning to the third preference
             }
         }

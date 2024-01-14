@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Nav, Container,Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom';
+import logo from './WiSo-Logo-transparent.png';
 
 
 
@@ -9,8 +10,18 @@ import { Link } from 'react-router-dom';
 const NavbarAdmin = ({ onLogout }) => {
   return (
     <div className="navbar-container">
+       
+      
       <Navbar className="Navbar" expand="lg">
+    
         <Container>
+        <img className="navbar-logo" src={logo} // Replace with the actual path
+              width="45"  // Replace with the actual width
+              height="45"  // Replace with the actual height
+              alt="UniPick logo"
+              style={{marginRight: "20px"}}
+              
+            /> 
           
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
