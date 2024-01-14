@@ -28,83 +28,109 @@ public class DecisionMakingService {
         studentRepository.save(student);
     }
 
-    // Priority Schedule Algorithm
     public void allocateStudentsToUniversities() {
         List<Student> students = studentRepository.findAll();
-        List<University> universities = universityRepository.findAll();
-
-        for (University university : universities) {
-            int availableSlots = university.getSlots();
-
-            // Filter students who selected this university as 1st priority
-            List<Student> firstPriorityStudents = students.stream()
-                    .filter(student -> student.getAssignedUniversity() == 0
-                            && student.getFirstPref() == university.getUniId())
-                    .collect(Collectors.toList());
-
-            if (firstPriorityStudents.size() > availableSlots) {
-                // Sort by GPA ascendingly (according to German note system)
-                firstPriorityStudents.sort(Comparator.comparing(Student::getDurchschnitt));
-
-                // Assign students based on available slots
-                for (int i = 0; i < availableSlots; i++) {
-                    assignStudentToUniversity(firstPriorityStudents.get(i).getMatrikelnummer(), university.getUniId());
-                }
-            } else {
-                // If available slots are more than 1st priority students, assign them first
-                for (Student student : firstPriorityStudents) {
-                    assignStudentToUniversity(student.getMatrikelnummer(), university.getUniId());
-                }
-
-                int remainingSlots = availableSlots - firstPriorityStudents.size();
-
-                // Filter students who selected this university as 2nd priority
-                List<Student> secondPriorityStudents = students.stream()
-                        .filter(student -> student.getAssignedUniversity() == 0
-                                && student.getSecondPref() == university.getUniId())
-                        .collect(Collectors.toList());
-
-                if (secondPriorityStudents.size() > remainingSlots) {
-                    // Sort by GPA ascendingly (according to German note system)
-                    secondPriorityStudents.sort(Comparator.comparing(Student::getDurchschnitt));
-
-                    // Assign students based on available slots
-                    for (int i = 0; i < remainingSlots; i++) {
-                        assignStudentToUniversity(secondPriorityStudents.get(i).getMatrikelnummer(),
-                                university.getUniId());
-                    }
-                } else {
-                    // If available slots are more than 2nd priority students, assign them first
-                    for (Student student : secondPriorityStudents) {
-                        assignStudentToUniversity(student.getMatrikelnummer(), university.getUniId());
-                    }
-
-                    remainingSlots = remainingSlots - secondPriorityStudents.size();
-
-                    // Filter students who selected this university as 3rd priority
-                    List<Student> thirdPriorityStudents = students.stream()
-                            .filter(student -> student.getAssignedUniversity() == 0
-                                    && student.getThirdPref() == university.getUniId())
-                            .collect(Collectors.toList());
-
-                    // Sort by GPA ascendingly (according to German note system)
-                    thirdPriorityStudents.sort(Comparator.comparing(Student::getDurchschnitt));
-
-                    // Assign students based on available slots
-                    for (int i = 0; i < remainingSlots; i++) {
-                        assignStudentToUniversity(thirdPriorityStudents.get(i).getMatrikelnummer(),
-                                university.getUniId());
-                    }
-                }
-                ;
+    
+        for (Student student : students) {
+            if (student.getAssignedUniversity() == 0) {
+                assignFirstPriorityStudent(student);
             }
-
+    
+            else if (student.getAssignedUniversity() != student.getFirstPref() && student.getAssignedUniversity() == 0) {
+                assignSecondPriorityStudent(student);
+            }
+    
+            else if (student.getAssignedUniversity() != student.getFirstPref()
+            && student.getAssignedUniversity() != student.getSecondPref()
+            && student.getAssignedUniversity() == 0) {
+                assignThirdPriorityStudent(student);
+            }
         }
     }
-
-    // Get all students who are not assigned to any university
-    public List<Student> getUnassignedStudents() {
-        return studentRepository.findAll().stream().filter(student -> student.getAssignedUniversity() == 0)
+    
+    private void assignFirstPriorityStudent(Student student) {
+        List<University> universities = universityRepository.findAll();
+    
+        for (University university : universities) {
+            if (student.getFirstPref() == university.getUniId()) {
+                int availableSlots = university.getSlots();
+                List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
+    
+                List<Student> firstPriorityStudents = List.of(student);
+                assignStudentsBasedOnAvailableSlots(firstPriorityStudents, availableSlots - firstPriorityAssignedStudents.size(), university.getUniId());
+                break; // Break after assigning to the first preference
+            }
+        }
+    }
+    
+    private void assignSecondPriorityStudent(Student student) {
+        List<University> universities = universityRepository.findAll();
+    
+        for (University university : universities) {
+            if (student.getSecondPref() == university.getUniId()) {
+                int availableSlots = university.getSlots();
+                List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
+                List<Student> secondPriorityAssignedStudents = getAssignedStudentsByPriority(university, 2);
+    
+                List<Student> secondPriorityStudents = List.of(student);
+                assignStudentsBasedOnAvailableSlots(secondPriorityStudents, availableSlots - firstPriorityAssignedStudents.size() - secondPriorityAssignedStudents.size(), university.getUniId());
+                break; // Break after assigning to the second preference
+            }
+        }
+    }
+    
+    private void assignThirdPriorityStudent(Student student) {
+        List<University> universities = universityRepository.findAll();
+    
+        for (University university : universities) {
+            if (student.getThirdPref() == university.getUniId()) {
+                int availableSlots = university.getSlots();
+                List<Student> firstPriorityAssignedStudents = getAssignedStudentsByPriority(university, 1);
+                List<Student> secondPriorityAssignedStudents = getAssignedStudentsByPriority(university, 2);
+    
+                List<Student> thirdPriorityStudents = List.of(student);
+                assignStudentsBasedOnAvailableSlots(thirdPriorityStudents, availableSlots - firstPriorityAssignedStudents.size() - secondPriorityAssignedStudents.size(), university.getUniId());
+                break; // Break after assigning to the third preference
+            }
+        }
+    }
+    
+    
+    private void assignStudentsBasedOnAvailableSlots(List<Student> students, int availableSlots, int universityId) {
+        if (!students.isEmpty()) {
+            if (students.size() > availableSlots) {
+                students.sort(Comparator.comparing(Student::getDurchschnitt));
+    
+                for (int i = 0; i < availableSlots; i++) {
+                    assignStudentToUniversity(students.get(i).getMatrikelnummer(), universityId);
+                }
+            } else {
+                for (Student student : students) {
+                    assignStudentToUniversity(student.getMatrikelnummer(), universityId);
+                }
+            }
+        }
+    }
+    
+    private List<Student> getAssignedStudentsByPriority(University university, int priority) {
+        return studentRepository.findAll().stream()
+                .filter(student -> student.getAssignedUniversity() == university.getUniId()
+                        && getPriorityPref(student) == priority)
                 .collect(Collectors.toList());
     }
+    
+    private int getPriorityPref(Student student) {
+        if (student.getFirstPref() == student.getAssignedUniversity()) {
+            return 1;
+        } else if (student.getSecondPref() == student.getAssignedUniversity()) {
+            return 2;
+        } else if (student.getThirdPref() == student.getAssignedUniversity()) {
+            return 3;
+        } else {
+            return 0; // No preference assigned
+        }
+    }
+    
+
+
 }

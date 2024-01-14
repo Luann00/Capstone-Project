@@ -12,8 +12,7 @@ function Home() {
   const [studentsDownload, setStudentsDownload] = useState([])
   const [originalStudents, setOriginalStudents] = useState([]);
   const[universities, setUniversities] = useState([]);
-  const[uniName, setUniName] = useState(null);
-
+  
 
 
   //For editing students
@@ -55,6 +54,7 @@ function Home() {
     { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min: '0' },
     { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min: '0' },
     { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference', min: '0' },
+    
   ];
 
 
@@ -86,7 +86,8 @@ function Home() {
       FirstPref: "",
       SecondPref: "",
       ThirdPref: "",
-      AcceptedPolicy: ""
+      AcceptedPolicy: "",
+      AssignedUniversity: ""
     });
   };
 
@@ -107,8 +108,8 @@ function Home() {
       FirstPref: student.firstPref,
       SecondPref: student.secondPref,
       ThirdPref: student.thirdPref,
-      AcceptedPolicy: student.acceptedPolicy
-
+      AcceptedPolicy: student.acceptedPolicy,
+      
     });
     handleShow();
   };
@@ -131,6 +132,33 @@ function Home() {
 
     fetchStudents();
   }, []);
+
+  useEffect(() => {
+    const allocateStudents = async () => {
+      try {
+          const response = await fetch( "http://localhost:8081/allocation/allocateStudentsToUniversities", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          console.log('Allocation successful');
+          
+        } else {
+          console.error('Error during allocation:', response.statusText);
+          // Handle the error appropriately
+        }
+      } catch (error) {
+        console.error('Error during allocation:', error.message);
+        // Handle the error appropriately
+      }
+    };
+
+    allocateStudents();
+  }, [students]); // Empty dependency array ensures the effect runs once when the component mounts
+
 
 
   const updateStudent = async () => {
@@ -327,7 +355,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllStudents} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Students
             </Button>
-            <CSVExportButton data={students} filename="students.csv" selectedAttributes={['matrikelnummer', 'vorname', 'nachname', 'title', 'durchschnitt', 'email', 'firstPref', 'secondPref', 'thirdPref', 'acceptedPolicy']} />
+            <CSVExportButton data={students} filename="students.csv" selectedAttributes={['matrikelnummer', 'vorname', 'nachname', 'title', 'durchschnitt', 'email', 'firstPref', 'secondPref', 'thirdPref', 'acceptedPolicy','assignedUniversity']} />
           </div>
         </div>
         <div className="row">
@@ -358,8 +386,8 @@ function Home() {
                   <th>SecondPref</th>
                   <th>ThirdPref</th>
                   <th>Accepted Policy</th>
-                  {//<th>Assigned University</th>
-                  }
+                  <th>Assigned University</th> 
+                  
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -378,8 +406,8 @@ function Home() {
                     <td>{getUniName(row.secondPref)}</td>
                     <td>{getUniName(row.thirdPref)}</td>
                     <td>{row.acceptedPolicy}</td>
-                    {//  <td>{row.zugeteilteUniversität}</td>
-                    }
+                    <td>{getUniName(row.assignedUniversity)}</td>
+                    
                     <td>
                       <a
                         href="#"

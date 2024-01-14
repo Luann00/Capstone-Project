@@ -37,6 +37,9 @@ public class StudentController {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Autowired
+	private DecisionMakingService decisionMakingService;
+
 	public StudentController(StudentService studentService) {
 		this.studentService = studentService;
 	}
@@ -123,4 +126,17 @@ public class StudentController {
 		}
 	}
 
+
+
+@PostMapping("/allocate")
+    public ResponseEntity<String> allocateStudentsToUniversities() {
+        try {
+			
+		decisionMakingService.allocateStudentsToUniversities();
+            return ResponseEntity.ok("Allocation successful.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error during allocation: " + e.getMessage());
+        }
+	}
 }
