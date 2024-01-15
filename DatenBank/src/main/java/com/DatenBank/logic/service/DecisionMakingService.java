@@ -24,16 +24,11 @@ public class DecisionMakingService {
     public void assignStudentToUniversity(int matrikelnummer, int uniId) {
         Student student = studentRepository.findById(matrikelnummer).orElseThrow();
         University university = universityRepository.findById(uniId).orElseThrow();
-        updateAvailableSlots(university);
-
         student.setAssignedUniversity(university.getUniId());
         studentRepository.save(student);
     }
 
-    private void updateAvailableSlots(University university) {
-        university.setSlots(university.getSlots() - 1);
-        universityRepository.save(university);
-    }
+    
 
     public void allocateStudentsToUniversities() {
         List<Student> students = studentRepository.findAll();
@@ -58,9 +53,8 @@ if(student.getAssignedUniversity()==0){
         University university = universityRepository.findById(student.getFirstPref()).orElse(null);
     
         if (university != null) {
-            int availableSlots = university.getSlots();
-           
-            assignStudentsBasedOnAvailableSlots(student, availableSlots,university.getUniId(),1);
+            
+            assignStudentsBasedOnAvailableSlots(student, university.getUniId(),1);
         }
     }
     
@@ -70,7 +64,7 @@ if(student.getAssignedUniversity()==0){
         if (university != null) {
             int availableSlots = university.getSlots();
            
-            assignStudentsBasedOnAvailableSlots(student, availableSlots,university.getUniId(),2);
+            assignStudentsBasedOnAvailableSlots(student, university.getUniId(),2);
         }
                 
         
@@ -84,16 +78,17 @@ if(student.getAssignedUniversity()==0){
         University university = universityRepository.findById(student.getThirdPref()).orElse(null);
     
         if (university != null) {
-            int availableSlots = university.getSlots();
+            
            
-            assignStudentsBasedOnAvailableSlots(student, availableSlots,university.getUniId(),3);
+            assignStudentsBasedOnAvailableSlots(student, university.getUniId(),3);
         }
     }
     
     
-    private void assignStudentsBasedOnAvailableSlots(Student student, int availableSlots, int universityId,int priority) {
+    private void assignStudentsBasedOnAvailableSlots(Student student,  int universityId,int priority) {
         University university = universityRepository.findById(universityId).orElse(null);
         List<Student> students = getStudentsWithSamePreference(university,priority);
+        int availableSlots = getAvailableSlotsForEachPriority(university,priority);
         if (!students.isEmpty()) {
                  students.sort(Comparator.comparing(Student::getDurchschnitt));
                  
@@ -149,5 +144,29 @@ if(student.getAssignedUniversity()==0){
         return studentsByPref.getOrDefault(uniId, List.of());
     }
 
+    public int getAvailableSlotsForEachPriority(University university, int priority) {
+        
+        int availableSlots = university.getSlots();
+        int slotsLeft;
+        switch (priority) {
+            case 1:
+            slotsLeft= availableSlots;
+            break;
+            case 2:
+            slotsLeft= availableSlots- getStudentsWithSamePreference(university, 1).size();
+            break;
+            case 3:
+slotsLeft= availableSlots- getStudentsWithSamePreference(university, 1).size()- getStudentsWithSamePreference(university, 2).size();
+
+                
+                break;
+        
+            default:
+                throw new IllegalArgumentException("Invalid priority: " + priority);
+                
+        }
+
+        return slotsLeft;
+    }
 
 }
