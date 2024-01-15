@@ -69,7 +69,7 @@ const LoginForm = ({ onLogin }) => {
     fetchWhitelistStudents();
     fetchWhitelistAdmins();
 
-  }, []);
+  }, [whitelistAdmins, whitelistStudents, admins, students]);
 
   const handleAnmelden = () => {
 
