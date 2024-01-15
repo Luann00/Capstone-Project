@@ -60,37 +60,33 @@ if(student.getAssignedUniversity()==0){
         if (university != null) {
             int availableSlots = university.getSlots();
            
-            List<Student> firstPriorityStudents = List.of(student);
             assignStudentsBasedOnAvailableSlots(student, availableSlots,university.getUniId(),1);
         }
     }
     
     private void assignSecondPriorityStudent(Student student) {
-        List<University> universities = universityRepository.findAll();
+        University university = universityRepository.findById(student.getSecondPref()).orElse(null);
     
-        for (University university : universities) {
-            if (student.getSecondPref() != 0 &&student.getSecondPref() == university.getUniId()) {
-                int availableSlots = university.getSlots();
+        if (university != null) {
+            int availableSlots = university.getSlots();
+           
+            assignStudentsBasedOnAvailableSlots(student, availableSlots,university.getUniId(),2);
+        }
                 
         
-                assignStudentsBasedOnAvailableSlots(student, availableSlots , university.getUniId(),2);
-                break; // Break after assigning to the second preference
-            }
-        }
+                
+            
+        
     }
     
     private void assignThirdPriorityStudent(Student student) {
-        List<University> universities = universityRepository.findAll();
+       
+        University university = universityRepository.findById(student.getThirdPref()).orElse(null);
     
-        for (University university : universities) {
-            if (student.getFirstPref() != 0 &&student.getThirdPref() == university.getUniId()) {
-                int availableSlots = university.getSlots();
-               
-    
-                List<Student> thirdPriorityStudents = List.of(student);
-                assignStudentsBasedOnAvailableSlots(student, availableSlots, university.getUniId(),3);
-                break; // Break after assigning to the third preference
-            }
+        if (university != null) {
+            int availableSlots = university.getSlots();
+           
+            assignStudentsBasedOnAvailableSlots(student, availableSlots,university.getUniId(),3);
         }
     }
     
@@ -100,16 +96,21 @@ if(student.getAssignedUniversity()==0){
         List<Student> students = getStudentsWithSamePreference(university,priority);
         if (!students.isEmpty()) {
                  students.sort(Comparator.comparing(Student::getDurchschnitt));
-                 double studentDurchschnitt = student.getDurchschnitt();
+                 
+                 if(students.size()>=availableSlots){
+                    double studentDurchschnitt = student.getDurchschnitt();
                  double thresholdDurchschnitt = students.get(availableSlots).getDurchschnitt();
                     if (studentDurchschnitt < thresholdDurchschnitt) {
                         assignStudentToUniversity(student.getMatrikelnummer(), universityId);
                     } else {
                         student.setAssignedUniversity(0);
-                    }
+                    }}
+                    else{
+                        assignStudentToUniversity(student.getMatrikelnummer(), universityId);
     
              
         }
+    }
     }
     
     private Map<Integer, List<Student>> groupStudentsByFirstPref() {

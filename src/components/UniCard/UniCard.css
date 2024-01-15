@@ -2,6 +2,8 @@
   width: 30rem;
   margin: 10px;
   border-radius: 20px;
+  z-index: 1;
+  position: relative;
 
   box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
   /* Increase the box shadow to make it more prominent */
@@ -11,16 +13,12 @@
 }
 
 
-.universityCard:hover {
-  transform: scale(1.05);
-  /* /* Enlarge the card by 5%  */
-
-}
-
 .universityCard:has(:hover, :focus) {
+  transform: scale(1.05);
   background-color: rgba(69, 122, 147);
   transition: background-color 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  z-index: 2;
 }
 
 
@@ -92,7 +90,7 @@
 
 
 
-/* Styling for the dropdown menu */
+
 .universityCard .dropdown {
   align-self: flex-end;
   margin-top: auto;
@@ -114,14 +112,15 @@
 .universityCard .dropdown-menu {
   width: 100%;
   transition: max-height 0.3s ease-in-out;
+  z-index: 1000 !important;
+  position: relative;
 }
-
 
 .universityCard .dropdown-menu .dropdown-item {
   font-size: 1.1rem;
   color: #555;
   transition: background-color 0.3s ease-in-out;
-  z-index: 2 !important;
+ 
 }
 
 .universityCard .dropdown-menu .dropdown-item:hover {
@@ -130,14 +129,10 @@
 }
 
 
-.universityCard .dropdown-menu.show {
-  max-height: 500px;
-  width: 100%;
-}
-
 
 .card-container {
   position: relative;
+  z-index: 0;
   display: grid;
   width: 80%;
   margin-left: auto;
@@ -197,6 +192,38 @@
   background-color: rgb(96, 129, 27);
 }
 
+.search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search .form-inline {
+  display: flex;
+  width: 100%;
+
+
+}
+
+
+.search .icon {
+  margin-right: 10px;
+}
+
+.search .form-control {
+  width: 100%;
+  font-size: 1.25rem;
+  border-radius: 50px;
+  border: rgb(58, 104, 125)1px solid;
+}
+
+.search .form-control:hover {
+  box-shadow: 0 0 5px rgb(58, 104, 125, 0.5);
+
+
+}
+
+
 
 @media (max-width: 768px) {
   .universityCard {
@@ -236,41 +263,8 @@
   .universityCard .list-group-item span {
     font-size: 1rem;
   }
-}
-
-.search {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.search .form-inline {
-  display: flex;
-  width: 100%;
-
-
-}
-
-
-.search .icon {
-  margin-right: 10px;
-}
-
-.search .form-control {
-  width: 100%;
-  font-size: 1.25rem;
-  border-radius: 50px;
-  border: rgb(58, 104, 125)1px solid;
-}
-
-.search .form-control:hover {
-  box-shadow: 0 0 5px rgb(58, 104, 125, 0.5);
-
-
-}
-
-@media (max-width: 768px) {
   .search .form-inline {
     width: 100%;
   }
 }
+
