@@ -154,7 +154,6 @@ const HomePageAdmin = () => {
                 const newMinutes = extensionMinutes % 60;
                 endDateTime.setHours(newHours, newMinutes, 0, 999);
 
-
                 // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
 
                 const extendedDeadline = new Date(endDateTime.getTime());
