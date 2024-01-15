@@ -139,12 +139,10 @@ function Home() {
           setoriginalUniversities(data);
           setFirstTimeLoading(false)
         } else {
+          //set data only when new data is different than current data
           if (!compareBoth(data, universities)) {
             setUniversities(data);
             setoriginalUniversities(data);
-          } else {
-            console.log(compareBoth(data, universities))
-
           }
         }
 
@@ -160,7 +158,7 @@ function Home() {
 
     fetchUniversities();
 
-    //fetch data every 1 second
+    //fetch university data every 1 second
     const intervalId = setInterval(fetchUniversities, 1000);
     return () => clearInterval(intervalId);
 
