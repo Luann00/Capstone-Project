@@ -13,10 +13,9 @@ function Home() {
   const [universities, setUniversities] = useState([]);
   const [originalUniversities, setoriginalUniversities] = useState([]);
   const [showMinGPAColumn, setShowMinGPAColumn] = useState(true);
-
-
-
   const [search, setSearch] = useState("");
+
+  const [firstTimeLoading, setFirstTimeLoading] = useState(true)
 
 
 
@@ -120,6 +119,14 @@ function Home() {
     });
     handleShow();
   };
+
+
+  const compareBoth = (arr1, arr2) => {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  };
+
+
+
   //Show data of database in the table
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -127,8 +134,20 @@ function Home() {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
 
-        setUniversities(data);
-        setoriginalUniversities(data);
+        if (firstTimeLoading) {
+          setUniversities(data);
+          setoriginalUniversities(data);
+          setFirstTimeLoading(false)
+        } else {
+          if (!compareBoth(data, universities)) {
+            setUniversities(data);
+            setoriginalUniversities(data);
+          } else {
+            console.log(compareBoth(data, universities))
+
+          }
+        }
+
 
         const initialShowMinGPAColumn = data.length > 0 ? data[0].showGPA : false;
         setShowMinGPAColumn(initialShowMinGPAColumn);
@@ -141,8 +160,11 @@ function Home() {
 
     fetchUniversities();
 
-  }, []);
+    //fetch data every 1 second
+    const intervalId = setInterval(fetchUniversities, 1000);
+    return () => clearInterval(intervalId);
 
+  }, [firstTimeLoading]);
 
   const updateUniversity = async () => {
 
@@ -490,7 +512,7 @@ function Home() {
                 )}
               </form>
             </Modal.Body>
-            
+
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close
