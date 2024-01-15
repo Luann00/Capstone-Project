@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle} from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 
 import { Card, Dropdown, ListGroup } from 'react-bootstrap';
 import { BsPinMapFill, BsFillPeopleFill } from "react-icons/bs";
@@ -9,7 +9,6 @@ import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
 
 
 export const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
-    const [currentPriority, setCurrentPriority] = useState(null);
     const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
     const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
 
@@ -19,6 +18,24 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
     const [firstPriority, setFirstPriority] = useState(storedUser ? storedUser.firstPref : '');
     const [secondPriority, setSecondPriority] = useState(storedUser ? storedUser.secondPref : '');
     const [thirdPriority, setThirdPriority] = useState(storedUser ? storedUser.thirdPref : '');
+
+    const [currentPriority, setCurrentPriority] = useState(() => {
+        if (storedUser) {
+            if (storedUser.firstPref === university.uniId) {
+                return '1st Priority';
+            } else if (storedUser.secondPref === university.uniId) {
+                return '2nd Priority';
+            } else if (storedUser.thirdPref === university.uniId) {
+                return '3rd Priority';
+            }
+        }
+
+        return null;
+    });
+
+
+
+
     const { addPriority, removePriority } = usePrioritySelection();
     const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
 
@@ -36,14 +53,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 const data = await response.json();
                 // Update localstorage items from database
                 const storedUser = JSON.parse(localStorage.getItem('currentUser'));
-                if (storedUser) {
-                    storedUser.firstPref = data.firstPref;
-                    storedUser.secondPref = data.secondPref;
-                    storedUser.thirdPref = data.thirdPref;
-
-                    localStorage.setItem('currentUser', JSON.stringify(storedUser));
-                }
-
             } catch (error) {
                 console.log('Error fetching data:' + error);
             }
@@ -88,7 +97,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 }
 
             );
-            
+
         } catch (error) {
         }
 
@@ -121,6 +130,8 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 setFirstPriority(university.uniId)
                 setCurrentPriority('1st Priority')
                 updatePriorities();
+                console.log(currentPriority)
+
             } else {
                 alert("This preference is aleady set for another university!");
                 setIsDropdownDisabled(false);
@@ -152,6 +163,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 setSecondPriority(storedUser.secondPref)
                 setCurrentPriority('2nd Priority')
                 updatePriorities();
+
             } else {
                 alert("This preference is aleady set for another university!");
                 setIsDropdownDisabled(false);
@@ -179,7 +191,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 setThirdPriority(university.uniId)
                 setCurrentPriority('3rd Priority')
                 updatePriorities();
-
             } else {
                 alert("This preference is aleady set for another university!");
                 setIsDropdownDisabled(false);
@@ -216,7 +227,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setIsDropdownDisabled(false);
-        }, 10000);
+        }, 1000);
 
         addPriority(university.uniId, {
             universityData: university,
@@ -228,7 +239,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
     const handleDropPriority = async () => {
         setIsDropdownDisabled(true); // Disable the dropdown during the update
-       
+
         if (currentPriority === '1st Priority' && updatedFirstPref > 0) {
             setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
             await updateCurrentFirstPrioCount(university.uniId, false);
@@ -256,7 +267,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         }
         setCurrentPriority(null);
 
-        await updatePriorities();
+        updatePriorities();
         removePriority(university.uniId);
 
         if (ref.current) {
