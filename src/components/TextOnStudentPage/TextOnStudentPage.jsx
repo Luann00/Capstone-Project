@@ -46,7 +46,7 @@ const TextOnStudentPage = () => {
     useEffect(() => {
         const fetchTexts = async () => {
             try {
-                const response = await fetch("http://localhost:8080/textOnStudentPage");
+                const response = await fetch('http://localhost:8081/textOnStudentPage');
                 const data = await response.json();
                 setTexts(data);
             }
@@ -63,7 +63,7 @@ const TextOnStudentPage = () => {
             handleClose();
 
             try {
-                await fetch(`http://localhost:8080/textOnStudentPage/${selectedText.id}` , {
+                await fetch(`http://localhost:8081/textOnStudentPage/${selectedText.id}` , {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -82,7 +82,7 @@ const TextOnStudentPage = () => {
         setTexts(updatedTexts);
         handleClose();
         try {
-            await fetch(`http://localhost:8080/textOnStudentPage`, {
+            await fetch(`http://localhost:8081/textOnStudentPage`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -100,7 +100,7 @@ const TextOnStudentPage = () => {
         setTexts(updatedTexts);
         if(window.confirm("Do you want to delete this textbox?")) {
         try {
-            await fetch(`http://localhost:8080/textOnStudentPage/${text.id}`, {
+            await fetch(`http://localhost:8081/textOnStudentPage/${text.id}`, {
                 method: "DELETE"
             });
         }
@@ -113,7 +113,7 @@ const TextOnStudentPage = () => {
         if(window.confirm("Do you want to delete all textbox?")) {
             setTexts([]);
         try {
-            await fetch(`http://localhost:8080/textOnStudentPage/all`, {
+            await fetch(`http://localhost:8081/textOnStudentPage/all`, {
                 method: "DELETE"
             });
         }
@@ -127,9 +127,15 @@ const TextOnStudentPage = () => {
     const handleChange = (event) => {
         const {name, value} = event.target;
         if(selectedText) {
-            setSelectedText({...selectedText, [name]: value});
+            setSelectedText((prevText) => ({
+                ...prevText,
+                [name]: value
+            }));
         }else{
-            setNewText({...newText, [name]: value});
+            setNewText((prevText) => ({
+                ...prevText,
+                [name]: value
+            }));
         
         }
        

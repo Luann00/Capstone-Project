@@ -25,7 +25,7 @@ const HomeStudent = ({ onAccept }) => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch("http://localhost:8080/textOnStudentPage");
+        const response = await fetch("http://localhost:8081/textOnStudentPage");
         const data = await response.json();
         setMessages(data);
       }
