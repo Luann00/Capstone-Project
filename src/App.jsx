@@ -13,6 +13,7 @@ import NavbarAdmin from './components/NavigationBar/NavbarAdmin';
 import NavBarStudent from './components/NavigationBar/NavBarStudent';
 import HomePageAdmin from "./components/HomePage/HomePageAdmin";
 import HomePageStudent from "./components/HomePage/HomePageStudent";
+import TextOnStudentPage from "./components/TextOnStudentPage/TextOnStudentPage";
 
 function App() {
   const [isStudent, setIsStudent] = useState(false);
@@ -99,6 +100,7 @@ function App() {
                 <Route path="/WhitelistStudent" element={<WhitelistStudent />} />
                 <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
+                <Route path="/TextOnStudentPage" element={<TextOnStudentPage />} />
               </>
             ) : (
 

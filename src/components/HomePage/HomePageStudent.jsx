@@ -6,6 +6,7 @@ import './HomePageStudent.css';
 
 const HomeStudent = ({ onAccept }) => {
   const [name, setname] = useState("");
+  const[messages,setMessages] = useState([]);
 
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -21,6 +22,21 @@ const HomeStudent = ({ onAccept }) => {
 
   }, []);
 
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/textOnStudentPage");
+        const data = await response.json();
+        setMessages(data);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    fetchMessages();
+  
+  }, []);
+
   const handleAccept = () => {
     setAcceptedPolicy(true);
     onAccept();
@@ -33,50 +49,16 @@ const HomeStudent = ({ onAccept }) => {
       {acceptedPolicy ? (
         <>
         <h2>Welcome, {name}!</h2>
-      <h3>Get started with UniPick:</h3>
-        <Container className="mt-5">
-        <Row className="mb-3">
-          <Col>
-            <InstructionCard 
-              title="1.Explore & Choose"
-              content= "Head to the 'Universities' section.The universities's information would be displayed in the card. Click on the university card title to view more information about the university.You can also filter the universities by country, city, as well as search for a specific university name."
-            />
-          </Col>
-        </Row >
-        <Row className="mb-3">
-          <Col>
-            <InstructionCard 
-            title="2.Pick your preferred universities"
-            content="Tap on the 'Choose preferences' dropdown on your preferred university card. Select the university as your 1st Priority, 2nd Priority or 3rd Priority.Each priority can only be selected once."
-              
-            />
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <InstructionCard 
-              title="3.Review your preferences"
-              content="Go to 'Your preferences'. Here you can reset your priorities one by one or all of them together."
-            />
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <InstructionCard 
-              title="4.Time management"
-              content="Make sure that you finalize your decision within the time frame."
-            />
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <InstructionCard 
-              title="5.Stay Updated"
-              content="We'll send you an email as soon as the decision is made."
-            />
-          </Col>
-        </Row>
-      </Container>
+        <Container>
+          {messages.map((message) => (
+            <Row className="message-row">
+              <Col>
+                <InstructionCard title={message.titel} content={message.text} />
+              </Col>
+            </Row>
+          ))}
+        </Container>
+      
         </>
 
       ) : (

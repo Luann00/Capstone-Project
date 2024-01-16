@@ -46,6 +46,10 @@ const NavbarAdmin = ({ onLogout }) => {
                   <LinkContainer className='link-container' to="/SelectionProcess">
                     <Nav.Link className="nav-link">SelectionProcess</Nav.Link>
                   </LinkContainer>
+                  <LinkContainer className='link-container' to="/TextOnStudentPage">
+                    <Nav.Link className="nav-link">Update Messages</Nav.Link>
+                  </LinkContainer>
+
             </Nav>
             <Button onClick={onLogout} className="Logout">Logout</Button>
           </Navbar.Collapse>
