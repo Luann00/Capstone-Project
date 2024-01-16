@@ -110,7 +110,7 @@ const UniCard = ({ changePreference }) => {
     fetchUniversities();
 
 
-    const interval = setInterval(fetchUniversities, 10000);
+    const interval = setInterval(fetchUniversities, 3000);
 
     return () => clearInterval(interval);
   }, []);

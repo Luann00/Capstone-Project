@@ -11,12 +11,16 @@ function Home() {
   const [students, setStudents] = useState([]);
   const [studentsDownload, setStudentsDownload] = useState([])
   const [originalStudents, setOriginalStudents] = useState([]);
-  const[universities, setUniversities] = useState([]);
-  
+  const [universities, setUniversities] = useState([]);
+  const [uniName, setUniName] = useState(null);
+
 
 
   //For editing students
   const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const [firstTimeLoading, setFirstTimeLoading] = useState(true)
+
 
 
   const [search, setSearch] = useState("");
@@ -118,6 +122,14 @@ function Home() {
     });
     handleShow();
   };
+
+
+
+  const compareBoth = (arr1, arr2) => {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  };
+
+
   //Show data of database in the table
   useEffect(() => {
     const fetchStudents = async () => {
@@ -125,9 +137,17 @@ function Home() {
         const response = await fetch('http://localhost:8081/student');
         const data = await response.json();
 
-        if (JSON.stringify(data) !== JSON.stringify(students)) {
+        //set data only when
+        if (firstTimeLoading) {
           setStudents(data);
           setOriginalStudents(data);
+          setFirstTimeLoading(false)
+        } else {
+          //set data only when new data is different than current data
+          if (!compareBoth(data, students)) {
+            setStudents(data);
+            setOriginalStudents(data);
+          }
         }
 
       } catch (error) {
@@ -136,9 +156,11 @@ function Home() {
     };
 
     fetchStudents();
-  }, []);
 
- 
+    //fetch student data every 1 second
+    const intervalId = setInterval(fetchStudents, 1000);
+    return () => clearInterval(intervalId);
+  }, [firstTimeLoading]);
 
 
   const updateStudent = async () => {
@@ -286,16 +308,16 @@ function Home() {
       try {
         const response = await fetch('http://localhost:8081/university');
         const data = await response.json();
-        setUniversities(data); 
+        setUniversities(data);
 
-          
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchUniversities();
-   
+
 
   }, []);
 

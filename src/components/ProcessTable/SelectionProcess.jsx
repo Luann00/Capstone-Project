@@ -11,7 +11,7 @@ function SelectionProcess() {
     const [processes, setProcesses] = useState([]);
     const [originalProcesses, setOriginalProcesses] = useState([]);
     const [universities, setUniversities] = useState([])
-
+    const [firstTimeLoading, setFirstTimeLoading] = useState(true)
     const [students, setStudents] = useState([]);
 
 
@@ -38,7 +38,7 @@ function SelectionProcess() {
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
         {
-            name: 'year', type: 'number', placeholder: 'Enter year of the process', min: new Date(newProcess.endDate).getFullYear(), // Set the minimum year to the year of 'endDate'
+            name: 'year', type: 'number', placeholder: 'Enter year of the process', min: new Date(newProcess.startDate).getFullYear(), max: new Date(newProcess.startDate).getFullYear()
         },
         { name: 'numberOfStudents', type: 'number', placeholder: 'Number of students(auto-filled)', disabled: true },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(3, can be changed later)', value: 3, disabled: true },
@@ -88,6 +88,11 @@ function SelectionProcess() {
 
 
 
+    const compareBoth = (arr1, arr2) => {
+        return JSON.stringify(arr1) === JSON.stringify(arr2);
+    };
+
+
     const handleShow = () => setShow(true);
 
     const handleEdit = (process) => {
@@ -118,17 +123,37 @@ function SelectionProcess() {
                     fetch('http://localhost:8081/student').then(response => response.json())
                 ]);
 
-                setProcesses(processesResponse.reverse());
-                setOriginalProcesses(processesResponse);
-                setUniversities(universitiesResponse);
-                setStudents(studentsResponse);
 
-                // Set the initial value for numberOfUniversities in newProcess
-                setNewProcess((prevProcess) => ({
-                    ...prevProcess,
-                    numberOfUniversities: universitiesResponse.length,
-                    numberOfStudents: studentsResponse.length,
-                }));
+                //set data only when
+                if (firstTimeLoading) {
+                    setProcesses(processesResponse.reverse());
+                    setOriginalProcesses(processesResponse);
+                    setUniversities(universitiesResponse);
+                    setStudents(studentsResponse);
+                    setFirstTimeLoading(false)
+                    // Set the initial value for numberOfUniversities in newProcess
+                    setNewProcess((prevProcess) => ({
+                        ...prevProcess,
+                        numberOfUniversities: universitiesResponse.length,
+                        numberOfStudents: studentsResponse.length,
+                    }));
+                } else {
+                    //set data only when new data is different than current data
+                    if (!compareBoth(processesResponse, originalProcesses)) {
+                        console.log("oui")
+                        setProcesses(processesResponse.reverse());
+                        setOriginalProcesses(processesResponse);
+                        setUniversities(universitiesResponse);
+                        setStudents(studentsResponse);
+
+                        // Set the initial value for numberOfUniversities in newProcess
+                        setNewProcess((prevProcess) => ({
+                            ...prevProcess,
+                            numberOfUniversities: universitiesResponse.length,
+                            numberOfStudents: studentsResponse.length,
+                        }));
+                    }
+                }
 
 
             } catch (error) {
@@ -137,7 +162,12 @@ function SelectionProcess() {
         };
 
         fetchData();
-    }, []);
+
+
+        //fetch student data every 1 second
+        const intervalId = setInterval(fetchData, 1000);
+        return () => clearInterval(intervalId);
+    }, [firstTimeLoading]);
 
 
     const updateProcesses = async () => {
