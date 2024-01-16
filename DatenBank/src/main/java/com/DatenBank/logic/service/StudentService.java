@@ -52,6 +52,7 @@ public class StudentService {
             existingStudent.setFirstPref(updatedStudent.getFirstPref());
             existingStudent.setSecondPref(updatedStudent.getSecondPref());
             existingStudent.setThirdPref(updatedStudent.getThirdPref());
+            existingStudent.setAssignedUniversity(updatedStudent.getAssignedUniversity());
 
             // Save the updated student back to the database
             return studentRepository.save(existingStudent);
@@ -86,6 +87,7 @@ public class StudentService {
             existingStudent.setFirstPref(newPriorities.get("firstPref"));
             existingStudent.setSecondPref(newPriorities.get("secondPref"));
             existingStudent.setThirdPref(newPriorities.get("thirdPref"));
+            
             // Save the updated student back to the database
             return studentRepository.save(existingStudent);
         } else {
