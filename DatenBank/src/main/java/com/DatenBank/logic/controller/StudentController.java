@@ -122,18 +122,7 @@ public class StudentController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
-
-
-@PostMapping("/allocate")
-    public ResponseEntity<String> allocateStudentsToUniversities() {
-        try {
-			
-		decisionMakingService.allocateStudentsToUniversities();
-            return ResponseEntity.ok("Allocation successful.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error during allocation: " + e.getMessage());
-        }
-	}
 }
+
+
+

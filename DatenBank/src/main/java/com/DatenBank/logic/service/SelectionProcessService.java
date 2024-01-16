@@ -2,6 +2,7 @@ package com.DatenBank.logic.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class SelectionProcessService {
 
     public SelectionProcess addSelectionProcess(SelectionProcess selectionProcess) {
         return selectionProcessRepository.save(selectionProcess);
+    }
+
+    public SelectionProcess getCurrentProcess() {
+        int currentYear = LocalDateTime.now().getYear();
+        return selectionProcessRepository.findById(currentYear).orElse(null);
     }
 
     public void deleteSelectionProcess(int year) {

@@ -62,8 +62,6 @@ if(student.getAssignedUniversity()==0){
         University university = universityRepository.findById(student.getSecondPref()).orElse(null);
     
         if (university != null) {
-            int availableSlots = university.getSlots();
-           
             assignStudentsBasedOnAvailableSlots(student, university.getUniId(),2);
         }
                 
@@ -85,41 +83,51 @@ if(student.getAssignedUniversity()==0){
     }
     
     
-    private void assignStudentsBasedOnAvailableSlots(Student student,  int universityId,int priority) {
+    private void assignStudentsBasedOnAvailableSlots(Student student, int universityId, int priority) {
         University university = universityRepository.findById(universityId).orElse(null);
-        List<Student> students = getStudentsWithSamePreference(university,priority);
-        int availableSlots = getAvailableSlotsForEachPriority(university,priority);
-        if (!students.isEmpty()) {
-                 students.sort(Comparator.comparing(Student::getDurchschnitt));
-                 
-                 if(students.size()>=availableSlots){
+    
+        if (university != null) {
+            List<Student> students = getStudentsWithSamePreference(university, priority);
+            int availableSlots = getAvailableSlotsForEachPriority(university, priority);
+    
+            if (!students.isEmpty()) {
+                students.sort(Comparator.comparing(Student::getDurchschnitt));
+    
+                if (students.size() >= availableSlots) {
                     double studentDurchschnitt = student.getDurchschnitt();
-                 double thresholdDurchschnitt = students.get(availableSlots).getDurchschnitt();
-                    if (studentDurchschnitt < thresholdDurchschnitt) {
+    
+                   
+                    int thresholdIndex = Math.min(availableSlots, students.size())-1;
+                    double thresholdDurchschnitt = students.get(thresholdIndex).getDurchschnitt();
+    
+                    if (studentDurchschnitt <= thresholdDurchschnitt) {
                         assignStudentToUniversity(student.getMatrikelnummer(), universityId);
                     } else {
-                        student.setAssignedUniversity(0);
-                    }}
-                    else{
-                        assignStudentToUniversity(student.getMatrikelnummer(), universityId);
-    
-             
+                        assignStudentToUniversity(student.getMatrikelnummer(),0);
+                    }
+                } else {
+                    // If the number of students is less than available slots, assign the student
+                    assignStudentToUniversity(student.getMatrikelnummer(), universityId);
+                }
+            }
         }
     }
-    }
+    
     
     private Map<Integer, List<Student>> groupStudentsByFirstPref() {
         return studentRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Student::getFirstPref));
+               .collect(Collectors.groupingBy(Student::getFirstPref));
     }
 
     private Map<Integer, List<Student>> groupStudentsBySecondPref() {
         return studentRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Student::getSecondPref));
+        .filter(student -> student.getAssignedUniversity()==student.getFirstPref())               .collect(Collectors.groupingBy(Student::getSecondPref));
+
     }
 
     private Map<Integer, List<Student>> groupStudentsByThirdPref() {
         return studentRepository.findAll().stream()
+        .filter(student -> student.getAssignedUniversity()==student.getFirstPref()&&student.getAssignedUniversity()==student.getSecondPref()) 
                 .collect(Collectors.groupingBy(Student::getThirdPref));
     }
 

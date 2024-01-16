@@ -109,7 +109,10 @@ const HomePageAdmin = () => {
                 const data = await response.json();
                 setProcesses(data);
                 const activeProcess = getActiveProcess(data);
-                setCurrentProcess(activeProcess)
+                setCurrentProcess(activeProcess);
+                if (activeProcess && new Date() > new Date(activeProcess.endDate)) {
+                    await fetch('http://localhost:8081/triggerAllocation', { method: 'POST' });
+                }
 
             } catch (error) {
                 console.log('Error fetching data:' + error);
@@ -123,6 +126,36 @@ const HomePageAdmin = () => {
 
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        const allocateStudents = async () => {
+          try {
+              const response = await fetch( "http://localhost:8081/allocation/allocateStudentsToUniversities", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+    
+            if (response.ok) {
+              console.log('Allocation successful');
+              
+            } else {
+              console.error('Error during allocation:', response.statusText);
+              // Handle the error appropriately
+            }
+          } catch (error) {
+            console.error('Error during allocation:', error.message);
+            // Handle the error appropriately
+          }
+        };
+
+        if (currentProcess && new Date() > new Date(currentProcess.endDate)) {
+            allocateStudents();
+    
+        };
+      }, [currentProcess]); // Empty dependency array ensures the effect runs once when the component mounts
+    
 
 
 
