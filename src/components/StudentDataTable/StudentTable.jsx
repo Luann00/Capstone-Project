@@ -157,8 +157,8 @@ function Home() {
 
     fetchStudents();
 
-    //fetch student data every 1 second
-    const intervalId = setInterval(fetchStudents, 1000);
+    //fetch student data every 3 second
+    const intervalId = setInterval(fetchStudents, 3000);
     return () => clearInterval(intervalId);
   }, [firstTimeLoading]);
 

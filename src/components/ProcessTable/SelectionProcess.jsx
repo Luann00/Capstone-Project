@@ -164,10 +164,42 @@ function SelectionProcess() {
         fetchData();
 
 
-        //fetch student data every 1 second
-        const intervalId = setInterval(fetchData, 1000);
+        //fetch student data every 3 second
+        const intervalId = setInterval(fetchData, 3000);
         return () => clearInterval(intervalId);
     }, [firstTimeLoading]);
+
+
+    const checkDays = () => {
+        processes.forEach((processItem) => {
+            if (processIsActive(processItem)) {
+                const startDateString = processItem.startDate;
+
+
+                const startDate = new Date(startDateString);
+                startDate.setHours(0, 0, 0, 0)
+
+
+
+                // Get the current date
+                const currentDate = new Date();
+
+
+
+
+                // Calculate the time difference in milliseconds
+                const timeDifference = currentDate.getTime() - startDate.getTime();
+
+
+                // Convert the time difference to days
+                const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+                console.log(`Days left: ${daysLeft}`);
+            }
+        });
+    };
+
+
 
 
     const updateProcesses = async () => {
