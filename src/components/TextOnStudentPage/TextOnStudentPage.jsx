@@ -166,22 +166,25 @@ const TextOnStudentPage = () => {
             </div>
             <div className="row">
                 <div className="textbox_card">
-                    <Card className="text-center">
-                        <Card.Header>Messages</Card.Header>
+                    {texts.map((text) => (
+                        
+                    <Card key={text.id}
+                    className="text-center">
+                        <Card.Header>Messages {text.id}</Card.Header>
                         <Card.Body>
-                            <Card.Title>Messages</Card.Title>
+                          
                             <Card.Text>
-                            {texts.map((text) => (
-                                <div key={text.id}>
-                                    <h2>{text.titel}</h2>
-                                    <p>{text.text}</p>
+                                <h3>{text.titel}</h3>
+                                <p>{text.text}</p>
+                            
                                     <Button variant="primary" onClick={() => handleEdit(text)}>Edit</Button>
                                     <Button variant="danger" onClick={() => deleteText(text)}>Delete</Button>
-                                </div>
-                            ))}
+                                
+                            
                             </Card.Text>
                         </Card.Body>
                         </Card>
+                    ))}
 
                 </div>
             </div>
