@@ -18,8 +18,19 @@ const TextOnStudentPage = () => {
     const inputFields =[
         {name: "id", label: "ID", type: "text",placeholder:"Enter id"},
         {name: "titel", label: "Message title", type: "text",placeholder:"Enter message title"},
-        {name: "text", label: "Message", type: "text",placeholder:"Enter message"}
+        {name: "text", label: "Message", type: "textarea",placeholder:"Enter message"}
     ];
+
+    const [textareaRows, setTextareaRows] = useState(4); 
+
+    const handleTextareaChange = (e) => {
+        // Update the rows dynamically based on the content height
+        const rows = Math.max(Math.ceil(e.target.scrollHeight / 20), 6);
+        setTextareaRows(rows);
+
+        // Call the handleChange function to update the state
+        handleChange(e);
+    };
 
     const handleClose = () => {
         setShow(false);
@@ -141,6 +152,11 @@ const TextOnStudentPage = () => {
        
     }
 
+    const handleCombinedChange = (event) => {
+        handleChange(event);
+        handleTextareaChange(event);
+    }
+
 
 
 
@@ -173,7 +189,7 @@ const TextOnStudentPage = () => {
                         <Card.Header>Messages {text.id}</Card.Header>
                         <Card.Body>
                           <h3>{text.titel}</h3>
-                            <p>{text.text}</p>
+                            <p style={{ whiteSpace: 'pre-line' }}>{text.text}</p>
                             
                             
                                     <Button variant="primary" onClick={() => handleEdit(text)}>Edit</Button>
@@ -205,7 +221,7 @@ const TextOnStudentPage = () => {
                                         type={inputField.type}
                                         placeholder={inputField.placeholder}
                                         value={selectedText ? selectedText[inputField.name] : newText[inputField.name]}
-                                        onChange={handleChange}
+                                        onChange={handleCombinedChange}
                                     />
                                 ) : (
                                     <Form.Control

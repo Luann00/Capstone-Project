@@ -11,6 +11,7 @@
     color:rgba(69, 122, 147);
    
     text-align: left;
+    margin-bottom: 3rem;
     padding: 0;
 }
 .homepage h3{
@@ -22,10 +23,25 @@
     margin-top: 2rem;
     padding: 0;
 }
+.homepage .carousel{
+    width: 85%;
+  align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 1 0 5px rgba(0,0,0,0.3);
+}
 
 .instruction-card{
     box-shadow: 1 0 5px rgba(0,0,0,0.3);
-   background-color:rgb(149, 197, 47,0.1);
+   background-color:rgba(222, 225, 228, 0.8);
+border-radius: 10px;
+  padding: 3rem;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+
+
 }
 .instruction-card:hover{
     box-shadow: 1 0 5px rgba(0,0,0,0.3);
@@ -44,10 +60,11 @@
 .instruction-card .instruction-content{
     font-size: 1.2rem;
     font-weight: 500;
-    
-    text-align: left;
+    color:black;
+    align-items: center;
     margin: 0;
     padding: 0;
+    white-space: pre-line;
 }
 @media screen and (max-width: 768px) {
     .homepage h2{

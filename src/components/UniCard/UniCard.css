@@ -135,11 +135,12 @@
   z-index: 0;
   display: grid;
   width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  
+  grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
   row-gap: 140px;
-  column-gap: 140px;
+  column-gap: 70px;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .priorityPanel {
@@ -169,17 +170,7 @@
   border: none;
 }
 
-@media (max-width: 768px) {
-  .universityCard .dropdown {
-    align-self: stretch;
-    margin-top: 10px;
-    margin-right: 0;
-  }
 
-  .priorityPanel {
-    max-width: 50%;
-  }
-}
 
 .filter-button #dropdown-region {
   background-color: rgba(131, 175, 35);
@@ -227,7 +218,7 @@
 
 @media (max-width: 768px) {
   .universityCard {
-    width: 100%;
+    width: 90%;
     margin: 20px;
   }
 
@@ -242,10 +233,11 @@
   }
 
   .card-container {
-    width: 100%;
+    width: 90%;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     row-gap: 70px;
     column-gap: 70px;
+    margin: 0 auto;
   }
 
   .universityCard .card-title {
@@ -268,3 +260,12 @@
   }
 }
 
+@media (min-width: 769px) and (max-width: 1500px) {
+  .card-container {
+    width: 85%;
+    grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+    row-gap:50px;
+    column-gap: 70px;
+    
+  }
+}

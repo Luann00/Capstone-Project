@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PrivacyPage from "../../components/InformationPrivacy/InformationPrivacyPage"
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Carousel, Row, Col, Card } from 'react-bootstrap';
 import './HomePageStudent.css';
 
 
@@ -49,15 +49,15 @@ const HomeStudent = ({ onAccept }) => {
       {acceptedPolicy ? (
         <>
         <h2>Welcome, {name}!</h2>
-        <Container>
+        <Carousel data-bs-theme="dark" className="carousel">
           {messages.map((message) => (
-            <Row className="message-row">
-              <Col>
+
+<Carousel.Item key={message.id}>
                 <InstructionCard title={message.titel} content={message.text} />
-              </Col>
-            </Row>
+              </Carousel.Item>
+
           ))}
-        </Container>
+        </Carousel>
       
         </>
 

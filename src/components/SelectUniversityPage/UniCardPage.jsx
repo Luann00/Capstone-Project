@@ -331,9 +331,9 @@ const UniCardPage = () => {
         </div>
       )}
       {processIsActive && (
-        <div className='card-container'>
+       
           <UniCard changePreference={checkAndExtendTime} />
-        </div>
+        
       )}
     </div>
   );
