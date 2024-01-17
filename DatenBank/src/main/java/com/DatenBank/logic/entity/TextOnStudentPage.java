@@ -1,11 +1,14 @@
 package com.DatenBank.logic.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;  
+import jakarta.persistence.Column;
 @Entity
 public class TextOnStudentPage {
     @Id
     private int id;
+    @Column(columnDefinition = "TEXT")
     private String text;
+    @Column(columnDefinition = "TEXT")
     private String titel;
     public String getTitel() {
         return titel;
@@ -34,5 +37,8 @@ public class TextOnStudentPage {
     public void setText(String text) {
         this.text = text;
     }
+
+   
+
     
 }

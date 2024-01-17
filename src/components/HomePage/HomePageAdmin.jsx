@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CSVExportButton from '../CSVExportButton';
+import EndTable from './EndTable';
 
 
 import "./HomePageAdmin.css"
@@ -235,8 +236,21 @@ const HomePageAdmin = () => {
                     }
                 </div>
 
-                <div className="table-responsive " >
 
+                <div className="table-responsive " >
+                <div className="endTable">
+            <CSVExportButton
+                headers={studentNames}
+                rows={universities.map((uni) => {
+                    const uniID = uni.id;
+                    return {
+                        id: uni.id,
+                        name: uni.name,
+                        students: studentMatrikelnumbers.map((studentID) => fillTableCells(uniID, studentID))
+                    };
+                })}
+            />
+        </div>
                     <table className="table table-bordered table-striped table-hover table-bordered">
                         <thead>
                             <tr>

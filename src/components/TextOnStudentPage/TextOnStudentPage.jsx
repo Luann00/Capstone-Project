@@ -172,16 +172,15 @@ const TextOnStudentPage = () => {
                     className="text-center">
                         <Card.Header>Messages {text.id}</Card.Header>
                         <Card.Body>
-                          
-                            <Card.Text>
-                                <h3>{text.titel}</h3>
-                                <p>{text.text}</p>
+                          <h3>{text.titel}</h3>
+                            <p>{text.text}</p>
+                            
                             
                                     <Button variant="primary" onClick={() => handleEdit(text)}>Edit</Button>
                                     <Button variant="danger" onClick={() => deleteText(text)}>Delete</Button>
                                 
                             
-                            </Card.Text>
+                            
                         </Card.Body>
                         </Card>
                     ))}
@@ -194,10 +193,21 @@ const TextOnStudentPage = () => {
                         <Modal.Title>Message</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form>
-                            {inputFields.map((inputField) => (
-                                <Form.Group key={inputField.name} controlId={inputField.name}>
-                                    <Form.Label>{inputField.label}</Form.Label>
+                    <Form>
+                        {inputFields.map((inputField) => (
+                            <Form.Group key={inputField.name} controlId={inputField.name}>
+                                <Form.Label>{inputField.label}</Form.Label>
+                                {inputField.type === 'textarea' ? (
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={4} // You can set an initial number of rows
+                                        name={inputField.name}
+                                        type={inputField.type}
+                                        placeholder={inputField.placeholder}
+                                        value={selectedText ? selectedText[inputField.name] : newText[inputField.name]}
+                                        onChange={handleChange}
+                                    />
+                                ) : (
                                     <Form.Control
                                         name={inputField.name}
                                         type={inputField.type}
@@ -205,9 +215,10 @@ const TextOnStudentPage = () => {
                                         value={selectedText ? selectedText[inputField.name] : newText[inputField.name]}
                                         onChange={handleChange}
                                     />
-                                </Form.Group>
-                            ))}
-                        </Form>
+                                )}
+                            </Form.Group>
+                        ))}
+                    </Form>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Close</Button>
