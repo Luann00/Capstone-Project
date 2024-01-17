@@ -264,7 +264,7 @@ export const WhitelistAdmin = () => {
       </header>
       <div className="whitelist-container">
         <div className="titleAndButtons">
-          <div className="whitelist-title"><h1>Whitelist Admin</h1></div>
+          <div className="whitelist-title"><h1>Whitelist admin</h1></div>
         </div>
         <form onSubmit={addRow}>
           <div className="button-container">
