@@ -5,15 +5,14 @@
 
 }
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url(https://fonts.googleapis.com/css?family=Montserrat);
-
-}
 
 /* --------------------------- MOBILE VERSION ------------------------------ */
 .page {
-    background-color: #3f3c50;
+    /* background-image:url(csm_Hauptgebaeude_543a6b79cf.jpg);
+    background-size: cover; */
+    background-color:rgb(69,122,147,0.4);
+
+
     height: 100vh;
     width: 100%;
     display: flex;
@@ -28,22 +27,39 @@
     text-transform: uppercase;
 }
 
-.logo {
+.logo-container {
+    display: flex;
     position: absolute;
-    top: 0px;
-    /* Adjust the top position */
-    left: 0px;
-    /* Adjust the left position */
-    height: 80px;
-    width: auto;
-
+    top: 0;
+    left: 0;
 }
+
+.WiSo-Logo {
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+}
+
+.WiSo-Slogan {
+    height: 50px;
+    width: 140px;
+    margin: 10px;
+}
+
+.login-carousel{
+   display: none;
+}
+.login-carousel .caption{
+    background-color: rgb(69,122,147,0.6);
+}
+
 
 .cover {
     background-color: white;
-    width: 75%;
-    height: 50%;
-    position: relative;
+    width: 75%; 
+    height: 50%; 
+    position: absolute; /* Change position to absolute */
+   
     border-radius: 1em;
     box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
     display: flex;
@@ -53,13 +69,6 @@
 }
 
 
-
-
-.pass-vergessen {
-    font-size: 1em;
-
-
-}
 
 
 .alt-login {
@@ -177,13 +186,28 @@ footer a:hover {
     }
 
     .cover {
-        width: 60%;
+        width: 50%;
         height: 70%;
     }
+
+    .WiSo-Logo {
+        height: 60px;
+        width: 60px;
+        margin: 10px;
+    }
+    
+    .WiSo-Slogan {
+        height: 60px;
+        width: 160px;
+        margin: 10px;
+    }
+
+    
+
 }
 
 /* -------------------- DESKTOP OPTIMIZATION -------------------- */
-@media only screen and (min-device-width: 64em) {
+@media only screen and (min-device-width: 80em) {
     .page {
         font-size: 1.25em;
     }
@@ -191,5 +215,34 @@ footer a:hover {
     .cover {
         width: 40%;
         height: 75%;
+        right: 30px;
     }
+
+    .WiSo-Logo {
+        height: 80px;
+        width: 80px;
+        margin: 10px;
+    }
+    
+    .WiSo-Slogan {
+        height: 80px;
+        width: 200px;
+        margin: 10px;
+    }
+
+    .login-carousel{
+        width : 50%;
+        height: auto;
+        position: absolute;
+        left: 50px;
+        border-radius: 1em;
+        box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .login-carousel .caption{
+        background-color: rgb(69,122,147,0.6);
+    }
+    
 }
