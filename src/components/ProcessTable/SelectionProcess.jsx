@@ -14,6 +14,8 @@ function SelectionProcess() {
     const [firstTimeLoading, setFirstTimeLoading] = useState(true)
     const [students, setStudents] = useState([]);
 
+    const [deletedStudents, setDeletedStudents] = useState(false);
+
 
 
     const [search, setSearch] = useState("");
@@ -140,7 +142,6 @@ function SelectionProcess() {
                 } else {
                     //set data only when new data is different than current data
                     if (!compareBoth(processesResponse, originalProcesses)) {
-                        console.log("oui")
                         setProcesses(processesResponse.reverse());
                         setOriginalProcesses(processesResponse);
                         setUniversities(universitiesResponse);
@@ -155,6 +156,8 @@ function SelectionProcess() {
                     }
                 }
 
+                checkDays();
+
 
             } catch (error) {
                 console.log('Error fetching data:' + error);
@@ -164,11 +167,55 @@ function SelectionProcess() {
         fetchData();
 
 
-        //fetch student data every 1 second
-        const intervalId = setInterval(fetchData, 1000);
+        //fetch student data every 3 second
+        const intervalId = setInterval(fetchData, 3000);
         return () => clearInterval(intervalId);
     }, [firstTimeLoading]);
 
+
+    const checkDays = () => {
+        for (const processItem of processes) {
+
+            const startDateString = processItem.startDate;
+            const startDate = new Date(startDateString);
+            startDate.setHours(0, 0, 0, 0);
+            const currentDate = new Date();
+            const timeDifference = currentDate.getTime() - startDate.getTime();
+
+            // Convert the time difference to days
+            const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            // Delete all students from the database if the time has come
+            if (daysPassed >= processItem.daysUntilStudentDataDeletion) {
+                processItem.deletedStudents = true;
+                updateDeleted(processItem);
+            }
+        }
+    };
+
+
+
+    const updateDeleted = async (process) => {
+        try {
+            const response = await fetch(
+                `http://localhost:8081/selectionProcess/${process.year}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(process),
+                }
+            );
+
+            if (!response.ok) {
+                console.log("Error updating process. Response status:", response.status);
+                console.log("Response body:", await response.text());
+            }
+        } catch (error) {
+            console.error("Error updating process:", error);
+        }
+    }
 
     const updateProcesses = async () => {
         //Update at first the local table for a smoother user experience
@@ -222,6 +269,10 @@ function SelectionProcess() {
 
 
     const addProcess = async () => {
+        if (processes.length > 0) {
+            alert("You have to delete the current process in order to create a new one!");
+            return;
+        }
         try {
             const response = await fetch("http://localhost:8081/selectionProcess", {
                 method: "POST",
@@ -328,7 +379,7 @@ function SelectionProcess() {
                             </form>
                         </div>
                     </div>
-                    <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage Processes</b></h2></div>
+                    <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage process</b></h2></div>
                     <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
                         <Button variant="primary" onClick={handleShow}>
                             Add New Process
@@ -358,7 +409,7 @@ function SelectionProcess() {
                             <tbody>
                                 {/*Show the processes in the table*/}
                                 {processes.map((row) => (
-                                    <tr key={row.id}>
+                                    <tr key={row.year}>
                                         <td>{row.year}</td>
                                         <td>{row.startDate}</td>
                                         <td>{row.endDate}</td>
