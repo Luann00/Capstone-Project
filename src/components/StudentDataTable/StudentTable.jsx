@@ -50,7 +50,7 @@ function Home() {
 
   //The new values for a new student get saved here initially
   const inputFields = [
-    { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter ID', disabled: selectedStudent ? true : false },
+    { name: 'matrikelnummer', type: 'number', min: '1', max: '10000000', placeholder: 'Enter Student ID', disabled: selectedStudent ? true : false },
     { name: 'vorname', type: 'text', placeholder: 'Enter name' },
     { name: 'nachname', type: 'text', placeholder: 'Enter surname' },
     { name: 'titel', type: 'text', placeholder: 'Enter title' },
@@ -60,9 +60,7 @@ function Home() {
     { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min: '0' },
     { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min: '0' },
     { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference', min: '0' },
-    {name: 'assignedUniversity', type: 'number', placeholder: 'Enter assigned university', min: '0' },
-
-    
+    { name: 'assignedUniversity', type: 'number', placeholder: 'Enter assigned university', min: '0' },
   ];
 
 
@@ -118,7 +116,7 @@ function Home() {
       ThirdPref: student.thirdPref,
       AcceptedPolicy: student.acceptedPolicy,
       AssignedUniversity: student.assignedUniversity
-      
+
     });
     handleShow();
   };
@@ -134,19 +132,25 @@ function Home() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:8081/student');
-        const data = await response.json();
+
+        const [studentsResponse, processesResponse] = await Promise.all([
+          fetch('http://localhost:8081/student').then(response => response.json()),
+          fetch('http://localhost:8081/selectionProcess').then(response => response.json()),
+        ]);
 
         //set data only when
         if (firstTimeLoading) {
-          setStudents(data);
-          setOriginalStudents(data);
-          setFirstTimeLoading(false)
+          setStudents(studentsResponse);
+          setOriginalStudents(studentsResponse);
+          setFirstTimeLoading(false);
+          checkDays(processesResponse);
         } else {
           //set data only when new data is different than current data
-          if (!compareBoth(data, students)) {
-            setStudents(data);
-            setOriginalStudents(data);
+          if (!compareBoth(studentsResponse, students)) {
+            setStudents(studentsResponse);
+            setOriginalStudents(studentsResponse);
+            checkDays(processesResponse);
+
           }
         }
 
@@ -161,6 +165,18 @@ function Home() {
     const intervalId = setInterval(fetchStudents, 3000);
     return () => clearInterval(intervalId);
   }, [firstTimeLoading]);
+
+
+  const checkDays = (processResponse) => {
+
+    const firstProcess = processResponse[0];
+
+
+    if (firstProcess && firstProcess.deletedStudents) {
+      console.log("jaa")
+    }
+
+  }
 
 
   const updateStudent = async () => {
@@ -357,7 +373,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllStudents} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Students
             </Button>
-            <CSVExportButton data={students} filename="students.csv" selectedAttributes={['matrikelnummer', 'vorname', 'nachname', 'title', 'durchschnitt', 'email', 'firstPref', 'secondPref', 'thirdPref', 'acceptedPolicy','assignedUniversity']} />
+            <CSVExportButton data={students} filename="students.csv" selectedAttributes={['matrikelnummer', 'vorname', 'nachname', 'title', 'durchschnitt', 'email', 'firstPref', 'secondPref', 'thirdPref', 'acceptedPolicy', 'assignedUniversity']} />
           </div>
         </div>
         <div className="row">
@@ -388,8 +404,8 @@ function Home() {
                   <th>SecondPref</th>
                   <th>ThirdPref</th>
                   <th>Accepted Policy</th>
-                  <th>Assigned University</th> 
-                  
+                  <th>Assigned University</th>
+
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -409,7 +425,7 @@ function Home() {
                     <td>{getUniName(row.thirdPref)}</td>
                     <td>{row.acceptedPolicy}</td>
                     <td>{getUniName(row.assignedUniversity)}</td>
-                    
+
                     <td>
                       <a
                         href="#"

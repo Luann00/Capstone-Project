@@ -14,6 +14,8 @@ function SelectionProcess() {
     const [firstTimeLoading, setFirstTimeLoading] = useState(true)
     const [students, setStudents] = useState([]);
 
+    const [deletedStudents, setDeletedStudents] = useState(false);
+
 
 
     const [search, setSearch] = useState("");
@@ -172,35 +174,48 @@ function SelectionProcess() {
 
 
     const checkDays = () => {
-        processes.forEach((processItem) => {
-                const startDateString = processItem.startDate;
+        for (const processItem of processes) {
 
+            const startDateString = processItem.startDate;
+            const startDate = new Date(startDateString);
+            startDate.setHours(0, 0, 0, 0);
+            const currentDate = new Date();
+            const timeDifference = currentDate.getTime() - startDate.getTime();
 
-                const startDate = new Date(startDateString);
-                startDate.setHours(0, 0, 0, 0)
+            // Convert the time difference to days
+            const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
-
-
-                // Get the current date
-                const currentDate = new Date();
-
-
-
-
-                // Calculate the time difference in milliseconds
-                const timeDifference = currentDate.getTime() - startDate.getTime();
-
-
-                // Convert the time difference to days
-                const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-                console.log(`Days left: ${daysLeft}`);
-            
-        });
+            // Delete all students from the database if the time has come
+            if (daysPassed >= processItem.daysUntilStudentDataDeletion) {
+                processItem.deletedStudents = true;
+                updateDeleted(processItem);
+            }
+        }
     };
 
 
 
+    const updateDeleted = async (process) => {
+        try {
+            const response = await fetch(
+                `http://localhost:8081/selectionProcess/${process.year}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(process),
+                }
+            );
+
+            if (!response.ok) {
+                console.log("Error updating process. Response status:", response.status);
+                console.log("Response body:", await response.text());
+            }
+        } catch (error) {
+            console.error("Error updating process:", error);
+        }
+    }
 
     const updateProcesses = async () => {
         //Update at first the local table for a smoother user experience
@@ -254,6 +269,10 @@ function SelectionProcess() {
 
 
     const addProcess = async () => {
+        if (processes.length > 0) {
+            alert("You have to delete the current process in order to create a new one!");
+            return;
+        }
         try {
             const response = await fetch("http://localhost:8081/selectionProcess", {
                 method: "POST",

@@ -40,6 +40,16 @@ public class SelectionProcess {
 	private String startDate; 
 	private String endDate; 
 
+	private boolean deletedStudents = false;
+
+	public boolean isDeletedStudents() {
+		return deletedStudents;
+	}
+
+	public void setDeletedStudents(boolean deletedStudents) {
+		this.deletedStudents = deletedStudents;
+	}
+
 	//set extended false per default and change it later after deadline got extended once
 	private boolean extended = false;
 
