@@ -427,7 +427,7 @@ function Home() {
               <tbody>
                 {/*Show university data in the table*/}
                 {universities.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.uniId}>
                     <td>{row.uniId}</td>
                     <td>{row.name}</td>
                     <td>{row.abbName}</td>

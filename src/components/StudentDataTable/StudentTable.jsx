@@ -173,7 +173,8 @@ function Home() {
 
 
     if (firstProcess && firstProcess.deletedStudents) {
-      console.log("jaa")
+
+      //make delete all students here and delete process
     }
 
   }
@@ -412,7 +413,7 @@ function Home() {
               <tbody>
                 {/*Modal View when clicking on Add Button*/}
                 {students.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.matrikelnummer}>
                     <td>{row.matrikelnummer}</td>
                     <td>{row.vorname}</td>
                     <td>{row.nachname}</td>
