@@ -140,7 +140,6 @@ function SelectionProcess() {
                 } else {
                     //set data only when new data is different than current data
                     if (!compareBoth(processesResponse, originalProcesses)) {
-                        console.log("oui")
                         setProcesses(processesResponse.reverse());
                         setOriginalProcesses(processesResponse);
                         setUniversities(universitiesResponse);
@@ -154,6 +153,8 @@ function SelectionProcess() {
                         }));
                     }
                 }
+
+                checkDays();
 
 
             } catch (error) {
@@ -172,7 +173,6 @@ function SelectionProcess() {
 
     const checkDays = () => {
         processes.forEach((processItem) => {
-            if (processIsActive(processItem)) {
                 const startDateString = processItem.startDate;
 
 
@@ -195,7 +195,7 @@ function SelectionProcess() {
                 const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
                 console.log(`Days left: ${daysLeft}`);
-            }
+            
         });
     };
 
