@@ -42,7 +42,7 @@ const LoginForm = ({ onLogin }) => {
       }
     };
 
-    // Fetch data initially
+    //fetch data initially
     fetchData();
 
     const intervalId = setInterval(fetchData, 20000);

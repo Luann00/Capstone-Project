@@ -143,14 +143,17 @@ function Home() {
           setStudents(studentsResponse);
           setOriginalStudents(studentsResponse);
           setFirstTimeLoading(false);
-          checkDays(processesResponse);
+          if (processesResponse !== null) {
+            checkDays(processesResponse);
+          }
         } else {
           //set data only when new data is different than current data
           if (!compareBoth(studentsResponse, students)) {
             setStudents(studentsResponse);
             setOriginalStudents(studentsResponse);
-            checkDays(processesResponse);
-
+            if (processesResponse !== null) {
+              checkDays(processesResponse);
+            }
           }
         }
 
@@ -173,11 +176,34 @@ function Home() {
 
 
     if (firstProcess && firstProcess.deletedStudents) {
-
       //make delete all students here and delete process
+
+      deleteAllStudentsDatabase();
+
+      deleteAllProcessesDatabase();
+
+
     }
 
   }
+
+
+  //this method is for deleting all Processes in database when the passed days are equal to uni.DaysUntilDeletion
+  const deleteAllProcessesDatabase = async () => {
+    const deleteEndpoint = `http://localhost:8081/selectionProcess/all`;
+
+    try {
+      const response = await fetch(deleteEndpoint, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        alert("Error deleting data from the database");
+      }
+    } catch (error) {
+      alert("Error deleting data", error);
+    }
+  };
 
 
   const updateStudent = async () => {

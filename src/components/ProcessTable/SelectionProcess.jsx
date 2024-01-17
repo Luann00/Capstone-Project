@@ -379,7 +379,7 @@ function SelectionProcess() {
                             </form>
                         </div>
                     </div>
-                    <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage Processes</b></h2></div>
+                    <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: "green" }}><h2><b>Manage process</b></h2></div>
                     <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
                         <Button variant="primary" onClick={handleShow}>
                             Add New Process
@@ -409,7 +409,7 @@ function SelectionProcess() {
                             <tbody>
                                 {/*Show the processes in the table*/}
                                 {processes.map((row) => (
-                                    <tr key={row.id}>
+                                    <tr key={row.year}>
                                         <td>{row.year}</td>
                                         <td>{row.startDate}</td>
                                         <td>{row.endDate}</td>
