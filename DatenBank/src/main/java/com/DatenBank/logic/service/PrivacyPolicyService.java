@@ -6,7 +6,7 @@ import com.DatenBank.logic.entity.PrivacyPolicy;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class PrivacyPolicyService {
     @Autowired
     private PrivacyPolicyRepository privacyPolicyRepository;

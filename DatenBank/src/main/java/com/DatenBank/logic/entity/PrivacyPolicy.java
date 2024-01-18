@@ -2,7 +2,7 @@ package com.DatenBank.logic.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
-
+@Entity
 public class PrivacyPolicy {
     @Id
     private int year;

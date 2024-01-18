@@ -1,29 +1,27 @@
 package com.DatenBank.logic.controller;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.DatenBank.logic.service.PrivacyPolicyService;
-import com.DatenBank.logic.entity.PrivacyPolicy;
 import com.DatenBank.logic.repository.PrivacyPolicyRepository;
+import com.DatenBank.logic.entity.PrivacyPolicy;
 
 
-@RestController
+@Controller
 @CrossOrigin
 @RequestMapping("/privacyPolicy")
 public class PrivacyPolicyController {
@@ -60,8 +58,12 @@ public class PrivacyPolicyController {
         }
     }
 
+    @PutMapping("/{year}")
+    public ResponseEntity<PrivacyPolicy> updatePrivacyPolicy(@PathVariable int year, @RequestBody PrivacyPolicy privacyPolicy) throws Exception {
+        privacyPolicyService.update(year, privacyPolicy);
+        return new ResponseEntity<>(privacyPolicy, HttpStatus.OK);
+    }
 
 
-    
 }
 
