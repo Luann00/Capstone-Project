@@ -146,6 +146,7 @@ const UniCard = ({ changePreference }) => {
       </div>
 
       <div className='card-container'>
+      <div className='filter-search'>
         <div className="filter-dropdown">
           <Dropdown className="filter-button">
             <Dropdown.Toggle id="dropdown-region">
@@ -174,6 +175,8 @@ const UniCard = ({ changePreference }) => {
             />
           </form>
         </div>
+        </div>
+        <div className="cards">
         {universities
           .filter((university) =>
             (selectedRegion ?
@@ -193,6 +196,7 @@ const UniCard = ({ changePreference }) => {
               }}
             />
           ))}
+          </div>
       </div>
     </>
   );
