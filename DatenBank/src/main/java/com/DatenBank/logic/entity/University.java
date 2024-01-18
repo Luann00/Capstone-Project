@@ -10,7 +10,7 @@ public class University {
 	}
 
 
-	public University(int uniId, String name,String abbName, String country, String city, float minGPA, int slots, int firstPref,int totalPref, boolean showGPA,String uniLink) {
+	public University(int uniId, String name,String abbName, String country, String city, float minGPA, int slots, int firstPref,int totalPref, boolean showGPA,String uniLink,String faculty) {
 		super();
 		this.uniId = uniId;
 		this.name = name;
@@ -23,6 +23,7 @@ public class University {
 		this.totalPref= totalPref;
 		this.showGPA = true;
 		this.uniLink = uniLink;
+		this.faculty = faculty;
 	}
 
 	@Id
@@ -38,8 +39,19 @@ public class University {
 
 	private boolean showGPA =true;
 	private String uniLink;
+	private String faculty;
 
 	
+
+
+	public String getFaculty() {
+		return faculty;
+	}
+
+
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
 
 
 	public String getUniLink() {

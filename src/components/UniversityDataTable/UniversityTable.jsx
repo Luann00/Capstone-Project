@@ -33,6 +33,7 @@ function Home() {
     uniId: "",
     name: "",
     abbName: "",
+    faculty: "",
     country: "",
     city: "",
     minGPA: "",
@@ -40,6 +41,7 @@ function Home() {
     firstPref: "",
     totalPref: "",
     uniLink: "",
+    
 
   });
 
@@ -48,6 +50,7 @@ function Home() {
     { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false, required: true },
     { name: 'name', type: 'text', placeholder: 'Enter name', required: true },
     { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name', required: true },
+    {name: 'faculty', type: 'text', placeholder: 'Enter Faculty', required: true},
     { name: 'country', type: 'text', placeholder: 'Enter Country', required: true },
     { name: 'city', type: 'text', placeholder: 'Enter City', required: true },
     { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA', required: true },
@@ -89,6 +92,7 @@ function Home() {
       uniId: "",
       name: "",
       abbName: "",
+      faculty: "",
       country: "",
       city: "",
       minGPA: "",
@@ -108,6 +112,7 @@ function Home() {
       uniId: university.uniId,
       name: university.name,
       abbName: university.abbName,
+      faculty: university.faculty,
       country: university.country,
       city: university.city,
       minGPA: university.minGPA,
@@ -370,7 +375,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Universities
             </Button>
-            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref', 'uniLink']} />
+            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName','faculty', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref', 'uniLink']} />
           </div>
         </div>
         <div className="row">
@@ -387,6 +392,7 @@ function Home() {
                   </th>
                   <th>Name</th>
                   <th>Abbreviated Name</th>
+                  <th>Faculty</th>
 
                   <th onClick={() => handleSort("country")}>
                     Country
@@ -431,6 +437,7 @@ function Home() {
                     <td>{row.uniId}</td>
                     <td>{row.name}</td>
                     <td>{row.abbName}</td>
+                    <td>{row.faculty}</td>
                     <td>{row.country}</td>
                     <td>{row.city}</td>
                     <td>{row.minGPA}</td>

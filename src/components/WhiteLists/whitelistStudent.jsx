@@ -258,12 +258,10 @@ export const WhitelistStudent = () => {
 
   return (
     <div className="list-page">
-      <header className="App-header">
-        <img src={logo} alt="Your Logo" className="logo" />
-      </header>
+      
       <div className="whitelist-container">
         <div className="titleAndButtons">
-          <div className="whitelist-title"><h1>Whitelist Studenten</h1></div>
+          <div className="whitelist-title"><h1 style={{color:'green',textTransform:'none',fontWeight:'600'}}>Whitelist Studenten</h1></div>
         </div>
         <form onSubmit={addRow}>
           <div className="button-container">

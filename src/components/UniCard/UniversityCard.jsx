@@ -6,6 +6,7 @@ import { CiPen } from "react-icons/ci";
 import { MdChairAlt } from "react-icons/md";
 import './UniCard.css';
 import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
+import { LiaUniversitySolid } from "react-icons/lia";
 
 
 export const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
@@ -359,6 +360,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                     <span> {university.country},{university.city}</span>
                 </Card.Text>
                 <ListGroup variant="flush">
+                    <ListGroup.Item> <span><LiaUniversitySolid  /></span> Faculty: {university.faculty}</ListGroup.Item>
                     <ListGroup.Item> <span><MdChairAlt /></span> Slots available: {university.slots}</ListGroup.Item>
                     {university.showGPA ? (
                         <ListGroup.Item> <span><CiPen /></span>Minimum GPA (as of last year): {university.minGPA}</ListGroup.Item>
