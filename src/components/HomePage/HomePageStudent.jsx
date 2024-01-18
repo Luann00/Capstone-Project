@@ -48,7 +48,9 @@ const HomeStudent = ({ onAccept }) => {
     <div className="homepage">
       {acceptedPolicy ? (
         <>
+        <div className='welcome'>
         <h2>Welcome, {name}!</h2>
+        </div>
         <Carousel data-bs-theme="dark" className="carousel">
           {messages.map((message) => (
 
