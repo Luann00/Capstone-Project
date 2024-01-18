@@ -163,8 +163,8 @@ function Home() {
 
     fetchUniversities();
 
-    //fetch university data every 1 second
-    const intervalId = setInterval(fetchUniversities, 1000);
+    //fetch university data every 3 seconds
+    const intervalId = setInterval(fetchUniversities, 3000);
     return () => clearInterval(intervalId);
 
   }, [firstTimeLoading]);
@@ -433,7 +433,7 @@ function Home() {
               <tbody>
                 {/*Show university data in the table*/}
                 {universities.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.uniId}>
                     <td>{row.uniId}</td>
                     <td>{row.name}</td>
                     <td>{row.abbName}</td>

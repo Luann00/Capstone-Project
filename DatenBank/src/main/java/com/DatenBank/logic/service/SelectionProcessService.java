@@ -59,6 +59,8 @@ public class SelectionProcessService {
             existingProcess.setDeadlineExtensionMinutes(updatedProcess.getDeadlineExtensionMinutes());
             existingProcess.setDaysUntilStudentDataDeletion(updatedProcess.getDaysUntilStudentDataDeletion());
             existingProcess.setExtended(updatedProcess.isExtended());
+            existingProcess.setDeletedStudents(updatedProcess.isDeletedStudents());
+
 
             // Save the updated process back to the database
             return selectionProcessRepository.save(existingProcess);

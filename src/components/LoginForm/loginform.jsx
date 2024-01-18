@@ -28,53 +28,35 @@ const LoginForm = ({ onLogin }) => {
 
 
   useEffect(() => {
-    // Fetch students' data once when the component mounts
-    const fetchStudents = async () => {
+    // Function to fetch data from the server
+    const fetchData = async () => {
       try {
         const studentItems = await axios.get('http://localhost:8081/student');
         setStudents(studentItems.data);
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
 
-    // Fetch admins' data once when the component mounts
-    const fetchAdmins = async () => {
-      try {
         const adminItems = await axios.get('http://localhost:8081/admin');
         setAdmins(adminItems.data);
-      } catch (error) {
-        console.error('Error fetching admins:', error);
-      }
-    };
 
-
-    const fetchWhitelistStudents = async () => {
-      try {
         const whitelistStudentItems = await axios.get('http://localhost:8081/whitelistStudent');
         setWhitelistStudents(whitelistStudentItems.data);
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
 
-
-    const fetchWhitelistAdmins = async () => {
-      try {
         const whitelistAdminItems = await axios.get('http://localhost:8081/whitelistAdmin');
         setWhitelistAdmins(whitelistAdminItems.data);
       } catch (error) {
-        console.error('Error fetching students:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchStudents();
-    fetchAdmins();
+    //fetch data initially
+    fetchData();
 
-    fetchWhitelistStudents();
-    fetchWhitelistAdmins();
+    const intervalId = setInterval(fetchData, 20000);
 
-  }, [whitelistAdmins, whitelistStudents, admins, students]);
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+
+  }, []); // Empty dependency array to run the effect only once on mount
+
 
   const handleAnmelden = () => {
 
