@@ -146,9 +146,9 @@ const LoginForm = ({ onLogin }) => {
       
       
        <div className="login-carousel">
-        <Carousel data-bs-theme="dark">
+        <Carousel data-bs-theme="dark" className='carousel'>
           <Carousel.Item>
-            <img
+            <img className='carousel-img'
             
               src={image1}
               alt="First slide"
@@ -159,7 +159,7 @@ const LoginForm = ({ onLogin }) => {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-          <img
+          <img className='carousel-img'
               
               src={image2}
               alt="First slide"
