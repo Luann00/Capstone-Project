@@ -102,7 +102,7 @@ function App() {
                 <Route path="/WhitelistAdmin" element={<WhitelistAdmin />} />
                 <Route path="/SelectionProcess" element={<SelectionProcess />} />
                 <Route path="/TextOnStudentPage" element={<TextOnStudentPage />} />
-                <Route path="/PrivacyEdit" element={<PrivacyEdit />} />
+                
               </>
             ) : (
 

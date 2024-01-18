@@ -49,9 +49,7 @@ const NavbarAdmin = ({ onLogout }) => {
                   <LinkContainer className='link-container' to="/TextOnStudentPage">
                     <Nav.Link className="nav-link">Update Messages</Nav.Link>
                   </LinkContainer>
-                  <LinkContainer className='link-container' to="/PrivacyEdit">
-                    <Nav.Link className="nav-link">Privacy Policy</Nav.Link>
-                  </LinkContainer>
+                  
 
             </Nav>
             <Button onClick={onLogout} className="Logout">Logout</Button>

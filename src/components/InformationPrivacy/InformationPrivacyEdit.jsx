@@ -36,7 +36,7 @@ const PrivacyEdit = () => {
         setShow(false);
         setSelectedPolicy(null);
         setNewPolicy({
-            id: "",
+            year: "",
             policy: ""
         });
     }
@@ -56,9 +56,10 @@ const PrivacyEdit = () => {
     useEffect(() => {
         const fetchPolicys = async () => {
             try {
-                const response = await fetch('http://localhost:8081/privacyPolicy');
+                const response = await fetch(`http://localhost:8081/privacyPolicy`);
                 const data = await response.json();
                 setPolicys(data);
+                console.log(typeof policys);
             }
             catch (error) {
                 console.log(error);
@@ -66,6 +67,8 @@ const PrivacyEdit = () => {
         }
         fetchPolicys();
     }, []);
+
+
     const updatePolicy = async () => {
         const updatedPolicys = policys.map((policy) => 
             policy.id === selectedPolicy.year ? selectedPolicy : policy);
@@ -106,11 +109,11 @@ const PrivacyEdit = () => {
     }
 
     const deletePolicy = async (policy) => {
-        const updatedPolicys = policys.filter((policy) => policy.id !== policy.year);
+        const updatedPolicys = policys.filter((policy) => policy.year !== policy.year);
         setPolicys(updatedPolicys);
         if(window.confirm("Do you want to delete this policy?")) {
         try {
-            await fetch(`http://localhost:8081/privacyPolicy/${privacy.year}`, {
+            await fetch(`http://localhost:8081/privacyPolicy/${policy.year}`, {
                 method: "DELETE"
             });
         }
