@@ -60,7 +60,9 @@ function Home() {
     { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min: '0' },
     { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min: '0' },
     { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference', min: '0' },
-    { name: 'acceptedPolicy', type: 'text', placeholder: 'Enter accepted policy'},
+    {
+      name: 'acceptedPolicy', type: 'select', placeholder: 'Enter accepted policy', options: ['Yes', 'No'],
+    },
     { name: 'assignedUniversity', type: 'number', placeholder: 'Enter assigned university', min: '0' },
   ];
 
@@ -495,21 +497,38 @@ function Home() {
               <form onSubmit={selectedStudent ? updateStudent : addStudent}>
                 {inputFields.map((field) => (
                   <div className="form-group mt-3" key={field.name}>
-                    <input
-                      type={field.type}
-                      min={field.min}
-                      max={field.max}
-                      step={field.step}
-                      className="form-control"
-                      placeholder={field.placeholder}
-                      name={field.name}
-                      value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
-                      onChange={handleChange}
-                      disabled={field.disabled}
-
-
-                      required
-                    />
+                    {field.type === 'select' ? (
+                      <select
+                        className="form-control"
+                        placeholder={field.placeholder}
+                        name={field.name}
+                        value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
+                        onChange={handleChange}
+                        disabled={field.disabled}
+                        required
+                      >
+                        <option value="" disabled hidden>{field.placeholder}</option>
+                        {field.options.map((option, index) => (
+                          <option key={index} value={option} selected={option === "Yes"}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        type={field.type}
+                        min={field.min}
+                        max={field.max}
+                        step={field.step}
+                        className="form-control"
+                        placeholder={field.placeholder}
+                        name={field.name}
+                        value={selectedStudent ? selectedStudent[field.name] : newStudent[field.name]}
+                        onChange={handleChange}
+                        disabled={field.disabled}
+                        required
+                      />
+                    )}
                   </div>
                 ))}
 
@@ -535,7 +554,7 @@ function Home() {
           </Modal>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
