@@ -60,6 +60,7 @@ function Home() {
     { name: 'firstPref', type: 'number', placeholder: 'Enter first preference', min: '0' },
     { name: 'secondPref', type: 'number', placeholder: 'Enter second preference', min: '0' },
     { name: 'thirdPref', type: 'number', placeholder: 'Enter third preference', min: '0' },
+    { name: 'acceptedPolicy', type: 'text', placeholder: 'Enter accepted policy'},
     { name: 'assignedUniversity', type: 'number', placeholder: 'Enter assigned university', min: '0' },
   ];
 

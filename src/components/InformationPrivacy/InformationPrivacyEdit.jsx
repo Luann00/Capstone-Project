@@ -170,7 +170,7 @@ const PrivacyEdit = () => {
                         
                     <Card key={policy.year}
                     className="text-center">
-                        <Card.Header>Messages {policy.year}</Card.Header>
+                        <Card.Header>Policy {policy.year}</Card.Header>
                         <Card.Body>
                     
                             <p style={{ whiteSpace: 'pre-line' }}>{policy.policy}</p>
@@ -190,7 +190,7 @@ const PrivacyEdit = () => {
             <div className='model-box'>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Message</Modal.Title>
+                        <Modal.Title>Policy</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                     <Form>

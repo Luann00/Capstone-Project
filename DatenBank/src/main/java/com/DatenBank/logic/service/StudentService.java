@@ -53,6 +53,7 @@ public class StudentService {
             existingStudent.setSecondPref(updatedStudent.getSecondPref());
             existingStudent.setThirdPref(updatedStudent.getThirdPref());
             existingStudent.setAssignedUniversity(updatedStudent.getAssignedUniversity());
+            existingStudent.setAcceptedPolicy(updatedStudent.getAcceptedPolicy());
 
             // Save the updated student back to the database
             return studentRepository.save(existingStudent);

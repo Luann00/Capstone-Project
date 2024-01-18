@@ -20,7 +20,8 @@ public class Student {
 			int firstPref,
 			int secondPref,
 			int thirdPref,
-			int assignedUniversity
+			int assignedUniversity,
+			String acceptedPolicy
 			) {
 
 		
@@ -135,6 +136,7 @@ public class Student {
 	private int thirdPref;
 	private String acceptedPolicy = "No";
 	private int assignedUniversity;
+	
 
 	public int getAssignedUniversity() {
 		return assignedUniversity;
