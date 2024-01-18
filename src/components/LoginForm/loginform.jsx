@@ -9,6 +9,7 @@ import logo2 from "./WiSo_Logo_TodaysIdeaTomorrowsImpact_eng.jpg";
 import Footer from "../../components/Footer/footer";
 import image1 from './Gespraechssituation-Wiso-Fakultaet-Cafe-1024px.jpg'; 
 import image2 from './csm_Hauptgebaeude_543a6b79cf.jpg';
+import axios from 'axios';
 
 
 
@@ -184,7 +185,7 @@ const LoginForm = ({ onLogin }) => {
 
             <Carousel.Caption className="caption">
               <h3 style={{color:"rgba(255,255,255)", fontWeight:"bolder"}}>In the program of MESS</h3>
-              <p style={{color:"rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Falcuty,University of Cologne. </p>
+              <p style={{color:"rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Faculty,University of Cologne. </p>
             </Carousel.Caption>
           </Carousel.Item>
           
