@@ -1,18 +1,17 @@
 package com.DatenBank.logic.service;
 
 import java.util.List;
-import java.util.Map;   
-import java.util.Optional;  
-import org.springframework.beans.factory.annotation.Autowired;  
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.DatenBank.logic.entity.TextOnStudentPage;
 import com.DatenBank.logic.repository.TextOnStudentPageRepository;
-
 
 @Service
 public class TextOnStudentPageService {
     @Autowired
     private TextOnStudentPageRepository textOnStudentPageRepository;
+
     // Logic to manipulate entities
     public TextOnStudentPageService(TextOnStudentPageRepository textOnStudentPageRepository) {
         this.textOnStudentPageRepository = textOnStudentPageRepository;
@@ -25,13 +24,17 @@ public class TextOnStudentPageService {
     public void deleteTextOnStudentPage(int id) {
         textOnStudentPageRepository.deleteById(id);
     }
+
     public List<TextOnStudentPage> getAllTextOnStudentPage() {
         return textOnStudentPageRepository.findAll();
     }
+
     public void deleteAllTextOnStudentPage() {
         textOnStudentPageRepository.deleteAll();
     }
-    public TextOnStudentPage updateTextOnStudentPage(int id, TextOnStudentPage updatedTextOnStudentPage) throws Exception {
+
+    public TextOnStudentPage updateTextOnStudentPage(int id, TextOnStudentPage updatedTextOnStudentPage)
+            throws Exception {
         // Find the existing textOnStudentPage in the database
         Optional<TextOnStudentPage> optionalTextOnStudentPage = textOnStudentPageRepository.findById(id);
         if (optionalTextOnStudentPage.isPresent()) {
@@ -47,5 +50,5 @@ public class TextOnStudentPageService {
             throw new Exception("TextOnStudentPage not found");
         }
     }
-    
+
 }

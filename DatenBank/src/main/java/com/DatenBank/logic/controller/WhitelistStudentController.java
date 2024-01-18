@@ -3,7 +3,6 @@ package com.DatenBank.logic.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,48 +22,41 @@ import com.DatenBank.logic.service.WhitelistStudentService;
 @CrossOrigin
 @RequestMapping("/whitelistStudent") // This means URL's start with /demo (after Application path)
 public class WhitelistStudentController {
-	
-	
-private WhitelistStudentService whitelistStudentService;
-	
-	
-	
-	@Autowired
+
+	private WhitelistStudentService whitelistStudentService;
+
 	public WhitelistStudentController(WhitelistStudentService whitelistStudentService) {
 		this.whitelistStudentService = whitelistStudentService;
 	}
-	
-	@PostMapping
-    public ResponseEntity<WhitelistStudent> addVerwalter(@RequestBody WhitelistStudent whitelistStudent) {
-		whitelistStudentService.addWhitelistStudent(whitelistStudent);
-        return new ResponseEntity<>(whitelistStudent, HttpStatus.CREATED);
-    }
-	
-	
-	@DeleteMapping("/{matrikelnummer}")
-    public ResponseEntity<?> deleteWhitelistStudent(@PathVariable int matrikelnummer) {
-		whitelistStudentService.deleteWhitelistStudent(matrikelnummer);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 
-	
-	
-	@GetMapping
-	public ResponseEntity<List<WhitelistStudent>> getAllWhitelistStudent() {
-	    List<WhitelistStudent> students = new ArrayList<WhitelistStudent>();
-	    students = whitelistStudentService.getAllWhitelistStudents();
-	    return new ResponseEntity<>(students, HttpStatus.OK);
+	@PostMapping
+	public ResponseEntity<WhitelistStudent> addVerwalter(@RequestBody WhitelistStudent whitelistStudent) {
+		whitelistStudentService.addWhitelistStudent(whitelistStudent);
+		return new ResponseEntity<>(whitelistStudent, HttpStatus.CREATED);
 	}
 
-	 @PutMapping("/update/{id}")
-    public WhitelistStudent updateEntity(@PathVariable int id, @RequestBody WhitelistStudent updatedEntity) {
-        return whitelistStudentService.updateEntity(id, updatedEntity);
-    }
+	@DeleteMapping("/{matrikelnummer}")
+	public ResponseEntity<?> deleteWhitelistStudent(@PathVariable int matrikelnummer) {
+		whitelistStudentService.deleteWhitelistStudent(matrikelnummer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<WhitelistStudent>> getAllWhitelistStudent() {
+		List<WhitelistStudent> students = new ArrayList<WhitelistStudent>();
+		students = whitelistStudentService.getAllWhitelistStudents();
+		return new ResponseEntity<>(students, HttpStatus.OK);
+	}
+
+	@PutMapping("/update/{id}")
+	public WhitelistStudent updateEntity(@PathVariable int id, @RequestBody WhitelistStudent updatedEntity) {
+		return whitelistStudentService.updateEntity(id, updatedEntity);
+	}
 
 	@DeleteMapping("/all")
 	public ResponseEntity<?> deleteAllWhitelistStudents() {
 		whitelistStudentService.deleteAllWhitelistStudent();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 }

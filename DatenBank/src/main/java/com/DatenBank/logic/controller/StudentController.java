@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.repository.StudentRepository;
-import com.DatenBank.logic.service.DecisionMakingService;
 import com.DatenBank.logic.service.StudentService;
 
 @Controller // This means that this class is a Controller
@@ -34,8 +33,7 @@ public class StudentController {
 	@Autowired
 	private StudentRepository studentRepository;
 
-	@Autowired
-	private DecisionMakingService decisionMakingService;
+	
 
 	public StudentController(StudentService studentService) {
 		this.studentService = studentService;

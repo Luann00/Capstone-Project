@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.entity.University;
 import com.DatenBank.logic.repository.UniversityRepository;
 
@@ -64,10 +63,9 @@ public class UniversityService {
 
     }
 
-
     public void updateAllShowGPA(boolean showGPA) {
         List<University> universities = universityRepository.findAll();
-    
+
         for (University university : universities) {
             university.setShowGPA(showGPA);
             universityRepository.save(university);
