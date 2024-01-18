@@ -47,10 +47,7 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
   ```sh
   npm install 
 
-* Eine eigene aufgesetzte (mySQL) Datenbank. Folgende Werte in der Application.Properties Datei sollten durch die eigenen Datenbank Werte geändert werden:
-  ```sh
-   spring.datasource.username=
-   spring.datasource.password= 
+* Eine aufgesetzte mySQL Datenbank, mit der man stets verbunden ist. Bei dem Aufsetzen der Datenbank sollten die Variablen aus der Application.Properties Datei beachtet werden.
 
 
 ### Installation
@@ -70,7 +67,7 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
 
 5. Datenbank starten
    ```js
-   Im Package DatenBank -> src -> java -> und dann die Hauptklasse starten
+   Im Package DatenBank -> src -> java -> und dann DatenBankApplication.java starten
    ```
 4. Applikation starten
    ```js
@@ -80,12 +77,10 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
    ```js
    localhost:3000 öffnen
    ```
-
 <br>
 
 ### Beteiligte Personen/Entwicklerteam
 * Luan Zekiri
-* Liska Derkum
 * Ha Hong Nguyen
 * Maria Carpet
 <br>
