@@ -4,7 +4,7 @@ import { Button, Modal, Input } from 'react-bootstrap';
 import logo from "../../logo.png";
 import "./whitelistStudent.css";
 import NavbarAdmin from "../NavigationBar/NavbarAdmin";
-import CSVExportButton from '../CSVExportButton';
+import CSVExportButton from '../ExportButton/CSVExportButton';
 
 
 

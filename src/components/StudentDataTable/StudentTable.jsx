@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Input } from 'react-bootstrap';
-import CSVExportButton from '../CSVExportButton';
+import CSVExportButton from '../ExportButton/CSVExportButton';
 
 import "./StudentTable.css";
 
