@@ -79,6 +79,39 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
    ```
 <br>
 
+
+<h1>Applikation nutzen</h1>
+
+### User Daten einfügen
+Da wir keine LDAP-Authentifizierung haben, muss man als erstes die Admindaten selber einfügen. Wenn man sich dann als Admin anmeldet, kann man die Studentendaten hinzufügen.
+Wichtig: Es wird bei dieser Applikation davon ausgegangen, dass sowohl die Admins als auch die User verschiedene Usernamen/ID's haben. Haben beide Objekte der jeweiligen Usergruppe die selbe ID, so wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
+
+Folgende Schritte können am Anfang durchgeführt werden:
+
+1. Mit dem Endpoint http://localhost:8081/admin die Daten für dne Admin eintragen. Folgende Variablen existieren in dieser Tabelle:
+<ul>
+<li>uniKim</li>
+<li>name</li>
+<li>surname</li>
+<li>title</li>
+<li>sex</li>
+<li>email</li>
+</ul>
+Wichtig ist hierbei vor allem uniKim, da dies für die Überprüfung des Usernames beim login verwendet wird.
+
+
+2. Mit dem Endpoint http://localhost:8081/whitelistAdmin folgende Werte in die Tabelle einfügen: "pkz". Folgende Variablen existieren in dieser Tabelle:
+<ul>
+<li>pkz</li>
+<li>year</li>
+</ul>
+Wichtig ist hierbei vor allem pkz, da dies für die Überprüfung des Usernames beim login verwendet wird.
+
+
+Es ist hierbei wichtig, dass sowohl uniKim in admin als auch pkz in whitelistAdmin  den selben Wert besitzen, da das Programm voraussetzt dass der Admin in der Datenbank existiert und dieser auch in der Whitelist eingetragen ist.
+
+
+
 ### Beteiligte Personen/Entwicklerteam
 * Luan Zekiri
 * Ha Hong Nguyen
