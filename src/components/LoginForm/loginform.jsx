@@ -149,6 +149,7 @@ const LoginForm = ({ onLogin }) => {
         <Carousel data-bs-theme="dark" className='carousel'>
           <Carousel.Item>
             <img className='carousel-img'
+             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             
               src={image1}
               alt="First slide"
@@ -162,6 +163,7 @@ const LoginForm = ({ onLogin }) => {
           <img className='carousel-img'
               
               src={image2}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               alt="First slide"
             />
 
