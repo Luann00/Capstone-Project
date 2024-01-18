@@ -47,7 +47,7 @@ function SelectionProcess() {
         {
             name: 'numberOfUniversities', type: 'number', min: '1', placeholder: 'Number of universities(auto-filled)', disabled: true
         },
-        { name: 'deadlineExtensionMinutes', type: 'number', min: '1', max: '1440', placeholder: 'Enter the extension of the deadline' },
+        { name: 'deadlineExtensionMinutes', type: 'number', min: '60', max: '1440', placeholder: 'Enter the extension of the deadline' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
     ];
 

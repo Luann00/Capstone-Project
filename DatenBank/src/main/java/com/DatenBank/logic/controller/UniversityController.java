@@ -2,8 +2,6 @@ package com.DatenBank.logic.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,36 +14,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.entity.University;
 import com.DatenBank.logic.service.UniversityService;
 
-@Controller 
+@Controller
 @CrossOrigin
 @RequestMapping("/university")
 public class UniversityController {
-	
-private UniversityService universityService;
-	
-	@Autowired
-	public UniversityController(UniversityService universityService) {
-		this.universityService = universityService;
-	}
-	
-	@PostMapping
+
+    private UniversityService universityService;
+
+    public UniversityController(UniversityService universityService) {
+        this.universityService = universityService;
+    }
+
+    @PostMapping
     public ResponseEntity<University> addUniversity(@RequestBody University university) {
-		universityService.addUniversity(university);
+        universityService.addUniversity(university);
         return new ResponseEntity<>(university, HttpStatus.CREATED);
     }
-	
-	
-	@DeleteMapping("/{uniId}")
+
+    @DeleteMapping("/{uniId}")
     public ResponseEntity<?> deleteUniversity(@PathVariable int uniId) {
-		universityService.deleteUniversity(uniId);
+        universityService.deleteUniversity(uniId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-	
-	
+
     @PutMapping("/updateShowGPA")
     public ResponseEntity<Void> updateShowGPA(@RequestBody boolean showGPA) {
         try {
@@ -55,8 +49,8 @@ private UniversityService universityService;
             return ResponseEntity.status(500).build();
         }
     }
-	
-	@PutMapping("/{uniId}")
+
+    @PutMapping("/{uniId}")
     public ResponseEntity<University> updateUniversity(
             @PathVariable int uniId,
             @RequestBody University updatedUniversity) {
@@ -70,33 +64,29 @@ private UniversityService universityService;
             return ResponseEntity.status(500).build();
         }
     }
-	
-	@DeleteMapping("/all")
-	public ResponseEntity<?> deleteAllUniversities() {
-		universityService.deleteAllUniversities();
+
+    @DeleteMapping("/all")
+    public ResponseEntity<?> deleteAllUniversities() {
+        universityService.deleteAllUniversities();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-	
-	
-	@GetMapping
-	public ResponseEntity<List<University>> getAllUniversity() {
-	    List<University> university = new ArrayList<University>();
-	    university = universityService.getAllUniversity();
-	    return new ResponseEntity<>(university, HttpStatus.OK);
-	}
-
-
-    //retrieve only one university
-    @GetMapping("/{uniId}")
-public ResponseEntity<University> getUniversityById(@PathVariable int uniId) {
-    University university = universityService.getUniversityById(uniId);
-    if (university != null) {
+    @GetMapping
+    public ResponseEntity<List<University>> getAllUniversity() {
+        List<University> university = new ArrayList<University>();
+        university = universityService.getAllUniversity();
         return new ResponseEntity<>(university, HttpStatus.OK);
-    } else {
-        return ResponseEntity.notFound().build();
     }
-}
 
+    // retrieve only one university
+    @GetMapping("/{uniId}")
+    public ResponseEntity<University> getUniversityById(@PathVariable int uniId) {
+        University university = universityService.getUniversityById(uniId);
+        if (university != null) {
+            return new ResponseEntity<>(university, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

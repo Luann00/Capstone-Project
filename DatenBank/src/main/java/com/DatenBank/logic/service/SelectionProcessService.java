@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DatenBank.logic.entity.SelectionProcess;
-import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.repository.SelectionProcessRepository;
 
 @Service
@@ -42,7 +41,6 @@ public class SelectionProcessService {
         selectionProcessRepository.deleteAll();
     }
 
-
     public SelectionProcess updateProcess(int year, SelectionProcess updatedProcess) throws Exception {
         // Find the existing process in the database
         Optional<SelectionProcess> optionalProcess = selectionProcessRepository.findById(year);
@@ -60,7 +58,6 @@ public class SelectionProcessService {
             existingProcess.setDaysUntilStudentDataDeletion(updatedProcess.getDaysUntilStudentDataDeletion());
             existingProcess.setExtended(updatedProcess.isExtended());
             existingProcess.setDeletedStudents(updatedProcess.isDeletedStudents());
-
 
             // Save the updated process back to the database
             return selectionProcessRepository.save(existingProcess);

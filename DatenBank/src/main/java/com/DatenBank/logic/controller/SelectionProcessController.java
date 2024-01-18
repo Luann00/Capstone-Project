@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.DatenBank.logic.entity.SelectionProcess;
-import com.DatenBank.logic.entity.Student;
 import com.DatenBank.logic.service.SelectionProcessService;
 
 @Controller // This means that this class is a Controller

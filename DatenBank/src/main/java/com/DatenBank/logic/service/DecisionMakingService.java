@@ -3,7 +3,6 @@ package com.DatenBank.logic.service;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,82 +27,72 @@ public class DecisionMakingService {
         studentRepository.save(student);
     }
 
-    
-
     public void allocateStudentsToUniversities() {
         List<Student> students = studentRepository.findAll();
-    
+
         for (Student student : students) {
-if(student.getAssignedUniversity()==0){
+            if (student.getAssignedUniversity() == 0) {
                 assignFirstPriorityStudent(student);
-}
-    
-            if (student.getAssignedUniversity()==0) {
+            }
+
+            if (student.getAssignedUniversity() == 0) {
                 assignSecondPriorityStudent(student);
             }
-    
-            if (student.getAssignedUniversity() == 0
-            ) {
+
+            if (student.getAssignedUniversity() == 0) {
                 assignThirdPriorityStudent(student);
             }
         }
     }
-    
+
     private void assignFirstPriorityStudent(Student student) {
         University university = universityRepository.findById(student.getFirstPref()).orElse(null);
-    
+
         if (university != null) {
-            
-            assignStudentsBasedOnAvailableSlots(student, university.getUniId(),1);
+
+            assignStudentsBasedOnAvailableSlots(student, university.getUniId(), 1);
         }
     }
-    
+
     private void assignSecondPriorityStudent(Student student) {
         University university = universityRepository.findById(student.getSecondPref()).orElse(null);
-    
+
         if (university != null) {
-            assignStudentsBasedOnAvailableSlots(student, university.getUniId(),2);
+            assignStudentsBasedOnAvailableSlots(student, university.getUniId(), 2);
         }
-                
-        
-                
-            
-        
+
     }
-    
+
     private void assignThirdPriorityStudent(Student student) {
-       
+
         University university = universityRepository.findById(student.getThirdPref()).orElse(null);
-    
+
         if (university != null) {
-            
-           
-            assignStudentsBasedOnAvailableSlots(student, university.getUniId(),3);
+
+            assignStudentsBasedOnAvailableSlots(student, university.getUniId(), 3);
         }
     }
-    
-    
+
     private void assignStudentsBasedOnAvailableSlots(Student student, int universityId, int priority) {
         University university = universityRepository.findById(universityId).orElse(null);
-    
+
         if (university != null) {
             List<Student> students = getStudentsWithSamePreference(university, priority);
             int availableSlots = getAvailableSlotsForEachPriority(university, priority);
-    
+
             if (!students.isEmpty()) {
                 students.sort(Comparator.comparing(Student::getDurchschnitt));
-    
+
                 if (students.size() >= availableSlots) {
                     double studentDurchschnitt = student.getDurchschnitt();
-    
-                   
-                    int thresholdIndex = Math.min(availableSlots, students.size())-1;
+
+                    int thresholdIndex = Math.min(availableSlots, students.size()) - 1;
                     double thresholdDurchschnitt = students.get(thresholdIndex).getDurchschnitt();
-    
+
                     if (studentDurchschnitt <= thresholdDurchschnitt) {
                         assignStudentToUniversity(student.getMatrikelnummer(), universityId);
                     } else {
-                        assignStudentToUniversity(student.getMatrikelnummer(),0);
+                        assignStudentToUniversity(student.getMatrikelnummer(), 0);
                     }
                 } else {
                     // If the number of students is less than available slots, assign the student
@@ -112,22 +101,23 @@ if(student.getAssignedUniversity()==0){
             }
         }
     }
-    
-    
+
     private Map<Integer, List<Student>> groupStudentsByFirstPref() {
         return studentRepository.findAll().stream()
-               .collect(Collectors.groupingBy(Student::getFirstPref));
+                .collect(Collectors.groupingBy(Student::getFirstPref));
     }
 
     private Map<Integer, List<Student>> groupStudentsBySecondPref() {
         return studentRepository.findAll().stream()
-        .filter(student -> student.getAssignedUniversity()==student.getFirstPref())               .collect(Collectors.groupingBy(Student::getSecondPref));
+                .filter(student -> student.getAssignedUniversity() == student.getFirstPref())
+                .collect(Collectors.groupingBy(Student::getSecondPref));
 
     }
 
     private Map<Integer, List<Student>> groupStudentsByThirdPref() {
         return studentRepository.findAll().stream()
-        .filter(student -> student.getAssignedUniversity()==student.getFirstPref()&&student.getAssignedUniversity()==student.getSecondPref()) 
+                .filter(student -> student.getAssignedUniversity() == student.getFirstPref()
+                        && student.getAssignedUniversity() == student.getSecondPref())
                 .collect(Collectors.groupingBy(Student::getThirdPref));
     }
 
@@ -153,25 +143,25 @@ if(student.getAssignedUniversity()==0){
     }
 
     public int getAvailableSlotsForEachPriority(University university, int priority) {
-        
+
         int availableSlots = university.getSlots();
         int slotsLeft;
         switch (priority) {
             case 1:
-            slotsLeft= availableSlots;
-            break;
-            case 2:
-            slotsLeft= availableSlots- getStudentsWithSamePreference(university, 1).size();
-            break;
-            case 3:
-slotsLeft= availableSlots- getStudentsWithSamePreference(university, 1).size()- getStudentsWithSamePreference(university, 2).size();
-
-                
+                slotsLeft = availableSlots;
                 break;
-        
+            case 2:
+                slotsLeft = availableSlots - getStudentsWithSamePreference(university, 1).size();
+                break;
+            case 3:
+                slotsLeft = availableSlots - getStudentsWithSamePreference(university, 1).size()
+                        - getStudentsWithSamePreference(university, 2).size();
+
+                break;
+
             default:
                 throw new IllegalArgumentException("Invalid priority: " + priority);
-                
+
         }
 
         return slotsLeft;

@@ -131,7 +131,6 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
                 setFirstPriority(university.uniId)
                 setCurrentPriority('1st Priority')
                 updatePriorities();
-                console.log(currentPriority)
 
             } else {
                 alert("This preference is aleady set for another university!");
@@ -228,7 +227,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setIsDropdownDisabled(false);
-        }, 1000);
+        }, 4000);
 
         addPriority(university.uniId, {
             universityData: university,
@@ -280,7 +279,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         //disable dropdown menu after setting preference to prevent from changing preference every second
         setTimeout(() => {
             setIsDropdownDisabled(false);
-        }, 3000);
+        }, 4000);
 
     }
 

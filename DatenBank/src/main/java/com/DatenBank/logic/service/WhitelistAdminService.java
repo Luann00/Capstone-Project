@@ -6,20 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DatenBank.logic.entity.WhitelistAdmin;
-import com.DatenBank.logic.entity.WhitelistStudent;
 import com.DatenBank.logic.repository.WhitelistAdminRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class WhitelistAdminService {
-	
-	
-	@Autowired
-	private WhitelistAdminRepository whitelistAdminRepository;
-	
-	
-	public WhitelistAdminService(WhitelistAdminRepository whitelistAdminRepository) {
+
+    @Autowired
+    private WhitelistAdminRepository whitelistAdminRepository;
+
+    public WhitelistAdminService(WhitelistAdminRepository whitelistAdminRepository) {
         this.whitelistAdminRepository = whitelistAdminRepository;
     }
 
@@ -28,10 +25,9 @@ public class WhitelistAdminService {
     }
 
     public void deleteWhitelistAdmin(int pkz) {
-    	whitelistAdminRepository.deleteById(pkz);
+        whitelistAdminRepository.deleteById(pkz);
     }
-    
-    
+
     public WhitelistAdmin updateEntity(int pkz, WhitelistAdmin updatedEntity) {
 
         WhitelistAdmin whitelistEntry = whitelistAdminRepository.findById(pkz).orElse(null);
@@ -48,14 +44,13 @@ public class WhitelistAdminService {
         }
 
     }
-    
-    
+
     public List<WhitelistAdmin> getAllWhitelistAdmin() {
         return whitelistAdminRepository.findAll();
     }
 
     public void deleteAllWhitelistAdmin() {
-    	whitelistAdminRepository.deleteAll();
+        whitelistAdminRepository.deleteAll();
     }
 
 }

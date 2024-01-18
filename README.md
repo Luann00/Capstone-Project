@@ -47,10 +47,7 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
   ```sh
   npm install 
 
-* Eine eigene aufgesetzte (mySQL) Datenbank. Folgende Werte in der Application.Properties Datei sollten durch die eigenen Datenbank Werte geändert werden:
-  ```sh
-   spring.datasource.username=
-   spring.datasource.password= 
+* Eine aufgesetzte mySQL Datenbank, mit der man stets verbunden ist. Bei dem Aufsetzen der Datenbank sollten die Variablen aus der Application.Properties Datei beachtet werden.
 
 
 ### Installation
@@ -70,7 +67,7 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
 
 5. Datenbank starten
    ```js
-   Im Package DatenBank -> src -> java -> und dann die Hauptklasse starten
+   Im Package DatenBank -> src -> java -> und dann DatenBankApplication.java starten
    ```
 4. Applikation starten
    ```js
@@ -80,12 +77,46 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen lokale
    ```js
    localhost:3000 öffnen
    ```
-
 <br>
+
+
+<h1>Applikation nutzen</h1>
+
+### User Daten einfügen
+Da wir keine LDAP-Authentifizierung haben, muss man als erstes die Userdaten selber in der Datenbank einfügen. Man muss zuerst die Admindaten einfügen. Danach kann man sich als Admin anmelden und in der Adminsicht die Studentendaten einfügen.
+Wichtig: Es wird bei dieser Applikation davon ausgegangen, dass sowohl die Admins als auch die User verschiedene Usernamen/ID's haben. Haben beide Objekte der jeweiligen Usergruppe die selbe ID, so wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
+
+Folgende Schritte können am Anfang durchgeführt werden:
+
+1. Mit dem Endpoint http://localhost:8081/admin die Daten für den Admin eintragen. Dies kann beispielsweise durch die Software Postman erfolgen. Folgende Variablen existieren in dieser Tabelle:
+<ul>
+<li>uniKim</li>
+<li>name</li>
+<li>surname</li>
+<li>title</li>
+<li>sex</li>
+<li>email</li>
+</ul>
+Wichtig ist hierbei vor allem uniKim, da dies für die Überprüfung des Usernames beim login verwendet wird.
+
+
+2. Mit dem Endpoint http://localhost:8081/whitelistAdmin die pkz des Admins eintragen. Dies kann beispielsweise durch die Software Postman erfolgen. Folgende Variablen existieren in dieser Tabelle:
+<ul>
+<li>pkz</li>
+<li>year</li>
+</ul>
+Wichtig ist hierbei vor allem pkz, da dies für die Überprüfung des Usernames beim login verwendet wird.
+
+
+Es ist hierbei wichtig, dass sowohl uniKim in admin als auch pkz in whitelistAdmin  den selben Wert besitzen, da das Programm voraussetzt dass der Admin in der Datenbank existiert und dieser auch in der Whitelist eingetragen ist.
+
+3. Nun kann man sich als Admin anmelden. Dort kann man in der Seite "Students" und in der Seite "WhitelistStudent" die Studentendaten einfügen. Auch hier muss die Matrikelnummer identisch sein, damit sich der Student anmelden kann.
+
+
+
 
 ### Beteiligte Personen/Entwicklerteam
 * Luan Zekiri
-* Liska Derkum
 * Ha Hong Nguyen
 * Maria Carpet
 <br>
