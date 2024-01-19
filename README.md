@@ -109,16 +109,47 @@ Wichtig beim Bearbeiten: Es kann beim Bearbeiten die ID des Studenten nicht mehr
 <br>
 Die Präferenzen des Studenten für eine jeweilige UNiveristät wird als ID der Univrsität gespeichert. Nur im Programm, was der Admin sieht, sieht man den Namen der Universität. Exportiert man die Daten als CSV-Datei , so wird bei dem Uninamen(unter FirstPref, SecondPref, ThirdPref sowie Assigned University) in Excel die ID der Uni ausgegeben und nicht der Name. Dadurch ist eine eindeutige Zuteilung der Universitäten gewährleistet. Die Namen der gewählten Univeristäten findet man also nur im Programm. Ist keine Universität für eine Präferenz gewählt, so erscheint der Wert 0 an dieser Stelle.
 <br>
+<br>
+<br>
 
 ### Universities Page
 Auf dieser Seite kann man die Universitäten, die der Student wählen kann, hinzufügen und bearbeiten. Auch können die Dateien hier im CSV-Datei exportiert werden.
 <br>
-Durch die Checkbox bei MinGPA kann man festlegen, ob die Durchschnittsnote der letzten Jahe für eine Univeristät auf der Studentenseite für die jeweilige Universität angezeigt werden soll oder nicht. 
+Durch die Checkbox bei MinGPA kann man festlegen, ob die Durchschnittsnote der letzten Jahe für eine Univeristät auf der Studentenseite für die jeweilige Universität auf der Karte angezeigt werden soll oder nicht. 
 
 <div align="center" style="margin-top: 20px;">
     <img class="logo" src="./public/UniversitiesPage.png" alt="Logo" width="800px">
   </a>
 </div>
+<br>
+<br>
+<br>
+
+### Whitelisten
+Durch die Whitelisten ann der Admin den Zugriff auf das Tool steuern. Ist ein User(Student oder Admin) nicht in der Whitelist eingetragen, so hat dieser User keinen Zugriff auf das Tool. Dabei ist es wichtig, dass die Matrikelnummer bzw. die PKZ des Users die selbe ist wie die in der respektiven Tabelle(Student/Admin).
+<div align="center" style="margin-top: 20px;">
+    <img class="logo" src="./public/WhitelistStudentPage.png" alt="Logo" width="400" style="margin-right: 20px;">
+    <img class="logo" src="./public/WhitelistAdminPage.png" alt="Logo" width="400">
+</div>
+<br>
+<br>
+<br>
+
+
+### SelectionProcess Page
+Auf dieser Seite kann man einen Auswahlprozess starten und beenden. Man kann dort die verschiedenen Variablen festlegen, die für ein Auswahlverfahren wichtig sind. Nur wenn ein Auswahlverfahren gerade offen ist, kann der Student seine Präferenzen auf seiner Ansicht wählen. Ansosnten erscheint die Nachricht, dass kein Auswahlverfahren offen ist.
+<div align="center" style="margin-top: 20px;">
+    <img class="logo" src="./public/SelectionProcessPage.png" alt="Logo" width="800px" style="margin-right: 20px;">
+</div>
+<br>
+Das Jahr, das die Kohorte des aktuellen Auswahlrpozesses beschreibt, muss genau dem Startjahr entsprechen. Außerdem kann man beim ersten Erstellen eines Prozesses nicht die Variablen "No. of students" und "No. of preferences" festlegen: Diese werden automatisch festgelegt, indem die Daten aus der Datenbank gezogen werden. Danach kann man aber, wenn neue Studenten hinzugefügt werden, die Variable durch den Edit Button ändern.
+<br>
+"Die Deadline Extension in minutes" Variable gibt an, um wie viele Minuten sich die Deadline des Auswahlverfahrens nach hinten verschiebt, wenn eine Präferenzänderung seitens des Studenten in den letzten 15 Minuten des Auswahlverfahrens geschieht. Diese Variable muss mindestens 60 Minuten betragen und kann bis zu 1440 Minuten betragen(das heißt 1 Tag).
+<br>
+Auch hier ist eine Bearbeitung der Variablen möglich, jedoch nicht das Jahr, da dies die eindeutige Kennummer für den jeweiligen Prozess ist. Möchte man die einmal gesetzte Deadline bearbeiten, sodass das Jahr des Startdatums anders ist als bei der ersten Erstellung des Prozesses, so wird empfohlen, den Prozess zu löschen und dieses wieder zu starten. An den Präferenzen der Studierenden ändert sich dadurch nichts. Ist das neue Startdatum bzw. das neue Startjahr gleich, so kann man problemlos alle anderen Variablen ändern ohne einen neuen Prozess zu erstellen.
+<br>
+Wichtig: Es kann nur ein Prozess pro Zeitpunkt angelegt werden. Möchte man einen weiteren Prozess anlegen, so ist dies nicht möglich. Dadurch wird sichergestellt, dass das Programm stets weiß, um welchen Prozess es sich handelt, wenn man auf den anderen Seiten mit den Variablen des Prozesses weiterrechnet. Aufgrund Zeitmangels mussten wir uns für diese Option entscheiden. Wenn ein Auswahlverfahren vorbei ist und dieses nicht mehr aktiv ist, so wird es empfohlen, diesen Prozess zu löschen und dann einen neuen zu starten, wenn man ein neues Auswahlverfahren starten möchte.
+
 
 
 ### User Daten einfügen
