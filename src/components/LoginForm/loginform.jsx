@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./loginform.css";
 import { Carousel } from "react-bootstrap";
 import AlertModal from "../../components/AlertModal/AlertModal"
-import logo1 from "./wiso_button_engl_transparent_ohne_schlagschatten.png";
+
 import logo2 from "./WiSo_Logo_TodaysIdeaTomorrowsImpact_eng.jpg";
 
 import Footer from "../../components/Footer/footer";
@@ -136,7 +136,6 @@ const LoginForm = ({ onLogin }) => {
   return (
     <div className="page">
       <div className='logo-container'>
-        <img className='WiSo-Logo' src={logo1} alt="logo" />
         <img className='WiSo-Slogan' src={logo2} alt="logo" />
       </div>
 

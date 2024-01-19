@@ -190,11 +190,7 @@ footer a:hover {
         height: 70%;
     }
 
-    .WiSo-Logo {
-        height: 60px;
-        width: 60px;
-        margin: 10px;
-    }
+
 
     .WiSo-Slogan {
         height: 60px;
@@ -218,11 +214,6 @@ footer a:hover {
         right: 30px;
     }
 
-    .WiSo-Logo {
-        height: 80px;
-        width: 80px;
-        margin: 10px;
-    }
 
     .WiSo-Slogan {
         height: 80px;
@@ -235,8 +226,7 @@ footer a:hover {
         height: 50%;
         position: absolute;
         left: 50px;
-        border-radius: 1em;
-        box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+        border:none;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -255,8 +245,7 @@ footer a:hover {
         height: auto;
         position: absolute;
         left: 50px;
-        border-radius: 1em;
-        box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+        border:none;
         display: flex;
         flex-direction: column;
         align-items: center;
