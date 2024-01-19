@@ -65,6 +65,7 @@ const InformationPrivacyPage = ({ onAccept }) => {
                     If you want to stop the use of your data, please contact <span style={{ fontStyle: "italic" }}>wiso-outgoings@uni-koeln.de </span>
                     If you do not consent to the above sharing and processing of your information, a participation in the exchange programme will not be possible.
                     You agree that your current grades are verified using Klips in order to confirm your current average grade for the ranking.
+                    <br></br>
 
 
                     <span style={{ fontSize: '0.75rem', whiteSpace: "preserve" }}>If you don't consent to the grade verfication via Klips: As the grade average is required for he assignment of spots, you need to follow an alternative procedure. You need to make an appointment with the ZIB outgoing students team instead to personally show a printed and stamped transcript of records stating the current status of grades (showing a date that lies within the application period for this programme)</span>

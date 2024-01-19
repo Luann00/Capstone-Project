@@ -343,7 +343,7 @@ function Home() {
 
   const getUniName = (id) => {
     const uni = universities.find((uni) => uni.uniId === id);
-    return uni ? uni.abbName : '';
+    return uni ? uni.name : '';
   }
 
 
@@ -477,12 +477,10 @@ function Home() {
             show={show}
             onHide={handleClose}
             backdrop="static"
-
             keyboard={false}
-
           >
             <Modal.Header closeButton>
-              <Modal.Title>Add Record</Modal.Title>
+              <Modal.Title>{selectedStudent ? "Edit record" : "Add record"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <form onSubmit={selectedStudent ? updateStudent : addStudent}>
