@@ -79,8 +79,30 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechne
 
 Es gibt 2 User Rollen: Der Admin und der Student. Der Admin kann das ganze Auswahlverfahren starten sowie steuern, während der Student die Präferenzen für seine Univeristät setzen kann. Im Nachfolgenden werden diese beiden User Rollen beschrieben und was diese konkret machen können.
 
-Admin
+## Admin
 Nach der Anmeldung als Admin landet man zunächst auf die Homepage des Admins. Hier sieht der Admin auf einen Blick den aktuellen Stand des Auswahlverfahrens:
+<br>
+
+<div align="center">
+    <img class="logo" src="./public/HomepageAdmin.png" alt="Logo" width="900px">
+  </a>
+</div>
+
+<br>
+Am Anfang wird diese Liste leer sein, wenn man noch keine Daten eingetragen hat. Alle Universitäts- und Studentendaten inklusive der Deadline, die auf den anderen Seiten eingetragen werden, erscheinen dann hier in Form dieser Tabelle.
+<br>
+Man kann anschließend zu den anderen Seiten navigieren.
+
+### Students Page 
+Auf dieser Seite kann man die Studenten hinzufügen und bearbeiten, die beim Auswahlverfahren teilnehmen können.
+<div align="center">
+    <img class="logo" src="./public/StudentPage.png" alt="Logo" width="900px">
+  </a>
+</div>
+Mit dem Exportbutton kann man die Dateien der Tabelle als CSV Datei exportieren und mit ihnen in Excel arbeiten.
+<br>
+Wichtig beim Bearbeiten: Es kann beim Bearbeiten die ID nicht mehr geändert werden, da die ID als eindeutige Identifikation dient und eine nachträgliche Änderung die Zuordnung der Daten durcheinander bringen würde. Alle anderen Variablen sind jedoch bearbeitbar.
+
 
 ### User Daten einfügen
 Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manuell in die Datenbank eingefügt werden. Zuerst muss man die die Admin Daten hinzuzufügen. Nachdem man sich dann als Admin angemeldet haben, kann man in der Admin-Ansicht die Studentendaten in der Studenten Tabelle einfügen.

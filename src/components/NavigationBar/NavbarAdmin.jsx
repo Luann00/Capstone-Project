@@ -15,7 +15,7 @@ const NavbarAdmin = ({ onLogout }) => {
               width="45"  
               height="45"
               alt="UniPick logo"
-              style={{marginRight: "20px"}}
+              style={{marginRight: "10px"}}
               
             /> 
           

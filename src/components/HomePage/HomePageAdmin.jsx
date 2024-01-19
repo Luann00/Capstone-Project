@@ -23,7 +23,7 @@ const HomePageAdmin = () => {
 
 
 
-//useEffect to render fetching data
+    //useEffect to render fetching data
     useEffect(() => {
 
         const fetchUniversities = async () => {
@@ -74,10 +74,10 @@ const HomePageAdmin = () => {
     }, [students]);
 
 
-//map the data of the endtable vertically
+    //map the data of the endtable vertically
     const studentNames = students.map((student) => `${student.vorname} ${student.nachname}`);
     const studentMatrikelnumbers = students.map((student) => student.matrikelnummer);
-//fill the table cells with the student preferences
+    //fill the table cells with the student preferences
     const fillTableCells = (uniID, studentID) => {
 
         const preferences = studentPreferences[studentID] || {};
@@ -110,7 +110,7 @@ const HomePageAdmin = () => {
                 setProcesses(data);
                 const activeProcess = getActiveProcess(data);
                 setCurrentProcess(activeProcess);
-                
+
 
             } catch (error) {
                 console.log('Error fetching data:' + error);
@@ -161,19 +161,19 @@ const HomePageAdmin = () => {
     //fetch the current process if one is active or return false otherwise
     const getActiveProcess = (data) => {
         const currentDate = new Date();
-//check if the current date is between the start and end date of the process
+        //check if the current date is between the start and end date of the process
         for (const process of data) {
             const startDateTime = new Date(process.startDate);
 
 
             const endDateTime = new Date(process.endDate);
-//check if the process is extended or not
+            //check if the process is extended or not
             if (process.extended) {
                 startDateTime.setHours(0, 0, 0, 0);
 
                 endDateTime.setHours(23, 59, 59, 0);
                 const extensionMinutes = process.deadlineExtensionMinutes;
-//calculate the new end date
+                //calculate the new end date
                 const newHours = Math.floor(extensionMinutes / 60);
                 const newMinutes = extensionMinutes % 60;
                 endDateTime.setHours(newHours, newMinutes, 0, 999);
@@ -216,7 +216,7 @@ const HomePageAdmin = () => {
     };
 
 
-//return the endtable and the process deadline
+    //return the endtable and the process deadline
     return (
         <div>
             <div className="table-container">
