@@ -6,7 +6,7 @@
 
 <!--Logo--->
 <div align="center">
-    <img class="logo" src="./public/WiSo-Logo.png" alt="Logo">
+    <img class="logo" src="./public/WiSo-Button.ico" alt="Logo">
   </a>
 </div>
 
