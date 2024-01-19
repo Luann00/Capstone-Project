@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import "./loginform.css";
-import logo from "../../logo.png";
 import{Carousel} from "react-bootstrap";
 import AlertModal from "../../components/AlertModal/AlertModal"
 import logo1 from "./wiso_button_engl_transparent_ohne_schlagschatten.png";

@@ -5,8 +5,6 @@ import "./InformationPrivacyPage.css"
 
 const InformationPrivacyPage = ({ onAccept }) => {
 
-
-
     const acceptPolicy = () => {
 
         let storedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -42,7 +40,6 @@ const InformationPrivacyPage = ({ onAccept }) => {
                 console.error('Error updating Accepted Policy:', error);
             });
     }
-
 
 
     return (
