@@ -77,44 +77,48 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechne
 <h1>Applikation nutzen</h1>
 
 ### User Daten einfügen
-Da wir keine LDAP-Authentifizierung haben, muss man als erstes die Userdaten selber in der Datenbank einfügen. Man muss zuerst die Admindaten einfügen. Danach kann man sich als Admin anmelden und in der Adminsicht die Studentendaten einfügen.
-Wichtig: Es wird bei dieser Applikation davon ausgegangen, dass sowohl die Admins als auch die User verschiedene Usernamen/ID's haben. Haben beide Objekte der jeweiligen Usergruppe die selbe ID, so wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
 
-Folgende Schritte können am Anfang durchgeführt werden:
+Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manuell in die Datenbank eingefügt werden. Beginnen Sie damit, die Administratordaten hinzuzufügen. Nachdem Sie sich als Administrator angemeldet haben, können Sie in der Admin-Ansicht die Studentendaten einfügen.
 
-1. Mit dem Endpoint http://localhost:8081/admin die Daten für den Admin eintragen. Dies kann beispielsweise durch die Software Postman erfolgen. Folgende Variablen existieren in dieser Tabelle:
-<ul>
-<li>uniKim</li>
-<li>name</li>
-<li>surname</li>
-<li>title</li>
-<li>sex</li>
-<li>email</li>
-</ul>
-Wichtig ist hierbei vor allem uniKim, da dies für die Überprüfung des Usernames beim login verwendet wird.
+**Wichtig:** Diese Anwendung geht davon aus, dass Admins und Benutzer unterschiedliche Benutzernamen/IDs haben. Wenn beide Objekte der jeweiligen Benutzergruppe dieselbe ID haben, wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
 
+#### Schritte:
 
-2. Mit dem Endpoint http://localhost:8081/whitelistAdmin die pkz des Admins eintragen. Dies kann beispielsweise durch die Software Postman erfolgen. Folgende Variablen existieren in dieser Tabelle:
-<ul>
-<li>pkz</li>
-<li>year</li>
-</ul>
-Wichtig ist hierbei vor allem pkz, da dies für die Überprüfung des Usernames beim login verwendet wird.
+1. Verwenden Sie den Endpunkt [http://localhost:8081/admin](http://localhost:8081/admin), um die Daten für den Administrator einzufügen. Dies kann beispielsweise mit der Software Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
+   - `uniKim`
+   - `name`
+   - `surname`
+   - `title`
+   - `sex`
+   - `email`
 
+**Wichtig:** Besonders wichtig ist `uniKim`, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird.
 
-Es ist hierbei wichtig, dass sowohl uniKim in admin als auch pkz in whitelistAdmin  den selben Wert besitzen, da das Programm voraussetzt dass der Admin in der Datenbank existiert und dieser auch in der Whitelist eingetragen ist.
+2. Verwenden Sie den Endpunkt [http://localhost:8081/whitelistAdmin](http://localhost:8081/whitelistAdmin), um die pkz des Admins einzutragen. Dies kann ebenfalls mit Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
+   - `pkz`
+   - `year`
+
+**Wichtig:** Hierbei ist vor allem `pkz` wichtig, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird.
+
+Es ist hierbei wichtig, dass sowohl `uniKim` in `admin` als auch `pkz` in `whitelistAdmin` den gleichen Wert besitzen, da das Programm voraussetzt, dass der Admin in der Datenbank existiert und dieser auch in der Whitelist eingetragen ist.
 
 3. Nun kann man sich als Admin anmelden. Dort kann man in der Seite "Students" und in der Seite "WhitelistStudent" die Studentendaten einfügen. Auch hier muss die Matrikelnummer identisch sein, damit sich der Student anmelden kann.
 
-
-
-
-
 ### User Rollen
+
 Es gibt 2 User Rollen: Der Admin und der Student. Der Admin kann das ganze Auswahlverfahren starten sowie steuern, während der Student die Präferenzen für seine Univeristät setzen kann.
 
+<br>
+<br>
+<br>
+<br>
 
 
+
+<br>
+<br>
+<br>
+<br>
 
 ### Beteiligte Personen/Entwicklerteam
 * Luan Zekiri
