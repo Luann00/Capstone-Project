@@ -11,14 +11,12 @@ const NavbarAdmin = ({ onLogout }) => {
     <div className="navbar-container">
       <Navbar className="Navbar" expand="lg">
         <Container>
-        <img className="navbar-logo" src={logo} 
-              width="45"  
-              height="45"
-              alt="UniPick logo"
-              style={{marginRight: "10px"}}
-              
-            /> 
-          
+          <img className="navbar-logo" src={logo}
+            width="45"
+            height="45"
+            alt="UniPick logo"
+            style={{ marginRight: "10px" }}
+          />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -35,7 +33,7 @@ const NavbarAdmin = ({ onLogout }) => {
                 <Nav.Link className="nav-link nav-box">WhitelistStudent</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/WhitelistAdmin">
-                <Nav.Link className="nav-link nav-box">WhitelistVerwalter</Nav.Link>
+                <Nav.Link className="nav-link nav-box">WhitelistAdmin</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/SelectionProcess">
                 <Nav.Link className="nav-link nav-box">SelectionProcess</Nav.Link>
