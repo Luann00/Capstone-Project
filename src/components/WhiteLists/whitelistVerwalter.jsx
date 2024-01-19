@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Button, Modal, Input } from 'react-bootstrap';
-import logo from "../../logo.png";
 import "./whitelistStudent.css";
-import NavbarAdmin from "../NavigationBar/NavbarAdmin";
 import CSVExportButton from '../ExportButton/CSVExportButton';
 
 
@@ -283,7 +280,7 @@ export const WhitelistAdmin = () => {
             </thead>
             <tbody>
               {tableData.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.pkz}>
                   <td className="rowCell1">{row.pkz}</td>
                   <td className="rowCell2">{row.year}</td>
                   <td>

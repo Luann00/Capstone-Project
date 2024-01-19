@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import "./loginform.css";
-import logo from "../../logo.png";
-import{Carousel} from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import AlertModal from "../../components/AlertModal/AlertModal"
 import logo1 from "./wiso_button_engl_transparent_ohne_schlagschatten.png";
 import logo2 from "./WiSo_Logo_TodaysIdeaTomorrowsImpact_eng.jpg";
 
 import Footer from "../../components/Footer/footer";
-import image1 from './Gespraechssituation-Wiso-Fakultaet-Cafe-1024px.jpg'; 
+import image1 from './Gespraechssituation-Wiso-Fakultaet-Cafe-1024px.jpg';
 import image2 from './csm_Hauptgebaeude_543a6b79cf.jpg';
 import axios from 'axios';
 
@@ -50,12 +49,11 @@ const LoginForm = ({ onLogin }) => {
     //fetch data initially
     fetchData();
 
-    const intervalId = setInterval(fetchData, 20000);
+    const intervalId = setInterval(fetchData, 10000);
 
-    // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
 
-  }, []); // Empty dependency array to run the effect only once on mount
+  }, []);
 
 
   const handleAnmelden = () => {
@@ -137,46 +135,46 @@ const LoginForm = ({ onLogin }) => {
   return (
     <div className="page">
       <div className='logo-container'>
-      <img className='WiSo-Logo' src={logo1} alt="logo" />
+        <img className='WiSo-Logo' src={logo1} alt="logo" />
         <img className='WiSo-Slogan' src={logo2} alt="logo" />
       </div>
-      
-    
-        
-      
-      
-       <div className="login-carousel">
+
+
+
+
+
+      <div className="login-carousel">
         <Carousel data-bs-theme="dark" className='carousel'>
           <Carousel.Item>
             <img className='carousel-img'
-             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+
               src={image1}
               alt="First slide"
             />
             <Carousel.Caption className="caption">
-              <h3 style={{color:"rgba(255, 255, 255)",fontWeight:"bolder"}}>UniPick-Plan your dream exchange term</h3>
-              <p style={{color:"rgba(255, 255, 255)"}}>UniPick is a platform for students to plan their exchange term. Students can choose their favorite universities to apply to. </p>
+              <h3 style={{ color: "rgba(255, 255, 255)", fontWeight: "bolder" }}>UniPick-Plan your dream exchange term</h3>
+              <p style={{ color: "rgba(255, 255, 255)" }}>UniPick is a platform for students to plan their exchange term. Students can choose their favorite universities to apply to. </p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-          <img className='carousel-img'
-              
+            <img className='carousel-img'
+
               src={image2}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               alt="First slide"
             />
 
             <Carousel.Caption className="caption">
-              <h3 style={{color:"rgba(255,255,255)", fontWeight:"bolder"}}>In the program of MESS</h3>
-              <p style={{color:"rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Faculty,University of Cologne. </p>
+              <h3 style={{ color: "rgba(255,255,255)", fontWeight: "bolder" }}>In the program of MESS</h3>
+              <p style={{ color: "rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Faculty,University of Cologne. </p>
             </Carousel.Caption>
           </Carousel.Item>
-          
-        </Carousel>
-       </div>
 
-      
+        </Carousel>
+      </div>
+
+
       <div className="cover">
         <h1 className="title">Welcome</h1>
         {showAlert && <AlertModal onClose={handleCloseAlert} />}

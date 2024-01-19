@@ -1,4 +1,8 @@
-h1, h3 {
+h1{
+  text-align: center;
+}
+
+h3{
   text-align: center;
 }
 
@@ -10,6 +14,8 @@ h1, h3 {
   padding: 50px;
 border: none;
   margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #acceptButton {

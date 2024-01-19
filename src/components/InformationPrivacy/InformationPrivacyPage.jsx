@@ -4,8 +4,6 @@ import "./InformationPrivacyPage.css"
 
 
 const InformationPrivacyPage = ({ onAccept }) => {
-const [policys, setPolicys] = useState([]);
-
 
     const acceptPolicy = () => {
 
@@ -44,8 +42,6 @@ const [policys, setPolicys] = useState([]);
     }
 
 
-
-
     return (
         <div style={{alignItems:"center",display:"flex",flexDirection:"column"}}>
             <h1 style={{fontWeight:"700"}} >Information Privacy Policy</h1>
@@ -75,6 +71,7 @@ You agree that your current grades are verified using Klips in order to confirm 
     );
 
 };
+
 
 export default InformationPrivacyPage;
 

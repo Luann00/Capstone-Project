@@ -509,7 +509,7 @@ function Home() {
                       >
                         <option value="" disabled hidden>{field.placeholder}</option>
                         {field.options.map((option, index) => (
-                          <option key={index} value={option} selected={option === "Yes"}>
+                          <option key={index} value={option} selected={option === "No"}>
                             {option}
                           </option>
                         ))}
