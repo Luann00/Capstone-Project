@@ -283,7 +283,7 @@ export const WhitelistAdmin = () => {
             </thead>
             <tbody>
               {tableData.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.pkz}>
                   <td className="rowCell1">{row.pkz}</td>
                   <td className="rowCell2">{row.year}</td>
                   <td>

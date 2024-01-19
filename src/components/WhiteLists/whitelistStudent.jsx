@@ -283,7 +283,7 @@ export const WhitelistStudent = () => {
             </thead>
             <tbody>
               {tableData.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.matrikelnummer}>
                   <td className="rowCell1">{row.matrikelnummer}</td>
                   <td className="rowCell2">{row.jahr}</td>
                   <td>
