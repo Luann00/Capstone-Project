@@ -15,9 +15,9 @@ const NavbarAdmin = ({ onLogout }) => {
       <Navbar className="Navbar" expand="lg">
     
         <Container>
-        <img className="navbar-logo" src={logo} // Replace with the actual path
-              width="45"  // Replace with the actual width
-              height="45"  // Replace with the actual height
+        <img className="navbar-logo" src={logo} 
+              width="45"  
+              height="45"
               alt="UniPick logo"
               style={{marginRight: "20px"}}
               

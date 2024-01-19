@@ -41,6 +41,13 @@ const HomeStudent = ({ onAccept }) => {
     setAcceptedPolicy(true);
     onAccept();
   }
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
+
+
 
 
 
@@ -51,7 +58,7 @@ const HomeStudent = ({ onAccept }) => {
         <div className='welcome'>
         <h2>Welcome, {name}!</h2>
         </div>
-        <Carousel data-bs-theme="dark" className="carousel">
+        <Carousel data-bs-theme="dark" className="carousel" activeIndex={index} onSelect={handleSelect}>
           {messages.map((message) => (
 
 <Carousel.Item key={message.id}>
