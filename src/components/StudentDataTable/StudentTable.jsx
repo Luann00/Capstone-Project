@@ -132,13 +132,13 @@ function Home() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-
         const [studentsResponse, processesResponse] = await Promise.all([
           fetch('http://localhost:8081/student').then(response => response.json()),
           fetch('http://localhost:8081/selectionProcess').then(response => response.json()),
         ]);
 
-        //set data only when
+        /*set data only when it first loads and then load it when the incoming data
+         is different from current array data*/
         if (firstTimeLoading) {
           setStudents(studentsResponse);
           setOriginalStudents(studentsResponse);
@@ -161,7 +161,6 @@ function Home() {
         console.log('Error fetching data:' + error);
       }
     };
-
     fetchStudents();
 
     //fetch student data every 5 seconds
