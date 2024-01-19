@@ -18,15 +18,12 @@ function Home() {
 
   //For editing students
   const [selectedStudent, setSelectedStudent] = useState(null);
-
   const [firstTimeLoading, setFirstTimeLoading] = useState(true)
-
-
-
   const [search, setSearch] = useState("");
-
-
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState({
+    matrikelnummer: "asc",
+    durchschnitt: "asc",
+  });
   const [gradeSortOrder, setGradeSortOrder] = useState("asc");
 
 
@@ -316,21 +313,25 @@ function Home() {
 
   //Sort function for sorting the students
   const handleSort = (column) => {
-    let sortOrderForColumn, sortFunction;
 
+    let sortOrderForColumn, sortFunction;
+    // decide which column was clicked for sorting and then sort it
     if (column === "matrikelnummer") {
-      sortOrderForColumn = sortOrder === "asc" ? "desc" : "asc";
-      setSortOrder(sortOrderForColumn);
-      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+      sortOrderForColumn = sortOrder.matrikelnummer === "asc" ? "desc" : "asc";
+      setSortOrder({ ...sortOrder, matrikelnummer: sortOrderForColumn });
+      sortFunction = (a, b) =>
+        sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
     } else if (column === "durchschnitt") {
       sortOrderForColumn = gradeSortOrder === "asc" ? "desc" : "asc";
       setGradeSortOrder(sortOrderForColumn);
-      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+      sortFunction = (a, b) =>
+        sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
     }
-
     const sortedStudents = [...students].sort(sortFunction);
     setStudents(sortedStudents);
+
   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -411,8 +412,16 @@ function Home() {
                   <th onClick={() => handleSort("matrikelnummer")}>
                     Student ID
                     <a href="#" className="sort-icon" data-toggle="tooltip">
-                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
-                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                      {sortOrder.matrikelnummer === "asc" && (
+                        <i className="material-icons" title="Sort descending">
+                          &#xE316;
+                        </i>
+                      )}
+                      {sortOrder.matrikelnummer === "desc" && (
+                        <i className="material-icons" title="Sort ascending">
+                          &#xE313;
+                        </i>
+                      )}
                     </a>
                   </th>
                   <th>Name </th>
@@ -422,8 +431,16 @@ function Home() {
                   <th onClick={() => handleSort("durchschnitt")}>
                     GPA
                     <a href="#" className="sort-icon" data-toggle="tooltip">
-                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
-                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                      {gradeSortOrder === "asc" && (
+                        <i className="material-icons" title="Sort descending">
+                          &#xE316;
+                        </i>
+                      )}
+                      {gradeSortOrder === "desc" && (
+                        <i className="material-icons" title="Sort ascending">
+                          &#xE313;
+                        </i>
+                      )}
                     </a>
                   </th>
                   <th>E-Mail</th>
@@ -517,7 +534,7 @@ function Home() {
                       </select>
                     ) : (
                       <input
-                        id="inputID" 
+                        id="inputID"
                         type={field.type}
                         min={field.min}
                         max={field.max}
