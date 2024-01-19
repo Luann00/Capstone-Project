@@ -78,13 +78,13 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechne
 
 ### User Daten einfügen
 
-Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manuell in die Datenbank eingefügt werden. Beginnen Sie damit, die Administratordaten hinzuzufügen. Nachdem Sie sich als Administrator angemeldet haben, können Sie in der Admin-Ansicht die Studentendaten einfügen.
+Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manuell in die Datenbank eingefügt werden. Zuerst muss man die die Admin Daten hinzuzufügen. Nachdem man sich dann als Admin angemeldet haben, kann man in der Admin-Ansicht die Studentendaten in der Studenten Tabelle einfügen.
 
 **Wichtig:** Diese Anwendung geht davon aus, dass Admins und Benutzer unterschiedliche Benutzernamen/IDs haben. Wenn beide Objekte der jeweiligen Benutzergruppe dieselbe ID haben, wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
 
 #### Schritte:
 
-1. Verwenden Sie den Endpunkt [http://localhost:8081/admin](http://localhost:8081/admin), um die Daten für den Administrator einzufügen. Dies kann beispielsweise mit der Software Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
+1. Verwende den Endpunkt [http://localhost:8081/admin](http://localhost:8081/admin), um die Daten für den Administrator einzufügen. Dies kann beispielsweise mit der Software Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
    - `uniKim`
    - `name`
    - `surname`
@@ -94,7 +94,7 @@ Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manu
 
 **Wichtig:** Besonders wichtig ist `uniKim`, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird.
 
-2. Verwenden Sie den Endpunkt [http://localhost:8081/whitelistAdmin](http://localhost:8081/whitelistAdmin), um die pkz des Admins einzutragen. Dies kann ebenfalls mit Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
+2. Verwende den Endpunkt [http://localhost:8081/whitelistAdmin](http://localhost:8081/whitelistAdmin), um die pkz des Admins einzutragen. Dies kann ebenfalls mit Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
    - `pkz`
    - `year`
 

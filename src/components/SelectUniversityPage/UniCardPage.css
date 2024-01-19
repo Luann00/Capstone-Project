@@ -1,71 +1,73 @@
 .card-page {
-  top: 0;
-  left: 0;
- min-height: 150dvh;
-  width: 100%;
+	top: 0;
+	left: 0;
+	min-height: 150dvh;
+	width: 100%;
 }
 
 
 .title {
-  text-align: center;
-  color: rgba(69, 122, 147);
-  margin-bottom: 20px;
+	text-align: center;
+	color: rgba(69, 122, 147);
+	margin-bottom: 20px;
 }
 
 .title h1 {
-  font-weight: 800;
-  margin-top: 50px;
-  font-size: 3rem;
+	font-weight: 800;
+	margin-top: 50px;
+	font-size: 3rem;
 
 }
-.title p{
-	  font-weight: 500;
-	    text-transform: none;
-  font-size: 1.5rem;
+
+.title p {
+	font-weight: 500;
+	text-transform: none;
+	font-size: 1.5rem;
 }
 
 .title span {
-  font-weight: 500;
-  text-transform: none;
-  font-style: normal;
-  font-size: large;
+	font-weight: 500;
+	text-transform: none;
+	font-style: normal;
+	font-size: large;
 
 }
 
 /* Media query for screens with a maximum width of 768px (typical tablet size) */
 @media (max-width: 768px) {
-  .title h1 {
-	font-size: 2rem; 
-  
-  }
-  .title p{
-	  font-size: 1.2rem; 
-  
-  }
+	.title h1 {
+		font-size: 2rem;
 
-  .title span {
-    font-size: 10px;
-  }
+	}
 
-  
+	.title p {
+		font-size: 1.2rem;
+
+	}
+
+	.title span {
+		font-size: 10px;
+	}
+
+
 }
 
 /* Media query for screens with a maximum width of 576px */
 @media (max-width: 576px) {
-  .title h1 {
-    font-size: 20px; 
-  }
+	.title h1 {
+		font-size: 20px;
+	}
 
-  .title span {
-    font-size: 12px; 
-  }
+	.title span {
+		font-size: 12px;
+	}
 
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
+	.card-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+	}
 }
 
 .countdown .content {
@@ -76,6 +78,7 @@
 	margin: auto;
 	gap: 12px;
 }
+
 .countdown h4 {
 	margin: 30px;
 	font-size: 1.5rem;
@@ -93,7 +96,7 @@
 }
 
 .countdown .value {
-	
+
 	font-weight: 700;
 	background-color: rgb(69, 122, 147);
 	color: white;
@@ -106,6 +109,7 @@
 	position: relative;
 	box-shadow: -2px 0px 5px 1px #232423ad;
 }
+
 .countdown .value span {
 	font-size: 20px;
 	margin-top: -5px;
@@ -115,11 +119,13 @@
 	.countdown .content {
 		gap: 30px;
 	}
+
 	.countdown .value {
 		font-size: 50px;
 		width: 60px;
 		height: 60px;
 	}
+
 	.countdown .box {
 		height: 80px;
 		max-width: 80px;
@@ -132,20 +138,24 @@
 		height: 100px;
 		width: 100px;
 	}
+
 	.countdown .box {
 		max-width: 100px;
 		height: 120px;
 	}
+
 	.countdown .value span {
 		font-size: 40px;
 		margin-top: -10px;
 	}
+
 	.countdown .label {
 		font-size: 1rem;
 		font-weight: 400;
-	letter-spacing: 4px;
-	margin-top: 15px;
+		letter-spacing: 4px;
+		margin-top: 15px;
 	}
+
 	.countdown h4 {
 		font-size: 2.5rem;
 		font-weight: 600;
@@ -161,6 +171,7 @@
 	background-color: #313131b0;
 	box-shadow: 0px 0px 5px 0px #2e2f2ed6;
 }
+
 .countdown .value::after {
 	content: "";
 	position: absolute;

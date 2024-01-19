@@ -83,22 +83,19 @@ const UniCardPage = () => {
 
 
 
-  //update the process after making changes to the university
+  /*post the extended deadline to the database after a student makes changes to its preferences
+  making changes to the preferences in the last 15 minutes*/
   const updateProcesses = async (selectedProcess) => {
 
     try {
       // compute new endDate
       const extendedMinutes = selectedProcess.deadlineExtensionMinutes;
       const extendedDays = Math.ceil(extendedMinutes / (24 * 60));
-
       const currentEndDate = new Date(selectedProcess.endDate);
-
       currentEndDate.setDate(currentEndDate.getDate() + extendedDays);
 
       // Convert currentEndDate to ISO string without the time part
       const formattedEndDate = currentEndDate.toISOString().split('T')[0];
-
-
       selectedProcess.endDate = formattedEndDate;
 
       const response = await fetch(
@@ -197,6 +194,7 @@ const UniCardPage = () => {
 
   }
 
+
   const updateProcessDatabase = async (process) => {
 
     try {
@@ -243,6 +241,7 @@ const UniCardPage = () => {
   }, []);
 
 
+  //fetch the current active Process in the database, based on start and enddate time and the current date
   const getActiveProcess = (data) => {
     const currentDate = new Date();
 
@@ -330,10 +329,10 @@ const UniCardPage = () => {
           <h1>There is no selection process open!</h1>
         </div>
       )}
+      
       {processIsActive && (
-       
-          <UniCard changePreference={checkAndExtendTime} />
-        
+        <UniCard changePreference={checkAndExtendTime} />
+
       )}
     </div>
   );
