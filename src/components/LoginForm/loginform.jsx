@@ -14,7 +14,7 @@ import axios from 'axios';
 // This function is used to display the login page. It is the first page that the user sees when he opens the website.The user can log in as a student or as an admin. The login data is stored in the database.//
 
 const LoginForm = ({ onLogin }) => {
-  
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -56,7 +56,7 @@ const LoginForm = ({ onLogin }) => {
 
   }, []);
 
-// This function is used to check if the user is a student or an admin. If the user is a student, he is redirected to the student homepage. If the user is an admin, he is redirected to the admin homepage. If the user is neither a student nor an admin, an error message is displayed.//
+  // This function is used to check if the user is a student or an admin. If the user is a student, he is redirected to the student homepage. If the user is an admin, he is redirected to the admin homepage. If the user is neither a student nor an admin, an error message is displayed.//
   const handleAnmelden = () => {
 
     try {
@@ -138,10 +138,6 @@ const LoginForm = ({ onLogin }) => {
       <div className='logo-container'>
         <img className='WiSo-Slogan' src={logo2} alt="logo" />
       </div>
-
-
-
-
 
       <div className="login-carousel">
         <Carousel data-bs-theme="dark" className='carousel'>

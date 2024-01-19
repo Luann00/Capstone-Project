@@ -13,17 +13,13 @@ function SelectionProcess() {
     const [universities, setUniversities] = useState([])
     const [firstTimeLoading, setFirstTimeLoading] = useState(true)
     const [students, setStudents] = useState([]);
-
     const [deletedStudents, setDeletedStudents] = useState(false);
-
-
-
     const [search, setSearch] = useState("");
-
 
     const [selectedProcess, setSelectedProcess] = useState(null);
 
 
+    //this state has all variables for a process
     const [newProcess, setNewProcess] = useState({
         startDate: "",
         endDate: "",
@@ -35,18 +31,15 @@ function SelectionProcess() {
         daysUntilStudentDataDeletion: ""
     });
 
-    //The new values for a new university get saved here initially
+
+    //this inputfield gets lodad when adding/editing a process and it stores the data and posts them to the database 
     const inputFields = [
         { name: 'startDate', type: 'date', placeholder: 'Enter start date of the process' },
         { name: 'endDate', type: 'date', placeholder: 'Enter end date of the process', min: newProcess.startDate },
-        {
-            name: 'year', type: 'number', placeholder: 'Enter year of the process', min: new Date(newProcess.startDate).getFullYear(), max: new Date(newProcess.startDate).getFullYear()
-        },
+        { name: 'year', type: 'number', placeholder: 'Enter year of the process', min: new Date(newProcess.startDate).getFullYear(), max: new Date(newProcess.startDate).getFullYear() },
         { name: 'numberOfStudents', type: 'number', min: '0', placeholder: 'Number of students(auto-filled at beginning)', disabled: selectedProcess ? false : true },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(setted to 3)', value: 3, disabled: true },
-        {
-            name: 'numberOfUniversities', type: 'number', min: '0', placeholder: 'Number of universities(auto-filled at beginning)', disabled: selectedProcess ? false : true
-        },
+        { name: 'numberOfUniversities', type: 'number', min: '0', placeholder: 'Number of universities(auto-filled at beginning)', disabled: selectedProcess ? false : trueF },
         { name: 'deadlineExtensionMinutes', type: 'number', min: '60', max: '1440', placeholder: 'Enter the extension of the deadline' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
     ];
@@ -90,15 +83,18 @@ function SelectionProcess() {
 
 
 
+    //both data(incoming data and current data) gets compared for deciding whether to update the data for the table
     const compareBoth = (arr1, arr2) => {
         return JSON.stringify(arr1) === JSON.stringify(arr2);
     };
 
 
+    /*sthis geets called after the add process button is pressed so the modal shows up. if show is true then the
+    modal appears, if it is false then the modal disappears*/
     const handleShow = () => setShow(true);
 
-    const handleEdit = (process) => {
 
+    const handleEdit = (process) => {
         setSelectedProcess(process);
         setNewProcess({
             startDate: process.startDate,
@@ -126,7 +122,8 @@ function SelectionProcess() {
                 ]);
 
 
-                //set data only when
+                /*load data per default only once when the component mounts and then run it when the current
+                data isnt equal to the incoming data in order to have always the current version of the data*/
                 if (firstTimeLoading) {
                     setProcesses(processesResponse.reverse());
                     setOriginalProcesses(processesResponse);
@@ -173,6 +170,7 @@ function SelectionProcess() {
     }, [firstTimeLoading]);
 
 
+    //check the passed days against the current day since the beginning of the process
     const checkDays = () => {
         for (const processItem of processes) {
 
@@ -195,6 +193,9 @@ function SelectionProcess() {
 
 
 
+    /*this method is for setting the attribute deleting to true in process table
+    after the respective days have passed. the attribute deleting then gets readed by
+    the student table where the student data gets passed if it is true*/
     const updateDeleted = async (process) => {
         try {
             const response = await fetch(
@@ -253,7 +254,7 @@ function SelectionProcess() {
 
 
 
-    //Probably don't need search function by now
+    //this method is for filtering the data when searching for processes
     const handleSearch = (event) => {
 
         const searchValue = event.target.value;
@@ -296,6 +297,7 @@ function SelectionProcess() {
     };
 
 
+    //only one specific process gets deleted from the database and also locally
     const deleteProcess = async (year) => {
 
         if (window.confirm('Are you sure you want to delete this process?')) {
@@ -319,6 +321,8 @@ function SelectionProcess() {
         }
     };
 
+
+    //delete all processes locally and in the database)
     const deleteAllProcesses = () => {
         if (window.confirm('Are you sure you want to remove all Processes?')) {
             setProcesses([]);
@@ -343,6 +347,7 @@ function SelectionProcess() {
         }
     };
 
+    //this method gets called after there is made a change in one of the input fields when adding or editing a process
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (selectedProcess) {
@@ -390,6 +395,7 @@ function SelectionProcess() {
                         </Button>
                     </div>
                 </div>
+                {/*Program the columns for the process tables*/}
                 <div className="row">
                     <div className="table-responsive " >
                         <table className="table table-striped table-hover table-bordered" >
