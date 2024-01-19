@@ -15,9 +15,14 @@ function Home() {
   const [showMinGPAColumn, setShowMinGPAColumn] = useState(true);
   const [search, setSearch] = useState("");
   const [firstTimeLoading, setFirstTimeLoading] = useState(true)
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [uniIdSortOrder, setUniIdSortOrder] = useState("asc");
-  const [countrySortOrder, setCountrySortOrder] = useState("asc");
+
+  const [sortOrder, setSortOrder] = useState({
+    uniId: "asc",
+    country: "asc",
+    minimumGPA: "asc",
+    firstPref: "asc",
+    totalPref: "asc"
+  });
 
   //For editing universities
   const [selectedUniversity, setSelectedUniversity] = useState(null);
@@ -267,31 +272,37 @@ function Home() {
   };
 
 
-  //Sort function
+  //for function
   const handleSort = (column) => {
     let sortOrderForColumn, sortFunction;
 
     if (column === "firstPref") {
-      sortOrderForColumn = sortOrder === "asc" ? "desc" : "asc";
-      setSortOrder(sortOrderForColumn);
+      sortOrderForColumn = sortOrder.firstPref === "asc" ? "desc" : "asc";
+      setSortOrder((prevSortOrder) => ({ ...prevSortOrder, firstPref: sortOrderForColumn }));
       sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
     } else if (column === "uniId") {
-      sortOrderForColumn = uniIdSortOrder === "asc" ? "desc" : "asc";
-      setUniIdSortOrder(sortOrderForColumn);
+      sortOrderForColumn = sortOrder.uniId === "asc" ? "desc" : "asc";
+      setSortOrder((prevSortOrder) => ({ ...prevSortOrder, uniId: sortOrderForColumn }));
+      sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
+    } else if (column === "totalPref") {
+      sortOrderForColumn = sortOrder.totalPref === "asc" ? "desc" : "asc";
+      setSortOrder((prevSortOrder) => ({ ...prevSortOrder, totalPref: sortOrderForColumn }));
       sortFunction = (a, b) => sortOrderForColumn === "asc" ? a[column] - b[column] : b[column] - a[column];
     } else {
-      sortOrderForColumn = countrySortOrder === "asc" ? "desc" : "asc";
-      setCountrySortOrder(sortOrderForColumn);
+      sortOrderForColumn = sortOrder.country === "asc" ? "desc" : "asc";
+      setSortOrder((prevSortOrder) => ({ ...prevSortOrder, country: sortOrderForColumn }));
       sortFunction = (a, b) => {
         const valueA = a[column].toLowerCase();
         const valueB = b[column].toLowerCase();
         return sortOrderForColumn === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
       };
     }
-
     const sortedUniversities = [...universities].sort(sortFunction);
     setUniversities(sortedUniversities);
   };
+
+
+
 
 
 
@@ -329,13 +340,13 @@ function Home() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (selectedUniversity) {
-      // If editing, update the selected student
+      // If editing, update the selected university
       setSelectedUniversity((prevUniversity) => ({
         ...prevUniversity,
         [name]: value,
       }));
     } else {
-      // If adding a new student, update the new student
+      // If adding a new university, update the new university
       setNewUniversity((prevUniversity) => ({
         ...prevUniversity,
         [name]: value,
@@ -381,19 +392,34 @@ function Home() {
                   <th onClick={() => handleSort("uniId")}>
                     Uni-ID
                     <a href="#" className="sort-icon" data-toggle="tooltip">
-                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
-                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                      {sortOrder.uniId === "asc" && (
+                        <i className="material-icons" title="Sort descending">
+                          &#xE316;
+                        </i>
+                      )}
+                      {sortOrder.uniId === "desc" && (
+                        <i className="material-icons" title="Sort ascending">
+                          &#xE313;
+                        </i>
+                      )}
                     </a>
                   </th>
                   <th>Name</th>
                   <th>Abbreviated Name</th>
                   <th>Faculty</th>
-
                   <th onClick={() => handleSort("country")}>
                     Country
                     <a href="#" className="sort-icon" data-toggle="tooltip">
-                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
-                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                      {sortOrder.country === "asc" && (
+                        <i className="material-icons" title="Sort descending">
+                          &#xE316;
+                        </i>
+                      )}
+                      {sortOrder.country === "desc" && (
+                        <i className="material-icons" title="Sort ascending">
+                          &#xE313;
+                        </i>
+                      )}
                     </a>
                   </th>
                   <th>City</th>
@@ -406,20 +432,35 @@ function Home() {
                     />
                   </label>
                     Minimum GPA</th>
-
-                  <th>Slots </th>
+                  <th>Slots</th>
                   <th onClick={() => handleSort("firstPref")}>
-                    No. of First Preferences
+                    No. of first Preferences
                     <a href="#" className="sort-icon" data-toggle="tooltip">
-                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
-                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                      {sortOrder.firstPref === "asc" && (
+                        <i className="material-icons" title="Sort descending">
+                          &#xE316;
+                        </i>
+                      )}
+                      {sortOrder.firstPref === "desc" && (
+                        <i className="material-icons" title="Sort ascending">
+                          &#xE313;
+                        </i>
+                      )}
                     </a>
                   </th>
-                  <th onClick={() => handleSort("firstPref")}>
+                  <th onClick={() => handleSort("totalPref")}>
                     No. of total Preferences
                     <a href="#" className="sort-icon" data-toggle="tooltip">
-                      {sortOrder === "asc" && <i className="material-icons" title="Sort descending">&#xE316;</i>}
-                      {sortOrder === "desc" && <i className="material-icons" title="Sort ascending">&#xE313;</i>}
+                      {sortOrder.totalPref === "asc" && (
+                        <i className="material-icons" title="Sort descending">
+                          &#xE316;
+                        </i>
+                      )}
+                      {sortOrder.totalPref === "desc" && (
+                        <i className="material-icons" title="Sort ascending">
+                          &#xE313;
+                        </i>
+                      )}
                     </a>
                   </th>
                   <th>Link to University Website</th>

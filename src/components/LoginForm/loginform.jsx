@@ -156,7 +156,6 @@ const LoginForm = ({ onLogin }) => {
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               alt="First slide"
             />
-
             <Carousel.Caption className="caption">
               <h3 style={{ color: "rgba(255,255,255)", fontWeight: "bolder" }}>In the program of MESS</h3>
               <p style={{ color: "rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Faculty, University of Cologne. </p>
@@ -165,8 +164,6 @@ const LoginForm = ({ onLogin }) => {
 
         </Carousel>
       </div>
-
-
       <div className="cover">
         <h1 className="title">Welcome</h1>
         {showAlert && <AlertModal onClose={handleCloseAlert} />}
