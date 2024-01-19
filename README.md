@@ -75,8 +75,14 @@ In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechne
 
 <h1>Applikation nutzen</h1>
 
-### User Daten einfügen
+### User Rollen
 
+Es gibt 2 User Rollen: Der Admin und der Student. Der Admin kann das ganze Auswahlverfahren starten sowie steuern, während der Student die Präferenzen für seine Univeristät setzen kann. Im Nachfolgenden werden diese beiden User Rollen beschrieben und was diese konkret machen können.
+
+Admin
+Nach der Anmeldung als Admin landet man zunächst auf die Homepage des Admins. Hier sieht der Admin auf einen Blick den aktuellen Stand des Auswahlverfahrens:
+
+### User Daten einfügen
 Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manuell in die Datenbank eingefügt werden. Zuerst muss man die die Admin Daten hinzuzufügen. Nachdem man sich dann als Admin angemeldet haben, kann man in der Admin-Ansicht die Studentendaten in der Studenten Tabelle einfügen.
 
 **Wichtig:** Diese Anwendung geht davon aus, dass Admins und Benutzer unterschiedliche Benutzernamen/IDs haben. Wenn beide Objekte der jeweiligen Benutzergruppe dieselbe ID haben, wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
@@ -91,26 +97,19 @@ Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manu
    - `sex`
    - `email`
 
-**Wichtig:** Besonders wichtig ist `uniKim`, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird.
+**Wichtig:** Besonders wichtig ist `uniKim`, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird. Der Rest der Variablen kann auf null bleiben, nur die uniKim ist wichtig.
 
 2. Verwende den Endpunkt [http://localhost:8081/whitelistAdmin](http://localhost:8081/whitelistAdmin), um die pkz des Admins einzutragen. Dies kann ebenfalls mit Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
    - `pkz`
    - `year`
 
-**Wichtig:** Hierbei ist vor allem `pkz` wichtig, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird.
+**Wichtig:** Hierbei ist vor allem `pkz` wichtig, da dies für die Überprüfung des Benutzernamens beim Login verwendet wird. Das Jahr kann frei bleiben, es wird dennoch empfohlen, dieses zu setzen.
 
 Es ist hierbei wichtig, dass sowohl `uniKim` in `admin` als auch `pkz` in `whitelistAdmin` den gleichen Wert besitzen, da das Programm voraussetzt, dass der Admin in der Datenbank existiert und dieser auch in der Whitelist eingetragen ist.
 
 3. Nun kann man sich als Admin anmelden. Dort kann man in der Seite "Students" und in der Seite "WhitelistStudent" die Studentendaten einfügen. Auch hier muss die Matrikelnummer identisch sein, damit sich der Student anmelden kann.
 
-### User Rollen
 
-Es gibt 2 User Rollen: Der Admin und der Student. Der Admin kann das ganze Auswahlverfahren starten sowie steuern, während der Student die Präferenzen für seine Univeristät setzen kann.
-
-<br>
-<br>
-<br>
-<br>
 
 
 

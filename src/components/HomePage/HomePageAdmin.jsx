@@ -244,7 +244,7 @@ const HomePageAdmin = () => {
                                 ))}
                             </tr>
                             <tr>
-                                <th style={{ backgroundColor: 'LightGreen' }}>FirstPrio</th>
+                                <th style={{ backgroundColor: 'LightGreen' }}>Chosen as 1st priority</th>
                                 {universities.map((university) => (
                                     <td >{university.firstPref}</td>
                                 ))}
