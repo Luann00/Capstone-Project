@@ -144,7 +144,7 @@ Auf dieser Seite kann man einen Auswahlprozess starten und beenden. Man kann dor
 <br>
 Das Jahr, das die Kohorte des aktuellen Auswahlrpozesses beschreibt, muss genau dem Startjahr entsprechen. Außerdem kann man beim ersten Erstellen eines Prozesses nicht die Variablen "No. of students" und "No. of preferences" festlegen: Diese werden automatisch festgelegt, indem die Daten aus der Datenbank gezogen werden. Danach kann man aber, wenn neue Studenten hinzugefügt werden, die Variable durch den Edit Button ändern.
 <br>
-"Die Deadline Extension in minutes" Variable gibt an, um wie viele Minuten sich die Deadline des Auswahlverfahrens nach hinten verschiebt, wenn eine Präferenzänderung seitens des Studenten in den letzten 15 Minuten des Auswahlverfahrens geschieht. Diese Variable muss mindestens 60 Minuten betragen und kann bis zu 1440 Minuten betragen(das heißt 1 Tag).
+"Die Deadline Extension in minutes" Variable gibt an, um wie viele Minuten sich die Deadline des Auswahlverfahrens nach hinten verschiebt, wenn eine Präferenzänderung seitens des Studenten in den letzten 15 Minuten des Auswahlverfahrens geschieht. Diese Variable muss mindestens 60 Minuten betragen und kann bis zu 1440 Minuten betragen(das heißt 1 Tag). Die Deadline verschiebt sich dann im gegebenen Fall um genau diesen Zeitpunkt nach hinten.
 <br>
 Auch hier ist eine Bearbeitung der Variablen möglich, jedoch nicht das Jahr, da dies die eindeutige Kennummer für den jeweiligen Prozess ist. Möchte man die einmal gesetzte Deadline bearbeiten, sodass das Jahr des Startdatums anders ist als bei der ersten Erstellung des Prozesses, so wird empfohlen, den Prozess zu löschen und dieses wieder zu starten. An den Präferenzen der Studierenden ändert sich dadurch nichts. Ist das neue Startdatum bzw. das neue Startjahr gleich, so kann man problemlos alle anderen Variablen ändern ohne einen neuen Prozess zu erstellen.
 <br>
@@ -181,16 +181,39 @@ Akzeptiert der Student die Datenschutzrichtlinien, so wird er auf der Homepage f
 <br>
 
 ### Universities Page
-Diese Seite ist das Herzstück des Programms. Hier kann der Student seine Präferenzen für die Universitäten setzen. Zuerst sieht man die Deadline, die einem anzeigt, wie lange
+Diese Seite ist das Herzstück des Tools.. Hier kann der Student seine Präferenzen für die Universitäten setzen. Zuerst sieht man die Deadline, die einem anzeigt, wie lange das Auswahlverfahren noch geht.
+<div align="center" style="margin-top: 20px;">
+   <img class="logo" src="./public/UniCardPage.png" alt="Logo" width="800" style="margin-right: 20px;">
+</div>
+<br>
+
+Geht die Deadline zu Ende, so verschwindet die Seite und man erhält eine Nachricht ,dass zur Zeit kein Auswahlverfahren offen ist:
+<div align="center" style="margin-top: 20px;">
+   <img class="logo" src="./public/NoSelectionprocessOpen.png" alt="Logo" width="400" style="margin-right: 20px;">
+</div>
+
+<br>
+Als Student kann man hier seine Präferenzen für eine Universität setzen.
+<div align="center" style="margin-top: 20px;">
+   <img class="logo" src="./public/UniversityCard.png" alt="Logo" width="800" style="margin-right: 20px;">
+</div>
+<br>
+Ist bereits eine Präferenz für eine andere Universität belegt, so erscheint eine Fehlermeldung, dass die Präferenz bereits belegt ist. Außerdem wird das Dropdownmenü für eine Präferenz für 4 Sekunden ausgeschaltet, wenn man eine Präferenz gewählt hat, um ein "Spammen" der Datenbank zu vermeiden.
+<br>
+Wird die Deadline durch eine Präferenzänderung in den letzten 15 Minuten der Deadline ausgelöst, so erhält der Student die Informaiton, dass die Deadline verlängert wurde. Dieser sieht jedoch nicht, um wie viele Minuten die Deadline nach hinten verschoben wurde. Man erhält bei der Nachricht am Anfang lediglich die Information, dass der Zeitraum von 60 Minuten bis 1440 Minuten reicht.
+
+<br>
+<br>
+
 
 
 
 ### User Daten einfügen
-Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manuell in die Datenbank eingefügt werden. Zuerst muss man die die Admin Daten hinzuzufügen. Nachdem man sich dann als Admin angemeldet haben, kann man in der Admin-Ansicht die Studentendaten in der Studenten Tabelle einfügen.
+Um die Software nutzen zu können, muss man sich als anmelden. Zuerst müssen die Benutzerdaten des Admns manuell in die Datenbank eingefügt werden. Nachdem man sich dann als Admin angemeldet haben, kann man in der Admin-Ansicht die Studentendaten in der Studenten Tabelle einfügen.
 
 **Wichtig:** Diese Anwendung geht davon aus, dass Admins und Benutzer unterschiedliche Benutzernamen/IDs haben. Wenn beide Objekte der jeweiligen Benutzergruppe dieselbe ID haben, wird man als Student angemeldet, da die Software zuerst den Studenten überprüft.
 
-#### Schritte:
+#### Anfangsschritte für das Einfügen der Daten:
 
 1. Verwende den Endpunkt [http://localhost:8081/admin](http://localhost:8081/admin), um die Daten für den Administrator einzufügen. Dies kann beispielsweise mit der Software Postman erfolgen. Die folgenden Variablen sind in dieser Tabelle vorhanden:
    - `uniKim`
@@ -210,7 +233,7 @@ Da wir keine LDAP-Authentifizierung haben, müssen zuerst die Benutzerdaten manu
 
 Es ist hierbei wichtig, dass sowohl `uniKim` in `admin` als auch `pkz` in `whitelistAdmin` den gleichen Wert besitzen, da das Programm voraussetzt, dass der Admin in der Datenbank existiert und dieser auch in der Whitelist eingetragen ist.
 
-3. Nun kann man sich als Admin anmelden. Dort kann man in der Seite "Students" und in der Seite "WhitelistStudent" die Studentendaten einfügen. Auch hier muss die Matrikelnummer identisch sein, damit sich der Student anmelden kann.
+3. Nun kann man sich als Admin anmelden. Dort kann man in der Seite "Students"(siehe oben) und in der Seite "WhitelistStudent" die Studentendaten einfügen. Auch hier muss die Matrikelnummer identisch sein, damit sich der Student anmelden kann.
 
 
 

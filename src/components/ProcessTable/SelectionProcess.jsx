@@ -38,7 +38,7 @@ function SelectionProcess() {
         { name: 'numberOfStudents', type: 'number', min: '0', placeholder: 'Number of students(auto-filled at beginning)', disabled: selectedProcess ? false : true },
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(setted to 3)', value: 3, disabled: true },
         { name: 'numberOfUniversities', type: 'number', min: '0', placeholder: 'Number of universities(auto-filled at beginning)', disabled: selectedProcess ? false : true },
-        { name: 'deadlineExtensionMinutes', type: 'number', min: '60', max: '1440', placeholder: 'Enter the extension of the deadline' },
+        { name: 'deadlineExtensionMinutes', type: 'number', min: '60', max: '1440', placeholder: 'Enter the extension of the deadline in minutes' },
         { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deleted' },
     ];
 
