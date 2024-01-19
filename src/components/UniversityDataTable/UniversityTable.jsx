@@ -162,8 +162,8 @@ function Home() {
 
     fetchUniversities();
 
-    //fetch university data every 3 seconds
-    const intervalId = setInterval(fetchUniversities, 3000);
+    //fetch university data every 5 seconds
+    const intervalId = setInterval(fetchUniversities, 5000);
     return () => clearInterval(intervalId);
 
   }, [firstTimeLoading]);

@@ -164,8 +164,8 @@ function SelectionProcess() {
         fetchData();
 
 
-        //fetch student data every 3 second
-        const intervalId = setInterval(fetchData, 3000);
+        //fetch student data every 5 second
+        const intervalId = setInterval(fetchData, 5000);
         return () => clearInterval(intervalId);
     }, [firstTimeLoading]);
 

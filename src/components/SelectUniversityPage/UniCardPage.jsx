@@ -233,8 +233,8 @@ const UniCardPage = () => {
 
     fetchProcesses();
 
-    //fetch the processes every 1000 seconds from the database
-    const interval = setInterval(fetchProcesses, 1000);
+    //fetch the processes every 5 seconds from the database
+    const interval = setInterval(fetchProcesses, 5000);
 
 
     return () => clearInterval(interval);
