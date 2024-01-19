@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
 import logo from './WiSo-Logo-transparent.png';
 
+
+//This function is used to display the navigation bar for the student. The navigation bar contains the links to the different pages of the student, as well as the priority panel. The student can log out of the website via the navigation bar.//
 const NavbarStudent = ({ onLogout }) => {
   const storedUser = JSON.parse(localStorage.getItem('currentUser'));
   const {openPanel,closePanel} = usePrioritySelection();  

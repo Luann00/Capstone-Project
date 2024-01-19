@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 
 import "./HomePageAdmin.css"
-
+//This component is the homepage for the admin. It shows the endtable with the student preferences and the university slots
 const HomePageAdmin = () => {
+    //fetch the university data from the database
     const [universities, setUniversities] = useState([]);
+    //fetch the student data from the database
     const [students, setStudents] = useState([]);
+    //fetch the student preferences from the database
     const [studentPreferences, setStudentPreferences] = useState({});
-
+    //fetch the current process from the database
     const [deadline, setDeadline] = useState({});
     const [processes, setProcesses] = useState([]);
     const [extendedDeadline, setExtendedDeadline] = useState({ days: 0, hours: 0, minutes: 0 })
@@ -20,7 +23,7 @@ const HomePageAdmin = () => {
 
 
 
-
+//useEffect to render fetching data
     useEffect(() => {
 
         const fetchUniversities = async () => {
@@ -71,10 +74,10 @@ const HomePageAdmin = () => {
     }, [students]);
 
 
-
+//map the data of the endtable vertically
     const studentNames = students.map((student) => `${student.vorname} ${student.nachname}`);
     const studentMatrikelnumbers = students.map((student) => student.matrikelnummer);
-
+//fill the table cells with the student preferences
     const fillTableCells = (uniID, studentID) => {
 
         const preferences = studentPreferences[studentID] || {};
@@ -107,11 +110,7 @@ const HomePageAdmin = () => {
                 setProcesses(data);
                 const activeProcess = getActiveProcess(data);
                 setCurrentProcess(activeProcess);
-                /*
-                if (activeProcess && new Date() > new Date(activeProcess.endDate)) {
-                    await fetch('http://localhost:8081/triggerAllocation', { method: 'POST' });
-                }
-                */
+                
 
             } catch (error) {
                 console.log('Error fetching data:' + error);
@@ -162,20 +161,19 @@ const HomePageAdmin = () => {
     //fetch the current process if one is active or return false otherwise
     const getActiveProcess = (data) => {
         const currentDate = new Date();
-
+//check if the current date is between the start and end date of the process
         for (const process of data) {
             const startDateTime = new Date(process.startDate);
 
 
             const endDateTime = new Date(process.endDate);
-
+//check if the process is extended or not
             if (process.extended) {
                 startDateTime.setHours(0, 0, 0, 0);
 
                 endDateTime.setHours(23, 59, 59, 0);
-
                 const extensionMinutes = process.deadlineExtensionMinutes;
-
+//calculate the new end date
                 const newHours = Math.floor(extensionMinutes / 60);
                 const newMinutes = extensionMinutes % 60;
                 endDateTime.setHours(newHours, newMinutes, 0, 999);
@@ -218,7 +216,7 @@ const HomePageAdmin = () => {
     };
 
 
-
+//return the endtable and the process deadline
     return (
         <div>
             <div className="table-container">

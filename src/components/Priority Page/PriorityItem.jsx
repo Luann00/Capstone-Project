@@ -3,11 +3,11 @@ import { Button, Stack } from "react-bootstrap";
 import { usePrioritySelection } from "../contexts/PrioritySelectionContext";
 import "./PriorityItem.css";
 
-
+// This function is used to display the priorities in the priority panel. The priorities are displayed in a list (add, delete using PrioritySelectionContext). The user can remove a priority from the list by clicking on the "x" button.//
 const Items = ({dropPriority}) =>  {
   const { priorities, removePriority } = usePrioritySelection();
   
-  
+  // if there are no priorities, display a message
   if (!priorities || priorities.length === 0) {
     return <div>You have not chosen any preferences.</div>;
   }
@@ -16,7 +16,9 @@ const Items = ({dropPriority}) =>  {
   };
 
   return (
+    // display the priorities in a list
     <Stack direction="vertical" gap={3}>
+      // sort the priorities by priority number
       {priorities.sort((a, b) => {
         const numA = parseInt(a.value.priority.priority.match(/\d+/)[0]);
         const numB = parseInt(b.value.priority.priority.match(/\d+/)[0]);

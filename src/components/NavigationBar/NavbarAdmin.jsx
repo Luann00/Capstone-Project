@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import logo from './WiSo-Logo-transparent.png';
 import "./NavbarAdmin.css";
 
-
+// This function is used to display the navigation bar for the admin. The navigation bar contains the links to the different pages of the admin. The admin can log out of the website via the navigation bar.//
 const NavbarAdmin = ({ onLogout }) => {
   return (
     <div className="navbar-container">

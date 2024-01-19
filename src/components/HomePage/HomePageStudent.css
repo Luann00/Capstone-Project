@@ -3,7 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    margin-top: 2rem;
 }
 .homepage h2{
     font-size: 2.5rem;
@@ -89,6 +90,14 @@ border-radius: 10px;
     }
     .homepage h3{
         font-size: 1.25rem;
+    }
+.homepage .carousel{
+    margin-top:1rem;
+}
+
+    .instruction-card{
+        margin-top: 40px;
+        padding:1rem;
     }
     .instruction-card .instruction-title{
         font-size: 1rem;
