@@ -372,6 +372,7 @@ function SelectionProcess() {
                             <form className="form-inline">
                                 <span className="icon">🔍</span>
                                 <input className="form-control mr-sm-2"
+                                    id="inputID"
                                     type="number" min={1}
                                     placeholder="Search by year"
                                     aria-label="Search"

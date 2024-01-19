@@ -4,7 +4,7 @@ import { Button, Modal, Input } from 'react-bootstrap';
 import CSVExportButton from '../ExportButton/CSVExportButton';
 
 
-
+//import same format as student table
 import "../../components/StudentDataTable/StudentTable.css";
 
 function Home() {
@@ -14,16 +14,10 @@ function Home() {
   const [originalUniversities, setoriginalUniversities] = useState([]);
   const [showMinGPAColumn, setShowMinGPAColumn] = useState(true);
   const [search, setSearch] = useState("");
-
   const [firstTimeLoading, setFirstTimeLoading] = useState(true)
-
-
-
   const [sortOrder, setSortOrder] = useState("asc");
   const [uniIdSortOrder, setUniIdSortOrder] = useState("asc");
   const [countrySortOrder, setCountrySortOrder] = useState("asc");
-
-
 
   //For editing universities
   const [selectedUniversity, setSelectedUniversity] = useState(null);
@@ -41,7 +35,7 @@ function Home() {
     firstPref: "",
     totalPref: "",
     uniLink: "",
-    
+
 
   });
 
@@ -50,7 +44,7 @@ function Home() {
     { name: 'uniId', type: 'number', min: '1', placeholder: 'Enter University ID', disabled: selectedUniversity ? true : false, required: true },
     { name: 'name', type: 'text', placeholder: 'Enter name', required: true },
     { name: 'abbName', type: 'text', placeholder: 'Enter abbreviated name', required: true },
-    {name: 'faculty', type: 'text', placeholder: 'Enter Faculty', required: true},
+    { name: 'faculty', type: 'text', placeholder: 'Enter Faculty', required: true },
     { name: 'country', type: 'text', placeholder: 'Enter Country', required: true },
     { name: 'city', type: 'text', placeholder: 'Enter City', required: true },
     { name: 'minGPA', type: 'number', step: 'any', placeholder: 'Enter minimum required GPA', required: true },
@@ -360,6 +354,7 @@ function Home() {
               <form className="form-inline">
                 <span className="icon">🔍</span>
                 <input className="form-control mr-sm-2"
+                  id="inputID"
                   type="number" min={1}
                   placeholder="Search by ID"
                   aria-label="Search"
@@ -375,7 +370,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllUniversities} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Universities
             </Button>
-            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName','faculty', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref', 'uniLink']} />
+            <CSVExportButton data={universities} filename="universities.csv" selectedAttributes={['uniId', 'name', 'abbName', 'faculty', 'country', 'city', 'minGPA', 'slots', 'firstPref', 'totalPref', 'uniLink']} />
           </div>
         </div>
         <div className="row">
@@ -404,6 +399,7 @@ function Home() {
                   <th>City</th>
                   <th><label>
                     <input
+                      id="inputID"
                       type="checkbox"
                       checked={showMinGPAColumn}
                       onChange={() => handleShowMinGPAColumn(!showMinGPAColumn)}

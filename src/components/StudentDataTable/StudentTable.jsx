@@ -384,6 +384,7 @@ function Home() {
               <form className="form-inline">
                 <span className="icon">🔍</span>
                 <input className="form-control mr-sm-2"
+                  id="inputID"
                   type="number" min={1}
                   placeholder="Search by ID"
                   aria-label="Search"
@@ -516,6 +517,7 @@ function Home() {
                       </select>
                     ) : (
                       <input
+                        id="inputID" 
                         type={field.type}
                         min={field.min}
                         max={field.max}
