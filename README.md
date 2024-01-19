@@ -92,10 +92,10 @@ Die Zahlen neben den Studenten ID's geben an, an welcher Stelle die Univeristät
 <br>
 Am Anfang wird diese Liste leer sein, wenn man noch keine Daten eingetragen hat. Alle Universitäts- und Studentendaten inklusive der Deadline, die auf den anderen Seiten eingetragen werden, erscheinen dann hier in Form dieser Tabelle.
 <br>
-Man kann anschließend zu den anderen Seiten navigieren.
+Wurde die Deadline verlängert, indem in den letzten 15 Minuten des Auswahlprozesses eine Änderung der Präferenzen erfolgt ist, so wird dies hier kommuniziert und die exakte Deadline wird angezeigt.
 
 ### Students Page 
-Auf dieser Seite kann man die Studenten hinzufügen und bearbeiten, die beim Auswahlverfahren teilnehmen können.
+Auf dieser Seite kann man die Studenten hinzufügen und bearbeiten, die beim Auswahlverfahren teilnehmen können. Außerdem sieht man weitere wichtige Variablen wie zum Beispiel, ob ein Student der Datenschutzerklärung zugestimmt hat oder nicht("Accepted Policy"). 
 <div align="center">
     <img class="logo" src="./public/StudentPage.png" alt="Logo" width="800px">
   </a>
@@ -107,7 +107,7 @@ Wichtig beim Bearbeiten: Es kann beim Bearbeiten die ID des Studenten nicht mehr
     <img class="logo" src="./public/EditStudentPage.png" alt="Logo" width="400px">
 </div>
 <br>
-Die Präferenzen des Studenten für eine jeweilige UNiveristät wird als ID der Univrsität gespeichert. Nur im Programm, was der Admin sieht, sieht man den Namen der Universität. Exportiert man die Daten als CSV-Datei , so wird bei dem Uninamen(unter FirstPref, SecondPref, ThirdPref sowie Assigned University) in Excel die ID der Uni ausgegeben und nicht der Name. Dadurch ist eine eindeutige Zuteilung der Universitäten gewährleistet. Die Namen der gewählten Univeristäten findet man also nur im Programm. Ist keine Universität für eine Präferenz gewählt, so erscheint der Wert 0 an dieser Stelle.
+Die Präferenzen des Studenten für eine jeweilige Univeristät wird als ID der Universität gespeichert. Nur im Programm, was der Admin sieht, sieht man den Namen der Universität. Exportiert man die Daten als CSV-Datei , so wird bei dem Uninamen(unter FirstPref, SecondPref, ThirdPref sowie Assigned University) in Excel die ID der Uni ausgegeben und nicht der Name. Dadurch ist eine eindeutige Zuteilung der Universitäten gewährleistet. Die Namen der gewählten Univeristäten findet man also nur im Programm. Ist keine Universität für eine Präferenz gewählt, so erscheint der Wert 0 an dieser Stelle.
 <br>
 <br>
 <br>
@@ -159,6 +159,29 @@ Auf dieser Seite kann man die Nachrichten festlegen, die ein Student nach dem An
    <img class="logo" src="./public/MessagesPage.png" alt="Logo" width="400px" style="margin-right: 20px;">
    <img class="logo" src="./public/MessagesPageEdit.png" alt="Logo" width="400px" style="margin-right: 20px;">
 </div>
+
+
+## Student
+Der Student hat die Möglichkeit, auf einer eigenen Seite seine Präferenzen für eine Universität in absteigender Reihenfolge wählen und bearbeiten zu können. Beim ersten Anmelden muss dieser jedoch den Datenschutzerklärung des Verfahrens zustimmen, um am Auswahlverfahren teilnehmen zu können. Stimmt der Student dieser Datenschutzerklärung nicht zu, so kann er auch nicht am Auswahlverfahren teilnehmen und wird dementsprechend nicht auf die Homepage weitergeleitet. 
+<br>
+<div align="center" style="margin-top: 20px;">
+   <img class="logo" src="./public/PrivacyPage.png" alt="Logo" width="800px" style="margin-right: 20px;">
+</div>
+<br>
+<br>
+
+### Homepage des Studenten
+Akzeptiert der Student die Datenschutzrichtlinien, so wird er auf der Homepage für den Studenten geleitet. Dort sieht man sofort die wichtigsten Nachrichten in Bezug auf das Auswahlverfahren. Diese Nachricht auf der Homepage des Studenten kann der Admin auf seiner Sicht auf der Seite "Messages" erstellen und bearbeiten. Gibt esm ehrere Nachrichten, so kann man sich mithilfe der Pfeile durchklicken.
+<div align="center" style="margin-top: 20px;">
+   <img class="logo" src="./public/HomepageStudent.png" alt="Logo" width="800px" style="margin-right: 20px;">
+</div>
+
+<br>
+<br>
+<br>
+
+### Universities Page
+Diese Seite ist das Herzstück des Programms. Hier kann der Student seine Präferenzen für die Universitäten setzen. Zuerst sieht man die Deadline, die einem anzeigt, wie lange
 
 
 
