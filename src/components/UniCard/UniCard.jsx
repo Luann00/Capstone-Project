@@ -27,6 +27,8 @@ const UniCard = ({ changePreference }) => {
 
   const { removeAllPriorities, priorities, isOpen, addPriority, closePanel } = usePrioritySelection();
 
+
+//using the ref to access the handleDropPriority function
   const dropPriority = (uniId) => {
     const priorityToDrop = getPriority(uniId);
 
@@ -44,6 +46,12 @@ const UniCard = ({ changePreference }) => {
     return null;
   };
 
+  const removeAll = () => {
+    priorities.forEach(priority => dropPriority(priority.id));
+    removeAllPriorities();
+  };
+
+  //update the priority selection to priority Panel when the user first log in the application
   useEffect(() => {
     universities.forEach((university) => {
       const priority = getPriority(university.uniId);
@@ -118,14 +126,11 @@ const UniCard = ({ changePreference }) => {
 
 
 
-  const removeAll = () => {
-    priorities.forEach(priority => dropPriority(priority.id));
-    removeAllPriorities();
-  };
+  
 
   return (
     <>
-
+//The priority panel is displayed when the user clicks on the Your Priority. The priority panel contains the priorities of the user. The user can remove a priority from the list by clicking on the "x" button.//
       <div className={`priorityPanel ${isOpen ? '' : 'hidden'}`}>
 
 
@@ -144,7 +149,7 @@ const UniCard = ({ changePreference }) => {
         </Offcanvas>
 
       </div>
-
+//fetching data from server and displaying it, enable sorting, filtering and searching of the data,//
       <div className='card-container'>
       <div className='filter-search'>
         <div className="filter-dropdown">

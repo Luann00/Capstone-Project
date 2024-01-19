@@ -8,8 +8,10 @@ import './UniCard.css';
 import { usePrioritySelection } from '../contexts/PrioritySelectionContext';
 import { LiaUniversitySolid } from "react-icons/lia";
 
-
+// This component is used to display the universities using the university card. The university card displays the university name, the country, the city, the faculty, the number of slots available, the minimum GPA (if available), the number of students who have chosen the university as their first priority, and the number of students who have chosen the university as their priority. The user can select the university as his first, second or third priority. The user can also remove the university from his list of priorities.//
+// The forwardRef is used to access the methods of the component to its parent component UniCard//
 export const UniversityCard = forwardRef(({ university, changePreference }, ref) => {
+    // State variables for the university card
     const [updatedFirstPref, setUpdatedFirstPref] = useState(university.firstPref);
     const [updatedTotalPref, setUpdatedTotalPref] = useState(university.totalPref);
 
@@ -33,17 +35,14 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
         return null;
     });
-
-
-
-
+    // using PrioritySelectionContext to update the priorities to priority panel
     const { addPriority, removePriority } = usePrioritySelection();
+ // Disable the dropdown during the update
     const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
-
     const [ID, setID] = useState('')
     const [studentPriorities, setStudentPriorities] = useState([]);
 
-
+//Fetching student priorities from database to update the state of the dropdown menu
     useEffect(() => {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const matrikelnummer = currentUser.matrikelnummer;
@@ -79,7 +78,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
     const isPrioritySelected = (priority) => {
         return university.uniId === studentPriorities[`${priority}Pref`];
     };
-
+//update the current state of universityCard after the user has selected a priority to student database
     const updatePriorities = async () => {
         const storedUser = JSON.parse(localStorage.getItem('currentUser'));
         try {
@@ -105,7 +104,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
 
     }
 
-
+//this method is used to handle the selection of the priority 
     const handlePrioritySelect = async (priority) => {
         setIsDropdownDisabled(true); // Disable the dropdown during the update
         if (priority === '1st Priority') {
@@ -219,7 +218,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         changePreference();
 
 
-
+// expose this method to the parent component
         if (ref.current) {
             ref.current.getPriority();
         }
@@ -236,10 +235,10 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
     };
 
 
-
+//this method is used to handle the priority drop
     const handleDropPriority = async () => {
         setIsDropdownDisabled(true); // Disable the dropdown during the update
-
+//if current priority was one and now gets changed, then decrement firstPrefs of unicard by 1
         if (currentPriority === '1st Priority' && updatedFirstPref > 0) {
             setUpdatedFirstPref((prevUpdatedFirstPref) => prevUpdatedFirstPref - 1);
             await updateCurrentFirstPrioCount(university.uniId, false);
@@ -337,7 +336,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
             alert("Catch: " + error);
         }
     };
-
+//useImperativeHandle is used to expose the methods of the component to its parent component UniCard
     useImperativeHandle(ref, () => ({
         getPriority: () => {
             return currentPriority;
@@ -347,7 +346,7 @@ export const UniversityCard = forwardRef(({ university, changePreference }, ref)
         },
     }));
 
-
+//this method is used to display the university card
     return (
         <Card className="universityCard" key={university.uniId} >
             <Card.Body className='card.body'>
