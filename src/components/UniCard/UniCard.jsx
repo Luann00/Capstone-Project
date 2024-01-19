@@ -130,7 +130,7 @@ const UniCard = ({ changePreference }) => {
 
   return (
     <>
-//The priority panel is displayed when the user clicks on the Your Priority. The priority panel contains the priorities of the user. The user can remove a priority from the list by clicking on the "x" button.//
+
       <div className={`priorityPanel ${isOpen ? '' : 'hidden'}`}>
 
 
@@ -147,9 +147,9 @@ const UniCard = ({ changePreference }) => {
            
           }}>Delete all</Button>
         </Offcanvas>
-
+       
       </div>
-//fetching data from server and displaying it, enable sorting, filtering and searching of the data,//
+
       <div className='card-container'>
       <div className='filter-search'>
         <div className="filter-dropdown">
