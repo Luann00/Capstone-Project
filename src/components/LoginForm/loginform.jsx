@@ -2,26 +2,23 @@ import React, { useState, useEffect } from 'react';
 import "./loginform.css";
 import { Carousel } from "react-bootstrap";
 import AlertModal from "../../components/AlertModal/AlertModal"
-
 import logo2 from "./WiSo_Logo_TodaysIdeaTomorrowsImpact_eng.jpg";
-
 import Footer from "../../components/Footer/footer";
 import image1 from './Gespraechssituation-Wiso-Fakultaet-Cafe-1024px.jpg';
 import image2 from './csm_Hauptgebaeude_543a6b79cf.jpg';
 import axios from 'axios';
 
 
-// This function is used to display the login page. It is the first page that the user sees when he opens the website.The user can log in as a student or as an admin. The login data is stored in the database.//
-
+/* This function is used to display the login page.
+ It is the first page that the user sees when he opens the website.
+ The user can log in as a student or as an admin. The login data is stored in the database.*/
 const LoginForm = ({ onLogin }) => {
-
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
-
   const [whitelistStudents, setWhitelistStudents] = useState([]);
   const [whitelistAdmins, setWhitelistAdmins] = useState([]);
 
@@ -138,7 +135,6 @@ const LoginForm = ({ onLogin }) => {
       <div className='logo-container'>
         <img className='WiSo-Slogan' src={logo2} alt="logo" />
       </div>
-
       <div className="login-carousel">
         <Carousel data-bs-theme="dark" className='carousel'>
           <Carousel.Item>
@@ -163,7 +159,7 @@ const LoginForm = ({ onLogin }) => {
 
             <Carousel.Caption className="caption">
               <h3 style={{ color: "rgba(255,255,255)", fontWeight: "bolder" }}>In the program of MESS</h3>
-              <p style={{ color: "rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Faculty,University of Cologne. </p>
+              <p style={{ color: "rgba(255, 255, 255)" }}>UniPick is a part of the program of MESS. MESS is an exchanged program for students from WiSo Faculty, University of Cologne. </p>
             </Carousel.Caption>
           </Carousel.Item>
 

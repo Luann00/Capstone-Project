@@ -6,7 +6,7 @@
 
 <!--Logo--->
 <div align="center">
-    <img class="logo" src="./public/WiSo-Button.ico" alt="Logo">
+    <img class="logo" src="./public/WiSo-Logo.png" alt="Logo">
   </a>
 </div>
 
@@ -30,7 +30,6 @@ Als CSS Framework haben wir uns für React-Bootstrap entschieden, da dieses Fram
 
 <br>
 <br>
-<!-- GETTING STARTED -->
 <h1>Applikation aufsetzen</h1>
 
 In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechner starten kann.
