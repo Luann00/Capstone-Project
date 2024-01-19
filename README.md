@@ -149,6 +149,16 @@ Das Jahr, das die Kohorte des aktuellen Auswahlrpozesses beschreibt, muss genau 
 Auch hier ist eine Bearbeitung der Variablen möglich, jedoch nicht das Jahr, da dies die eindeutige Kennummer für den jeweiligen Prozess ist. Möchte man die einmal gesetzte Deadline bearbeiten, sodass das Jahr des Startdatums anders ist als bei der ersten Erstellung des Prozesses, so wird empfohlen, den Prozess zu löschen und dieses wieder zu starten. An den Präferenzen der Studierenden ändert sich dadurch nichts. Ist das neue Startdatum bzw. das neue Startjahr gleich, so kann man problemlos alle anderen Variablen ändern ohne einen neuen Prozess zu erstellen.
 <br>
 Wichtig: Es kann nur ein Prozess pro Zeitpunkt angelegt werden. Möchte man einen weiteren Prozess anlegen, so ist dies nicht möglich. Dadurch wird sichergestellt, dass das Programm stets weiß, um welchen Prozess es sich handelt, wenn man auf den anderen Seiten mit den Variablen des Prozesses weiterrechnet. Aufgrund Zeitmangels mussten wir uns für diese Option entscheiden. Wenn ein Auswahlverfahren vorbei ist und dieses nicht mehr aktiv ist, so wird es empfohlen, diesen Prozess zu löschen und dann einen neuen zu starten, wenn man ein neues Auswahlverfahren starten möchte.
+<br>
+<br>
+<br>
+
+### Messages Page
+Auf dieser Seite kann man die Nachrichten festlegen, die ein Student nach dem Anmelden sieht. Dadurch kann dem Studenten wichtige Nachrichten sofort nach dem Anmelden angezeigt werden. Auch hier kann man die Nachrichten ebarbeiten, jedoch kann die ID(aufgrund der eindeutigen Zuordnung, die ansonsten durcheinander gebracht werden würde) nicht bearbeitet werden. Der Rest ist jedoch editierbar.
+<div align="center" style="margin-top: 20px;">
+   <img class="logo" src="./public/MessagesPage.png" alt="Logo" width="400px" style="margin-right: 20px;">
+   <img class="logo" src="./public/MessagesPageEdit.png" alt="Logo" width="400px" style="margin-right: 20px;">
+</div>
 
 
 
