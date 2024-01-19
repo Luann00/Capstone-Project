@@ -13,9 +13,7 @@ function SelectionProcess() {
     const [universities, setUniversities] = useState([])
     const [firstTimeLoading, setFirstTimeLoading] = useState(true)
     const [students, setStudents] = useState([]);
-    const [deletedStudents, setDeletedStudents] = useState(false);
     const [search, setSearch] = useState("");
-
     const [selectedProcess, setSelectedProcess] = useState(null);
 
 
@@ -41,7 +39,7 @@ function SelectionProcess() {
         { name: 'numberOfPreferences', type: 'number', min: '1', max: '8', placeholder: 'Number of preferences(setted to 3)', value: 3, disabled: true },
         { name: 'numberOfUniversities', type: 'number', min: '0', placeholder: 'Number of universities(auto-filled at beginning)', disabled: selectedProcess ? false : true },
         { name: 'deadlineExtensionMinutes', type: 'number', min: '60', max: '1440', placeholder: 'Enter the extension of the deadline' },
-        { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deletet' },
+        { name: 'daysUntilStudentDataDeletion', type: 'number', min: '0', placeholder: 'Enter the days which should pass after the end of the process when student data gets deleted' },
     ];
 
 
@@ -182,7 +180,6 @@ function SelectionProcess() {
 
             // Convert the time difference to days
             const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
             // Delete all students from the database if the time has come
             if (daysPassed >= processItem.daysUntilStudentDataDeletion) {
                 processItem.deletedStudents = true;

@@ -173,37 +173,11 @@ function Home() {
 
     const firstProcess = processResponse[0];
 
-
     if (firstProcess && firstProcess.deletedStudents) {
-      //make delete all students here and delete process
-
       deleteAllStudentsDatabase();
-
-      deleteAllProcessesDatabase();
-
-
     }
 
   }
-
-
-  //this method is for deleting all Processes in database when the passed days are equal to uni.DaysUntilDeletion
-  const deleteAllProcessesDatabase = async () => {
-    const deleteEndpoint = `http://localhost:8081/selectionProcess/all`;
-
-    try {
-      const response = await fetch(deleteEndpoint, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        alert("Error deleting data from the database");
-      }
-    } catch (error) {
-      alert("Error deleting data", error);
-    }
-  };
-
 
   const updateStudent = async () => {
     //Update at first the local table for a smoother user experience

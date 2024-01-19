@@ -295,9 +295,8 @@ const UniCardPage = () => {
         <div className='title'>
           <div className='countdown'>
             {extended ? (
-
               <div className='clock'>
-                <h4>Deadline was extended!</h4>
+                <h4>The deadline was extended!</h4>
                 <div className='content'>
 
                 </div></div>
@@ -329,7 +328,7 @@ const UniCardPage = () => {
           <h1>There is no selection process open!</h1>
         </div>
       )}
-      
+
       {processIsActive && (
         <UniCard changePreference={checkAndExtendTime} />
 
