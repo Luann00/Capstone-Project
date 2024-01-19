@@ -134,6 +134,7 @@ export default App;
 
 
 
+//this is the code for our altenrative ldap authentication which we couldnt finish
 /*
 @Configuration
 @EnableWebSecurity

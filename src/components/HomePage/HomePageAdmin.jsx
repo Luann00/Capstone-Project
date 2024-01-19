@@ -98,8 +98,6 @@ const HomePageAdmin = () => {
         return <td >{pref}</td>;
     };
 
-
-
     useEffect(() => {
 
         const fetchProcesses = async () => {
@@ -128,33 +126,33 @@ const HomePageAdmin = () => {
 
     useEffect(() => {
         const allocateStudents = async () => {
-          try {
-              const response = await fetch( "http://localhost:8081/allocation/allocateStudentsToUniversities", {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-    
-            if (response.ok) {
-              console.log('Allocation successful');
-              
-            } else {
-              console.error('Error during allocation:', response.statusText);
-              // Handle the error appropriately
+            try {
+                const response = await fetch("http://localhost:8081/allocation/allocateStudentsToUniversities", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    console.log('Allocation successful');
+
+                } else {
+                    console.error('Error during allocation:', response.statusText);
+                    // Handle the error appropriately
+                }
+            } catch (error) {
+                console.error('Error during allocation:', error.message);
+                // Handle the error appropriately
             }
-          } catch (error) {
-            console.error('Error during allocation:', error.message);
-            // Handle the error appropriately
-          }
         };
 
         if (currentProcess && new Date() > new Date(currentProcess.endDate)) {
             allocateStudents();
-    
+
         };
-      }, [currentProcess]); // Empty dependency array ensures the effect runs once when the component mounts
-    
+    }, [currentProcess]); // Empty dependency array ensures the effect runs once when the component mounts
+
 
 
 
@@ -236,7 +234,7 @@ const HomePageAdmin = () => {
 
 
                 <div className="table-responsive " >
-                
+
                     <table className="table table-bordered table-striped table-hover table-bordered">
                         <thead>
                             <tr>
