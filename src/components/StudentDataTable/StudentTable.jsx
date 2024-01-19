@@ -400,7 +400,7 @@ function Home() {
             <Button variant="danger" onClick={deleteAllStudents} style={{ marginTop: "10px", marginBottom: "10px" }}>
               Delete all Students
             </Button>
-            <CSVExportButton data={students} filename="students.csv" selectedAttributes={['matrikelnummer', 'vorname', 'nachname', 'title', 'durchschnitt', 'email', 'firstPref', 'secondPref', 'thirdPref', 'acceptedPolicy', 'assignedUniversity']} />
+            <CSVExportButton data={students} filename="students.csv" selectedAttributes={['matrikelnummer', 'vorname', 'nachname', 'titel', 'durchschnitt', 'email', 'firstPref', 'secondPref', 'thirdPref', 'acceptedPolicy', 'assignedUniversity']} />
           </div>
         </div>
         <div className="row">
