@@ -84,10 +84,11 @@ Nach der Anmeldung als Admin landet man zunächst auf die Homepage des Admins. H
 <br>
 
 <div align="center">
-    <img class="logo" src="./public/HomepageAdmin.png" alt="Logo" width="900px">
+    <img class="logo" src="./public/HomepageAdmin.png" alt="Logo" width="800px">
   </a>
 </div>
-
+<br>
+Die Zahlen neben den Studenten ID's geben an, an welcher Stelle die Univeristät bezüglich der Präferenz des Studenten steht. Ist keine Präferenz für die jeweilige Universität gesetzt, so erscheint kein Wert in der jeweiligen Zelle.
 <br>
 Am Anfang wird diese Liste leer sein, wenn man noch keine Daten eingetragen hat. Alle Universitäts- und Studentendaten inklusive der Deadline, die auf den anderen Seiten eingetragen werden, erscheinen dann hier in Form dieser Tabelle.
 <br>
@@ -96,12 +97,28 @@ Man kann anschließend zu den anderen Seiten navigieren.
 ### Students Page 
 Auf dieser Seite kann man die Studenten hinzufügen und bearbeiten, die beim Auswahlverfahren teilnehmen können.
 <div align="center">
-    <img class="logo" src="./public/StudentPage.png" alt="Logo" width="900px">
+    <img class="logo" src="./public/StudentPage.png" alt="Logo" width="800px">
   </a>
 </div>
-Mit dem Exportbutton kann man die Dateien der Tabelle als CSV Datei exportieren und mit ihnen in Excel arbeiten.
+Mit dem Exportbutton kann man die Studentendaten der Tabelle als CSV Datei exportieren und mit ihnen in Excel weiterarbeiten.
 <br>
-Wichtig beim Bearbeiten: Es kann beim Bearbeiten die ID nicht mehr geändert werden, da die ID als eindeutige Identifikation dient und eine nachträgliche Änderung die Zuordnung der Daten durcheinander bringen würde. Alle anderen Variablen sind jedoch bearbeitbar.
+Wichtig beim Bearbeiten: Es kann beim Bearbeiten die ID des Studenten nicht mehr geändert werden, da die ID als eindeutige Identifikation dient und eine nachträgliche Änderung die Zuordnung der Daten durcheinander bringen würde. Alle anderen Variablen sind jedoch bearbeitbar:
+<div align="center" style="margin-top: 20px;">
+    <img class="logo" src="./public/EditStudentPage.png" alt="Logo" width="400px">
+</div>
+<br>
+Die Präferenzen des Studenten für eine jeweilige UNiveristät wird als ID der Univrsität gespeichert. Nur im Programm, was der Admin sieht, sieht man den Namen der Universität. Exportiert man die Daten als CSV-Datei , so wird bei dem Uninamen(unter FirstPref, SecondPref, ThirdPref sowie Assigned University) in Excel die ID der Uni ausgegeben und nicht der Name. Dadurch ist eine eindeutige Zuteilung der Universitäten gewährleistet. Die Namen der gewählten Univeristäten findet man also nur im Programm. Ist keine Universität für eine Präferenz gewählt, so erscheint der Wert 0 an dieser Stelle.
+<br>
+
+### Universities Page
+Auf dieser Seite kann man die Universitäten, die der Student wählen kann, hinzufügen und bearbeiten. Auch können die Dateien hier im CSV-Datei exportiert werden.
+<br>
+Durch die Checkbox bei MinGPA kann man festlegen, ob die Durchschnittsnote der letzten Jahe für eine Univeristät auf der Studentenseite für die jeweilige Universität angezeigt werden soll oder nicht. 
+
+<div align="center" style="margin-top: 20px;">
+    <img class="logo" src="./public/UniversitiesPage.png" alt="Logo" width="800px">
+  </a>
+</div>
 
 
 ### User Daten einfügen
