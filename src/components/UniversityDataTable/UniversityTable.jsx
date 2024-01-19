@@ -521,7 +521,7 @@ function Home() {
 
           >
             <Modal.Header closeButton>
-              <Modal.Title>Add University</Modal.Title>
+              <Modal.Title>{selectedUniversity ? "Edit university" : "Add university"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <form onSubmit={selectedUniversity ? updateUniversity : addUniversity}>
