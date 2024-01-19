@@ -150,6 +150,7 @@ Auch hier ist eine Bearbeitung der Variablen möglich, jedoch nicht das Jahr, da
 <br>
 Wichtig: Es kann nur ein Prozess pro Zeitpunkt angelegt werden. Möchte man einen weiteren Prozess anlegen, so ist dies nicht möglich. Dadurch wird sichergestellt, dass das Programm stets weiß, um welchen Prozess es sich handelt, wenn man auf den anderen Seiten mit den Variablen des Prozesses weiterrechnet. Aufgrund Zeitmangels mussten wir uns für diese Option entscheiden. Wenn ein Auswahlverfahren vorbei ist und dieses nicht mehr aktiv ist, so wird es empfohlen, diesen Prozess zu löschen und dann einen neuen zu starten, wenn man ein neues Auswahlverfahren starten möchte.
 <br>
+Die Days until Deletion Variable funktioniert folgendermaßen: Der Admin kann hier angeben, nach wie vielen Tagen die Studentendaten gelöscht werden sollen. Dabei wird ab dem Startdatum des Prozesses angefangen zu zählen. Die Variable ist beliebig einstellbar. Nachdem die Tage eingetreten sind ,werden die Studentendaten gelöscht und der Prozess dazu auch. Das liegt daran, weil nur ein Prozess pro Zeit existieren kann und dieses gelöscht werden muss, damit die Einstellungen, die durch den Prozess verursacht werden, "zurückgesetzt" werden.
 <br>
 <br>
 
