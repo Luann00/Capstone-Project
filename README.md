@@ -10,11 +10,11 @@
   </a>
 </div>
 
- <h4>Das Auslandssemester-Präferenztool ist eine interaktive Plattform, die es Studierenden ermöglicht, ihre bevorzugten Partneruniversitäten für das MESS-Bachelor-Auslandssemester auszuwählen. Das Tool ermöglicht es den Studenten, ihre Präferenzen für ihe bevorzugte Univrsität für das Auslandssemester in absteigender Reihenfolge zu wählen. Gleichzeitig gewährleistet es Transparenz im Auswahlprozess und ermöglicht es den Admins, Auswahlverfahren zu gestalten und diese zu bearbeiten.</h4>
+ <h4>Das Auslandssemester-Präferenztool ist eine interaktive Plattform, die es Studierenden ermöglicht, ihre bevorzugten Partneruniversitäten für das MESS-Bachelor-Auslandssemester auszuwählen. Das Tool ermöglicht es den Studenten, ihre Präferenzen für ihre bevorzugte Univrsität für das Auslandssemester in absteigender Reihenfolge zu wählen. Gleichzeitig gewährleistet es Transparenz im Auswahlprozess und ermöglicht es den Admins, Auswahlverfahren zu gestalten und diese zu bearbeiten.</h4>
 
 
 <h2>Wichtiges beim Klonen</h2>
-Bei dieser Entwicklung wurde mit einer lokalen SQL Datenbank gearbeitet. Beim Klonen muss dies unbedingt beachtet werden und eine eigene Datenbank erstellt werden, damit die Daten, die man z.B in den Whitelists erstellt, auch nach dem Schließen der App noch gespeichert werden. Anschließend muss man die jeweiligen URL-Stellen im Code durch die URL der eigenen Datenbank ersetzen.
+Bei dieser Entwicklung wurde mit einer lokalen SQL Datenbank gearbeitet. Beim Klonen muss dies unbedingt beachtet werden und eine eigene Datenbank erstellt werden, damit die Daten, die man z.B in den Whitelists erstellt, auch nach dem Schließen der App noch gespeichert werden. Anschließend muss man die jeweiligen URL-Stellen im Code durch die URL der eigenen Datenbank ersetzen. Die gane Applikation ist darauf ausgelegt, dass man eine stetige Verbindung zu einer mySQL Datenbank hat
 <br>
 Außerdem muss die Datenbank(welche man in dem Ordner "DatenBank" im Spring Boot Ordner starten kann) <strong>separat gestartet werden!</strong> Dies geht, in dem man die Main Klasse im src Ordner startet. 
 Ansonsten bekommt man bei der App Fetch Errors und man kann keine CRUD Operationen(Erstellen, Hinzufügen, Löschen und Bearbeiten) ausführen.
@@ -32,7 +32,7 @@ Als CSS Framework haben wir uns für React-Bootstrap entschieden, da dieses Fram
 <br>
 <h1>Applikation aufsetzen</h1>
 
-In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechner starten kann.
+In diesem Abschnitt wird beschrieben, wie man das Projekt auf dem eigenen Rechner aufsetzen kann.
 
 ### Voraussetzungen
 
@@ -171,7 +171,7 @@ Der Student hat die Möglichkeit, auf einer eigenen Seite seine Präferenzen fü
 <br>
 
 ### Homepage des Studenten
-Akzeptiert der Student die Datenschutzrichtlinien, so wird er auf der Homepage für den Studenten geleitet. Dort sieht man sofort die wichtigsten Nachrichten in Bezug auf das Auswahlverfahren. Diese Nachricht auf der Homepage des Studenten kann der Admin auf seiner Sicht auf der Seite "Messages" erstellen und bearbeiten. Gibt esm ehrere Nachrichten, so kann man sich mithilfe der Pfeile durchklicken.
+Akzeptiert der Student die Datenschutzrichtlinien, so wird er auf der Homepage für den Studenten geleitet. Dort sieht man sofort die wichtigsten Nachrichten in Bezug auf das Auswahlverfahren. Diese Nachricht auf der Homepage des Studenten kann der Admin auf seiner Sicht auf der Seite "Messages" erstellen und bearbeiten. Gibt es mehrere Nachrichten, so kann man sich mithilfe der Pfeile durchklicken.
 <div align="center" style="margin-top: 20px;">
    <img class="logo" src="./public/HomepageStudent.png" alt="Logo" width="800px" style="margin-right: 20px;">
 </div>
