@@ -12,10 +12,10 @@ const NavbarAdmin = ({ onLogout }) => {
       <Navbar className="Navbar" expand="lg">
         <Container>
           <img className="navbar-logo" src={logo}
-            width="45"
-            height="45"
+            width="50"
+            height="50"
             alt="UniPick logo"
-            style={{ marginRight: "20px" }}
+            style={{ marginRight: "5px" }}
           />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -37,6 +37,9 @@ const NavbarAdmin = ({ onLogout }) => {
               </LinkContainer>
               <LinkContainer to="/SelectionProcess">
                 <Nav.Link className="nav-link nav-box">SelectionProcess</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/TextOnStudentPage">
+                <Nav.Link className="nav-link nav-box">Messages</Nav.Link>
               </LinkContainer>
             </Nav>
             <Button onClick={onLogout} className="Logout">Logout</Button>
