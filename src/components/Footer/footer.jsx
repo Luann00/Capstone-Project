@@ -1,5 +1,6 @@
 import React from 'react';
 
+//this component is for the footer which appears at the bottom of loginpage where the privacy policy page is linked
 const Footer = () => {
   return (
     <footer>

@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+//this component is for the export button which converts the data to csv
 const CSVExportButton = ({ data, filename, selectedAttributes }) => {
   const exportCSV = () => {
     const csvContent = convertToCSV(data, selectedAttributes);

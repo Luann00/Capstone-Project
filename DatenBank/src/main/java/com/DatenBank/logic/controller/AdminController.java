@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.DatenBank.logic.entity.Admin;
 import com.DatenBank.logic.service.AdminService;
 
-@Controller // This means that this class is a Controller
-@CrossOrigin // This enables react application to make CRUD requests
+@Controller 
+@CrossOrigin 
 @RequestMapping("/admin")
 public class AdminController {
 

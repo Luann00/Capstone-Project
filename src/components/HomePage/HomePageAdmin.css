@@ -36,7 +36,7 @@
 }
 
 
-
+/*make homepage with end table responsive*/
 @media (max-width: 480px) {
     .table-container {
         max-width: 100%;

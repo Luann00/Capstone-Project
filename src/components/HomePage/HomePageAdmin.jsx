@@ -14,7 +14,7 @@ const HomePageAdmin = () => {
     const [extended, setExtended] = useState(false);
     const [remainingTime, setRemainingTime] = useState({ days: 0, hours: 0, minutes: 0 });
     const [currentProcess, setCurrentProcess] = useState([]);
-    
+
 
 
 
@@ -236,6 +236,7 @@ const HomePageAdmin = () => {
                 </div>
                 <div className="table-responsive " >
 
+                    {/* map the data of the endtable horizontally */}
                     <table className="table table-bordered table-striped table-hover table-bordered">
                         <thead>
                             <tr>
