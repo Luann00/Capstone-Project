@@ -33,7 +33,8 @@ const NavbarStudent = ({ onLogout }) => {
               
             /> 
             
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle aria-controls="basic-navbar-nav"  style={{backgroundColor:"white"}}/>
+            
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto" variant="tabs" >
                 {acceptedPolicy === 'Yes' && (
