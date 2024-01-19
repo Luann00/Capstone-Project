@@ -18,7 +18,7 @@ const Items = ({dropPriority}) =>  {
   return (
     // display the priorities in a list
     <Stack direction="vertical" gap={3}>
-      // sort the priorities by priority number
+
       {priorities.sort((a, b) => {
         const numA = parseInt(a.value.priority.priority.match(/\d+/)[0]);
         const numB = parseInt(b.value.priority.priority.match(/\d+/)[0]);
