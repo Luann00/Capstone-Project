@@ -38,6 +38,8 @@ const UniCardPage = () => {
         const hours = Math.floor(timeRemaining / 3600000);
         const minutes = Math.floor((timeRemaining % 3600000) / 60000);
         const seconds = Math.floor((timeRemaining % 60000) / 1000);
+        
+        
 
 
         setProcessIsActive(true);
@@ -55,6 +57,11 @@ const UniCardPage = () => {
 
 
         // Set extended deadline based on the condition
+        console.log("extendedDays: " + extendedDays)
+        console.log("extendedHours: " + extendedHours)
+        console.log("extendedMinutes: " + extendedMinutes)
+
+
 
 
         setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
@@ -128,82 +135,48 @@ const UniCardPage = () => {
 
 
 
-  //this method is for extending the deadline after a change in the preference of a student in the last 15 minutes
   const checkAndExtendTime = () => {
-
-    //get current process
+    // Get the current process
     const activeProcess = currentProcess;
 
-
-    //if process is already extended, leave the method and do nothing. if not, change database with put request accordingly
+    // If the process is already extended, leave the method and do nothing.
     if (activeProcess.extended) {
       return;
     }
 
-
+    // Ensure endDate is a Date object
     const endDateTime = new Date(activeProcess.endDate);
 
-
-
-    // calculate the new deadline based on the extension minutes
+    // Calculate the new deadline based on the extension minutes
     const extensionMinutes = activeProcess.deadlineExtensionMinutes;
 
-    // calculate new hours, minutes, and seconds
+    // Calculate new hours, minutes, and seconds
     const newHours = Math.floor(extensionMinutes / 60);
     const newMinutes = extensionMinutes % 60;
 
-    const endDateTimeEuropeBerlin = new Date(endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+    // Set the hours, minutes, and seconds of endDateTime to 0
+    endDateTime.setHours(0, 0, 0, 0);
 
-    // Set hours, minutes, and seconds of endDateTime to 0
-    endDateTime.setHours(23, 59, 59, 999);
+    // Calculate the new endDateTime
+    endDateTime.setHours(newHours, newMinutes, 0, 999);
 
 
-    console.log("end time: " + endDateTime.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
-
-    // compute time
+    // Compute the time remaining
     const timeRemaining = endDateTime.getTime() - new Date().getTime();
-    const hours = Math.floor(Math.floor(timeRemaining / 3600000));
+    const hours = Math.floor(timeRemaining / 3600000);
     const minutes = Math.floor((timeRemaining % 3600000) / 60000);
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
 
-
     if (hours === 0 && minutes < 15) {
-      updateProcesses(activeProcess);
-      const endDateTime = new Date(activeProcess.endDate);
+      activeProcess.endDate = endDateTime;
 
-      // calculate the new deadline based on the extension minutes
-      const extensionMinutes = activeProcess.deadlineExtensionMinutes;
-
-      // calculate new hours, minutes, and seconds
-      const newHours = Math.floor(extensionMinutes / 60);
-      const newMinutes = extensionMinutes % 60;
-      endDateTime.setHours(newHours, newMinutes, 0, 999);
-
-
-      // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
-      const extendedDeadline = new Date(endDateTime.getTime());
-      // Extrahiere Stunden, Minuten und Sekunden aus extendedDeadline
-      const extendedHours = extendedDeadline.getHours();
-      const extendedMinutes = extendedDeadline.getMinutes();
-      const extendedSeconds = extendedDeadline.getSeconds();
-
-      // Set extended state
-      setExtended(true);
-
-
-      // Set extended deadline based on the condition
-
-
-      //set extended in database to true
-      activeProcess.extended = true;
       updateProcessDatabase(activeProcess);
 
+      setExtended(true);
     } else {
       setExtended(false);
     }
-
-
-  }
+  };
 
   const updateProcessDatabase = async (process) => {
 
@@ -253,47 +226,41 @@ const UniCardPage = () => {
     const currentDate = new Date();
 
     for (const process of data) {
+      if (process.paused) {
+        continue;
+      }
+
       const startDateTime = new Date(process.startDate);
       const endDateTime = new Date(process.endDate);
 
-
-
       if (process.extended) {
-
         // Set time to the beginning of the day
         startDateTime.setHours(0, 0, 0, 0);
 
-        const endDateTime = new Date(process.endDate);
-
-
-        // calculate the new deadline based on the extension minutes
         const extensionMinutes = process.deadlineExtensionMinutes;
-
-        // calculate new hours, minutes, and seconds
         const newHours = Math.floor(extensionMinutes / 60);
         const newMinutes = extensionMinutes % 60;
 
-        // extend the deadline
         endDateTime.setHours(newHours, newMinutes, 0, 999);
 
-        // Verlängere die Deadline um die in activeProcess.deadlineExtensionMinutes angegebene Zeit
         const extendedDeadline = new Date(endDateTime.getTime());
+        endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds());
 
-        endDateTime.setHours(extendedDeadline.getHours(), extendedDeadline.getMinutes(), extendedDeadline.getSeconds())
-
-        const newTimeRemaining = extendedDeadline.getTime() - new Date().getTime();
+        const newTimeRemaining = extendedDeadline.getTime();
 
         const extendedDays = Math.floor(newTimeRemaining / (24 * 60 * 60 * 1000));
-        const extendedHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-        const extendedMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
-        const extendedSeconds = Math.floor((newTimeRemaining % (60 * 1000)) / 1000);
+        const remainingHours = Math.floor((newTimeRemaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const remainingMinutes = Math.floor((newTimeRemaining % (60 * 60 * 1000)) / (60 * 1000));
 
-        // Set extended deadline based on the new time
-        setRemainingTime({ days: extendedDays, hours: extendedHours, minutes: extendedMinutes });
+        // Only consider extendedDays, as any additional hours are already included in remainingHours
+        const totalExtendedDays = extendedDays;
+
+        console.log("extended: " + totalExtendedDays)
+
+        setRemainingTime({ days: totalExtendedDays, hours: remainingHours, minutes: remainingMinutes });
 
       } else {
         startDateTime.setHours(0, 0, 0, 0);
-
         endDateTime.setHours(23, 59, 59, 999);
       }
 
@@ -305,53 +272,55 @@ const UniCardPage = () => {
     return null;
   };
 
+
+
   return (
     <div className='card-page'>
       {processIsActive ? (
         <div className='title'>
           <div className='countdown'>
-          {extended ? (
-            
-            <div className='clock'>
-              <h4>Deadline was extended! New Time: </h4>
+            {extended ? (
+
+              <div className='clock'>
+                <h4>Deadline was extended! New Time: </h4>
+                <div className='content'>
+
+                  {Object.entries(remainingTime).map((el) => {
+                    const label = el[0];
+                    const value = el[1];
+                    return (
+                      <div className='box' key={label}>
+                        <div className='value'>
+                          <span>{value}</span>
+                        </div>
+                        <span className='label'> {label} </span>
+                      </div>
+                    );
+                  })}
+                </div></div>
+            ) : (<div className='clock'>
+              <h4>Remaining time: </h4>
               <div className='content'>
 
-              {Object.entries(remainingTime).map((el) => {
-					const label = el[0];
-					const value = el[1];
-					return (
-						<div className='box' key={label}>
-							<div className='value'>
-								<span>{value}</span>
-							</div>
-							<span className='label'> {label} </span>
-						</div>
-					);
-				})}
-                </div></div>
-          ) : (<div className='clock'>
-          <h4>Remaining time: </h4>
-          <div className='content'>
+                {Object.entries(remainingTime).map((el) => {
+                  const label = el[0];
+                  const value = el[1];
+                  return (
+                    <div className='box' key={label}>
+                      <div className='value'>
+                        <span>{value}</span>
+                      </div>
+                      <span className='label'> {label} </span>
+                    </div>
+                  );
+                })}
+              </div></div>
 
-          {Object.entries(remainingTime).map((el) => {
-      const label = el[0];
-      const value = el[1];
-      return (
-        <div className='box' key={label}>
-          <div className='value'>
-            <span>{value}</span>
-          </div>
-          <span className='label'> {label} </span>
-        </div>
-      );
-    })}
-            </div></div>
-            
-          )}
+            )}
 
           </div>
 
-          
+
           <h1>List of partner universities</h1>
           <p>Pick your top three preferred universities from the list below!</p>
         </div>
